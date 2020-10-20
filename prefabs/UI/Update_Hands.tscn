@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/UI/Update_Hands.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/UI/QE_Lasso.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/UI/QE_Punch.png" type="Texture" id=3]
+
+[node name="Update_Hands" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0, 0.0235294, 0.270588, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="container" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftHand" type="TextureButton" parent="container"]
+margin_left = 256.0
+margin_top = 192.0
+margin_right = 384.0
+margin_bottom = 320.0
+texture_normal = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightHand" type="TextureButton" parent="container"]
+margin_left = 640.0
+margin_top = 192.0
+margin_right = 768.0
+margin_bottom = 320.0
+texture_normal = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[connection signal="button_up" from="container/LeftHand" to="." method="_on_LeftHand_button_up"]
+[connection signal="pressed" from="container/RightHand" to="." method="_on_RightHand_pressed"]

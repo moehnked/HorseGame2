@@ -1,0 +1,29 @@
+[gd_resource type="Animation" format=2]
+
+[resource]
+resource_name = "Punch"
+step = 0.03
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.06, 0.99 ),
+"transitions": PoolRealArray( 1, 0.203063, 0.267943 ),
+"update": 0,
+"values": [ Vector3( 0.486894, -0.408205, -0.750011 ), Vector3( 0.144954, -0.408205, -1.49154 ), Vector3( 0.486894, -0.408205, -0.750011 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.09, 0.99 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 76.0922, 0, 0 ), Vector3( 61.9346, 59.2772, 62.3269 ), Vector3( 76.0922, 0, 0 ) ]
+}

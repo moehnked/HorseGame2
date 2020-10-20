@@ -1,0 +1,166 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://Sprites/Bolo/Bolo_Cloak.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Bolo/cloack_rip_02.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Bolo/cloack_rip.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Patches.gd" type="Script" id=4]
+[ext_resource path="res://Sprites/Bolo/Bolo_Hood_Bottom.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Bolo/Bolo_Alt_Head.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Bolo/Bolo_Hood_Top.png" type="Texture" id=7]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+params_billboard_mode = 2
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 1, 0.99, 1 )
+
+[sub_resource type="QuadMesh" id=2]
+material = SubResource( 1 )
+size = Vector2( 2.4, 3 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 0.8, 0.1, 0.2 )
+gravity = Vector3( 0, -0.05, 0 )
+scale_random = 1.0
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_transparent = true
+params_billboard_mode = 2
+albedo_texture = ExtResource( 3 )
+uv1_scale = Vector3( 0.9, 0.9, 1 )
+
+[sub_resource type="QuadMesh" id=5]
+material = SubResource( 4 )
+size = Vector2( 0.08, 0.3 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+emission_shape = 2
+emission_box_extents = Vector3( 0.9, 0.1, 0.2 )
+gravity = Vector3( 0, -0.05, 0 )
+scale = 1.5
+scale_random = 1.0
+
+[sub_resource type="SpatialMaterial" id=7]
+flags_transparent = true
+params_billboard_mode = 2
+albedo_texture = ExtResource( 2 )
+uv1_scale = Vector3( 1, 0.99, 1 )
+uv1_offset = Vector3( 4, 0, 0 )
+
+[sub_resource type="QuadMesh" id=8]
+material = SubResource( 7 )
+size = Vector2( 0.06, 0.1 )
+
+[sub_resource type="ParticlesMaterial" id=9]
+emission_shape = 2
+emission_box_extents = Vector3( 0.8, 0.1, 0.4 )
+gravity = Vector3( 0, -0.1, 0 )
+scale = 7.0
+scale_random = 1.0
+
+[sub_resource type="SpatialMaterial" id=10]
+flags_transparent = true
+albedo_color = Color( 0.168627, 0.0509804, 0.231373, 0.156863 )
+
+[sub_resource type="SphereMesh" id=11]
+material = SubResource( 10 )
+radius = 0.05
+height = 0.1
+
+[sub_resource type="Animation" id=12]
+resource_name = "Idle"
+length = 10.0
+loop = true
+step = 0.33
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.97, 6.6, 9.9 ),
+"transitions": PoolRealArray( 0.307786, 2.14355, 0.189465, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -0.07, 0 ), Vector3( 0, 0.0696778, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="SpatialMaterial" id=13]
+flags_transparent = true
+params_specular_mode = 3
+params_depth_draw_mode = 1
+params_billboard_mode = 2
+albedo_texture = ExtResource( 7 )
+
+[sub_resource type="QuadMesh" id=14]
+material = SubResource( 13 )
+
+[sub_resource type="SpatialMaterial" id=15]
+flags_transparent = true
+params_billboard_mode = 2
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="QuadMesh" id=16]
+material = SubResource( 15 )
+
+[sub_resource type="SpatialMaterial" id=17]
+flags_transparent = true
+params_billboard_mode = 2
+albedo_texture = ExtResource( 5 )
+
+[sub_resource type="QuadMesh" id=18]
+material = SubResource( 17 )
+
+[node name="Patches" type="KinematicBody"]
+script = ExtResource( 4 )
+
+[node name="Torso" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0568443, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Torso"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Container" type="Spatial" parent="Torso"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.486181, 0 )
+
+[node name="Particles" type="Particles" parent="Torso/Container"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.590885, 0 )
+randomness = 1.0
+process_material = SubResource( 3 )
+draw_pass_1 = SubResource( 5 )
+
+[node name="Particles2" type="Particles" parent="Torso/Container"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.611082, 0 )
+amount = 6
+lifetime = 2.0
+randomness = 1.0
+process_material = SubResource( 6 )
+draw_pass_1 = SubResource( 8 )
+
+[node name="smoke" type="Particles" parent="Torso/Container"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.475683, 0 )
+amount = 28
+lifetime = 2.5
+process_material = SubResource( 9 )
+draw_pass_1 = SubResource( 11 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Torso"]
+anims/Idle = SubResource( 12 )
+
+[node name="Head" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.88389, 0 )
+
+[node name="HoodTop" type="MeshInstance" parent="Head"]
+mesh = SubResource( 14 )
+material/0 = null
+
+[node name="Horsehead" type="MeshInstance" parent="Head"]
+transform = Transform( 0.759356, 0, 0, 0, 0.759356, 0, 0, 0, 0.759356, 0, 0, 0 )
+mesh = SubResource( 16 )
+material/0 = null
+
+[node name="HoodBottom" type="MeshInstance" parent="Head"]
+mesh = SubResource( 18 )
+material/0 = null

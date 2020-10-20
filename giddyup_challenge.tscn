@@ -1,0 +1,104 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scripts/giddyup_challenge.gd" type="Script" id=1]
+[ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Sprites/clock/clock_2.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/clock/clock_1.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/clock/clock_4.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/clock/clock_3.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 44
+outline_size = 3
+outline_color = Color( 0, 1, 0.0156863, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 44
+outline_size = 2
+outline_color = Color( 0.509804, 1, 0, 0 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="giddyup_challenge" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+fade_threshold = 0.7
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1025.0
+margin_bottom = 604.0
+color = Color( 0, 0, 0, 0 )
+
+[node name="Control" type="Control" parent="."]
+visible = false
+margin_left = 472.882
+margin_top = 297.0
+margin_right = 512.882
+margin_bottom = 337.936
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="completed" type="Label" parent="Control"]
+margin_left = -473.0
+margin_top = -298.0
+margin_right = 551.0
+margin_bottom = 302.0
+custom_fonts/font = SubResource( 1 )
+text = "Hello World"
+align = 1
+valign = 1
+percent_visible = 0.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Prompt" type="Label" parent="Control"]
+margin_left = -473.0
+margin_top = -298.0
+margin_right = 551.0
+margin_bottom = 302.0
+custom_fonts/font = SubResource( 2 )
+text = "Hello World"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Clock" type="AnimatedSprite" parent="Control"]
+position = Vector2( 40, 101.885 )
+scale = Vector2( 0.221274, 0.221274 )
+frames = SubResource( 3 )
+
+[node name="Tik" type="Timer" parent="."]
+wait_time = 0.7
+
+[node name="MistakeEffectTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="Hurry" type="AudioStreamPlayer" parent="."]
+volume_db = 8.0
+
+[node name="FadeSound" type="AudioStreamPlayer" parent="."]
+volume_db = 10.0
+
+[node name="CorrectEffectTimer" type="Timer" parent="."]
+wait_time = 0.1
+[connection signal="timeout" from="Tik" to="." method="_on_Tik_timeout"]
+[connection signal="timeout" from="MistakeEffectTimer" to="." method="_on_MistakeEffectTimer_timeout"]
+[connection signal="timeout" from="CorrectEffectTimer" to="." method="_on_CorrectEffectTimer_timeout"]

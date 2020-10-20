@@ -1,0 +1,31 @@
+[gd_resource type="Animation" format=2]
+
+[resource]
+resource_name = "Idle"
+length = 3.0
+loop = true
+step = 0.033
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.32, 2.97 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.465309, -0.425448, -0.750011 ), Vector3( 0.465309, -0.452513, -0.750011 ), Vector3( 0.465309, -0.425448, -0.750011 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.485, 2.97 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 69.3913, 13.4557, 15.0824 ), Vector3( 68.3009, 22.2007, 24.4562 ), Vector3( 69.3913, 13.4557, 15.0824 ) ]
+}

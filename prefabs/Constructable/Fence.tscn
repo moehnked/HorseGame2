@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://models/texture.png" type="Texture" id=1]
+[ext_resource path="res://models/fence.obj" type="ArrayMesh" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.39524, 1.56188, 2.08303 )
+
+[node name="Fence" type="StaticBody"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53083, -1.11333 )
+mesh = ExtResource( 2 )
+material/0 = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.117926, 1.503, -0.111334 )
+shape = SubResource( 2 )

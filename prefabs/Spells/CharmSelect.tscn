@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Sprites/UI/QE_Build_Ring.png" type="Texture" id=1]
+[ext_resource path="res://prefabs/Charms/CharmOption_Heart.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Sprites/UI/QE_Build_Selector.png" type="Texture" id=3]
+[ext_resource path="res://prefabs/Spells/CharmSelect.gd" type="Script" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 184.694
+
+[node name="CharmSelect" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Ring" type="Sprite" parent="."]
+position = Vector2( 512, 288 )
+scale = Vector2( 0.26, 0.26 )
+texture = ExtResource( 1 )
+
+[node name="Pointer" type="Area2D" parent="Ring"]
+scale = Vector2( 0.196887, 0.196887 )
+gravity_vec = Vector2( 0, 0 )
+gravity = 0.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Ring/Pointer"]
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ring/Pointer"]
+shape = SubResource( 1 )
+
+[node name="CharmOption_Heart" parent="." instance=ExtResource( 2 )]
+position = Vector2( 512, 232 )
+scale = Vector2( 0.381071, 0.381071 )
+
+[node name="CharmOption_Heart2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 554, 257.435 )
+scale = Vector2( 0.381071, 0.381071 )
+charm = 1
+path = "res://Sprites/UI/CH_Diamond.png"
+
+[node name="CharmOption_Heart3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 560, 304 )
+scale = Vector2( 0.381071, 0.381071 )
+charm = 2
+path = "res://Sprites/UI/CH_Club.png"
+
+[node name="CharmOption_Heart4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 512, 338 )
+scale = Vector2( 0.381071, 0.381071 )
+charm = 3
+path = "res://Sprites/UI/CH_Spade.png"
+
+[node name="CharmOption_Heart5" parent="." instance=ExtResource( 2 )]
+position = Vector2( 464, 304.143 )
+scale = Vector2( 0.381071, 0.381071 )
+charm = 4
+path = "res://Sprites/UI/CH_Greed.png"
+
+[node name="CharmOption_Heart6" parent="." instance=ExtResource( 2 )]
+position = Vector2( 468, 257.435 )
+scale = Vector2( 0.381071, 0.381071 )
+charm = 5
+path = "res://Sprites/UI/CH_Bloodlust.png"

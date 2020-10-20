@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/quick_equip_exit.wav-24813218ffa1486f1ba86d584457153a.sample"
+
+[deps]
+
+source_file="res://sounds/quick_equip_exit.wav"
+dest_files=[ "res://.import/quick_equip_exit.wav-24813218ffa1486f1ba86d584457153a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

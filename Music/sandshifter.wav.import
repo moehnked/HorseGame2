@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sandshifter.wav-541de71ab1bc65b7cbd5d0a464cee752.sample"
+
+[deps]
+
+source_file="res://Music/sandshifter.wav"
+dest_files=[ "res://.import/sandshifter.wav-541de71ab1bc65b7cbd5d0a464cee752.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://prefabs/Effects/hair.png" type="Texture" id=1]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=2]
+direction = Vector3( 0, 1, 0 )
+spread = 0.0
+gravity = Vector3( 0, -9.8, 1 )
+scale = 0.2
+
+[sub_resource type="QuadMesh" id=3]
+size = Vector2( 1, 5 )
+
+[node name="Tail" type="Spatial"]
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.454507, 0 )
+material_override = SubResource( 1 )
+amount = 7
+lifetime = 0.4
+local_coords = false
+process_material = SubResource( 2 )
+draw_pass_1 = SubResource( 3 )
