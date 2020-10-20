@@ -3,10 +3,12 @@ extends KinematicBody
 onready var head = $Head
 onready var ropeResource = preload("res://prefabs/LassoBullet.tscn")
 onready var rootRef = get_tree().get_root().get_node("World")
+onready var inventoryScreenSource = preload("res://prefabs/UI/InventoryScreen.tscn")
 
 var acceleration = 20
 var canCastLeft = true
 var canCastRight = true
+var canCheckInventory = true
 var canExitHorse = false
 var canJump = true
 var canUpdateHands = true
@@ -113,6 +115,7 @@ func conclude_spell(spell):
 	if $RightCooldown.time_left <= 0:
 		canCastRight = true
 	$Head/Hand.idle_hand()
+	flush_spells()
 
 func enable_casting():
 	canCastLeft = true
@@ -129,6 +132,15 @@ func enter_giddyup(target):
 	$InteractionController/CollisionShape.disabled = true
 	saddle.owner.enter_giddyup(self, rootRef)
 
+func enter_inventory():
+	print("ENTERRING INVENTORY")
+	canCheckInventory = false
+	canUpdateHands = false
+	revoke_casting()
+	var screen = inventoryScreenSource.instance()
+	screen.initialize(self, rootRef, get_inventory(), "exit_inventory")
+	rootRef.call_deferred("add_child", screen)
+
 func enter_pilot():
 	$ExitHorseTimer.start()
 	state = State.pilot
@@ -137,6 +149,8 @@ func enter_pilot():
 func enter_update_hands_menu():
 	unsubscribe_to()
 	state = State.menu
+	canUpdateHands = false
+	canCheckInventory = false
 	$Head.unsubscribe_to()
 	var menu = load("res://prefabs/UI/Update_Hands.tscn").instance()
 	menu.initialize(self, rootRef, lefthandSpell, righthandSpell)
@@ -146,7 +160,15 @@ func enter_update_hands_menu():
 
 func exit_build_mode(callback):
 	canUpdateHands = true
+	canCheckInventory = true
 	call(callback)
+
+func exit_inventory():
+	print("EXITING INVENTORY")
+	canCheckInventory = true
+	canUpdateHands = true
+	enable_casting()
+	pass
 
 func exit_pilot():
 	print("exiting pilot")
@@ -159,8 +181,20 @@ func exit_pilot():
 func exit_update_hands_menu():
 	subscribe_to()
 	state = State.normal
+	canUpdateHands = true
+	canCheckInventory = true
 	$Head.subscribe_to()
 	enable_casting()
+	flush_spells()
+
+func flush_spells():
+	for o in raycastObservers:
+		raycast_unsubscribe(o)
+		#o.queue_free()
+	pass
+
+func get_inventory():
+	return $InteractionController.inventory
 
 func lasso(saddle):
 	state = State.lasso
@@ -205,14 +239,15 @@ func parse_input(input):
 	if input.standard:
 		if canCastLeft:
 			cast_left()
-	
-	if input.special:
+	elif input.special:
 		if canCastRight:
 			cast_right()
-	
-	if input.mouse_up:
+	elif input.mouse_up:
 		if canUpdateHands:
 			enter_update_hands_menu()
+	elif input.tab:
+		if canCheckInventory:
+			enter_inventory()
 
 func placer_subscribe(placer):
 	placer_observers.append(placer)

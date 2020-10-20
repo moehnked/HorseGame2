@@ -1,14 +1,15 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://prefabs/FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Textures/100_1395_seamless.JPG" type="Texture" id=2]
 [ext_resource path="res://prefabs/Horse.tscn" type="PackedScene" id=3]
 [ext_resource path="res://prefabs/Patches.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/world.gd" type="Script" id=5]
-[ext_resource path="res://models/texture.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/InputObserver.gd" type="Script" id=7]
 [ext_resource path="res://prefabs/InteractionPrompt.tscn" type="PackedScene" id=8]
 [ext_resource path="res://prefabs/Trophy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://prefabs/Items/Item.tscn" type="PackedScene" id=10]
+[ext_resource path="res://prefabs/Items/Basketball.tscn" type="PackedScene" id=11]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -17,14 +18,6 @@ albedo_texture = ExtResource( 2 )
 uv1_scale = Vector3( 30, 30, 1 )
 
 [sub_resource type="BoxShape" id=3]
-
-[sub_resource type="CubeMesh" id=4]
-
-[sub_resource type="SpatialMaterial" id=5]
-albedo_texture = ExtResource( 6 )
-
-[sub_resource type="CubeMesh" id=6]
-material = SubResource( 5 )
 
 [sub_resource type="ProceduralSky" id=7]
 
@@ -37,7 +30,7 @@ ambient_light_energy = 1.55
 [node name="World" type="Spatial"]
 script = ExtResource( 5 )
 
-[node name="StaticBody" type="KinematicBody" parent="."]
+[node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 97.1449, 0, 0, 0, 0.167856, 0, 0, 0, 97.2541, -1.53892, -0.4634, 1.90735e-06 )
 
 [node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
@@ -47,24 +40,12 @@ material/0 = SubResource( 2 )
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 shape = SubResource( 3 )
 
-[node name="Area2" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2991, 3.97393, -6.74989 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Area2"]
-mesh = SubResource( 4 )
-material/0 = null
-
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.0339132, 0.778933, -0.626189, -0.0421238, 0.627107, 0.777793, 0.998537, 1.85992e-09, 0.0540788, -72.6302, 19.4694, 0 )
 light_energy = 0.5
 
 [node name="Horse" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1.43672, 0, 0, 0, 1.43672, 0, 0, 0, 1.43672, 6.56702, 0.320392, -11.8734 )
-
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.53211, 2.01709, 3.9021 )
-mesh = SubResource( 6 )
-material/0 = null
 
 [node name="InputObserver" type="Node" parent="."]
 script = ExtResource( 7 )
@@ -117,3 +98,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.1115, 1.96324, 19.2357 )
 
 [node name="Trophy11" parent="." instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2824, 0.619527, 20.1708 )
+
+[node name="Item" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4538, 1.30638, -5.21422 )
+
+[node name="Item2" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.60278, 1.30638, -5.21422 )
+
+[node name="Item3" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.62482, 1.30638, -5.21422 )
+
+[node name="Item4" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9736, 1.30638, -5.21422 )
+
+[node name="Basketball" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.93831, 9.13298 )

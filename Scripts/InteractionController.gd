@@ -1,7 +1,9 @@
 extends Area
 
-var lookingAt = null
 onready var promptRef = get_tree().get_root().get_node("World").get_node("InteractionPrompt")
+
+var lookingAt = null
+var inventory = []
 
 func parse_input(input):
 	if input.engage:

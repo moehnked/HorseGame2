@@ -247,7 +247,6 @@ func parse_input(input):
 	apply_rotation(input)
 
 func pick_random_spot_nearby():
-	#print("picking random point...")
 	var wander_range = 30
 	var x = rand_range(-1,1) * wander_range
 	var z = rand_range(-1,1) * wander_range
@@ -256,7 +255,7 @@ func pick_random_spot_nearby():
 	var adjacent = (global_transform.origin.z - z) - global_transform.origin.z
 	var angle = atan2(opposite, adjacent)
 	rotation_degrees.y = rad2deg(angle) - 180
-	print(point)
+	#print(point)
 	wandering_point = point
 
 func play_random_sound():
@@ -269,8 +268,13 @@ func play_random_whinny():
 
 func recieve_charm(charm, charmer):
 	print("RECIEVED CHARM ", charm)
-	relationships[charmer] = mood[charm]
-	#print(relationships)
+	if(relationships.has(charmer)):
+		relationships[charmer] += mood[charm]
+	
+	else:
+		relationships[charmer] = mood[charm]
+	
+	print("Relationship with ", charmer, " increased by ", mood[charm], " to ", relationships[charmer])
 	match(mood[charm]):
 		2:
 			$Particles.loved()

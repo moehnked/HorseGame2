@@ -10,6 +10,7 @@ var standard = false
 var special = false
 var mouse_up = false
 var mouse_down = false
+var tab = false
 var mouse_horizontal = 0.0
 var mouse_vertical = 0.0
 

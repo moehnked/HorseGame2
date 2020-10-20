@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://prefabs/UI/InventoryScreen.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/UI/InventoryScreen.png" type="Texture" id=2]
+[ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Sprites/UI/ExitButton.png" type="Texture" id=4]
+[ext_resource path="res://prefabs/UI/InventoryListItem.tscn" type="PackedScene" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_char = 4
+font_data = ExtResource( 3 )
+
+[node name="InventoryScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[node name="BG" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.870588 )
+position = Vector2( 514.207, 302.658 )
+scale = Vector2( 0.545527, 0.550508 )
+texture = ExtResource( 2 )
+
+[node name="Display" type="Sprite" parent="."]
+position = Vector2( 708.076, 230.766 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 229.748
+margin_top = 50.063
+margin_right = 372.748
+margin_bottom = 108.063
+custom_fonts/font = SubResource( 1 )
+text = "Inventory"
+
+[node name="ExitButton" type="TextureButton" parent="."]
+margin_left = 835.021
+margin_top = 47.8775
+margin_right = 935.021
+margin_bottom = 147.878
+rect_scale = Vector2( 0.25378, 0.25378 )
+texture_normal = ExtResource( 4 )
+
+[node name="InventoryListItem" parent="." instance=ExtResource( 5 )]
+visible = false
+position = Vector2( 221.113, 80.4866 )
+
+[node name="ListItemLoader" type="Node2D" parent="."]
+position = Vector2( 220.928, 80.4035 )
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="button_up" from="ExitButton" to="." method="_on_ExitButton_button_up"]

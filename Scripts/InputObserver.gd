@@ -51,6 +51,9 @@ func _process(delta):
 	if Input.is_action_just_released("standard"):
 		input.standard = true
 	
+	if Input.is_action_just_released("ui_focus_next"):
+		input.tab = true
+	
 	if Input.is_action_pressed("move_forward"):
 		input.forward = 1.0
 	elif Input.is_action_pressed("move_backward"):
