@@ -1,4 +1,5 @@
 extends KinematicBody
+var Utils = preload("res://Utils.gd")
 
 var speed = 60
 onready var rope_resource = preload("res://prefabs/LassoBlob.tscn")
@@ -25,12 +26,21 @@ func _ready():
 	$milisecondDelay.start()
 	pass # Replace with function body.
 
-func initialize(player, root, palm, callback, hand):
-	playerRef = player
-	rootRef = root
+func initialize(args):
+	var kargs = Utils.check(args, {'player':null, 'root':null, 'palm':null, 'callback':null, 'hand':null})
+	playerRef = kargs['player']
+	rootRef = kargs['root']
 	playerRef.setLassoLimit()
-	playerRef.call(callback)
-	global_transform = palm.global_transform
+	playerRef.call(kargs['callback'])
+	global_transform = kargs['palm'].global_transform
+
+#func initialize(player, root, palm, callback, hand):
+#	playerRef = player
+#	rootRef = root
+#	playerRef.setLassoLimit()
+#	playerRef.call(callback)
+#	global_transform = palm.global_transform
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

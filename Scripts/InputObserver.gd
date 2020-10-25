@@ -13,7 +13,8 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func subscribe(observer):
-	observers.append(observer)
+	if(!observers.has(observer)):
+		observers.append(observer)
 	
 func unsubscribe(observer):
 	observers.erase(observer)

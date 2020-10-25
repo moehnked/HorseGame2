@@ -3,8 +3,8 @@
 [ext_resource path="res://prefabs/FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Textures/100_1395_seamless.JPG" type="Texture" id=2]
 [ext_resource path="res://prefabs/Horse.tscn" type="PackedScene" id=3]
-[ext_resource path="res://prefabs/Patches.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/world.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/Misc/Debug.gd" type="Script" id=6]
 [ext_resource path="res://Scripts/InputObserver.gd" type="Script" id=7]
 [ext_resource path="res://prefabs/InteractionPrompt.tscn" type="PackedScene" id=8]
 [ext_resource path="res://prefabs/Trophy.tscn" type="PackedScene" id=9]
@@ -19,11 +19,11 @@ uv1_scale = Vector3( 30, 30, 1 )
 
 [sub_resource type="BoxShape" id=3]
 
-[sub_resource type="ProceduralSky" id=7]
+[sub_resource type="ProceduralSky" id=4]
 
-[sub_resource type="Environment" id=8]
+[sub_resource type="Environment" id=5]
 background_mode = 2
-background_sky = SubResource( 7 )
+background_sky = SubResource( 4 )
 ambient_light_color = Color( 1, 0.678431, 0, 1 )
 ambient_light_energy = 1.55
 
@@ -55,16 +55,13 @@ script = ExtResource( 7 )
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 8 )
+environment = SubResource( 5 )
 
 [node name="Horse2" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, 5.41689, -0.194574, -2.66655 )
 
 [node name="FPSController" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.57347, 0.954456, 3.60388 )
-
-[node name="Patches" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1581, 1.20089, 2.29691 )
 
 [node name="Trophy" parent="." instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.31612, 1.70988, 0.0882611 )
@@ -113,3 +110,21 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9736, 1.30638, -5.21422 )
 
 [node name="Basketball" parent="." instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.93831, 9.13298 )
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
+
+[node name="Debug" type="Control" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Debug"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 56.0
+margin_bottom = 30.0
+script = ExtResource( 6 )

@@ -1,15 +1,25 @@
 extends Area
 
+var Utils = preload("res://Utils.gd")
+
 var playerRef
 var rootRef
 var power = 1
 
-func initialize(player, root, palm, callback, hand):
-	playerRef = player
-	rootRef = root
+#func initialize(player, root, palm, callback, hand):
+#	playerRef = player
+#	rootRef = root
+#	$TimeToLive.start()
+#	global_transform.origin = palm.global_transform.origin
+#	playerRef.call(callback)
+
+func initialize(args):
+	var kargs = Utils.check(args, {'player':null, 'root':null, 'palm':null, 'callback':null, 'hand':null})
+	playerRef = kargs['player']
+	rootRef = kargs['root']
 	$TimeToLive.start()
-	global_transform.origin = palm.global_transform.origin
-	playerRef.call(callback)
+	global_transform.origin = kargs['palm'].global_transform.origin
+	playerRef.call(kargs.callback)
 
 func _on_TimeToLive_timeout():
 	queue_free()

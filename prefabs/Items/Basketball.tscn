@@ -1,23 +1,25 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://prefabs/Items/Item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://models/Item/Basketball_Mesh.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Items/Basketball.gd" type="Script" id=3]
 
-[sub_resource type="PhysicsMaterial" id=3]
+[sub_resource type="PhysicsMaterial" id=1]
 friction = 200.0
 rough = true
 bounce = 3.0
 absorbent = true
 
-[sub_resource type="SphereShape" id=1]
-
 [sub_resource type="SphereShape" id=2]
+
+[sub_resource type="SphereShape" id=3]
 
 [node name="Basketball" type="RigidBody"]
 mass = 10.0
-physics_material_override = SubResource( 3 )
+physics_material_override = SubResource( 1 )
 
 [node name="Item" parent="." instance=ExtResource( 1 )]
+script = ExtResource( 3 )
 icon = "res://Sprites/Items/Basketball_Icon.png"
 itemName = "Basketball"
 
@@ -30,9 +32,9 @@ visible = false
 [node name="Basketball_Mesh" parent="Item" instance=ExtResource( 2 )]
 
 [node name="CollisionShape2" type="CollisionShape" parent="Item"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [editable path="Item"]

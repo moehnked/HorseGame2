@@ -1,49 +1,30 @@
 extends Control
+var Utils = preload("res://Utils.gd")
 
-var playerRef
-var rootRef
-var pointerRadius = 100
-var buildList = []
-var selected
-var tempRot
+var callback
 var canSelect = false
-var _callback
-var _hand
-
+var buildList = []
+var hand
+var playerRef
+var pointerRadius = 100
+var rootRef
+var selected
 var state = 0
+var tempRot
 
-func initialize(player, root, palm, callback, hand):
-	playerRef = player
-	rootRef = root
-	_hand = hand
-	_callback = callback
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	playerRef.isBuilding = true
-	get_build_list()
-	subscribe_to()
-	playerRef.revoke_casting()
-	
-func subscribe_to():
-	rootRef.get_node("InputObserver").subscribe(self)
 
-func unsubscribe_to():
-	rootRef.get_node("InputObserver").unsubscribe(self)
+func _process(delta):
+	print(get_global_mouse_position())
+	var offset = get_global_mouse_position() - $Container/Ring.global_position
+	var point = offset.normalized() * pointerRadius
+	$Container/Ring/Pointer.global_position = $Container/Ring.global_position + point
+	pass
 
-func parse_input(input):
-	if input.standard:
-		if canSelect:
-			ready_placer()
-
-func ready_placer():
-	print(selected)
-	var p = load("res://prefabs/Constructable/" + selected.prefab + "_Placer.tscn").instance()
-	p.initialize(playerRef, rootRef, selected.prefab, _callback, _hand)
-	rootRef.call_deferred("add_child", p)
-	playerRef.placer_subscribe(p)
-	#playerRef.isBuilding = true
-	unsubscribe_to()
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	queue_free()
+func _on_ReadyWait_timeout():
+	print("yada")
+	playerRef.isBuilding = false
+	canSelect = true
+	pass # Replace with function body.
 
 func get_build_list():
 	buildList = playerRef.buildList
@@ -61,17 +42,37 @@ func get_build_list():
 		$Container.add_child(button)
 		selected = button
 		i += 1
-	
-func _process(delta):
-	print(get_global_mouse_position())
-	var offset = get_global_mouse_position() - $Container/Ring.global_position
-	var point = offset.normalized() * pointerRadius
-	$Container/Ring/Pointer.global_position = $Container/Ring.global_position + point
-	pass
 
+func initialize(args):
+	args = Utils.check(args, {'player':null, 'root':null, 'palm':null, 'callback':null, 'hand':null})
+	playerRef = args.player
+	rootRef = args.root
+	hand = args.hand
+	callback = args.callback
+	Utils.show_mouse()
+	get_build_list()
+	subscribe_to()
+	playerRef.isBuilding = true
+	playerRef.enter_some_menu()
 
-func _on_ReadyWait_timeout():
-	print("yada")
-	playerRef.isBuilding = false
-	canSelect = true
-	pass # Replace with function body.
+func parse_input(input):
+	if input.standard:
+		if canSelect:
+			ready_placer()
+
+func ready_placer():
+	print(selected)
+	var p = load("res://prefabs/Constructable/" + selected.prefab + "_Placer.tscn").instance()
+	p.initialize({'player':playerRef, 'world':rootRef, 'prefab':selected.prefab, 'callback':callback, 'hand':hand})
+	rootRef.call_deferred("add_child", p)
+	playerRef.placer_subscribe(p)
+	playerRef.return_control()
+	unsubscribe_to()
+	Utils.capture_mouse()
+	queue_free()
+
+func subscribe_to():
+	rootRef.get_node("InputObserver").subscribe(self)
+
+func unsubscribe_to():
+	rootRef.get_node("InputObserver").unsubscribe(self)

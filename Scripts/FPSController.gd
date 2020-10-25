@@ -14,6 +14,7 @@ var canJump = true
 var canUpdateHands = true
 var direction = Vector3()
 var fall = Vector3()
+var flushing = false
 var gravity = 9.8
 var isBuilding = false
 var jump = 5
@@ -73,7 +74,6 @@ func _on_InteractionController_area_entered(area):
 
 func _on_LassoTimeout_timeout():
 	state = State.normal
-	#global_transform = global_transform
 	pass
 
 func _on_LeftCooldown_timeout():
@@ -93,7 +93,7 @@ func cast(spell, callback, hand):
 	get_viewport().warp_mouse(OS.window_size/2)
 	random_grunt()
 	var spellInstance = load("res://prefabs/Spells/" + spell + ".tscn").instance()
-	spellInstance.initialize(self, rootRef, $Head/Palm, callback, hand)
+	spellInstance.initialize({'player':self, 'root':rootRef, 'palm':$Head/Palm, 'callback':callback, 'hand':hand})
 	rootRef.call_deferred("add_child", spellInstance)
 
 func cast_left():
@@ -133,13 +133,18 @@ func enter_giddyup(target):
 	saddle.owner.enter_giddyup(self, rootRef)
 
 func enter_inventory():
-	print("ENTERRING INVENTORY")
-	canCheckInventory = false
-	canUpdateHands = false
-	revoke_casting()
+	enter_some_menu()
 	var screen = inventoryScreenSource.instance()
-	screen.initialize(self, rootRef, get_inventory(), "exit_inventory")
+	screen.initialize({'source':self, 'root':rootRef, 'inv':get_inventory(), 'callback':"exit_inventory"})
 	rootRef.call_deferred("add_child", screen)
+
+func enter_some_menu():
+	unsubscribe_to()
+	$Head.unsubscribe_to()
+	state = State.menu
+	canUpdateHands = false
+	canCheckInventory = false
+	revoke_casting()
 
 func enter_pilot():
 	$ExitHorseTimer.start()
@@ -147,15 +152,10 @@ func enter_pilot():
 	unsubscribe_to()
 
 func enter_update_hands_menu():
-	unsubscribe_to()
-	state = State.menu
-	canUpdateHands = false
-	canCheckInventory = false
-	$Head.unsubscribe_to()
+	enter_some_menu()
 	var menu = load("res://prefabs/UI/Update_Hands.tscn").instance()
 	menu.initialize(self, rootRef, lefthandSpell, righthandSpell)
 	rootRef.call_deferred("add_child", menu)
-	revoke_casting()
 	print("updating hands")
 
 func exit_build_mode(callback):
@@ -164,11 +164,7 @@ func exit_build_mode(callback):
 	call(callback)
 
 func exit_inventory():
-	print("EXITING INVENTORY")
-	canCheckInventory = true
-	canUpdateHands = true
-	enable_casting()
-	pass
+	exit_some_menu()
 
 func exit_pilot():
 	print("exiting pilot")
@@ -178,20 +174,23 @@ func exit_pilot():
 	$InteractionController/CollisionShape.disabled = false
 	subscribe_to()
 
-func exit_update_hands_menu():
+func exit_some_menu():
 	subscribe_to()
+	$Head.subscribe_to()
 	state = State.normal
 	canUpdateHands = true
 	canCheckInventory = true
-	$Head.subscribe_to()
+	queue_spell_clear()
 	enable_casting()
-	flush_spells()
+
+func exit_update_hands_menu():
+	exit_some_menu()
 
 func flush_spells():
 	for o in raycastObservers:
 		raycast_unsubscribe(o)
 		#o.queue_free()
-	pass
+	flushing = false
 
 func get_inventory():
 	return $InteractionController.inventory
@@ -238,10 +237,16 @@ func parse_input(input):
 	
 	if input.standard:
 		if canCastLeft:
-			cast_left()
+			if flushing:
+				flush_spells()
+			else:
+				cast_left()
 	elif input.special:
 		if canCastRight:
-			cast_right()
+			if flushing:
+				flush_spells()
+			else:
+				cast_right()
 	elif input.mouse_up:
 		if canUpdateHands:
 			enter_update_hands_menu()
@@ -259,16 +264,25 @@ func play_sound(sound_path):
 	$AudioStreamPlayer.stream = load(sound_path)
 	$AudioStreamPlayer.play()
 
+func queue_spell_clear():
+	flushing = true
+
 func random_grunt():
 	randomize()
 	var grunt = sfx_grunts[randi() % sfx_grunts.size()]
 	play_sound(grunt)
 
 func raycast_subscribe(placer):
-	raycastObservers.append(placer)
+	if(!raycastObservers.has(placer)):
+		raycastObservers.append(placer)
 
 func raycast_unsubscribe(placer):
 	raycastObservers.erase(placer)
+
+func return_control():
+	subscribe_to()
+	$Head.subscribe_to()
+	state = State.normal
 
 func revoke_casting():
 	canCastLeft = false

@@ -10,6 +10,16 @@ func _ready():
 #	pass
 
 func play_sound(sound_path = "res://sounds/error_01.wav", db = 0):
-	$AudioStreamPlayer.volume_db = db
-	$AudioStreamPlayer.stream = load(sound_path)
-	$AudioStreamPlayer.play()
+	if($AudioStreamPlayer.playing):
+		if($AudioStreamPlayer2.playing):
+			queue_channel($AudioStreamPlayer3, sound_path, db)
+		else:
+			queue_channel($AudioStreamPlayer2, sound_path, db)
+	else:
+		queue_channel($AudioStreamPlayer, sound_path, db)
+
+func queue_channel(channel = $AudioStreamPlayer, sound_path = "res://sounds/error_01.wav", db = 0):
+	print("queing channel ", channel.name)
+	channel.volume_db = db
+	channel.stream = load(sound_path)
+	channel.play()

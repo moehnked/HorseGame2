@@ -1,26 +1,26 @@
 extends Spatial
+var Utils = preload("res://Utils.gd")
 
-var _callback
-var _hand
+var callback
 var creation_prefab
+var hand
 var playerRef
+var previousMouseY
 var rootRef
 var rotationOffset = 0
 var valid = true
-var previousMouseY
 
-
-func initialize(player, world, prefab, callback, hand):
-	creation_prefab = prefab
-	rootRef = world
-	playerRef = player
-	_callback = callback
-	_hand = hand
+func initialize(args):
+	args = Utils.check(args, {'player':null, 'world':null, 'prefab':null, 'callback':null, 'hand':null})
+	creation_prefab = args.prefab
+	rootRef = args.world
+	playerRef = args.player
+	callback = args.callback
+	hand = args.hand
 	subscribe_to()
 
-
 func parse_input(input):
-	match _hand:
+	match hand:
 		"left":
 			if input.standard:
 				spawn_prefab()
@@ -36,11 +36,12 @@ func spawn_prefab():
 	var p = load("res://prefabs/Constructable/" + creation_prefab + ".tscn").instance()
 	p.global_transform = global_transform
 	rootRef.call_deferred("add_child", p)
-	playerRef.exit_build_mode(_callback)
+	playerRef.exit_build_mode(callback)
 	playerRef.placer_unsubscribe(self)
 	playerRef.isBuilding = false
 	unsubscribe_to()
 	playerRef.conclude_spell("BUILD")
+	playerRef.exit_some_menu()
 	queue_free()
 
 func subscribe_to():
