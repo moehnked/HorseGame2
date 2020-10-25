@@ -5,16 +5,18 @@
 [ext_resource path="res://Scripts/Items/Basketball.gd" type="Script" id=3]
 
 [sub_resource type="PhysicsMaterial" id=1]
-friction = 200.0
-rough = true
-bounce = 3.0
-absorbent = true
+friction = 2.0
+bounce = 0.5
 
 [sub_resource type="SphereShape" id=2]
+radius = 0.66136
 
 [sub_resource type="SphereShape" id=3]
+radius = 0.672283
 
 [node name="Basketball" type="RigidBody"]
+collision_layer = 0
+collision_mask = 5
 mass = 10.0
 physics_material_override = SubResource( 1 )
 
@@ -36,5 +38,9 @@ shape = SubResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 3 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+[connection signal="timeout" from="Timer" to="Item" method="_on_Timer_timeout"]
 
 [editable path="Item"]

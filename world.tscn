@@ -109,7 +109,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.62482, 1.30638, -5.21422 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9736, 1.30638, -5.21422 )
 
 [node name="Basketball" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.93831, 9.13298 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.93831, -0.194149 )
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 

@@ -70,6 +70,7 @@ albedo_texture = ExtResource( 9 )
 extents = Vector3( 1, 0.577481, 1 )
 
 [node name="FPSController" type="KinematicBody"]
+collision_layer = 4
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

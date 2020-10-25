@@ -1,6 +1,7 @@
 extends Area
 var interactionPrompt = ""
 var isOpen = false
+var is_interactable = true
 
 
 func interact(controller):
