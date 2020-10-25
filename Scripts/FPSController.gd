@@ -195,6 +195,15 @@ func flush_spells():
 func get_inventory():
 	return $InteractionController.inventory
 
+func get_hand():
+	return $Head/Hand
+
+func get_head():
+	return $Head
+
+func get_palm():
+	return $Head/Palm
+
 func lasso(saddle):
 	state = State.lasso
 	self.saddle = saddle
@@ -284,10 +293,18 @@ func return_control():
 	$Head.subscribe_to()
 	state = State.normal
 
+func restore_menu_options():
+	canUpdateHands = true
+	canUpdateHands = true
+
 func revoke_casting():
 	canCastLeft = false
 	canCastRight = false
 	stop_cast_reset()
+
+func revoke_menu_options():
+	canUpdateHands = false
+	canCheckInventory = false
 
 func setLassoLimit():
 	$LassoTimeout.start()

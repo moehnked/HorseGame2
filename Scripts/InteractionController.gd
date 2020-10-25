@@ -5,11 +5,15 @@ onready var promptRef = get_tree().get_root().get_node("World").get_node("Intera
 var lookingAt = null
 var inventory = []
 
+func clear():
+	promptRef.clear()
+
 func parse_input(input):
 	if input.engage:
 		if lookingAt != null:
-			print("interacting with ", lookingAt)
-			lookingAt.interact(self)
+			if lookingAt.is_interactable:
+				print("interacting with ", lookingAt)
+				lookingAt.interact(self)
 
 func read_prompt():
 	print("displaying prompt of ",lookingAt)
@@ -18,9 +22,10 @@ func read_prompt():
 
 func _on_InteractionController_area_entered(area):
 	if area.has_method("interact"):
-		print("interaction controller entered ", area.name)
-		lookingAt = area
-		read_prompt()
+		if area.is_interactable:
+			print("interaction controller entered ", area.name)
+			lookingAt = area
+			read_prompt()
 	pass # Replace with function body.
 
 

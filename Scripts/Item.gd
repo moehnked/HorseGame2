@@ -1,8 +1,10 @@
 extends Area
 
-var mesh
 export var icon = "res://icon.png"
-export var itemName = "Item" 
+export var itemName = "Item"
+
+var is_interactable = true
+var mesh
 
 func interact(controller):
 	#pick up the item and add it to player inventory
