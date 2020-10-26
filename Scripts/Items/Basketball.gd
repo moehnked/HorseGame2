@@ -18,7 +18,6 @@ func enable_collisions():
 	is_interactable = true
 
 func interact(controller):
-	print("HAHAHHAHA BASKETBALL")
 	controller.inventory.append(self)
 	is_interactable = false
 	controller.clear()
