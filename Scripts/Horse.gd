@@ -19,12 +19,15 @@ var impact_dir
 var jump = 10
 var knockback_direction = Vector3()
 var mouseSensitivity = 0.2
+var pep = 0
 var personality
 var playerRef
 var rootRef
+var rng
 var speed = 30
 var state = State.idle
 var stopFollowThreshold = 4
+var target
 var temp_rot
 var trainer
 var turnSpeed = 20
@@ -41,7 +44,7 @@ var mood = {
 }
 var relationships = {}
 
-enum State {idle, lasso, giddyup, pilot, search, follow, wander, knockback}
+enum State {idle, lasso, giddyup, pilot, search, follow, wander, knockback, attack}
 
 var sfx_whinnys = [
 	"res://sounds/horse_01.wav",
@@ -54,11 +57,14 @@ var sfx_other = [
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	rng = RandomNumberGenerator.new()
+	rng.randomize()
 	initialize_personality()
 	enter_idle_state()
 	pass # Replace with function body.
 
 func _on_IdleTimer_timeout():
+	#check if close enough to horse with high pep to have a conversation with
 	pick_random_spot_nearby()
 	$WalkTimer.start(rand_range(0.1,4.5))
 	state = State.wander
@@ -76,6 +82,7 @@ func _process(delta):
 	match state:
 		State.idle:
 			apply_gravity(delta)
+			check_pep_thresh()
 			if(has_trainer()):
 				look_for_trainer()
 			else:
@@ -86,11 +93,13 @@ func _process(delta):
 		State.lasso:
 			wiggle(delta)
 		State.search:
+			apply_gravity(delta)
 			look_for_trainer()
 		State.follow:
 			apply_gravity(delta)
 			move_towards(trainer, delta)
 		State.pilot:
+			apply_gravity(delta)
 			move_based_on_input(delta)
 		State.knockback:
 			move_based_on_knockback(delta)
@@ -128,6 +137,14 @@ func calculate_random_weights():
 func check_if_alive():
 	if(hp <= 0):
 		queue_free()
+
+func check_pep_thresh():
+	if(pep > 0):
+		#can join party
+		pass
+	if(pep > 10):
+		#can interact with other horses whose pep are greater than 10
+		pass
 
 func deal_damage(power):
 	hp -= power
@@ -274,6 +291,11 @@ func recieve_charm(charm, charmer):
 	else:
 		relationships[charmer] = mood[charm]
 	
+	if(mood[charm] > 0):
+		pep += 1
+	elif(mood[charm] < 0):
+		pep -= 1
+	
 	print("Relationship with ", charmer, " increased by ", mood[charm], " to ", relationships[charmer])
 	match(mood[charm]):
 		2:
@@ -309,6 +331,11 @@ func set_moods(mb, i, v):
 	personality.remove(i)
 	mb.remove(i)
 
+func set_target(enemy):
+	print("target found: ", enemy.name, "!")
+	target = enemy
+	state = State.attack
+
 func start_following_trainer():
 	stop_all_timers()
 	set_animation("Trot", 2.0)
@@ -339,6 +366,7 @@ func take_damage(dmg, hitbox, player):
 func tame(tamer):
 	stop_all_timers()
 	trainer = tamer
+	pep += 1
 	play_random_whinny()
 	enter_pilot()
 
@@ -359,3 +387,10 @@ func wander(delta):
 func wiggle(delta):
 	#rotation -= Vector3(0,impact_dir.y + 0.01,0)
 	pass
+
+
+func _on_AggroRange_area_entered(area):
+	if area.owner.has_method("aggroable"):
+		if (rng.randf_range(0.0, 1.0) < area.owner.aggroable()):
+			set_target(area.owner)
+	pass # Replace with function body.

@@ -1,10 +1,112 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://models/hoop.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://Shaders/cel.shader" type="Shader" id=2]
+[ext_resource path="res://Scripts/Misc/BasketballHoop.gd" type="Script" id=3]
 
-[node name="Hoop" type="Spatial"]
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.121569, 0.121569, 0.121569, 1 )
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_unshaded = true
+params_diffuse_mode = 4
+params_cull_mode = 1
+params_grow = true
+params_grow_amount = 0.04
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=3]
+next_pass = SubResource( 2 )
+shader = ExtResource( 2 )
+shader_param/use_shade = true
+shader_param/use_specular = true
+shader_param/use_rim = true
+shader_param/use_light = false
+shader_param/use_shadow = false
+shader_param/base_color = Color( 0.811765, 0.811765, 0.811765, 1 )
+shader_param/shade_color = Color( 0.6, 0.713726, 0.796078, 1 )
+shader_param/specular_tint = Color( 1, 1, 1, 0.74902 )
+shader_param/rim_tint = Color( 1, 1, 1, 0.74902 )
+shader_param/shade_threshold = 0.0
+shader_param/shade_softness = 0.01
+shader_param/specular_glossiness = 15.0
+shader_param/specular_threshold = 0.5
+shader_param/specular_softness = 0.1
+shader_param/rim_threshold = 0.25
+shader_param/rim_softness = 0.05
+shader_param/rim_spread = 0.5
+shader_param/shadow_threshold = 0.7
+shader_param/shadow_softness = 0.1
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_unshaded = true
+params_cull_mode = 1
+params_grow = true
+params_grow_amount = 0.04
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=5]
+next_pass = SubResource( 4 )
+shader = ExtResource( 2 )
+shader_param/use_shade = true
+shader_param/use_specular = true
+shader_param/use_rim = true
+shader_param/use_light = false
+shader_param/use_shadow = false
+shader_param/base_color = Color( 0.619608, 0.376471, 0.376471, 1 )
+shader_param/shade_color = Color( 0.34902, 0.152941, 0.286275, 1 )
+shader_param/specular_tint = Color( 1, 1, 1, 0.74902 )
+shader_param/rim_tint = Color( 1, 1, 1, 0.74902 )
+shader_param/shade_threshold = 0.0
+shader_param/shade_softness = 0.01
+shader_param/specular_glossiness = 15.0
+shader_param/specular_threshold = 0.5
+shader_param/specular_softness = 0.1
+shader_param/rim_threshold = 0.25
+shader_param/rim_softness = 0.05
+shader_param/rim_spread = 0.5
+shader_param/shadow_threshold = 0.7
+shader_param/shadow_softness = 0.1
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 1.08687, 0.77838, 0.113121 )
+
+[sub_resource type="CylinderShape" id=7]
+radius = 0.640766
+height = 0.226382
+
+[sub_resource type="BoxShape" id=8]
+extents = Vector3( 0.672117, 0.431968, 0.468292 )
+
+[node name="Hoop" type="StaticBody"]
+script = ExtResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 0.57233, 0, 0, 0, 0.57233, 0, 0, 0, 0.57233, 0, 0, 0 )
+transform = Transform( 0.974549, 0, 0, 0, 0.974549, 0, 0, 0, 0.974549, 0, -0.361543, -0.390743 )
 mesh = ExtResource( 1 )
-material/0 = null
+material/0 = SubResource( 1 )
+material/1 = SubResource( 3 )
+material/2 = SubResource( 5 )
+material/3 = null
+
+[node name="Backboard" type="CollisionShape" parent="."]
+transform = Transform( 1.99132, 0, 0, 0, 1.70277, 0, 0, 0, 1.70277, 0, 11.5266, 0.395586 )
+shape = SubResource( 6 )
+
+[node name="Ring" type="CollisionShape" parent="."]
+transform = Transform( 1.70277, 0, 0, 0, 1.70277, 0, 0, 0, 1.70277, 0, 10.2515, 1.43982 )
+shape = SubResource( 7 )
+
+[node name="goal" type="Area" parent="."]
+transform = Transform( 1.22058, 0, 0, 0, 1.22058, 0, 0, 0, 1.22058, 0, 11.1323, 0.817798 )
+
+[node name="CollisionShape" type="CollisionShape" parent="goal"]
+shape = SubResource( 8 )
+
+[node name="Score_reset" type="Timer" parent="."]
+one_shot = true
+
+[node name="Ring_Point" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0678, 1.48811 )
+[connection signal="body_entered" from="goal" to="." method="_on_goal_body_entered"]
+[connection signal="timeout" from="Score_reset" to="." method="_on_Score_reset_timeout"]

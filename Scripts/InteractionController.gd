@@ -2,23 +2,35 @@ extends Area
 
 onready var promptRef = get_tree().get_root().get_node("World").get_node("InteractionPrompt")
 
-var lookingAt = null
+var canInteract = true
 var inventory = []
+var lookingAt = null
+
 
 func clear():
 	promptRef.clear()
 
+func disable_interact():
+	canInteract = false
+
+func enable_interact():
+	canInteract = true
+
 func parse_input(input):
-	if input.engage:
+	if input.engage and canInteract:
 		if lookingAt != null:
 			if lookingAt.is_interactable:
 				print("interacting with ", lookingAt)
 				lookingAt.interact(self)
 
 func read_prompt():
-	print("displaying prompt of ",lookingAt)
-	promptRef.show_prompt(lookingAt.prompt())
-	pass
+	if canInteract:
+		print("displaying prompt of ",lookingAt)
+		promptRef.show_prompt(lookingAt.prompt())
+		pass
+
+func toggle_interactability():
+	canInteract = !canInteract
 
 func _on_InteractionController_area_entered(area):
 	if area.has_method("interact"):

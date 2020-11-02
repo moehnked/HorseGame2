@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://prefabs/FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Textures/100_1395_seamless.JPG" type="Texture" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://Scripts/InputObserver.gd" type="Script" id=7]
 [ext_resource path="res://prefabs/InteractionPrompt.tscn" type="PackedScene" id=8]
 [ext_resource path="res://prefabs/Trophy.tscn" type="PackedScene" id=9]
-[ext_resource path="res://prefabs/Items/Item.tscn" type="PackedScene" id=10]
 [ext_resource path="res://prefabs/Items/Basketball.tscn" type="PackedScene" id=11]
 
 [sub_resource type="CubeMesh" id=1]
@@ -97,20 +96,41 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.1115, 1.96324, 19.2357 )
 [node name="Trophy11" parent="." instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2824, 0.619527, 20.1708 )
 
-[node name="Item" parent="." instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4538, 1.30638, -5.21422 )
-
-[node name="Item2" parent="." instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.60278, 1.30638, -5.21422 )
-
-[node name="Item3" parent="." instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.62482, 1.30638, -5.21422 )
-
-[node name="Item4" parent="." instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9736, 1.30638, -5.21422 )
-
 [node name="Basketball" parent="." instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.93831, -0.194149 )
+
+[node name="Basketball2" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.59703, 2.93831, 11.5961 )
+
+[node name="Basketball3" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.06333, 2.93831, 11.5961 )
+
+[node name="Basketball4" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.24946, 2.93831, 12.4331 )
+
+[node name="Basketball5" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.867262, 2.93831, 16.367 )
+
+[node name="Basketball6" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.96628, 2.93831, 18.5348 )
+
+[node name="Basketball7" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.312508, 2.93831, 21.1476 )
+
+[node name="Basketball8" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3003, 2.93831, 21.1476 )
+
+[node name="Basketball9" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3003, 2.93831, 13.4452 )
+
+[node name="Basketball10" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9513, 2.93831, 13.4452 )
+
+[node name="Basketball11" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9513, 2.93831, 14.8727 )
+
+[node name="Basketball12" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9513, 2.93831, 18.2154 )
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 
@@ -131,4 +151,4 @@ margin_bottom = 30.0
 script = ExtResource( 6 )
 
 [node name="Hoop" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -35.1032, -0.742168, 8.3668 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.83738, -2.94843, 0.709343 )

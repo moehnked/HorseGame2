@@ -5,8 +5,15 @@
 [sub_resource type="SpatialMaterial" id=1]
 flags_transparent = true
 flags_unshaded = true
+params_cull_mode = 2
+params_depth_draw_mode = 1
 params_billboard_mode = 1
 albedo_texture = ExtResource( 1 )
+depth_enabled = true
+depth_scale = 0.05
+depth_deep_parallax = false
+depth_flip_tangent = false
+depth_flip_binormal = false
 
 [sub_resource type="QuadMesh" id=2]
 material = SubResource( 1 )

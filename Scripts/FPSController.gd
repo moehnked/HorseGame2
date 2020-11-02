@@ -5,6 +5,7 @@ onready var ropeResource = preload("res://prefabs/LassoBullet.tscn")
 onready var rootRef = get_tree().get_root().get_node("World")
 onready var inventoryScreenSource = preload("res://prefabs/UI/InventoryScreen.tscn")
 
+var aggro = 1
 var acceleration = 20
 var canCastLeft = true
 var canCastRight = true
@@ -83,6 +84,9 @@ func _on_LeftCooldown_timeout():
 func _on_RightCooldown_timeout():
 	print("cast right cooldown complete....")
 	canCastRight = true
+
+func aggroable():
+	return aggro
 
 func apply_rotation(input):
 	if state != State.giddyup and not isBuilding:
@@ -295,7 +299,7 @@ func return_control():
 
 func restore_menu_options():
 	canUpdateHands = true
-	canUpdateHands = true
+	canCheckInventory = true
 
 func revoke_casting():
 	canCastLeft = false

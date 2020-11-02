@@ -27,7 +27,7 @@ axis_lock_angular_z = true
 script = ExtResource( 3 )
 icon = "res://Sprites/Items/Basketball_Icon.png"
 itemName = "Basketball"
-launch_power = 30
+launch_power = 15
 
 [node name="Item_Mesh" parent="Item" index="0"]
 visible = false
@@ -44,6 +44,7 @@ shape = SubResource( 2 )
 shape = SubResource( 3 )
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 [connection signal="timeout" from="Timer" to="Item" method="_on_Timer_timeout"]
 
