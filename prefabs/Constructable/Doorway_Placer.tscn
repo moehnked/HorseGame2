@@ -7,7 +7,7 @@
 flags_transparent = true
 albedo_color = Color( 0.184314, 0.756863, 0, 0.619608 )
 
-[node name="Wall" type="StaticBody"]
+[node name="Wall" type="Area"]
 script = ExtResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]

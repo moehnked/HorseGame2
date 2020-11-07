@@ -10,7 +10,7 @@ static func check(args = {}, def = {}):
 			kargs[i] = args[i]
 		else:
 			kargs[i] = def[i]
-	return args
+	return kargs
 
 static func show_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

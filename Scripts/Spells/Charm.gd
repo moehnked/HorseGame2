@@ -23,8 +23,11 @@ func charm(charm):
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	print("charming with --- ", charm, " - ", lookingat)
 	if(lookingat.has_method("recieve_charm")):
-		print("sending charm to target ", lookingat)
-		lookingat.recieve_charm(charm, playerRef)
+		if(lookingat.can_be_charmed()):
+			print("sending charm to target ", lookingat)
+			lookingat.recieve_charm(charm, playerRef)
+		else:
+			rootRef.play_sound()
 	conclude()
 
 func clear_raycast():

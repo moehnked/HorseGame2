@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://prefabs/FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Textures/100_1395_seamless.JPG" type="Texture" id=2]
@@ -9,7 +9,12 @@
 [ext_resource path="res://Scripts/InputObserver.gd" type="Script" id=7]
 [ext_resource path="res://prefabs/InteractionPrompt.tscn" type="PackedScene" id=8]
 [ext_resource path="res://prefabs/Trophy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scripts/Misc/GlobalCorralRegistrar.gd" type="Script" id=10]
 [ext_resource path="res://prefabs/Items/Basketball.tscn" type="PackedScene" id=11]
+[ext_resource path="res://prefabs/Constructable/Gate.tscn" type="PackedScene" id=12]
+[ext_resource path="res://prefabs/Constructable/Fence.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/Mirror.tscn" type="PackedScene" id=14]
+[ext_resource path="res://prefabs/Misc/Block.tscn" type="PackedScene" id=15]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -45,7 +50,8 @@ transform = Transform( 0.0339132, 0.778933, -0.626189, -0.0421238, 0.627107, 0.7
 light_energy = 0.5
 
 [node name="Horse" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1.43672, 0, 0, 0, 1.43672, 0, 0, 0, 1.43672, 6.56702, 0.320392, -11.8734 )
+transform = Transform( 1.43672, 0, 0, 0, 1.43672, 0, 0, 0, 1.43672, 9.23313, 0.320388, -20.1821 )
+isAggroAtStart = false
 
 [node name="InputObserver" type="Node" parent="."]
 script = ExtResource( 7 )
@@ -58,7 +64,8 @@ script = ExtResource( 7 )
 environment = SubResource( 5 )
 
 [node name="Horse2" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, 5.41689, -0.194574, -2.66655 )
+transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, 11.1085, -0.194574, -2.66655 )
+isAggroAtStart = false
 
 [node name="FPSController" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.57347, 0.954456, 3.60388 )
@@ -73,64 +80,22 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.4454, 1.36353, -2.33243 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.0547, -0.291551, 0.954863 )
 
 [node name="Trophy4" parent="." instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.28689, 3.45762, 0.370879 )
-
-[node name="Trophy5" parent="." instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19.0776, 24.0347, 31.5581 )
-
-[node name="Trophy6" parent="." instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.24973, -0.291551, 25.0544 )
-
-[node name="Trophy7" parent="." instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.85465, -0.291551, 24.3947 )
-
-[node name="Trophy8" parent="." instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2145, 0.189628, 21.4068 )
-
-[node name="Trophy9" parent="." instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14034, 0.86484, 19.5062 )
-
-[node name="Trophy10" parent="." instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.1115, 1.96324, 19.2357 )
-
-[node name="Trophy11" parent="." instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2824, 0.619527, 20.1708 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.1017, 3.45762, 0.370879 )
 
 [node name="Basketball" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.93831, -0.194149 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.93831, 17.1757 )
 
 [node name="Basketball2" parent="." instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.59703, 2.93831, 11.5961 )
+visible = false
 
 [node name="Basketball3" parent="." instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.06333, 2.93831, 11.5961 )
+visible = false
 
 [node name="Basketball4" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.24946, 2.93831, 12.4331 )
-
-[node name="Basketball5" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.867262, 2.93831, 16.367 )
-
-[node name="Basketball6" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.96628, 2.93831, 18.5348 )
-
-[node name="Basketball7" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.312508, 2.93831, 21.1476 )
-
-[node name="Basketball8" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3003, 2.93831, 21.1476 )
-
-[node name="Basketball9" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3003, 2.93831, 13.4452 )
-
-[node name="Basketball10" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9513, 2.93831, 13.4452 )
-
-[node name="Basketball11" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9513, 2.93831, 14.8727 )
-
-[node name="Basketball12" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9513, 2.93831, 18.2154 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.48907, 2.93831, 15.6639 )
+visible = false
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 
@@ -152,3 +117,54 @@ script = ExtResource( 6 )
 
 [node name="Hoop" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.83738, -2.94843, 0.709343 )
+
+[node name="GlobalCorralRegistrar" type="Spatial" parent="."]
+script = ExtResource( 10 )
+
+[node name="Fence" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32.9892, -0.244645, -11.6455 )
+
+[node name="Fence2" parent="." instance=ExtResource( 13 )]
+transform = Transform( 0.076806, 0, 0.997046, 0, 1, 0, -0.997046, 0, 0.076806, -35.0138, -0.244645, -13.5947 )
+
+[node name="Fence3" parent="." instance=ExtResource( 13 )]
+transform = Transform( 0.076806, 0, 0.997046, 0, 1, 0, -0.997046, 0, 0.076806, -38.5616, -0.244645, -13.3438 )
+
+[node name="Fence4" parent="." instance=ExtResource( 13 )]
+transform = Transform( -0.997776, 0, 0.0666569, 0, 1, 0, -0.0666569, 0, -0.997776, -40.765, -0.244645, -11.4337 )
+
+[node name="Fence5" parent="." instance=ExtResource( 13 )]
+transform = Transform( -0.997776, 0, 0.0666569, 0, 1, 0, -0.0666569, 0, -0.997776, -40.765, -0.244645, -7.83953 )
+
+[node name="Fence6" parent="." instance=ExtResource( 13 )]
+transform = Transform( -0.997776, 0, 0.0666569, 0, 1, 0, -0.0666569, 0, -0.997776, -40.765, -0.244645, -4.38219 )
+
+[node name="Fence7" parent="." instance=ExtResource( 13 )]
+transform = Transform( -0.116965, 0, -0.993136, 0, 1, 0, 0.993136, 0, -0.116965, -38.9335, -0.244645, -2.265 )
+
+[node name="Fence8" parent="." instance=ExtResource( 13 )]
+transform = Transform( -0.116965, 0, -0.993136, 0, 1, 0, 0.993136, 0, -0.116965, -35.2914, -0.244645, -2.265 )
+
+[node name="Fence9" parent="." instance=ExtResource( 13 )]
+transform = Transform( 0.986124, 0, -0.166011, 0, 1, 0, 0.166011, 0, 0.986124, -32.9858, -0.244645, -4.10193 )
+
+[node name="Gate" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32.6964, -0.469477, -7.95996 )
+
+[node name="Spatial" parent="." instance=ExtResource( 15 )]
+transform = Transform( 1.86999, 0, 0, 0, 1.86999, 0, 0, 0, 1.86999, 14.103, -1.4119, 16.587 )
+
+[node name="Spatial2" parent="." instance=ExtResource( 15 )]
+transform = Transform( 1.86999, 0, 0, 0, 1.86999, 0, 0, 0, 1.86999, 14.3563, -0.815877, 13.7653 )
+
+[node name="Spatial3" parent="." instance=ExtResource( 15 )]
+transform = Transform( 1.86999, 0, 0, 0, 1.86999, 0, 0, 0, 1.86999, 14.4269, 0.145713, 10.9213 )
+
+[node name="Spatial4" parent="." instance=ExtResource( 15 )]
+transform = Transform( 1.86999, 0, 0, 0, 1.86999, 0, 0, 0, 1.86999, 14.4269, 1.01321, 7.70038 )
+
+[node name="Spatial5" parent="." instance=ExtResource( 15 )]
+transform = Transform( 1.86999, 0, 0, 0, 1.86999, 0, 0, 0, 1.86999, 15.3467, 2.0408, 4.38499 )
+
+[node name="Mirror" parent="." instance=ExtResource( 14 )]
+transform = Transform( 1.86999, 0, 0, 0, 1.86999, 0, 0, 0, 1.86999, 0, 1.95953, 0 )

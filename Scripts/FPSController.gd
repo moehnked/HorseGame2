@@ -17,8 +17,10 @@ var direction = Vector3()
 var fall = Vector3()
 var flushing = false
 var gravity = 9.8
+var HP = 10
 var isBuilding = false
 var jump = 5
+var knockbackDirection = Vector3()
 var mouse_sensitivity = 0.2
 var saddle
 var speed = 15
@@ -39,7 +41,7 @@ var sfx_grunts = [
 	"res://sounds/grunt_03.wav",
 ]
 
-enum State {normal, lasso, giddyup, pilot, menu}
+enum State {normal, lasso, giddyup, pilot, menu, knockback}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -48,11 +50,13 @@ func _ready():
 
 func _process(delta):
 	match state:
+		State.lasso:
+			moveTowards(saddle, delta)
+		State.knockback:
+			move_based_on_knockback(delta)
 		State.normal:
 			#getInput(delta)
 			move_based_on_input(delta)
-		State.lasso:
-			moveTowards(saddle, delta)
 		State.pilot:
 			if Input.is_action_just_pressed("engage") and canExitHorse:
 				exit_pilot()
@@ -85,12 +89,38 @@ func _on_RightCooldown_timeout():
 	print("cast right cooldown complete....")
 	canCastRight = true
 
+func add_to_party(member):
+	#validate if the player can add new members to party
+	print("===---=== ", $HUD.party.size(), " - ", $Hat.level)
+	if($HUD.party.size() < $Hat.level):
+		print("adding ", member.name, " to party")
+		print("adding to party - ", member.name)
+		$HUD.add_party_member(member)
+		$HUD.draw_party()
+		return true
+	else:
+		print("party_full")
+		return false
+
 func aggroable():
 	return aggro
+
+func apply_gravity(delta):
+	if not is_on_floor():
+		canJump = false
+		fall.y -= gravity * delta
+	else:
+		canJump = true
+	move_and_slide(fall, Vector3.UP)
 
 func apply_rotation(input):
 	if state != State.giddyup and not isBuilding:
 		rotate_y(input.mouse_horizontal)
+
+func calculate_knockback_vector(hitbox, source):
+	print("type:  --- ",hitbox.get_class())
+	return (hitbox.global_transform.origin - source.global_transform.origin) * 10
+	pass
 
 func cast(spell, callback, hand):
 	$Head/Hand.update_hand_sprite(spell)
@@ -142,6 +172,15 @@ func enter_inventory():
 	screen.initialize({'source':self, 'root':rootRef, 'inv':get_inventory(), 'callback':"exit_inventory"})
 	rootRef.call_deferred("add_child", screen)
 
+func enter_knockback(vector, dmg):
+	revoke_casting()
+	revoke_menu_options()
+	unsubscribe_to()
+	$Head.unsubscribe_to()
+	knockbackDirection = vector
+	state = State.knockback
+	$KnockbackTimer.start(0.2 * dmg)
+
 func enter_some_menu():
 	unsubscribe_to()
 	$Head.unsubscribe_to()
@@ -170,10 +209,11 @@ func exit_build_mode(callback):
 func exit_inventory():
 	exit_some_menu()
 
-func exit_pilot():
+func exit_pilot(callback = true):
 	print("exiting pilot")
 	state = State.normal
-	saddle.owner.exit_pilot()
+	if(callback):
+		saddle.owner.exit_pilot()
 	$CollisionShape.disabled = false
 	$InteractionController/CollisionShape.disabled = false
 	subscribe_to()
@@ -222,6 +262,10 @@ func move_based_on_input(delta):
 	velocity = velocity.linear_interpolate(direction * speed, acceleration * delta)
 	velocity = move_and_slide(velocity, Vector3.UP)
 	move_and_slide(fall, Vector3.UP)
+
+func move_based_on_knockback(delta):
+	move_and_slide(knockbackDirection, Vector3.UP)
+	apply_gravity(delta)
 
 func moveTowards(target, delta):
 	var opposite = target.global_transform.origin.x - global_transform.origin.x
@@ -292,14 +336,22 @@ func raycast_subscribe(placer):
 func raycast_unsubscribe(placer):
 	raycastObservers.erase(placer)
 
-func return_control():
-	subscribe_to()
-	$Head.subscribe_to()
-	state = State.normal
+func remove_from_party(member):
+	$HUD.remove_from_party(member)
+
+func report_damage(member):
+	#reprot member damage to party
+	$HUD.report(member)
+	pass
 
 func restore_menu_options():
 	canUpdateHands = true
 	canCheckInventory = true
+
+func return_control():
+	subscribe_to()
+	$Head.subscribe_to()
+	state = State.normal
 
 func revoke_casting():
 	canCastLeft = false
@@ -327,6 +379,17 @@ func subscribe_to():
 	rootRef.get_node("InputObserver").subscribe(self)
 	rootRef.get_node("InputObserver").subscribe($InteractionController)
 
+func take_damage(dmg = 1, hitbox = null, source = null):
+	HP -= dmg
+	$HUD.update_display(HP)
+	if(HP <= 0):
+		#GAME OVER
+		pass
+	else:
+		enter_knockback(calculate_knockback_vector(hitbox, source), dmg)
+		pass
+
+
 func unsubscribe_to():
 	rootRef.get_node("InputObserver").unsubscribe(self)
 	rootRef.get_node("InputObserver").unsubscribe($InteractionController)
@@ -338,3 +401,12 @@ func update_placer_position(point):
 func update_spells(left, right):
 	lefthandSpell = left
 	righthandSpell = right
+
+
+func _on_KnockbackTimer_timeout():
+	state = State.normal
+	enable_casting()
+	restore_menu_options()
+	subscribe_to()
+	$Head.subscribe_to()
+	pass # Replace with function body.

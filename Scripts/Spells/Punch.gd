@@ -2,6 +2,7 @@ extends Area
 
 var Utils = preload("res://Utils.gd")
 
+var exit_callback
 var playerRef
 var rootRef
 var power = 1
@@ -14,15 +15,21 @@ var power = 1
 #	playerRef.call(callback)
 
 func initialize(args):
-	var kargs = Utils.check(args, {'player':null, 'root':null, 'palm':null, 'callback':null, 'hand':null})
-	playerRef = kargs['player']
-	rootRef = kargs['root']
+	args = Utils.check(args, {'player':null, 'root':null, 'palm':null, 'callback':null, 'hand':null, 'exit_callback':null, 'scale':1.0})
+	playerRef = args['player']
+	rootRef = args['root']
+	global_scale(Vector3(args.scale,args.scale,args.scale))
 	$TimeToLive.start()
-	global_transform.origin = kargs['palm'].global_transform.origin
-	playerRef.call(kargs.callback)
+	global_transform.origin = args['palm'].global_transform.origin
+	if(args['callback'] != null):
+		playerRef.call(args.callback)
+	exit_callback = args.exit_callback
 
 func _on_TimeToLive_timeout():
-	queue_free()
+	if(exit_callback == null):
+		queue_free()
+	else:
+		playerRef.call_deferred(exit_callback)
 
 
 func _on_Punch_area_entered(area):

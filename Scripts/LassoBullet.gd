@@ -34,14 +34,6 @@ func initialize(args):
 	playerRef.call(kargs['callback'])
 	global_transform = kargs['palm'].global_transform
 
-#func initialize(player, root, palm, callback, hand):
-#	playerRef = player
-#	rootRef = root
-#	playerRef.setLassoLimit()
-#	playerRef.call(callback)
-#	global_transform = palm.global_transform
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if(begun):
@@ -66,8 +58,11 @@ func spawn():
 func collision_effect(collided):
 	$TimeToLive.stop()
 	if(collided.has_method("lasso")):
-		collided.lasso(self)
-		playerRef.lasso(collided.saddle)
+		if(collided.can_be_lassoed()):
+			collided.lasso(self)
+			playerRef.lasso(collided.saddle)
+		else:
+			rootRef.play_sound()
 	deload()
 	
 

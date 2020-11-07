@@ -85,8 +85,20 @@ transform = Transform( 0.764508, 0, 0, 0, 0.764508, 0, 0, 0, -0.764508, 0, 0, 0 
 
 [node name="CollisionShape" type="CollisionShape" parent="AggroRange"]
 shape = SubResource( 5 )
+
+[node name="AttackPoint" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.22326, -2.19168 )
+
+[node name="AttackHitboxTimer" type="Timer" parent="."]
+wait_time = 0.45
+one_shot = true
+
+[node name="AttackCooldownTimer" type="Timer" parent="."]
+one_shot = true
 [connection signal="timeout" from="WalkTimer" to="." method="_on_WalkTimer_timeout"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]
 [connection signal="timeout" from="Particles/ParticleDurationTimer" to="Particles" method="_on_ParticleDurationTimer_timeout"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_KnockbackTimer_timeout"]
 [connection signal="area_entered" from="AggroRange" to="." method="_on_AggroRange_area_entered"]
+[connection signal="timeout" from="AttackHitboxTimer" to="." method="_on_AttackHitboxTimer_timeout"]
+[connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_AttackCooldownTimer_timeout"]

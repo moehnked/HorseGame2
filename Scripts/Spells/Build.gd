@@ -14,14 +14,14 @@ var tempRot
 
 
 func _process(delta):
-	print(get_global_mouse_position())
+	#print(get_global_mouse_position())
 	var offset = get_global_mouse_position() - $Container/Ring.global_position
 	var point = offset.normalized() * pointerRadius
 	$Container/Ring/Pointer.global_position = $Container/Ring.global_position + point
 	pass
 
 func _on_ReadyWait_timeout():
-	print("yada")
+	#print("yada")
 	playerRef.isBuilding = false
 	canSelect = true
 	pass # Replace with function body.
@@ -31,13 +31,11 @@ func get_build_list():
 	var i = 0
 	var offset_theta = 40
 	for b in buildList:
-		print("button ",i)
 		var button = load("res://prefabs/UI/BuildOption.tscn").instance()
 		button.initialize(b, self)
 		var offset = $Container/Ring.position
 		offset.y += pointerRadius * sin(deg2rad(offset_theta * i))
 		offset.x += pointerRadius * cos(deg2rad(offset_theta * i))
-		print(offset)
 		button.position = offset
 		$Container.add_child(button)
 		selected = button
@@ -61,7 +59,6 @@ func parse_input(input):
 			ready_placer()
 
 func ready_placer():
-	print(selected)
 	var p = load("res://prefabs/Constructable/" + selected.prefab + "_Placer.tscn").instance()
 	p.initialize({'player':playerRef, 'world':rootRef, 'prefab':selected.prefab, 'callback':callback, 'hand':hand})
 	rootRef.call_deferred("add_child", p)

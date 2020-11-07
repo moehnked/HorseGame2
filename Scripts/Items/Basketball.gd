@@ -3,6 +3,7 @@ export var launch_power = 200
 
 var _controller = null
 var dir = Vector3()
+var isInteractable = true
 var parent_transform = null
 var playerRef = null
 

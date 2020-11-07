@@ -19,7 +19,7 @@ func enable_interact():
 func parse_input(input):
 	if input.engage and canInteract:
 		if lookingAt != null:
-			if lookingAt.is_interactable:
+			if lookingAt.isInteractable:
 				print("interacting with ", lookingAt)
 				lookingAt.interact(self)
 
@@ -34,7 +34,7 @@ func toggle_interactability():
 
 func _on_InteractionController_area_entered(area):
 	if area.has_method("interact"):
-		if area.is_interactable:
+		if area.isInteractable:
 			print("interaction controller entered ", area.name)
 			lookingAt = area
 			read_prompt()
