@@ -3,7 +3,6 @@ export var launch_power = 200
 
 var _controller = null
 var dir = Vector3()
-var isInteractable = true
 var parent_transform = null
 var playerRef = null
 
@@ -20,11 +19,11 @@ func disable_collisions():
 
 func enable_collisions():
 	owner.set_collision_mask_bit(2, 1)
-	is_interactable = true
+	isInteractable = true
 
 func interact(controller):
 	controller.inventory.append(self)
-	is_interactable = false
+	isInteractable = false
 	controller.clear()
 	controller.disable_interact()
 	_controller = controller

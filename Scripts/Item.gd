@@ -3,7 +3,7 @@ extends Area
 export var icon = "res://icon.png"
 export var itemName = "Item"
 
-var is_interactable = true
+var isInteractable = true
 var mesh
 
 func interact(controller):

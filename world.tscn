@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://prefabs/FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Textures/100_1395_seamless.JPG" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://prefabs/Constructable/Fence.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/Mirror.tscn" type="PackedScene" id=14]
 [ext_resource path="res://prefabs/Misc/Block.tscn" type="PackedScene" id=15]
+[ext_resource path="res://prefabs/Items/Plank.tscn" type="PackedScene" id=16]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -168,3 +169,18 @@ transform = Transform( 1.86999, 0, 0, 0, 1.86999, 0, 0, 0, 1.86999, 15.3467, 2.0
 
 [node name="Mirror" parent="." instance=ExtResource( 14 )]
 transform = Transform( 1.86999, 0, 0, 0, 1.86999, 0, 0, 0, 1.86999, 0, 1.95953, 0 )
+
+[node name="Plank" parent="." instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.55265, 1.21985, 3.58537 )
+
+[node name="Plank2" parent="." instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.55265, 1.21985, 6.9796 )
+
+[node name="Plank3" parent="." instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.33845, 1.21985, 6.9796 )
+
+[node name="Plank4" parent="." instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5342, 1.21985, 6.9796 )
+
+[node name="Plank5" parent="." instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7011, 1.21985, 6.9796 )

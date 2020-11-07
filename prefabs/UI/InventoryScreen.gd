@@ -13,25 +13,12 @@ func _ready():
 func clear_display():
 	$Display.texture = null
 
-func contains(list, item):
-	for i in list:
-		if i.itemName == item.itemName:
-			return true
-	return false
-
-func count(item):
-	var c = 0
-	for i in inventory:
-		if i.itemName == item.itemName:
-			c += 1
-	return c
-
 func draw_list_items():
 	var index = 0
 	for i in uniques():
 		if i.has_method("get_name"):
 			var item = listItemResource.instance()
-			item.initialize(i, self, count(i))
+			item.initialize(i, self, Utils.count(i, inventory))
 			item.position.x = $ListItemLoader.position.x
 			item.position.y = $ListItemLoader.position.y + (item.get_height() * (index))
 			add_child(item)
@@ -69,7 +56,7 @@ func subscribe_to():
 func uniques():
 	var u = []
 	for i in inventory:
-		if !contains(u, i):
+		if !Utils.contains(i,u):
 			u.append(i)
 	return u
 

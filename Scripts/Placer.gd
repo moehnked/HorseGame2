@@ -1,22 +1,31 @@
 extends Area
 var Utils = preload("res://Utils.gd")
 
+onready var resource_ref = preload("res://prefabs/Items/Plank.tscn")
+
 var callback
 var creation_prefab
 var hand
 var playerRef
 var previousMouseY
-export var required_materials = 5
+export var required_materials = 5   #number of planks required to build
 var rootRef
 var rotationOffset = 0
 var touching = []
 var valid = true
 
 func check_materials():
+	print("checking materials")
 	#get inventory from player
+	var inv = playerRef.get_inventory()
 	#get count of material items
+	var mat = resource_ref.instance().get_node("Item")
+	if(Utils.contains(mat, inv)):
+		print("player has ", mat.itemName)
+	var count = Utils.count(mat, inv)
+	print("player has : ", count, " ", mat.itemName)
 	#compare count in inventory to requirement and return
-	return true
+	return count >= required_materials
 	pass
 
 func disable_place():
@@ -38,6 +47,10 @@ func initialize(args):
 	subscribe_to()
 
 func parse_input(input):
+	if(check_materials()):
+		enable_place()
+	else:
+		disable_place()
 	match hand:
 		"left":
 			if input.standard:
@@ -55,16 +68,19 @@ func spawn_prefab():
 		var p = load("res://prefabs/Constructable/" + creation_prefab + ".tscn").instance()
 		p.global_transform = global_transform
 		rootRef.call_deferred("add_child", p)
-		playerRef.exit_build_mode(callback)
-		playerRef.placer_unsubscribe(self)
-		playerRef.isBuilding = false
-		unsubscribe_to()
-		playerRef.conclude_spell("BUILD")
-		playerRef.exit_some_menu()
-		queue_free()
+	terminate()
 
 func subscribe_to():
 	rootRef.get_node("InputObserver").subscribe(self)
+
+func terminate():
+	playerRef.exit_build_mode(callback)
+	playerRef.placer_unsubscribe(self)
+	playerRef.isBuilding = false
+	unsubscribe_to()
+	playerRef.conclude_spell("BUILD")
+	playerRef.exit_some_menu()
+	queue_free()
 
 func unsubscribe_to():
 	rootRef.get_node("InputObserver").unsubscribe(self)
