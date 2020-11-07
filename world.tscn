@@ -51,8 +51,15 @@ transform = Transform( 0.0339132, 0.778933, -0.626189, -0.0421238, 0.627107, 0.7
 light_energy = 0.5
 
 [node name="Horse" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1.43672, 0, 0, 0, 1.43672, 0, 0, 0, 1.43672, 9.23313, 0.320388, -20.1821 )
+transform = Transform( 0.216006, 0, 1.42039, 0, 1.43672, 0, -1.42039, 0, 0.216006, 12.4447, 0.320388, -24.9498 )
 isAggroAtStart = false
+pep = 10
+stats = {
+"Chaos": 1,
+"Silly": 1,
+"Speed": 3,
+"Width": 1
+}
 
 [node name="InputObserver" type="Node" parent="."]
 script = ExtResource( 7 )
@@ -67,6 +74,13 @@ environment = SubResource( 5 )
 [node name="Horse2" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, 11.1085, -0.194574, -2.66655 )
 isAggroAtStart = false
+pep = 10
+stats = {
+"Chaos": 1,
+"Silly": 1,
+"Speed": 3,
+"Width": 1
+}
 
 [node name="FPSController" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.57347, 0.954456, 3.60388 )
@@ -184,3 +198,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5342, 1.21985, 6.9796 )
 
 [node name="Plank5" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7011, 1.21985, 6.9796 )
+
+[node name="Horse3" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, -14.8425, 0.840624, -18.5562 )
+isAggroAtStart = false
