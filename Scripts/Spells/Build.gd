@@ -12,6 +12,8 @@ var selected
 var state = 0
 var tempRot
 
+func _ready():
+	$Container/Ring/Pointer.initialize(self)
 
 func _process(delta):
 	#print(get_global_mouse_position())
