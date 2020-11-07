@@ -6,10 +6,18 @@ var creation_prefab
 var hand
 var playerRef
 var previousMouseY
+export var required_materials = 5
 var rootRef
 var rotationOffset = 0
 var touching = []
 var valid = true
+
+func check_materials():
+	#get inventory from player
+	#get count of material items
+	#compare count in inventory to requirement and return
+	return true
+	pass
 
 func disable_place():
 	print("cannot place item here")
@@ -43,7 +51,7 @@ func parse_input(input):
 				update_rotation(input)
 
 func spawn_prefab():
-	if(valid):
+	if(valid and check_materials()):
 		var p = load("res://prefabs/Constructable/" + creation_prefab + ".tscn").instance()
 		p.global_transform = global_transform
 		rootRef.call_deferred("add_child", p)
