@@ -288,7 +288,7 @@ func find_horse_to_talk_to():
 		print("is ", name, " allowed to talk to ", i.name," ? ", !temp_talk_ban_list.has(i))
 		var c = rng.randf_range(0.0,1.0) >= 0.5
 		#print(i.name, " is walking towards ", i.walk_to_target.name)
-		if c and !temp_talk_ban_list.has(i) and (i.walk_to_target == null or i.walk_to_target == self):
+		if c and !temp_talk_ban_list.has(i) and (i.walk_to_target == null or i.walk_to_target == self) and (['idle', 'wander', 'none', 'walking', 'talking'].has(i.get_state()) and !i.shouldFollowTrainer):
 			start_walking_towards(i)
 			return
 	#enter_idle_state()

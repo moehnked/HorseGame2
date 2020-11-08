@@ -200,3 +200,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5342, 1.21985, 6.9796 )
 
 [node name="Plank5" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7011, 1.21985, 6.9796 )
+
+[node name="Horse3" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, 36.7362, 2.21054, 54.5705 )
+isAggroAtStart = false
+pep = 10
