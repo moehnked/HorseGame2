@@ -5,7 +5,10 @@ const HorseMoods = hm.HorseMoods
 onready var challengeResource = preload("res://giddyup_challenge.tscn")
 onready var saddle = $Saddle
 
+export var createAngryChildren = false
 export var isAggroAtStart = true
+export var pep = 0
+export var readyToHaveKids = false
 
 var attacking
 var acceleration = 20
@@ -16,18 +19,18 @@ var direction = Vector3()
 var fall = Vector3()
 var followThreshold = 20.0
 var gravity = 11.2
-var greed_rate
+var greedRate
 var hasBeenInitialized = false
 var horse_coms = []
 var HP = 10
 var impact_dir
 var jump = 10
-var knockback_direction = Vector3()
+var knockbackDirection = Vector3()
 var maxhp = 10
 var mouseSensitivity = 0.2
-export var pep = 0
 var personality
 var playerRef
+var previousInteractionResult = 0
 var rootRef
 var rng
 var shouldFollowTrainer = true
@@ -39,7 +42,7 @@ var trainer
 var turnSpeed = 20
 var velocity = Vector3()
 var wandering_point = Vector3()
-var walk_to_target = self
+var walk_to_target = null
 var walk_to_target_positive_interaction
 
 var mood = {
@@ -94,39 +97,41 @@ func _on_WalkTimer_timeout():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	apply_gravity(delta)
 	match state:
 		State.attack:
-			apply_gravity(delta)
+			#apply_gravity(delta)
 			move_towards(attacking, delta)
 		State.corral:
-			apply_gravity(delta)
+			#apply_gravity(delta)
 			move_towards(corral, delta)
 		State.follow:
-			apply_gravity(delta)
+			#apply_gravity(delta)
 			move_towards(trainer, delta)
 		State.idle:
-			apply_gravity(delta)
-			check_pep_thresh()
+			#apply_gravity(delta)
 			if(has_enemy()):
 				look_for(attacking, (followThreshold/2))
 			elif(has_trainer() and shouldFollowTrainer):
 				look_for(trainer)
+			else:
+				find_horse_to_talk_to()
 		State.knockback:
 			move_based_on_knockback(delta)
 		State.lasso:
 			wiggle(delta)
 		State.pilot:
-			apply_gravity(delta)
+			#apply_gravity(delta)
 			move_based_on_input(delta)
 		State.search:
-			apply_gravity(delta)
+			#apply_gravity(delta)
 			look_for(trainer)
 		State.walking:
-			apply_gravity(delta)
+			#apply_gravity(delta)
 			walk_towards(walk_to_target, delta)
 			#turn_and_face(walk_to_target)
 		State.wander:
-			apply_gravity(delta)
+			#apply_gravity(delta)
 			wander(delta)
 
 func add_horse_to_coms(h):
@@ -190,14 +195,6 @@ func check_if_charmer_is_conversation_target(charmer, val):
 		print("charmer is conversation subject... ", val)
 		walk_to_target_positive_interaction = val
 
-func check_pep_thresh():
-	if(pep > 0):
-		#can join party
-		pass
-	if(pep > 10):
-		#can interact with other horses whose pep are greater than 10
-		pass
-
 func check_relationships(person):
 	if relationships.has(person):
 		return relationships[person]
@@ -205,13 +202,18 @@ func check_relationships(person):
 		return 0
 
 func create_horse(other_parent):
-	print(name, " had a baby with ", other_parent.name)
+	print(name, " had a baby with ", other_parent.name, " ~~ ", owner.name if owner != null else "null")
 	var child = load("res://prefabs/Horse.tscn").instance()
+	if(!createAngryChildren):
+		child.isAggroAtStart = false
 	child.initialize(self, other_parent)
 	if(rootRef == null):
 		rootRef = get_tree().get_root().get_node("World")
-	rootRef.call_deferred("add_child", child)
-	child.global_transform.origin = other_parent.global_transform.origin + Vector3(rng.randf_range(0.0, 10 * stats.Silly), 0.0, rng.randf_range(0.0, 10*stats.Silly))
+	rootRef.add_child(child)
+	child.global_transform.origin = other_parent.global_transform.origin + Vector3(rng.randf_range(0.0, 40 * stats.Silly), 0.0, rng.randf_range(0.0, 40*stats.Silly))
+	var p = child.get_parent().name if child.get_parent() != null else "null"
+	print("~~~ child parent: ", p, " -- child owner: ", child.owner.name if child.owner != null else " null ")
+	print("child position: ", child.global_transform.origin, " ~~~ ", other_parent.name,"'s position: ", other_parent.global_transform.origin)
 
 func deal_damage(power):
 	HP -= power
@@ -239,7 +241,7 @@ func enter_idle_state():
 	set_animation("Idle")
 
 func enter_knockback(vector, dmg):
-	knockback_direction = vector
+	knockbackDirection = vector
 	state = State.knockback
 	$KnockbackTimer.start(0.2 * dmg)
 
@@ -256,7 +258,8 @@ func enter_talk_state():
 	stop_all_timers()
 	stop_walking()
 	turn_and_face(walk_to_target)
-	$HorseInteractionController.determine_interaction(walk_to_target)
+	previousInteractionResult = $HorseInteractionController.determine_interaction(walk_to_target)
+	#walk_to_target = null
 	$TalkCooldownTimer.start(2)
 	pass
 
@@ -282,9 +285,10 @@ func exit_pilot():
 func find_horse_to_talk_to():
 	stop_all_timers()
 	for i in horse_coms:
-		print("am I allowed to talk to ", i.name," ? ", !temp_talk_ban_list.has(i))
+		print("is ", name, " allowed to talk to ", i.name," ? ", !temp_talk_ban_list.has(i))
 		var c = rng.randf_range(0.0,1.0) >= 0.5
-		if c and !temp_talk_ban_list.has(i):
+		#print(i.name, " is walking towards ", i.walk_to_target.name)
+		if c and !temp_talk_ban_list.has(i) and (i.walk_to_target == null or i.walk_to_target == self):
 			start_walking_towards(i)
 			return
 	#enter_idle_state()
@@ -299,8 +303,32 @@ func get_best_stat():
 			key = k
 	return {'key': key, 'value': val}
 
+func get_min_stat_between(a, b):
+	return a if (a['value'] < b['value']) else b
+
+func get_worst_stat():
+	var val = 10
+	var key = ''
+	for k in stats.keys():
+		if (stats[k] < val):
+			val = stats[k]
+			key = k
+	return {'key': key, 'value': val}
+
 func get_stat_total():
 	return stats.Speed + stats.Chaos + stats.Width + stats.Silly
+
+func get_state():
+#	match(state):
+#		State.corral: 
+#		State.idle:
+#		State.lasso:
+#		State.giddyup:
+#		State.pilot:
+#		State.search:
+#		State.follow:
+#		State.wander:knockback, attack, none, hors_de_combat, talking, walking
+	return str(State.keys()[state])
 
 func has_enemy():
 	return attacking != null
@@ -328,6 +356,23 @@ func initialize_personality(mom = null, dad = null):
 	for n in mood_vals:
 		var i = roll_moods(personality)
 		set_moods(moodboard, i, mood_vals[n])
+	moodboard = [HorseMoods.heart, HorseMoods.diamond, HorseMoods.club, HorseMoods.spade, HorseMoods.greed, HorseMoods.bloodlust]
+	if(mom != null):
+		var weight = 0.0
+		var i = 0
+		for m in mom.personality:
+			if m > weight:
+				weight = m
+			i += 1
+		set_moods(moodboard, i, 2)
+	if(dad != null):
+		var weight = 0.0
+		var i = 0
+		for m in dad.personality:
+			if m > weight:
+				weight = m
+			i += 1
+		set_moods(moodboard, i, 2)
 
 func initialize_rng():
 	rng = RandomNumberGenerator.new()
@@ -336,10 +381,12 @@ func initialize_rng():
 func initialize_stats(mom, dad):
 	var m_stat = mom.get_best_stat()
 	var d_stat = dad.get_best_stat()
+	var w_stat = get_min_stat_between(mom.get_worst_stat(), dad.get_worst_stat())
 	stats[m_stat['key']] = m_stat['value']
 	stats[d_stat['key']] = d_stat['value']
+	stats[w_stat['key']] = w_stat['value']
 	for k in stats.keys():
-		if (m_stat['key'] != k) and (d_stat['key'] != k):
+		if (m_stat['key'] != k) and (d_stat['key'] != k) and (w_stat['key'] != k):
 			stats[k] = rng.randi_range(1,10)
 
 func is_horse():
@@ -388,7 +435,7 @@ func move_based_on_input(delta):
 	playerRef.global_transform.origin = saddle.global_transform.origin
 
 func move_based_on_knockback(delta):
-	move_and_slide(knockback_direction, Vector3.UP)
+	move_and_slide(knockbackDirection, Vector3.UP)
 	apply_gravity(delta)
 
 func move_towards(target, delta):
@@ -460,24 +507,26 @@ func recieve_charm(charm, charmer):
 		2:
 			$Particles.loved()
 			#walk_to_target_positive_interaction = true
-			check_if_charmer_is_conversation_target(charmer, true)
+			#check_if_charmer_is_conversation_target(charmer, true)
 		1:
 			$Particles.liked()
 			#walk_to_target_positive_interaction = true
-			check_if_charmer_is_conversation_target(charmer, true)
+			#check_if_charmer_is_conversation_target(charmer, true)
 		0:
 			#walk_to_target_positive_interaction = true
-			check_if_charmer_is_conversation_target(charmer, true)
+			#check_if_charmer_is_conversation_target(charmer, true)
+			pass
 		-1:
 			$Particles.disliked()
 			#walk_to_target_positive_interaction = false
-			check_if_charmer_is_conversation_target(charmer, false)
+			#check_if_charmer_is_conversation_target(charmer, false)
 		-2:
 			$Particles.hated()
 			#walk_to_target_positive_interaction = false
-			check_if_charmer_is_conversation_target(charmer, false)
+			#check_if_charmer_is_conversation_target(charmer, false)
 	if(check_relationships(charmer) < -4):
 		set_target(charmer)
+	return mood[charm]
 
 func report_distance(target):
 	return global_transform.origin.distance_to(target.global_transform.origin)
@@ -519,13 +568,15 @@ func start_following_target():
 	set_animation("Trot", 2.0)
 
 func start_walking_towards(other):
-	stop_all_timers()
-	print("I'm gonna go talk to ", other.name, "....")
-	walk_to_target = other
-	$HorseInteractionController.intented_talki = walk_to_target
-	state = State.walking
-	set_animation("Walk")
-	
+	if(other == self):
+		print("! you can't walk towards yourself, you dummy!")
+		enter_wander_state()
+	else:
+		stop_all_timers()
+		print("I'm gonna go talk to ", other.name, "....")
+		walk_to_target = other
+		state = State.walking
+		set_animation("Walk")
 
 func start_idle_timer():
 	$IdleTimer.start(rand_range(0.1,4.5))
@@ -542,10 +593,11 @@ func stop_following_trainer():
 	enter_idle_state()
 
 func stop_talking_to():
-	print(name, " did not enjoy talking to ", walk_to_target.name)
-	temp_talk_ban_list.append(walk_to_target)
-	walk_to_target = null
-	$HorseInteractionController.intented_talki = null
+	if(walk_to_target != null):
+		print(name, " did not enjoy talking to ", walk_to_target.name)
+		temp_talk_ban_list.append(walk_to_target)
+		walk_to_target = null
+	previousInteractionResult = 0
 	enter_wander_state()
 
 func stop_walking():
@@ -620,7 +672,8 @@ func validate_reproduction(other):
 	#print(get_index())
 	#print(other.name, ' - ', other.get_index)
 	if self.get_index() < other.get_index():
-		self.call_deferred("create_horse", other)
+		#self.call_deferred("create_horse", other)
+		create_horse(other)
 
 func wander(delta):
 	move_and_slide(Vector3(global_transform.origin - wandering_point).normalized(), Vector3.UP)
@@ -686,23 +739,17 @@ func _on_AttackCooldownTimer_timeout():
 
 
 func _on_TalkCooldownTimer_timeout():
-	if(!walk_to_target_positive_interaction):
-#		print(name, " did not enjoy talking to ", walk_to_target.name)
-#		#horse_coms.erase(walk_to_target)
-#		walk_to_target.temp_talk_ban_list.append(self)
-#		temp_talk_ban_list.append(walk_to_target)
-#		walk_to_target.enter_wander_state()
-#		walk_to_target = null
-#		$HorseInteractionController.intented_talki = null
-#		enter_wander_state()
-		walk_to_target.stop_talking_to()
-		stop_talking_to()
-		pass
+	if(state == State.talking and previousInteractionResult != null):
+		print(name,"'s previous interaction with ", (walk_to_target.name if walk_to_target != null else "n??"))
+		if(previousInteractionResult < 0):
+			walk_to_target.stop_talking_to()
+			stop_talking_to()
+			pass
+		else:
+			print(name, " had a positive interaction with ", walk_to_target)
+			enter_talk_state()
 	else:
-		print(name, " had a positive interaction with ", walk_to_target)
-		enter_talk_state()
-	#enter_idle_state()
-	pass # Replace with function body.
+		stop_talking_to()
 
 
 func _on_AggroRange_area_exited(area):
