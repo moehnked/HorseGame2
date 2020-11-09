@@ -23,7 +23,7 @@ var jump = 5
 var knockbackDirection = Vector3()
 var mouse_sensitivity = 0.2
 var saddle
-var speed = 15
+export var speed = 15
 var state = State.normal
 var velocity = Vector3()
 

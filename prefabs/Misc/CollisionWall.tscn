@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://materials/collision_wall_mat.tres" type="Material" id=1]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="BoxShape" id=2]
+
+[node name="CollisionWall" type="StaticBody"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( -47.3468, 0, 0, 0, 1, 0, 0, 0, 11.5698, 0, 0, 0 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( -47.3468, 0, 0, 0, 1, 0, 0, 0, 11.5698, 0, 0, 0 )
+shape = SubResource( 2 )

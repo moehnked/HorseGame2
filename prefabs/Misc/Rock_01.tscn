@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Textures/jungle/Tileable1f.png" type="Texture" id=1]
+[ext_resource path="res://models/misc/rock_01.obj" type="ArrayMesh" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="CapsuleShape" id=2]
+radius = 1.35397
+height = 4.74855
+
+[node name="Rock_01" type="StaticBody"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = ExtResource( 2 )
+material/0 = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 2 )

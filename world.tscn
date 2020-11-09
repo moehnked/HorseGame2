@@ -6,7 +6,7 @@
 [ext_resource path="res://prefabs/Misc/BasketballHoop.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/world.gd" type="Script" id=5]
 [ext_resource path="res://Scripts/Misc/Debug.gd" type="Script" id=6]
-[ext_resource path="res://Scripts/InputObserver.gd" type="Script" id=7]
+[ext_resource path="res://prefabs/InputObserver.tscn" type="PackedScene" id=7]
 [ext_resource path="res://prefabs/InteractionPrompt.tscn" type="PackedScene" id=8]
 [ext_resource path="res://prefabs/Trophy.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scripts/Misc/GlobalCorralRegistrar.gd" type="Script" id=10]
@@ -62,8 +62,7 @@ stats = {
 "Width": 1
 }
 
-[node name="InputObserver" type="Node" parent="."]
-script = ExtResource( 7 )
+[node name="InputObserver" parent="." instance=ExtResource( 7 )]
 
 [node name="InteractionPrompt" parent="." instance=ExtResource( 8 )]
 

@@ -1,13 +1,17 @@
 extends Spatial
 
+export var music_enabled = true
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
+func is_song_playing():
+	return $MusicPlayer.playing
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func play_song(song_path = "res://sounds/error_01.wav", db = 0.0):
+	if(music_enabled):
+		queue_channel($MusicPlayer, song_path, db)
 
 func play_sound(sound_path = "res://sounds/error_01.wav", db = 0):
 	if($AudioStreamPlayer.playing):

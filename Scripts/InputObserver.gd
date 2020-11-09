@@ -1,5 +1,7 @@
 extends Node
 
+onready var inputMacro = preload("res://Scripts/InputMacro.gd")
+
 var observers = []
 var wheel_up = true
 var wheel_down = false
