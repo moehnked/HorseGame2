@@ -319,15 +319,6 @@ func get_stat_total():
 	return stats.Speed + stats.Chaos + stats.Width + stats.Silly
 
 func get_state():
-#	match(state):
-#		State.corral: 
-#		State.idle:
-#		State.lasso:
-#		State.giddyup:
-#		State.pilot:
-#		State.search:
-#		State.follow:
-#		State.wander:knockback, attack, none, hors_de_combat, talking, walking
 	return str(State.keys()[state])
 
 func has_enemy():
@@ -348,8 +339,8 @@ func initialize(mom, dad):
 func initialize_personality(mom = null, dad = null):
 	if(isAggroAtStart):
 		pep = rng.randi_range(-10,0)
-#	else:
-#		pep = 1
+	else:
+		pep = 1
 	var moodboard = [HorseMoods.heart, HorseMoods.diamond, HorseMoods.club, HorseMoods.spade, HorseMoods.greed, HorseMoods.bloodlust]
 	personality = calculate_random_weights()
 	var mood_vals = [2,1,0,0,-1,-2]
@@ -496,34 +487,24 @@ func recieve_charm(charm, charmer):
 	else:
 		relationships[charmer] = mood[charm]
 	
-#	if(mood[charm] > 0):
-#		pep += 1
-#	elif(mood[charm] < 0):
-#		pep -= 1
+	if(mood[charm] > 0):
+		pep += 1
+	elif(mood[charm] < 0):
+		pep -= 1
 	
 	print(name, "'s Relationship with ", charmer.name, " increased by ", mood[charm], " to ", relationships[charmer])
 	print("Pep: ", pep)
 	match(mood[charm]):
 		2:
 			$Particles.loved()
-			#walk_to_target_positive_interaction = true
-			#check_if_charmer_is_conversation_target(charmer, true)
 		1:
 			$Particles.liked()
-			#walk_to_target_positive_interaction = true
-			#check_if_charmer_is_conversation_target(charmer, true)
 		0:
-			#walk_to_target_positive_interaction = true
-			#check_if_charmer_is_conversation_target(charmer, true)
 			pass
 		-1:
 			$Particles.disliked()
-			#walk_to_target_positive_interaction = false
-			#check_if_charmer_is_conversation_target(charmer, false)
 		-2:
 			$Particles.hated()
-			#walk_to_target_positive_interaction = false
-			#check_if_charmer_is_conversation_target(charmer, false)
 	if(check_relationships(charmer) < -4):
 		set_target(charmer)
 	return mood[charm]
@@ -669,17 +650,13 @@ func update_relationship(person, value):
 
 func validate_reproduction(other):
 	print("validating reproduction...")
-	#print(get_index())
-	#print(other.name, ' - ', other.get_index)
 	if self.get_index() < other.get_index():
-		#self.call_deferred("create_horse", other)
 		create_horse(other)
 
 func wander(delta):
 	move_and_slide(Vector3(global_transform.origin - wandering_point).normalized(), Vector3.UP)
 
 func walk_towards(other, delta):
-	#move_and_slide(Vector3(global_transform.origin - other.global_transform.origin).normalized(), Vector3.UP)
 	turn_and_face(other)
 	var facing = -global_transform.basis.z * calculate_speed() * delta
 	move_and_slide(facing)
