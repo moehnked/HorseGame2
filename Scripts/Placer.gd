@@ -26,7 +26,14 @@ func check_materials():
 	print("player has : ", count, " ", mat.itemName)
 	#compare count in inventory to requirement and return
 	return count >= required_materials
-	pass
+
+func consume_materials():
+	var inv = playerRef.get_inventory()
+	var mat = resource_ref.instance().get_node("Item")
+	var i = 0
+	while(Utils.count(mat, inv) > 0 and i < required_materials):
+		i += 1
+		Utils.remove_item(mat, inv)
 
 func disable_place():
 	print("cannot place item here")
@@ -68,6 +75,7 @@ func spawn_prefab():
 		var p = load("res://prefabs/Constructable/" + creation_prefab + ".tscn").instance()
 		p.global_transform = global_transform
 		rootRef.call_deferred("add_child", p)
+		consume_materials()
 	terminate()
 
 func subscribe_to():

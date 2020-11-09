@@ -25,5 +25,12 @@ static func count(item, list):
 			c += 1
 	return c
 
+static func remove_item(item, list):
+	var i = 0
+	while(i < list.size()):
+		if(list[i].itemName == item.itemName):
+			list.remove(i)
+		i += 1
+
 static func show_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
