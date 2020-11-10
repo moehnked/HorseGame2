@@ -5,7 +5,7 @@ var leftLink = null
 var rightLink = null
 
 func _on_SnapZone_area_entered(area):
-	print("~~~~~~~", area.name)
+	#print("~~~~~~~", area.name)
 	if area.has_method("link"):
 		#print("snapping ", area.name)
 		if($LeftPost.global_transform.origin.distance_to(area.global_transform.origin) < $RightPost.global_transform.origin.distance_to(area.global_transform.origin)):

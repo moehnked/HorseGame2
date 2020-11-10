@@ -22,15 +22,13 @@ func enable_collisions():
 	isInteractable = true
 
 func interact(controller):
-	controller.inventory.append(self)
+	if .get_inventory(controller) != null:
+		controller.inventory.append(self)
 	isInteractable = false
-	controller.clear()
-	controller.disable_interact()
+	if controller.has_method("equip"):
+		controller.equip(self)
 	_controller = controller
 	playerRef = controller.owner
-	parent_transform = playerRef.get_palm()
-	playerRef.revoke_casting()
-	playerRef.revoke_menu_options()
 	disable_collisions()
 
 

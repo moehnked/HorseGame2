@@ -16,6 +16,17 @@ func disable_interact():
 func enable_interact():
 	canInteract = true
 
+func equip(item):
+	clear()
+	disable_interact()
+	item.parent_transform = owner.get_palm()
+	owner.revoke_casting()
+	owner.revoke_menu_options()
+	pass
+
+func get_inventory():
+	return inventory
+
 func parse_input(input):
 	if input.engage and canInteract:
 		if lookingAt != null:

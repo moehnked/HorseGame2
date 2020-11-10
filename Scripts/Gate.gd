@@ -1,11 +1,15 @@
 extends Area
 
+onready var testPointResource = preload("res://prefabs/Misc/TestPoint.tscn")
+
 var connected_peices = []
 var gateRef = self
 var interactionPrompt = ""
 var isOpen = false
 var isInteractable = true
 var leftLink = null
+var midpoint = Vector3()
+var midpoint_object = null
 var rightLink = null
 var number_of_peices = 1
 
@@ -13,20 +17,28 @@ var number_of_peices = 1
 func complete():
 	print("COMPLETE CORRAL - ", connected_peices.size())
 	var corrals = get_tree().get_root().get_node("World").get_node("GlobalCorralRegistrar")
+	midpoint = corrals.calculate_midpoint(connected_peices)
+	midpoint.y = global_transform.origin.y
+	midpoint_object = testPointResource.instance()
+	midpoint_object.global_transform.origin = midpoint
+	get_tree().get_root().get_node("World").add_child(midpoint_object)
+	midpoint_object.scale = Vector3(1,1,1)
 	corrals.register(self)
+
+func get_midpoint():
+	return midpoint_object
 
 func get_size():
 	return connected_peices.size()
 
 func interact(controller):
-	isOpen = not isOpen
-	$Open.visible = isOpen
-	$Closed.visible = not isOpen
-	$Blocker/CollisionShape2.disabled = isOpen
-	interactionPrompt = prompt()
 	controller.read_prompt()
-	play_sound()
+	toggle()
+	$AutoShutTimer.start(6.0)
 	pass
+
+func is_gate():
+	return true
 
 func link(other):
 	print("linking ", other.name," to ->")
@@ -36,7 +48,6 @@ func link(other):
 	else:
 		print(name, "'s right link")
 		rightLink = other
-	#connected_peices.append(other)
 	if search():
 		complete()
 
@@ -76,45 +87,13 @@ func search():
 	else:
 		return false
 
-#func search():
-#	if(rightLink != null):
-#		var tmp = rightLink
-#		var prev = self
-#		var links = 1
-#		while(tmp != self and tmp != null):
-#			#case 1 we are attached to tmp's right
-#			if(tmp.rightLink == prev):
-#				prev = tmp
-#				tmp = tmp.leftLink
-#				links += 1
-#			#case 2 we are attached to tmp's left
-#			elif(tmp.leftLink == prev):
-#				prev = tmp
-#				tmp = tmp.rightLink
-#				links += 1
-#		print("number of fence peices: ", links)
-#		number_of_peices = links
-#		if tmp == self:
-#			return true
-#		else:
-#			tmp = leftLink
-#			prev = self
-#			links = 1
-#			while(tmp != self and tmp != null):
-#				#case 1 we are attached to tmp's right
-#				if(tmp.rightLink == prev):
-#					prev = tmp
-#					tmp = tmp.leftLink
-#					links += 1
-#				#case 2 we are attached to tmp's left
-#				elif(tmp.leftLink == prev):
-#					prev = tmp
-#					tmp = tmp.rightLink
-#					links += 1
-#			if tmp == self:
-#				return true
-#			else:
-#				return false
+func toggle():
+	isOpen = not isOpen
+	$Open.visible = isOpen
+	$Closed.visible = not isOpen
+	$Blocker/CollisionShape2.disabled = isOpen
+	interactionPrompt = prompt()
+	play_sound()
 
 func _on_Gate_area_entered(area):
 	if area.has_method("link"):
@@ -130,3 +109,8 @@ func _on_Gate_area_entered(area):
 			else:
 				rightLink = area.owner
 			area.owner.link(self, true)
+
+
+func _on_AutoShutTimer_timeout():
+	toggle()
+	pass # Replace with function body.

@@ -6,6 +6,7 @@ export var baby_threshold = 100
 var horses = []
 var interactionPrompt = "Talk"
 var isInteractable = true
+var notAllowedToInteractWith = []
 
 func debug_births(other):
 	if(other.readyToHaveKids):
@@ -36,6 +37,9 @@ func determine_interaction(other):
 		print("im gonna talk to my buddy ", other.name)
 		return other.recieve_charm(hm.random_mood(), owner)
 
+func get_inventory():
+	return null
+
 func interact(controller):
 	owner.recieve_charm(hm.random_mood(), controller.owner)
 
@@ -44,6 +48,9 @@ func is_horse_interaction_controller():
 
 func prompt():
 	return interactionPrompt
+
+func read_prompt():
+	pass
 
 func _on_HorseInteractionController_area_entered(area):
 	#var h = determine_horse_source(area)
@@ -56,13 +63,20 @@ func _on_HorseInteractionController_area_entered(area):
 			if(h == owner.walk_to_target):
 				print("queing ", h.name, " to interact queue...")
 				owner.enter_talk_state()
+	else:
+		#var i = area if (area.has_method("interact")) else if()
+		if(area.has_method("interact")) and !notAllowedToInteractWith.has(area):
+			#print("=-=- I ",("am " if(!notAllowedToInteractWith.has(area)) else "am not "), "allowed to interact with ", area.name)
+			area.interact(self)
+			if area.has_method("is_gate"):
+				notAllowedToInteractWith.append(area)
 
 
 
 func _on_HorseInteractionController_area_exited(area):
 	#var h = determine_horse_source(area)
 	var h = area.owner if area.has_method("is_horse_interaction_controller") else null
-	print("========= h is ", h)
+	#print("========= h is ", h)
 	if(h != null):
 		if(horses.has(h)):
 			horses.erase(h)

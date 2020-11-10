@@ -54,4 +54,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6146 )
 
 [node name="RightPost" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.80456 )
+
+[node name="AutoShutTimer" type="Timer" parent="."]
+one_shot = true
 [connection signal="area_entered" from="." to="." method="_on_Gate_area_entered"]
+[connection signal="timeout" from="AutoShutTimer" to="." method="_on_AutoShutTimer_timeout"]

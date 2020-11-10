@@ -6,9 +6,15 @@ export var itemName = "Item"
 var isInteractable = true
 var mesh
 
+func get_inventory(controller):
+	if(controller.has_method("get_inventory")):
+		return controller.get_inventory()
+	return null
+
 func interact(controller):
 	#pick up the item and add it to player inventory
-	controller.inventory.append(self.duplicate())
+	if(get_inventory(controller) != null):
+		controller.inventory.append(self.duplicate())
 	queue_free()
 	pass
 	

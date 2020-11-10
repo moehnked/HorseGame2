@@ -21,7 +21,7 @@ var followThreshold = 20.0
 var gravity = 11.2
 var greedRate
 var hasBeenInitialized = false
-var horse_coms = []
+var horseComs = []
 var HP = 10
 var impact_dir
 var jump = 10
@@ -37,13 +37,14 @@ var shouldFollowTrainer = true
 var state = State.idle
 var stopFollowThreshold = 4
 var temp_rot
-var temp_talk_ban_list = []
+var tempTalkBanList = []
 var trainer
 var turnSpeed = 20
 var velocity = Vector3()
 var wandering_point = Vector3()
 var walk_to_target = null
 var walk_to_target_positive_interaction
+var has_destination = false
 
 var mood = {
 	HorseMoods.heart : 0,
@@ -83,7 +84,7 @@ func _ready():
 
 func _on_IdleTimer_timeout():
 	#check if close enough to horse with high pep to have a conversation with
-	if(horse_coms.size() > 0):
+	if(horseComs.size() > 0):
 		find_horse_to_talk_to()
 	else:
 		enter_wander_state()
@@ -137,7 +138,7 @@ func _process(delta):
 func add_horse_to_coms(h):
 	if(h != self):
 		print(name," is adding ", h.name, " to coms...")
-		horse_coms.append(h)
+		horseComs.append(h)
 
 func apply_gravity(delta):
 	if not is_on_floor():
@@ -284,11 +285,11 @@ func exit_pilot():
 
 func find_horse_to_talk_to():
 	stop_all_timers()
-	for i in horse_coms:
-		print("is ", name, " allowed to talk to ", i.name," ? ", !temp_talk_ban_list.has(i))
+	for i in horseComs:
+		print("is ", name, " allowed to talk to ", i.name," ? ", !tempTalkBanList.has(i))
 		var c = rng.randf_range(0.0,1.0) >= 0.5
 		#print(i.name, " is walking towards ", i.walk_to_target.name)
-		if c and !temp_talk_ban_list.has(i) and (i.walk_to_target == null or i.walk_to_target == self) and (['idle', 'wander', 'none', 'walking', 'talking'].has(i.get_state()) and !i.shouldFollowTrainer):
+		if c and !tempTalkBanList.has(i) and (i.walk_to_target == null or i.walk_to_target == self) and (['idle', 'wander', 'none', 'walking', 'talking'].has(i.get_state()) and !i.shouldFollowTrainer):
 			start_walking_towards(i)
 			return
 	#enter_idle_state()
@@ -443,7 +444,13 @@ func move_towards(target, delta):
 		elif target == attacking:
 			attack()
 		else:
-			enter_idle_state()
+			#go to corral midpoint
+			if corral.has_method("get_midpoint"):
+				if(corral.get_midpoint() != null):
+					corral = corral.get_midpoint()
+					start_walking_towards(corral)
+			else:
+				enter_idle_state()
 
 func parse_input(input):
 	direction = Vector3()
@@ -559,6 +566,21 @@ func start_walking_towards(other):
 		state = State.walking
 		set_animation("Walk")
 
+func start_walking_towards_corral():
+	var corrals
+	#contacts the corral registrar
+	if(rootRef != null):
+		corrals = rootRef.get_node("GlobalCorralRegistrar")
+	else:
+		rootRef = get_tree().get_root().get_node("World")
+		corrals = rootRef.get_node("GlobalCorralRegistrar")
+	corral = corrals.get_corral()
+	print("travelling to ", corral)
+	state = State.corral
+	trainer.exit_pilot(false)
+	shouldFollowTrainer = false
+	has_destination = true
+
 func start_idle_timer():
 	$IdleTimer.start(rand_range(0.1,4.5))
 
@@ -576,7 +598,7 @@ func stop_following_trainer():
 func stop_talking_to():
 	if(walk_to_target != null):
 		print(name, " did not enjoy talking to ", walk_to_target.name)
-		temp_talk_ban_list.append(walk_to_target)
+		tempTalkBanList.append(walk_to_target)
 		walk_to_target = null
 	previousInteractionResult = 0
 	enter_wander_state()
@@ -609,18 +631,7 @@ func tame(tamer):
 	play_random_whinny()
 	if(!trainer.add_to_party(self)):
 		print("party full")
-		var corrals
-		#contacts the corral registrar
-		if(rootRef != null):
-			corrals = rootRef.get_node("GlobalCorralRegistrar")
-		else:
-			rootRef = get_tree().get_root().get_node("World")
-			corrals = rootRef.get_node("GlobalCorralRegistrar")
-		corral = corrals.get_corral()
-		print("travelling to ", corral)
-		state = State.corral
-		trainer.exit_pilot(false)
-		shouldFollowTrainer = false
+		start_walking_towards_corral()
 	else:
 		enter_pilot()
 
@@ -660,11 +671,17 @@ func walk_towards(other, delta):
 	turn_and_face(other)
 	var facing = -global_transform.basis.z * calculate_speed() * delta
 	move_and_slide(facing)
+	if(has_destination):
+		if(report_distance(walk_to_target) < 1.0):
+			has_destination = false
+			walk_to_target = null
+			stop_walking()
+			enter_wander_state()
+
 
 func wiggle(delta):
 	#rotation -= Vector3(0,impact_dir.y + 0.01,0)
 	pass
-
 
 func _on_AggroRange_area_entered(area):
 	if pep < -5:
@@ -680,11 +697,11 @@ func _on_AggroRange_area_entered(area):
 	elif(area.owner != null):
 		if(check_relationships(area.owner) < -4):
 			set_target(area.owner)
-		elif(area.owner.has_method("is_horse") and !horse_coms.has(area.owner)):
+		elif(area.owner.has_method("is_horse") and !horseComs.has(area.owner)):
 			#add to list of horses in range of tlaking
 			add_horse_to_coms(area.owner)
 			pass
-	elif(area.has_method("is_horse") and !horse_coms.has(area)):
+	elif(area.has_method("is_horse") and !horseComs.has(area)):
 		#add to list of horses in range of talking
 		add_horse_to_coms(area)
 		pass
@@ -731,14 +748,14 @@ func _on_TalkCooldownTimer_timeout():
 
 func _on_AggroRange_area_exited(area):
 	if(area.has_method("is_horse")):
-		horse_coms.erase(area)
+		horseComs.erase(area)
 	elif(area.owner != null):
 		if(area.owner.has_method("is_horse")):
-			horse_coms.erase(area.owner)
+			horseComs.erase(area.owner)
 	pass # Replace with function body.
 
 
 func _on_TempTalkBanTick_timeout():
-	temp_talk_ban_list.pop_front()
+	tempTalkBanList.pop_front()
 	$TempTalkBanTick.start(10)
 	pass # Replace with function body.
