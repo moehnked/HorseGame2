@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/Tileable1.png-11839a6e1e6d975fab66d34de1f49beb.s3tc.stex"
-path.etc2="res://.import/Tileable1.png-11839a6e1e6d975fab66d34de1f49beb.etc2.stex"
+path.s3tc="res://.import/roof.jpg-749cd41c0869e3f0465dd6966c6cacde.s3tc.stex"
+path.etc2="res://.import/roof.jpg-749cd41c0869e3f0465dd6966c6cacde.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Textures/temple/Tileable1.png"
-dest_files=[ "res://.import/Tileable1.png-11839a6e1e6d975fab66d34de1f49beb.s3tc.stex", "res://.import/Tileable1.png-11839a6e1e6d975fab66d34de1f49beb.etc2.stex" ]
+source_file="res://Textures/misc/roof.jpg"
+dest_files=[ "res://.import/roof.jpg-749cd41c0869e3f0465dd6966c6cacde.s3tc.stex", "res://.import/roof.jpg-749cd41c0869e3f0465dd6966c6cacde.etc2.stex" ]
 
 [params]
 

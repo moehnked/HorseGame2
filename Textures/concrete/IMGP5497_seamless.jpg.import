@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/Tileable1.png-11839a6e1e6d975fab66d34de1f49beb.s3tc.stex"
-path.etc2="res://.import/Tileable1.png-11839a6e1e6d975fab66d34de1f49beb.etc2.stex"
+path.s3tc="res://.import/IMGP5497_seamless.jpg-b07bc5b730d3aeb1f0339c2b3af540e9.s3tc.stex"
+path.etc2="res://.import/IMGP5497_seamless.jpg-b07bc5b730d3aeb1f0339c2b3af540e9.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Textures/temple/Tileable1.png"
-dest_files=[ "res://.import/Tileable1.png-11839a6e1e6d975fab66d34de1f49beb.s3tc.stex", "res://.import/Tileable1.png-11839a6e1e6d975fab66d34de1f49beb.etc2.stex" ]
+source_file="res://Textures/concrete/IMGP5497_seamless.jpg"
+dest_files=[ "res://.import/IMGP5497_seamless.jpg-b07bc5b730d3aeb1f0339c2b3af540e9.s3tc.stex", "res://.import/IMGP5497_seamless.jpg-b07bc5b730d3aeb1f0339c2b3af540e9.etc2.stex" ]
 
 [params]
 
