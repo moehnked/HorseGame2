@@ -1,6 +1,7 @@
 extends Spatial
 
 onready var rootRef = get_tree().get_root().get_node("World")
+onready var Utils = preload("res://Utils.gd")
 
 func _ready():
 	subscribe_to()
@@ -8,6 +9,7 @@ func _ready():
 
 func subscribe_to():
 	rootRef.get_node("InputObserver").subscribe(self)
+	Utils.capture_mouse()
 
 func unsubscribe_to():
 	rootRef.get_node("InputObserver").unsubscribe(self)

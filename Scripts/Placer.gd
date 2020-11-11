@@ -58,6 +58,8 @@ func parse_input(input):
 		enable_place()
 	else:
 		disable_place()
+	if(input.tab):
+		terminate()
 	match hand:
 		"left":
 			if input.standard:

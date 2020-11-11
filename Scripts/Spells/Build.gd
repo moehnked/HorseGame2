@@ -56,6 +56,14 @@ func initialize(args):
 	playerRef.enter_some_menu()
 
 func parse_input(input):
+	if input.mouse_down:
+		playerRef.exit_build_mode(callback)
+		playerRef.placer_unsubscribe(self)
+		playerRef.isBuilding = false
+		unsubscribe_to()
+		playerRef.conclude_spell("BUILD")
+		playerRef.exit_some_menu()
+		queue_free()
 	if input.standard:
 		if canSelect:
 			ready_placer()
