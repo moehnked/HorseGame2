@@ -36,7 +36,7 @@ func parse_input(input):
 
 func read_prompt():
 	if canInteract:
-		print("displaying prompt of ",lookingAt)
+		#print("displaying prompt of ",lookingAt)
 		promptRef.show_prompt(lookingAt.prompt())
 		pass
 
