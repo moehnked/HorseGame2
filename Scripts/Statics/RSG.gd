@@ -4,7 +4,7 @@ extends Node
 static func write_word(words):
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	var a = rng.randi_range(0, words.size())
+	var a = rng.randi() % words.size()
 	return words[a]
 
 

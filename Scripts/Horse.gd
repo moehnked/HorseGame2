@@ -22,6 +22,8 @@ var gravity = 11.2
 var greedRate
 var hasBeenInitialized = false
 var horseComs = []
+var horse_icon = "res://Sprites/UI/Horse_Icon_01.png"
+var horse_icon_size = 1
 var HP = 10
 var impact_dir
 var jump = 10
@@ -63,7 +65,23 @@ export var stats = {
 }
 
 
-enum State {corral, idle, lasso, giddyup, pilot, search, follow, wander, knockback, attack, none, hors_de_combat, talking, walking}
+enum State {
+	attack,
+	corral,
+	dialogue,
+	follow,
+	giddyup,
+	hors_de_combat,
+	idle,
+	knockback,
+	lasso,
+	none,
+	pilot,
+	search,
+	talking,
+	walking,
+	wander,
+}
 
 var sfx_whinnys = [
 	"res://sounds/horse_01.wav",
@@ -77,6 +95,7 @@ var sfx_other = [
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initialize_rng()
+	horse_icon = "res://Sprites/UI/Horse_Icon_0" + String((rng.randi() % horse_icon_size) + 1) + ".png"
 	if(!hasBeenInitialized):
 		initialize_personality()
 	enter_idle_state()
@@ -159,6 +178,12 @@ func attack():
 	set_animation("Attack")
 	state = State.none
 	$AttackHitboxTimer.start()
+
+func begin_dialogue(other):
+	stop_all_timers()
+	turn_and_face(other)
+	set_animation("Idle")
+	state = State.dialogue
 
 func calculate_knockback_vector(hitbox, player):
 	#print("type:  --- ",hitbox.get_class())
@@ -271,6 +296,9 @@ func enter_wander_state():
 	state = State.wander
 	set_animation("Walk")
 
+func exit_dialogue():
+	enter_wander_state()
+
 func exit_giddyup():
 	enter_idle_state()
 
@@ -303,6 +331,9 @@ func get_best_stat():
 			val = stats[k]
 			key = k
 	return {'key': key, 'value': val}
+
+func get_icon():
+	return horse_icon
 
 func get_min_stat_between(a, b):
 	return a if (a['value'] < b['value']) else b
@@ -339,9 +370,9 @@ func initialize(mom, dad):
 
 func initialize_personality(mom = null, dad = null):
 	if(isAggroAtStart):
-		pep = rng.randi_range(-10,0)
+		pep = rng.randi_range(-10,5)
 	else:
-		pep = 1
+		pep = pep
 	var moodboard = [HorseMoods.heart, HorseMoods.diamond, HorseMoods.club, HorseMoods.spade, HorseMoods.greed, HorseMoods.bloodlust]
 	personality = calculate_random_weights()
 	var mood_vals = [2,1,0,0,-1,-2]

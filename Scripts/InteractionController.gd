@@ -6,6 +6,8 @@ var canInteract = true
 var inventory = []
 var lookingAt = null
 
+func begin_dialogue(other):
+	owner.begin_dialogue(other)
 
 func clear():
 	promptRef.clear()

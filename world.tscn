@@ -53,7 +53,7 @@ light_energy = 0.5
 [node name="Horse" parent="." instance=ExtResource( 3 )]
 transform = Transform( 0.216006, 0, 1.42039, 0, 1.43672, 0, -1.42039, 0, 0.216006, 31.1272, 0.320388, -24.9498 )
 isAggroAtStart = false
-pep = 10
+pep = 5
 readyToHaveKids = true
 stats = {
 "Chaos": 1,

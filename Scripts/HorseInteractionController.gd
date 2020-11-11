@@ -9,6 +9,13 @@ var interactionPrompt = "Talk"
 var isInteractable = true
 var notAllowedToInteractWith = []
 
+func create_dialogue(controller):
+	var o = load("res://Scripts/UI/DialogueScreen.tscn").instance()
+	add_child(o)
+	owner.begin_dialogue(controller)
+	controller.begin_dialogue(owner)
+	o.initialize({'speaker':owner, 'text':RSG.generate_sentance(), 'listener':controller.owner})
+
 func debug_births(other):
 	if(other.readyToHaveKids):
 		other.readyToHaveKids = false
@@ -42,8 +49,11 @@ func get_inventory():
 	return null
 
 func interact(controller):
-	print(RSG.generate_sentance())
-	owner.recieve_charm(hm.random_mood(), controller.owner)
+	#print(RSG.generate_sentance())
+	if(owner.pep >= 5):
+		create_dialogue(controller)
+	elif owner.pep >= -4:
+		owner.recieve_charm(hm.random_mood(), controller.owner)
 
 func is_horse_interaction_controller():
 	return true

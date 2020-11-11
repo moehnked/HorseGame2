@@ -117,6 +117,11 @@ func apply_rotation(input):
 	if state != State.giddyup and not isBuilding:
 		rotate_y(input.mouse_horizontal)
 
+func begin_dialogue(other):
+	unsubscribe_to()
+	get_head().look_at_object(other)
+	$InteractionController.disable_interact()
+
 func calculate_knockback_vector(hitbox, source):
 	print("type:  --- ",hitbox.get_class())
 	return (hitbox.global_transform.origin - source.global_transform.origin) * 10
@@ -205,6 +210,11 @@ func exit_build_mode(callback):
 	canUpdateHands = true
 	canCheckInventory = true
 	call(callback)
+
+func exit_dialogue():
+	subscribe_to()
+	get_head().unfocus()
+	$InteractionController.enable_interact()
 
 func exit_inventory():
 	exit_some_menu()
