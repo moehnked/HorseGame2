@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/UI/DialogueScreen.gd" type="Script" id=1]
+
+[node name="DialogueScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container" type="Node2D" parent="."]
+position = Vector2( 270.115, 644.881 )
+
+[node name="window" type="ColorRect" parent="Container"]
+margin_right = 459.0
+margin_bottom = 205.0
+color = Color( 0.0941176, 0.0941176, 0.0941176, 0.560784 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
