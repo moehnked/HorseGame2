@@ -38,8 +38,7 @@ func parse_input(input):
 
 func read_prompt():
 	if canInteract:
-		#print("displaying prompt of ",lookingAt)
-		promptRef.show_prompt(lookingAt.prompt())
+		promptRef.show_prompt(lookingAt.prompt(), lookingAt.has_method("is_low"))
 		pass
 
 func toggle_interactability():

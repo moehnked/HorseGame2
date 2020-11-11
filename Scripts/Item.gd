@@ -19,7 +19,7 @@ func interact(controller):
 	pass
 	
 func prompt():
-	print("ITEM PROMPTOS")
+	#print("ITEM PROMPTOS")
 	return "pick up"
 
 func get_name():

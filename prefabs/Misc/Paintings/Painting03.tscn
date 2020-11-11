@@ -2,7 +2,7 @@
 
 [ext_resource path="res://models/objects/painting_frame.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://materials/basic_cel.tres" type="Material" id=2]
-[ext_resource path="res://Sprites/misc/paintings/Painting01.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/misc/paintings/Painting03.png" type="Texture" id=3]
 [ext_resource path="res://prefabs/Items/Item.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Items/Painting.gd" type="Script" id=5]
 
@@ -20,7 +20,7 @@ albedo_texture = ExtResource( 3 )
 
 [node name="Item" parent="." instance=ExtResource( 4 )]
 script = ExtResource( 5 )
-painting_desc = "'\"Watercolor over abstract\" - January, 2020...'"
+painting_desc = "'\"Eagle\" [Charcoal on paper] - December, 2019...'"
 
 [node name="Item_Mesh" parent="Item" index="0"]
 visible = false
