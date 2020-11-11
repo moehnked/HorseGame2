@@ -1,6 +1,5 @@
 extends Area
-var Utils = preload("res://Utils.gd")
-
+onready var Utils = preload("res://Utils.gd")
 onready var resource_ref = preload("res://prefabs/Items/Plank.tscn")
 
 var callback

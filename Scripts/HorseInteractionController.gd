@@ -1,6 +1,7 @@
 extends Area
 const hm = preload("res://Scripts/Statics/HorseMoods.gd")
 const HorseMoods = hm.HorseMoods
+const RSG = preload("res://Scripts/Statics/RSG.gd")
 
 export var baby_threshold = 100
 var horses = []
@@ -41,6 +42,7 @@ func get_inventory():
 	return null
 
 func interact(controller):
+	print(RSG.generate_sentance())
 	owner.recieve_charm(hm.random_mood(), controller.owner)
 
 func is_horse_interaction_controller():
