@@ -41,8 +41,6 @@ script = ExtResource( 5 )
 
 [node name="Horse2" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, 4.5962, 0, -29.1486 )
-garunteedConversation = true
-isAggroAtStart = false
 pep = 10
 stats = {
 "Chaos": 1,
