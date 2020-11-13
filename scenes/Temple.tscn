@@ -1,7 +1,7 @@
 [gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Textures/rock/mossy_rock_seamless.jpg" type="Texture" id=1]
-[ext_resource path="res://prefabs/Misc/Rock_01.tscn" type="PackedScene" id=2]
+[ext_resource path="res://prefabs/Misc/Rock_02_No_Coll.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Textures/jungle/Tileable1g.png" type="Texture" id=3]
 [ext_resource path="res://models/misc/horse_highres.obj" type="ArrayMesh" id=4]
 [ext_resource path="res://prefabs/Misc/Templ_HalfBlock.tscn" type="PackedScene" id=5]
@@ -13,7 +13,7 @@
 [ext_resource path="res://models/king_horse.obj" type="ArrayMesh" id=11]
 [ext_resource path="res://prefabs/Misc/MossB.tscn" type="PackedScene" id=12]
 [ext_resource path="res://prefabs/Misc/MossA.tscn" type="PackedScene" id=13]
-[ext_resource path="res://prefabs/Misc/Rock_02.tscn" type="PackedScene" id=14]
+[ext_resource path="res://prefabs/Misc/Rock_01_No_Coll.tscn" type="PackedScene" id=14]
 [ext_resource path="res://prefabs/Misc/TemplePillar.tscn" type="PackedScene" id=16]
 [ext_resource path="res://models/misc/rock_01.obj" type="ArrayMesh" id=17]
 [ext_resource path="res://Textures/jungle/Tileable1f.png" type="Texture" id=18]
@@ -5074,15 +5074,6 @@ transform = Transform( -8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 0.00811
 [node name="TempleTile634" parent="stair25" instance=ExtResource( 6 )]
 transform = Transform( -8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 0.00811768, 0.004776, -34.4662 )
 
-[node name="Rock_01" parent="." instance=ExtResource( 2 )]
-transform = Transform( 8.92484, 1.53434, 0.83636, -1.61192, 8.90923, 0.856536, -0.67483, -0.988816, 9.01517, 175.271, -89.2833, -21.5981 )
-
-[node name="Rock_04" parent="." instance=ExtResource( 2 )]
-transform = Transform( -5.84308, -3.95994, 19.9937, 7.96361, -19.5893, -1.55251, 18.7619, 7.08155, 6.88566, 115.662, -89.2833, -12.7313 )
-
-[node name="Rock_02" parent="." instance=ExtResource( 2 )]
-transform = Transform( 9.0512, -0.85431, -0.228912, -0.884447, -8.74278, -2.34262, 0, 2.35378, -8.78442, 175.271, -89.2833, 67.8685 )
-
 [node name="bighorse_statue" type="StaticBody" parent="."]
 transform = Transform( -4.06121, 0, 48.3231, 0, 48.4935, 0, -48.3231, 0, -4.06121, 160.515, -104.933, 19.8959 )
 __meta__ = {
@@ -5336,14 +5327,17 @@ transform = Transform( 0.0957391, -4.77054e-08, 5.54252, 1.38218e-07, 0.648681, 
 [node name="Moss18" parent="Moss32" instance=ExtResource( 12 )]
 transform = Transform( 0.0957391, -4.77054e-08, 5.54252, 1.38218e-07, 0.648681, 0, 0.123973, -6.1774e-08, -0.385223, 1.84385, 0.146883, 0.166848 )
 
-[node name="Rock_05" parent="." instance=ExtResource( 14 )]
-transform = Transform( 13.4126, 0, 0, 0, 13.4126, 0, 0, 0, 13.4126, 130.536, -97.2307, 60.3527 )
-
 [node name="TemplePillar" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1.6951, 0, 0, 0, 1.6951, 0, 0, 0, 1.6951, 68.4362, -26.8515, 13.1907 )
 
+[node name="TemplePillar3" parent="." instance=ExtResource( 16 )]
+transform = Transform( 1.6951, 0, 0, 0, 1.6951, 0, 0, 0, 1.6951, 76.213, -26.8515, 11.9787 )
+
 [node name="TemplePillar2" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1.6951, 0, 0, 0, 1.6951, 0, 0, 0, 1.6951, 68.2494, -26.8515, 26.8261 )
+
+[node name="TemplePillar4" parent="." instance=ExtResource( 16 )]
+transform = Transform( 1.6951, 0, 0, 0, 1.6951, 0, 0, 0, 1.6951, 76.0736, -26.8515, 27.9785 )
 
 [node name="Rock_No_Collision" type="MeshInstance" parent="."]
 transform = Transform( -7.46968, -0.829363, -2.80503, 8.09256, 2.89435, -13.9792, 0.67016, -11.8088, -2.28719, 153.039, -84.3158, 26.0401 )
@@ -5397,6 +5391,18 @@ transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 164.429, -97.6532, 15.8532 )
 [node name="TemplePillar13" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 188.062, -96.22, -7.91142 )
 
+[node name="TemplePillar18" parent="." instance=ExtResource( 16 )]
+transform = Transform( 1.19752, 0, 0, 0, 1.19752, 0, 0, 0, 1.19752, 148.029, -60.178, 8.06022 )
+
+[node name="TemplePillar21" parent="." instance=ExtResource( 16 )]
+transform = Transform( 1.19752, 0, 0, 0, 1.19752, 0, 0, 0, 1.19752, 148.029, -60.178, 4.12003 )
+
+[node name="TemplePillar19" parent="." instance=ExtResource( 16 )]
+transform = Transform( 1.19752, 0, 0, 0, 1.19752, 0, 0, 0, 1.19752, 148.016, -60.178, 31.9587 )
+
+[node name="TemplePillar20" parent="." instance=ExtResource( 16 )]
+transform = Transform( 1.19752, 0, 0, 0, 1.19752, 0, 0, 0, 1.19752, 147.97, -60.178, 36.1023 )
+
 [node name="TemplePillar17" parent="." instance=ExtResource( 16 )]
 transform = Transform( 0.736325, 0.375971, -0.562558, -0.40489, 0.910958, 0.0788592, 0.542115, 0.169708, 0.822989, 184.37, -96.4927, -3.77367 )
 
@@ -5410,7 +5416,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 176.12, -94.9354, 4.12957 )
 transform = Transform( 0.958235, 0.186071, -0.217172, -0.190621, 0.981664, 0, 0.21319, 0.0413975, 0.976133, 172.237, -94.7127, 8.21014 )
 
 [node name="FogContainer" type="Spatial" parent="."]
-visible = false
 
 [node name="Fog" parent="FogContainer" instance=ExtResource( 19 )]
 transform = Transform( 34.1946, 0, 0, 0, 34.1946, 0, 0, 0, 34.1946, 27.5673, -9.62133, -8.53923 )
@@ -5453,6 +5458,123 @@ transform = Transform( -3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788574, 
 
 [node name="TempleWallPiece10" parent="TempleWallContainer" instance=ExtResource( 20 )]
 transform = Transform( -3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788574, -2.31, -7.70267e-08, -2.56895e-07, 37.755, -13.5161, 7.45363 )
+
+[node name="TempleWallPiece41" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788574, -2.31, -7.70267e-08, -2.56895e-07, 45.8822, -14.9335, 5.13274 )
+
+[node name="TempleWallPiece42" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788573, 2.31, -7.70266e-08, -2.56895e-07, 49.149, -16.5603, 5.13274 )
+
+[node name="TempleWallPiece43" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788574, -2.31, -7.70267e-08, -2.56895e-07, 52.4121, -18.1617, 5.13274 )
+
+[node name="TempleWallPiece44" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788573, 2.31, -7.70266e-08, -2.56895e-07, 55.6789, -19.7884, 5.13274 )
+
+[node name="TempleWallPiece45" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788574, -2.31, -7.70267e-08, -2.56895e-07, 58.9383, -21.405, 5.13274 )
+
+[node name="TempleWallPiece46" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788573, 2.31, -7.70266e-08, -2.56895e-07, 62.2052, -23.0317, 5.13274 )
+
+[node name="TempleWallPiece47" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788574, -2.31, -7.70267e-08, -2.56895e-07, 65.4682, -24.6331, 5.13274 )
+
+[node name="TempleWallPiece48" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788573, 2.31, -7.70266e-08, -2.56895e-07, 68.7351, -26.2599, 5.13274 )
+
+[node name="TempleWallPiece49" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788574, -2.31, -7.70267e-08, -2.56895e-07, 71.9975, -27.8883, 5.13274 )
+
+[node name="TempleWallPiece50" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788573, 2.31, -7.70266e-08, -2.56895e-07, 75.2644, -29.5151, 5.13274 )
+
+[node name="TempleWallPiece51" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788574, -2.31, -7.70267e-08, -2.56895e-07, 78.5275, -31.1165, 5.13274 )
+
+[node name="TempleWallPiece52" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788573, 2.31, -7.70266e-08, -2.56895e-07, 81.7943, -32.7432, 5.13274 )
+
+[node name="TempleWallPiece53" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 3.76347e-07, 6.70599e-14, -1.763, -8.99547e-07, 1.057, 2.4847e-21, 2.31, 4.11611e-07, 2.87229e-07, 83.2096, -33.493, 5.10832 )
+
+[node name="TempleWallPiece54" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788574, -2.31, -7.70267e-08, -2.56895e-07, 45.8822, -14.9335, 18.1817 )
+
+[node name="TempleWallPiece55" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788573, 2.31, -7.70266e-08, -2.56895e-07, 49.149, -16.5603, 18.1817 )
+
+[node name="TempleWallPiece56" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788574, -2.31, -7.70267e-08, -2.56895e-07, 52.4121, -18.1617, 18.1817 )
+
+[node name="TempleWallPiece57" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788573, 2.31, -7.70266e-08, -2.56895e-07, 55.6789, -19.7884, 18.1817 )
+
+[node name="TempleWallPiece58" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788574, -2.31, -7.70267e-08, -2.56895e-07, 58.9383, -21.405, 18.1817 )
+
+[node name="TempleWallPiece59" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788573, 2.31, -7.70266e-08, -2.56895e-07, 62.2052, -23.0317, 18.1817 )
+
+[node name="TempleWallPiece60" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788574, -2.31, -7.70267e-08, -2.56895e-07, 65.4682, -24.6331, 18.1817 )
+
+[node name="TempleWallPiece61" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788573, 2.31, -7.70266e-08, -2.56895e-07, 68.7351, -26.2599, 18.1817 )
+
+[node name="TempleWallPiece62" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788574, -2.31, -7.70267e-08, -2.56895e-07, 71.9975, -27.8883, 18.1817 )
+
+[node name="TempleWallPiece63" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788573, 2.31, -7.70266e-08, -2.56895e-07, 75.2644, -29.5151, 18.1817 )
+
+[node name="TempleWallPiece64" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788574, -2.31, -7.70267e-08, -2.56895e-07, 78.5275, -31.1165, 18.1817 )
+
+[node name="TempleWallPiece65" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788573, 2.31, -7.70266e-08, -2.56895e-07, 81.7943, -32.7432, 18.1817 )
+
+[node name="TempleWallPiece67" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -2.31, -3.44414e-07, 0, -7.52694e-07, 1.057, 0, 0, 0, -1.763, 86.7208, -33.9528, 23.9751 )
+
+[node name="TempleWallPiece68" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -2.31, -3.44414e-07, 0, -7.52694e-07, 1.057, 0, 0, 0, -1.763, 86.7208, -33.9528, 27.6062 )
+
+[node name="TempleWallPiece69" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -2.30619, -3.43846e-07, 0.10127, -7.52694e-07, 1.057, 0, -0.132691, -1.97839e-08, -1.76009, 86.6732, -33.9528, 31.2526 )
+
+[node name="TempleWallPiece70" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 2.31, 3.44414e-07, 1.54126e-07, -7.52694e-07, 1.057, 0, -2.01947e-07, -3.01097e-14, 1.763, 86.6732, -33.9528, -0.59694 )
+
+[node name="TempleWallPiece71" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 2.31, 3.44414e-07, 1.54126e-07, -7.52694e-07, 1.057, 0, -2.01947e-07, -3.01097e-14, 1.763, 86.6732, -33.9528, -4.22804 )
+
+[node name="TempleWallPiece72" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 2.31, 0, 0, 0, 0.945369, 0.788574, 0, -0.472786, 1.57681, 86.7208, -34.7407, -7.87443 )
+
+[node name="TempleWallPiece73" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -2.31, 0, 0, 0, 0.945369, 0.788574, 0, -0.472786, 1.57681, 86.7208, -36.3588, -11.1557 )
+
+[node name="TempleWallPiece74" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 2.31, 0, 0, 0, 0.945369, 0.788574, 0, -0.472786, 1.57681, 86.7208, -37.9834, -14.4188 )
+
+[node name="TempleWallPiece75" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -2.31, 0, 0, 0, 0.945369, 0.788574, 0, -0.472786, 1.57681, 86.7208, -39.6016, -17.7001 )
+
+[node name="TempleWallPiece76" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 2.31, 0, 0, 0, 0.945369, 0.788574, 0, -0.472786, 1.57681, 86.7208, -41.2279, -20.9627 )
+
+[node name="TempleWallPiece77" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -2.31, 0, 0, 0, 0.945369, 0.788574, 0, -0.472786, 1.57681, 86.7208, -42.8461, -24.244 )
+
+[node name="TempleWallPiece78" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 2.31, 0, 0, 0, 1.057, 0, 0, 0, 1.763, 86.7043, -43.5785, -27.2765 )
+
+[node name="TempleWallPiece79" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( -3.76347e-07, 0, 1.763, 0, 1.057, 0, -2.31, 0, -2.87229e-07, 89.3006, -43.5785, -29.8409 )
+
+[node name="TempleWallPiece66" parent="TempleWallContainer" instance=ExtResource( 20 )]
+transform = Transform( 3.76347e-07, 6.70599e-14, -1.763, -8.99547e-07, 1.057, 2.4847e-21, 2.31, 4.11611e-07, 2.87229e-07, 83.2096, -33.493, 18.1573 )
 
 [node name="TempleWallPiece8" parent="TempleWallContainer" instance=ExtResource( 20 )]
 transform = Transform( 3.76347e-07, 0.472786, 1.57681, 0, 0.945369, -0.788574, 2.31, -7.70267e-08, -2.56895e-07, 31.199, -10.2673, 7.45363 )
@@ -5546,3 +5668,26 @@ transform = Transform( 3.76347e-07, -0.472786, -1.57681, 3.29013e-14, -0.945369,
 
 [node name="TempleWallPiece40" parent="TempleWallContainer" instance=ExtResource( 20 )]
 transform = Transform( -3.76347e-07, -0.472786, -1.57681, -3.29013e-14, -0.945369, 0.788574, 2.31, -7.70267e-08, -2.56895e-07, 12.6314, -6.16051, 15.813 )
+
+[node name="TempleRockContainer" type="Spatial" parent="."]
+
+[node name="Rock_01_No_Collision" parent="TempleRockContainer" instance=ExtResource( 14 )]
+transform = Transform( 19.0522, -3.83453, -8.45428, -8.24614, -15.8554, -11.3917, -4.26376, 13.5302, -15.7454, 111.546, -91.6988, 4.94269 )
+
+[node name="Rock_02_No_Collision" parent="TempleRockContainer" instance=ExtResource( 2 )]
+transform = Transform( 7.02696, 2.65041, -10.4752, 0.744334, 12.3471, 3.62334, 10.7797, -2.58029, 6.57832, 125.415, -83.4875, 62.3197 )
+
+[node name="Rock_02_No_Collision2" parent="TempleRockContainer" instance=ExtResource( 2 )]
+transform = Transform( -12.143, 1.87488, -3.89445, 0.744334, 12.3471, 3.62334, 4.25768, 3.18864, -11.7404, 125.415, -95.8626, 78.8963 )
+
+[node name="Rock_02_No_Collision3" parent="TempleRockContainer" instance=ExtResource( 2 )]
+transform = Transform( -30.7716, 4.75115, -9.86897, -5.83847, -32.0153, 2.79151, -9.26727, 4.39394, 31.0108, 54.3245, -125.608, 8.93332 )
+
+[node name="Rock_02_No_Collision4" parent="TempleRockContainer" instance=ExtResource( 2 )]
+transform = Transform( 28.0948, -15.3557, 6.46124, 15.1736, 28.8157, 2.50538, -6.87807, 0.84659, 31.9192, 251.984, -209.281, 70.3586 )
+
+[node name="Rock_02_No_Collision5" parent="TempleRockContainer" instance=ExtResource( 2 )]
+transform = Transform( -69.7733, -7.9884, -14.8231, 7.42232, -71.3063, 3.49064, 15.1145, -1.86038, -70.1423, 123.351, -115.536, -269.969 )
+
+[node name="Rock_02_No_Collision6" parent="TempleRockContainer" instance=ExtResource( 2 )]
+transform = Transform( 48.6046, 5.56477, 10.3259, -5.17044, 49.6725, -2.4316, -10.5289, 1.29595, 48.8617, 79.1971, -263.408, 9.82327 )

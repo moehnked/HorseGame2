@@ -7,8 +7,8 @@
 albedo_texture = ExtResource( 1 )
 
 [sub_resource type="CapsuleShape" id=2]
-radius = 1.64762
-height = 5.74581
+radius = 1.73343
+height = 5.51035
 
 [node name="Rock_05" type="StaticBody"]
 __meta__ = {
@@ -20,5 +20,5 @@ mesh = ExtResource( 2 )
 material/0 = SubResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.230991, 0, -0.462563 )
+transform = Transform( 0.99899, -0.00237244, -0.0448644, 0.0449271, 0.0527532, 0.997597, 0, -0.89923, 0.0475515, 0.0675501, 0, -0.379634 )
 shape = SubResource( 2 )

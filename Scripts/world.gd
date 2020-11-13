@@ -1,10 +1,13 @@
-extends Spatial
+extends WorldEnvironment
 
 export var music_enabled = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
+
+func _process(delta):
+	environment.background_sky.sun_latitude += 0.01
 
 func is_song_playing():
 	return $MusicPlayer.playing

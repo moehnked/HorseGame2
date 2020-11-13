@@ -19,6 +19,16 @@
 [ext_resource path="res://prefabs/Misc/Paintings/Painting01.tscn" type="PackedScene" id=17]
 [ext_resource path="res://prefabs/Misc/Paintings/Painting04.tscn" type="PackedScene" id=18]
 
+[sub_resource type="ProceduralSky" id=6]
+ground_bottom_color = Color( 0.156863, 0.211765, 0.180882, 1 )
+ground_horizon_color = Color( 0.378922, 0.423529, 0.372549, 1 )
+ground_energy = 5.51
+
+[sub_resource type="Environment" id=7]
+background_mode = 2
+background_sky = SubResource( 6 )
+fog_enabled = true
+
 [sub_resource type="CubeMesh" id=1]
 
 [sub_resource type="SpatialMaterial" id=2]
@@ -27,15 +37,8 @@ uv1_scale = Vector3( 30, 30, 1 )
 
 [sub_resource type="BoxShape" id=3]
 
-[sub_resource type="ProceduralSky" id=4]
-
-[sub_resource type="Environment" id=5]
-background_mode = 2
-background_sky = SubResource( 4 )
-ambient_light_color = Color( 1, 0.678431, 0, 1 )
-ambient_light_energy = 1.55
-
-[node name="World" type="Spatial"]
+[node name="World" type="WorldEnvironment"]
+environment = SubResource( 7 )
 script = ExtResource( 5 )
 
 [node name="Painting01" parent="." instance=ExtResource( 17 )]
@@ -72,9 +75,6 @@ stats = {
 [node name="InteractionPrompt" parent="." instance=ExtResource( 8 )]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 5 )
 
 [node name="Horse2" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, 11.1085, -0.194574, -22.0335 )
