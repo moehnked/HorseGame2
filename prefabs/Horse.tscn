@@ -149,6 +149,12 @@ material/0 = null
 [node name="InteractabilityTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="ItemHold" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.04779, -1.78525 )
+
+[node name="TargetBasketTimer" type="Timer" parent="."]
+one_shot = true
 [connection signal="timeout" from="WalkTimer" to="." method="_on_WalkTimer_timeout"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]
 [connection signal="timeout" from="Particles/ParticleDurationTimer" to="Particles" method="_on_ParticleDurationTimer_timeout"]
@@ -162,3 +168,4 @@ one_shot = true
 [connection signal="timeout" from="TalkCooldownTimer" to="." method="_on_TalkCooldownTimer_timeout"]
 [connection signal="timeout" from="TempTalkBanTick" to="." method="_on_TempTalkBanTick_timeout"]
 [connection signal="timeout" from="InteractabilityTimer" to="HorseInteractionController" method="_on_InteractabilityTimer_timeout"]
+[connection signal="timeout" from="TargetBasketTimer" to="." method="_on_TargetBasketTimer_timeout"]

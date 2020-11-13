@@ -39,16 +39,6 @@ uv1_scale = Vector3( 30, 30, 1 )
 environment = SubResource( 7 )
 script = ExtResource( 5 )
 
-[node name="Horse2" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, 4.5962, 0, -29.1486 )
-pep = 10
-stats = {
-"Chaos": 1,
-"Silly": 1,
-"Speed": 3,
-"Width": 1
-}
-
 [node name="Horse" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, 6.72797, 0, -6.23699 )
 garunteedConversation = true
@@ -98,18 +88,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.1017, 3.45762, 0.370879 )
 
 [node name="Basketball" parent="." instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.93831, 17.1757 )
-
-[node name="Basketball2" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.59703, 2.93831, 11.5961 )
-visible = false
-
-[node name="Basketball3" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.06333, 2.93831, 11.5961 )
-visible = false
-
-[node name="Basketball4" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.48907, 2.93831, 15.6639 )
-visible = false
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 

@@ -194,6 +194,9 @@ func can_be_charmed():
 func can_be_lassoed():
 	return (pep >= 0) or state == State.hors_de_combat
 
+func can_play_horse():
+	return true
+
 func check_if_alive():
 	if(HP <= 0):
 		queue_free()
@@ -221,6 +224,9 @@ func create_horse(other_parent):
 func deal_damage(power):
 	HP -= power
 	check_if_alive()
+
+func enable_interact():
+	$HorseInteractionController.enable_interaction()
 
 func enter_giddyup(rider, root):
 	stop_all_timers()
@@ -304,8 +310,14 @@ func get_best_stat():
 func get_icon():
 	return horse_icon
 
+func get_inventory():
+	return $HorseInteractionController.get_inventory()
+
 func get_min_stat_between(a, b):
 	return a if (a['value'] < b['value']) else b
+
+func get_palm():
+	return $ItemHold
 
 func get_worst_stat():
 	var val = 10
@@ -321,6 +333,11 @@ func get_stat_total():
 
 func get_state():
 	return str(State.keys()[state])
+
+func go_to_basket_point(args):
+	print("gonna go shoot my shot! at ", args.basket.get_score_point().global_transform.origin)
+	start_moving_towards({'target':args.basket.get_score_point(), 'thresh':3.0, 'callback':"target_basket", 'kargs': {'basket':args.basket}})
+	pass
 
 func go_to_corral():
 	var corrals
@@ -539,6 +556,11 @@ func start_conversation_with_horse():
 	$HorseInteractionController.determine_interaction(followingTarget)
 	$TalkCooldownTimer.start()
 
+func start_playing_horse(ball, basket):
+	turn_and_face(ball)
+	start_moving_towards({'target': ball, 'thresh':5.0, 'callback':'go_to_basket_point', 'kargs': {'basket':basket}})
+	pass
+
 func start_moving_towards(args = {}):
 	args = Utils.check(args, {'target':null, 'thresh' : stopFollowThreshold, 'callback' : "", 'is_running' : false, 'kargs' : null})
 	if(args.target == self):
@@ -622,6 +644,12 @@ func tame(tamer):
 		go_to_corral()
 	else:
 		enter_pilot()
+
+func target_basket(args):
+	stop_walking()
+	state = State.none
+	turn_and_face(args.basket)
+	$TargetBasketTimer.start(rng.randf_range(0.5,1.5))
 
 func turn_and_face(target):
 	if(target != null):
@@ -739,4 +767,11 @@ func _on_AggroRange_area_exited(area):
 func _on_TempTalkBanTick_timeout():
 	tempTalkBanList.pop_front()
 	$TempTalkBanTick.start(10)
+	pass # Replace with function body.
+
+
+func _on_TargetBasketTimer_timeout():
+	print("time to shoot")
+	$HorseInteractionController.throw_equipped()
+	state = State.none
 	pass # Replace with function body.

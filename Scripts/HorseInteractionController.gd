@@ -4,8 +4,11 @@ const HorseMoods = hm.HorseMoods
 const RSG = preload("res://Scripts/Statics/RSG.gd")
 
 export var baby_threshold = 100
+var equipped = null
 var horses = []
 var interactionPrompt = "Talk"
+var interactEnabled = true
+var inventory = []
 var isInteractable = true
 var notAllowedToInteractWith = []
 
@@ -48,11 +51,17 @@ func determine_interaction(other):
 func disable_interaction():
 	isInteractable = false
 
-func enable_interaction():
+func enable_interact():
 	isInteractable = true
 
+func equip(item):
+	disable_interaction()
+	item.parent_transform = owner.get_palm()
+	equipped = item
+	pass
+
 func get_inventory():
-	return null
+	return inventory
 
 func interact(controller):
 	#print(RSG.generate_sentance())
@@ -74,6 +83,13 @@ func read_prompt():
 func start_interaction_colldown():
 	owner.get_node("InteractabilityTimer").start()
 
+func throw_equipped():
+	if(equipped != null):
+		print("equipped")
+		if(equipped.has_method("shoot_basket")):
+			print("shooting")
+			equipped.shoot_basket()
+
 func _on_HorseInteractionController_area_entered(area):
 	#var h = determine_horse_source(area)
 	var h = area.owner if area.has_method("is_horse_interaction_controller") else null
@@ -87,7 +103,7 @@ func _on_HorseInteractionController_area_entered(area):
 #				owner.enter_talk_state()
 	else:
 		#var i = area if (area.has_method("interact")) else if()
-		if(area.has_method("interact")) and !notAllowedToInteractWith.has(area):
+		if(area.has_method("interact")) and !notAllowedToInteractWith.has(area) and interactEnabled:
 			#print("=-=- I ",("am " if(!notAllowedToInteractWith.has(area)) else "am not "), "allowed to interact with ", area.name)
 			area.interact(self)
 			if area.has_method("is_gate"):
@@ -105,5 +121,5 @@ func _on_HorseInteractionController_area_exited(area):
 
 
 func _on_InteractabilityTimer_timeout():
-	enable_interaction()
+	enable_interact()
 	pass # Replace with function body.

@@ -5,6 +5,7 @@ onready var promptRef = get_tree().get_root().get_node("World").get_node("Intera
 var canInteract = true
 var inventory = []
 var lookingAt = null
+var equipped = null
 
 func begin_dialogue(other):
 	owner.begin_dialogue(other)
@@ -21,6 +22,7 @@ func enable_interact():
 func equip(item):
 	clear()
 	disable_interact()
+	equipped = item
 	item.parent_transform = owner.get_palm()
 	owner.revoke_casting()
 	owner.revoke_menu_options()
