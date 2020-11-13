@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://prefabs/FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Textures/100_1395_seamless.JPG" type="Texture" id=2]
@@ -16,8 +16,6 @@
 [ext_resource path="res://scenes/Mirror.tscn" type="PackedScene" id=14]
 [ext_resource path="res://prefabs/Misc/Block.tscn" type="PackedScene" id=15]
 [ext_resource path="res://prefabs/Items/Plank.tscn" type="PackedScene" id=16]
-[ext_resource path="res://prefabs/Misc/Paintings/Painting01.tscn" type="PackedScene" id=17]
-[ext_resource path="res://prefabs/Misc/Paintings/Painting04.tscn" type="PackedScene" id=18]
 
 [sub_resource type="ProceduralSky" id=6]
 ground_bottom_color = Color( 0.156863, 0.211765, 0.180882, 1 )
@@ -41,8 +39,29 @@ uv1_scale = Vector3( 30, 30, 1 )
 environment = SubResource( 7 )
 script = ExtResource( 5 )
 
-[node name="Painting01" parent="." instance=ExtResource( 17 )]
-transform = Transform( 0.150347, 0, 0.988633, 0, 1, 0, -0.988633, 0, 0.150347, -11.4579, 2.95366, -15.7124 )
+[node name="Horse2" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, 4.5962, 0, -29.1486 )
+garunteedConversation = true
+isAggroAtStart = false
+pep = 10
+stats = {
+"Chaos": 1,
+"Silly": 1,
+"Speed": 3,
+"Width": 1
+}
+
+[node name="Horse" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, 6.72797, 0, -6.23699 )
+garunteedConversation = true
+isAggroAtStart = false
+pep = 10
+stats = {
+"Chaos": 1,
+"Silly": 1,
+"Speed": 3,
+"Width": 1
+}
 
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 97.1449, 0, 0, 0, 0.167856, 0, 0, 0, 97.2541, -1.53892, -0.4634, 1.90735e-06 )
@@ -58,35 +77,11 @@ shape = SubResource( 3 )
 transform = Transform( 0.0339132, 0.778933, -0.626189, -0.0421238, 0.627107, 0.777793, 0.998537, 1.85992e-09, 0.0540788, -72.6302, 19.4694, 0 )
 light_energy = 0.5
 
-[node name="Horse" parent="." instance=ExtResource( 3 )]
-transform = Transform( 0.216006, 0, 1.42039, 0, 1.43672, 0, -1.42039, 0, 0.216006, 31.1272, 0.320388, -24.9498 )
-isAggroAtStart = false
-pep = 5
-readyToHaveKids = true
-stats = {
-"Chaos": 1,
-"Silly": 1,
-"Speed": 3,
-"Width": 1
-}
-
 [node name="InputObserver" parent="." instance=ExtResource( 7 )]
 
 [node name="InteractionPrompt" parent="." instance=ExtResource( 8 )]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-
-[node name="Horse2" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, 11.1085, -0.194574, -22.0335 )
-isAggroAtStart = false
-pep = 10
-readyToHaveKids = true
-stats = {
-"Chaos": 1,
-"Silly": 1,
-"Speed": 3,
-"Width": 1
-}
 
 [node name="FPSController" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.57347, 0.954456, -11.5129 )
@@ -204,11 +199,3 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5342, 1.21985, 6.9796 )
 
 [node name="Plank5" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7011, 1.21985, 6.9796 )
-
-[node name="Horse3" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, 36.7362, 2.21054, 54.5705 )
-isAggroAtStart = false
-pep = 10
-
-[node name="Painting02" parent="." instance=ExtResource( 18 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5581, 2.70028, -23.5968 )

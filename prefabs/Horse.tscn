@@ -145,6 +145,10 @@ transform = Transform( 0.491636, 0, 0, 0, 1.05338, 0, 0, 0, 0.888916, 0, 1.05994
 visible = false
 mesh = SubResource( 11 )
 material/0 = null
+
+[node name="InteractabilityTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
 [connection signal="timeout" from="WalkTimer" to="." method="_on_WalkTimer_timeout"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]
 [connection signal="timeout" from="Particles/ParticleDurationTimer" to="Particles" method="_on_ParticleDurationTimer_timeout"]
@@ -157,3 +161,4 @@ material/0 = null
 [connection signal="area_exited" from="HorseInteractionController" to="HorseInteractionController" method="_on_HorseInteractionController_area_exited"]
 [connection signal="timeout" from="TalkCooldownTimer" to="." method="_on_TalkCooldownTimer_timeout"]
 [connection signal="timeout" from="TempTalkBanTick" to="." method="_on_TempTalkBanTick_timeout"]
+[connection signal="timeout" from="InteractabilityTimer" to="HorseInteractionController" method="_on_InteractabilityTimer_timeout"]

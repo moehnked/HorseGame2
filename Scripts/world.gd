@@ -9,6 +9,13 @@ func _ready():
 func _process(delta):
 	environment.background_sky.sun_latitude += 0.01
 
+func create_point(point):
+	var obj = load("res://prefabs/Misc/TestPoint.tscn").instance()
+	obj.global_transform.origin = point
+	add_child(obj)
+	print("creating point to wander to at ", point, " - ", obj.global_transform.origin)
+	return obj
+
 func is_song_playing():
 	return $MusicPlayer.playing
 

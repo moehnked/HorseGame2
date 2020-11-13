@@ -35,6 +35,7 @@ func parse_input(input):
 			if lookingAt.isInteractable:
 				print("interacting with ", lookingAt)
 				lookingAt.interact(self)
+				read_prompt()
 
 func read_prompt():
 	if canInteract:

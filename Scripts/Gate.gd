@@ -14,12 +14,6 @@ var midpoint_object = null
 var rightLink = null
 var number_of_peices = 1
 
-func _process(delta):
-	if(_controller != null):
-		if(_controller.lookingAt != null):
-			if(_controller.lookingAt == self):
-				_controller.read_prompt()
-
 func complete():
 	print("COMPLETE CORRAL - ", connected_peices.size())
 	var corrals = get_tree().get_root().get_node("World").get_node("GlobalCorralRegistrar")

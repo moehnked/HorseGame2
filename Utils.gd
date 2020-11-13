@@ -25,6 +25,12 @@ static func count(item, list):
 			c += 1
 	return c
 
+static func get_world(node):
+	return node.get_tree().get_root().get_node("World")
+
+static func logWithBase(value, base):
+	return log(value) / log(base)
+
 static func remove_item(item, list):
 	var i = 0
 	while(i < list.size()):

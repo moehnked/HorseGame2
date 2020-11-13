@@ -91,8 +91,9 @@ func _on_RightCooldown_timeout():
 
 func add_to_party(member):
 	#validate if the player can add new members to party
-	print("===---=== ", $HUD.party.size(), " - ", $Hat.level)
-	if($HUD.party.size() < $Hat.level):
+	#print("adding ", member.name, " to party - is member null ? ", (member == null), " - is hat null ? ", ($Hat == null))
+	print("===---=== ", $HUD.party.size(), " - ", $Head/Skull/Hat.level)
+	if($HUD.party.size() < $Head/Skull/Hat.level):
 		print("adding ", member.name, " to party")
 		print("adding to party - ", member.name)
 		$HUD.add_party_member(member)
@@ -257,6 +258,9 @@ func get_head():
 
 func get_palm():
 	return $Head/Palm
+
+func is_player():
+	return true
 
 func lasso(saddle):
 	state = State.lasso

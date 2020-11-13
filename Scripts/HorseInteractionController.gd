@@ -45,15 +45,22 @@ func determine_interaction(other):
 		print("im gonna talk to my buddy ", other.name)
 		return other.recieve_charm(hm.random_mood(), owner)
 
+func disable_interaction():
+	isInteractable = false
+
+func enable_interaction():
+	isInteractable = true
+
 func get_inventory():
 	return null
 
 func interact(controller):
 	#print(RSG.generate_sentance())
-	if(owner.pep >= 5):
-		create_dialogue(controller)
-	elif owner.pep >= -4:
-		owner.recieve_charm(hm.random_mood(), controller.owner)
+	if(isInteractable):
+		if(owner.pep >= 5):
+			create_dialogue(controller)
+		elif owner.pep >= -4:
+			owner.recieve_charm(hm.random_mood(), controller.owner)
 
 func is_horse_interaction_controller():
 	return true
@@ -64,17 +71,20 @@ func prompt():
 func read_prompt():
 	pass
 
+func start_interaction_colldown():
+	owner.get_node("InteractabilityTimer").start()
+
 func _on_HorseInteractionController_area_entered(area):
 	#var h = determine_horse_source(area)
 	var h = area.owner if area.has_method("is_horse_interaction_controller") else null
 	#print("========= h is ", h)
 	if(h != null):
 		print("I'm close enough to talk to ", h.name, "  -- state : ", h.get_state())
-		if !horses.has(h) and ['idle', 'wander', 'none', 'walking', 'talking'].has(h.get_state()):
-			horses.append(h)
-			if(h == owner.walk_to_target):
-				print("queing ", h.name, " to interact queue...")
-				owner.enter_talk_state()
+#		if !horses.has(h) and ['idle', 'wander', 'none', 'walking', 'talking'].has(h.get_state()):
+#			horses.append(h)
+#			if(h == owner.walk_to_target):
+#				print("queing ", h.name, " to interact queue...")
+#				owner.enter_talk_state()
 	else:
 		#var i = area if (area.has_method("interact")) else if()
 		if(area.has_method("interact")) and !notAllowedToInteractWith.has(area):
@@ -92,3 +102,8 @@ func _on_HorseInteractionController_area_exited(area):
 	if(h != null):
 		if(horses.has(h)):
 			horses.erase(h)
+
+
+func _on_InteractabilityTimer_timeout():
+	enable_interaction()
+	pass # Replace with function body.
