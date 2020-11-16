@@ -133,6 +133,7 @@ func _process(delta):
 		State.lasso:
 			pass
 		State.pilot:
+			print("piloting...")
 			move_based_on_input(delta)
 		State.running:
 			run_towards(followingTarget, delta)

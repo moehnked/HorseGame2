@@ -1,12 +1,15 @@
 extends KinematicBody
 
 onready var head = $Head
+onready var inputMacro = preload("res://Scripts/InputMacro.gd")
 onready var ropeResource = preload("res://prefabs/LassoBullet.tscn")
 onready var rootRef = get_tree().get_root().get_node("World")
 onready var inventoryScreenSource = preload("res://prefabs/UI/InventoryScreen.tscn")
 
+
 var aggro = 1
 var acceleration = 20
+var airAcceleration = 1
 var canCastLeft = true
 var canCastRight = true
 var canCheckInventory = true
@@ -16,15 +19,22 @@ var canUpdateHands = true
 var direction = Vector3()
 var fall = Vector3()
 var flushing = false
-var gravity = 9.8
+var fullContact = false
+var gravity = 20
+var gravityVector = Vector3()
 var HP = 10
+var hAcceleration = 6
+var hVelocity = Vector3()
+var input = InputMacro.new()
 var isBuilding = false
-var jump = 5
+var jump = 10
 var knockbackDirection = Vector3()
-var mouse_sensitivity = 0.2
+var mouseSensitivity = 0.09
+var movement = Vector3()
+var normalAcceleration = 6
 var saddle
 export var slope_limit = deg2rad(45)
-export var speed = 15
+export var speed = 10
 var state = State.normal
 var velocity = Vector3()
 
@@ -47,20 +57,8 @@ enum State {normal, lasso, giddyup, pilot, menu, knockback}
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	subscribe_to()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	pass # Replace with function body.
-
-func _process(delta):
-	match state:
-		State.lasso:
-			moveTowards(saddle, delta)
-		State.knockback:
-			move_based_on_knockback(delta)
-		State.normal:
-			#getInput(delta)
-			move_based_on_input(delta)
-		State.pilot:
-			if Input.is_action_just_pressed("engage") and canExitHorse:
-				exit_pilot()
 
 func _physics_process(delta):
 	if $Head/Camera/RayCast.is_colliding():
@@ -70,6 +68,19 @@ func _physics_process(delta):
 	else:
 		for o in raycastObservers:
 			o.clear_raycast()
+	
+	match state:
+		State.lasso:
+			moveTowards(saddle, delta)
+		State.knockback:
+			move_based_on_knockback(delta)
+		State.normal:
+			apply_rotation()
+			parse_movement(delta)
+			move_based_on_input(delta)
+		State.pilot:
+			if Input.is_action_just_pressed("engage") and canExitHorse:
+				exit_pilot()
 
 func _on_ExitHorseTimer_timeout():
 	print("times up")
@@ -91,8 +102,6 @@ func _on_RightCooldown_timeout():
 	canCastRight = true
 
 func add_to_party(member):
-	#validate if the player can add new members to party
-	#print("adding ", member.name, " to party - is member null ? ", (member == null), " - is hat null ? ", ($Hat == null))
 	print("===---=== ", $HUD.party.size(), " - ", $Head/Skull/Hat.level)
 	if($HUD.party.size() < $Head/Skull/Hat.level):
 		print("adding ", member.name, " to party")
@@ -111,7 +120,7 @@ func apply_gravity(delta):
 	if not is_on_floor():
 		move_and_slide(fall, Vector3.UP)
 
-func apply_rotation(input):
+func apply_rotation():
 	if state != State.giddyup and not isBuilding:
 		rotate_y(input.mouse_horizontal)
 
@@ -171,7 +180,7 @@ func enter_giddyup(target):
 	$LassoTimeout.stop()
 	canExitHorse = false
 	global_transform = target.global_transform
-	scale = Vector3(1,1,1)
+	scale = Vector3(0.402,0.402,0.402)
 	state = State.giddyup
 	$CollisionShape.disabled = true
 	$InteractionController/CollisionShape.disabled = true
@@ -272,10 +281,12 @@ func lasso(saddle):
 	self.saddle = saddle
 
 func move_based_on_input(delta):
-	check_floor(delta)
-	velocity = velocity.linear_interpolate(direction * speed, acceleration * delta)
-	velocity = move_and_slide(velocity, Vector3.UP)
-	apply_gravity(delta)
+	direction = direction.normalized()
+	hVelocity = hVelocity.linear_interpolate(direction * speed, hAcceleration * delta)
+	movement.z = hVelocity.z + gravityVector.z
+	movement.x = hVelocity.x + gravityVector.x
+	movement.y = gravityVector.y
+	move_and_slide(movement, Vector3.UP)
 
 func move_based_on_knockback(delta):
 	move_and_slide(knockbackDirection, Vector3.UP)
@@ -291,23 +302,8 @@ func moveTowards(target, delta):
 	if(global_transform.origin.distance_to(target.global_transform.origin) < 5):
 		enter_giddyup(target)
 
-func parse_input(input):
-	direction = Vector3()
-	
-	if input.space:
-		if is_on_floor():
-			canJump = true
-		if canJump == true:
-			random_grunt()
-			fall.y = jump
-			#move_and_collide(Vector3(0,0.4,0))
-			canJump = false
-	
-	direction += (input.forward * transform.basis.z * -1) + (input.backward * transform.basis.z)
-	direction += (input.right * transform.basis.x) + (input.left * -1 * transform.basis.x)
-	direction = direction.normalized()
-	
-	apply_rotation(input)
+func parse_input(_input):
+	input = _input
 	
 	if input.standard:
 		if canCastLeft:
@@ -327,6 +323,36 @@ func parse_input(input):
 	elif input.tab:
 		if canCheckInventory:
 			enter_inventory()
+
+func parse_movement(delta):
+	direction = Vector3()
+	
+	if $GroundCheck.is_colliding():
+		fullContact = true
+	else:
+		fullContact = false
+	
+	if not is_on_floor():
+		gravityVector += Vector3.DOWN * gravity * delta
+		hAcceleration = airAcceleration
+	elif is_on_floor() and fullContact:
+		gravityVector = - get_floor_normal() * gravity
+		hAcceleration = normalAcceleration
+	else:
+		gravityVector = - get_floor_normal()
+		hAcceleration = normalAcceleration
+	
+	if input.space and (is_on_floor() or $GroundCheck.is_colliding()):
+		gravityVector = Vector3.UP * jump
+	
+	if input.forward:
+		direction -= transform.basis.z
+	if input.backward:
+		direction += transform.basis.z
+	if input.left:
+		direction -= transform.basis.x
+	if input.right:
+		direction += transform.basis.x
 
 func placer_subscribe(placer):
 	placer_observers.append(placer)

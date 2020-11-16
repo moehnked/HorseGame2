@@ -3,14 +3,19 @@ extends Spatial
 onready var rootRef = get_tree().get_root().get_node("World")
 onready var Utils = preload("res://Utils.gd")
 
+var focus = null
+var input = InputMacro.new()
+var origin = Vector3(0,0,0)
 export var speed = 4
 
-var origin = Vector3(0,0,0)
-var focus = null
 
 func _ready():
 	subscribe_to()
 	pass # Replace with function body.
+
+func _physics_process(delta):
+	rotate_x(input.mouse_vertical)
+	rotation.x = clamp(rotation.x, deg2rad(-90), deg2rad(90))
 
 func _process(delta):
 	if(focus != null):
@@ -39,6 +44,5 @@ func unfocus():
 func unsubscribe_to():
 	rootRef.get_node("InputObserver").unsubscribe(self)
 	
-func parse_input(input):
-	rotate_x(input.mouse_vertical)
-	rotation.x = clamp(rotation.x, deg2rad(-90), deg2rad(90))
+func parse_input(_input):
+	input = _input
