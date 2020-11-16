@@ -1,0 +1,289 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scripts/Misc/IntroCredits.gd" type="Script" id=1]
+[ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://fonts/freewaygothic.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://fonts/Epittazio.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://fonts/bigt.tres" type="DynamicFont" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Fadein"
+length = 100.0
+step = 0.033
+tracks/0/type = "value"
+tracks/0/path = NodePath("LeftSide/LCategory:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.001, 1.98, 3.663, 5.016, 10.461, 11.979, 16.995, 18.513 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LeftSide/LSubCategory:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.033, 1.617, 2.937, 3.696, 4.95, 11.946, 13.035, 13.893, 14.883, 15.279, 16.401, 16.995, 18.513 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("LeftSide/LCategory:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 5.082, 9.207, 18.612 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "GAME DESIGN", "GAME DESIGN", "MUSIC BY", "MUSIC BY" ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("RightSide/RCategory:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.099, 5.577, 6.963, 8.976, 10.263 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("RightSide/RSubCategory:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.033, 6.765, 8.052, 9.009, 10.263 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("LeftSide/LSubCategory:text")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 5.181, 9.207, 14.949, 15.18, 18.612 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "Dalton Moehnke", "Dalton Moehnke", "Trevor Martell
+@profitdrama", "Trevor Martell
+@profitdrama", "Dalton Moehnke", "Dalton Moehnke" ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("subtitle:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.033, 19.998, 21.945, 22.935, 24.057 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("HORSE:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.066, 24.915, 26.928, 31.053, 32.439, 34.914 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("GAME:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 26.367, 28.974, 31.02, 32.406, 34.914 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Two:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 28.446, 30.987, 32.439, 34.914 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="DynamicFont" id=3]
+size = 36
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 60
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 144
+font_data = ExtResource( 4 )
+
+[node name="Credits" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftSide" type="Node2D" parent="."]
+
+[node name="LCategory" type="Label" parent="LeftSide"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 448.0
+margin_right = 768.0
+margin_bottom = 600.0
+custom_fonts/font = ExtResource( 5 )
+text = "MUSIC BY"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="LeftSide/LCategory"]
+show_behind_parent = true
+margin_left = -16.0
+margin_top = 8.0
+margin_right = 1072.0
+margin_bottom = 48.0
+color = Color( 0, 0, 0, 0.160784 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LSubCategory" type="Label" parent="LeftSide"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 184.0
+margin_top = 520.0
+margin_right = 380.0
+margin_bottom = 557.0
+custom_fonts/font = SubResource( 1 )
+text = "Dalton Moehnke"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightSide" type="Node2D" parent="."]
+
+[node name="RCategory" type="Label" parent="RightSide"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 416.0
+margin_top = 448.0
+margin_right = 1016.0
+margin_bottom = 600.0
+custom_fonts/font = ExtResource( 5 )
+text = "Artwork
+"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="RightSide/RCategory"]
+show_behind_parent = true
+margin_left = -432.0
+margin_top = 8.0
+margin_right = 656.0
+margin_bottom = 48.0
+color = Color( 0, 0, 0, 0.160784 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RSubCategory" type="Label" parent="RightSide"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 640.0
+margin_top = 520.0
+margin_right = 836.0
+margin_bottom = 557.0
+custom_fonts/font = SubResource( 1 )
+text = "Kylee Martell
+@eternalartsstudio"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Fadein = SubResource( 2 )
+
+[node name="subtitle" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 216.0
+margin_top = 264.0
+margin_right = 818.0
+margin_bottom = 311.0
+custom_fonts/font = SubResource( 3 )
+text = "A game from CovalentBonds"
+align = 1
+valign = 1
+
+[node name="HORSE" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 448.0
+margin_top = 216.0
+margin_right = 684.0
+margin_bottom = 292.0
+custom_fonts/font = SubResource( 4 )
+text = "HORSE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GAME" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 720.0
+margin_top = 216.0
+margin_right = 956.0
+margin_bottom = 292.0
+custom_fonts/font = SubResource( 4 )
+text = "GAME"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Two" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 896.0
+margin_top = 176.0
+margin_right = 1132.0
+margin_bottom = 332.0
+custom_fonts/font = SubResource( 5 )
+text = "2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TTL" type="Timer" parent="."]
+one_shot = true
+[connection signal="timeout" from="TTL" to="." method="_on_TTL_timeout"]

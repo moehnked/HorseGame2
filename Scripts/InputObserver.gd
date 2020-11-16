@@ -44,6 +44,7 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("jump"):
 		input.space = true
+		input.direction_detected = true
 		
 	if Input.is_action_just_released("engage"):
 		input.engage = true
@@ -59,13 +60,17 @@ func _process(delta):
 	
 	if Input.is_action_pressed("move_forward"):
 		input.forward = 1.0
+		input.direction_detected = true
 	elif Input.is_action_pressed("move_backward"):
 		input.backward = 1.0
+		input.direction_detected = true
 		
 	if Input.is_action_pressed("move_left"):
 		input.left = 1.0
+		input.direction_detected = true
 	elif Input.is_action_pressed("move_right"):
 		input.right = 1.0
+		input.direction_detected = true
 	
 	input.mouse_horizontal = mouse_horizontal
 	input.mouse_vertical = mouse_vertical

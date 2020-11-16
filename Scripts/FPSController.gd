@@ -23,6 +23,7 @@ var jump = 5
 var knockbackDirection = Vector3()
 var mouse_sensitivity = 0.2
 var saddle
+export var slope_limit = deg2rad(45)
 export var speed = 15
 var state = State.normal
 var velocity = Vector3()
@@ -108,11 +109,7 @@ func aggroable():
 
 func apply_gravity(delta):
 	if not is_on_floor():
-		canJump = false
-		fall.y -= gravity * delta
-	else:
-		canJump = true
-	move_and_slide(fall, Vector3.UP)
+		move_and_slide(fall, Vector3.UP)
 
 func apply_rotation(input):
 	if state != State.giddyup and not isBuilding:
@@ -147,6 +144,14 @@ func cast_right():
 		print("casting right")
 		canCastRight = false
 		cast(righthandSpell, "startRightCooldown", "right")
+
+func check_floor(delta):
+	if is_on_floor():
+		canJump = true
+		#fall.y = 0
+	else:
+		canJump = false
+		fall.y -= gravity * delta
 
 func conclude_spell(spell):
 	print("spell ", spell, " hase concluded...")
@@ -267,15 +272,10 @@ func lasso(saddle):
 	self.saddle = saddle
 
 func move_based_on_input(delta):
-	if is_on_floor():
-		canJump = true
-	else:
-		canJump = false
-		fall.y -= gravity * delta
-	
+	check_floor(delta)
 	velocity = velocity.linear_interpolate(direction * speed, acceleration * delta)
 	velocity = move_and_slide(velocity, Vector3.UP)
-	move_and_slide(fall, Vector3.UP)
+	apply_gravity(delta)
 
 func move_based_on_knockback(delta):
 	move_and_slide(knockbackDirection, Vector3.UP)
@@ -295,9 +295,12 @@ func parse_input(input):
 	direction = Vector3()
 	
 	if input.space:
+		if is_on_floor():
+			canJump = true
 		if canJump == true:
 			random_grunt()
 			fall.y = jump
+			#move_and_collide(Vector3(0,0.4,0))
 			canJump = false
 	
 	direction += (input.forward * transform.basis.z * -1) + (input.backward * transform.basis.z)

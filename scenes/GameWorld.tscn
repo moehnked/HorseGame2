@@ -7,7 +7,7 @@
 [ext_resource path="res://Scripts/world.gd" type="Script" id=5]
 [ext_resource path="res://prefabs/Misc/MusicTrigger.tscn" type="PackedScene" id=6]
 [ext_resource path="res://prefabs/Effects/FadeIn.tscn" type="PackedScene" id=7]
-[ext_resource path="res://prefabs/Misc/Rock_01.tscn" type="PackedScene" id=8]
+[ext_resource path="res://prefabs/Misc/ObjectCreationTrigger.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.701961, 0.952941, 1, 1 )
@@ -24,8 +24,7 @@ background_sky = SubResource( 1 )
 [node name="World" type="WorldEnvironment"]
 environment = SubResource( 2 )
 script = ExtResource( 5 )
-
-[node name="Temple" parent="." instance=ExtResource( 1 )]
+music_enabled = false
 
 [node name="InputObserver" parent="." instance=ExtResource( 3 )]
 
@@ -33,6 +32,7 @@ script = ExtResource( 5 )
 
 [node name="FPSController" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.205994, 9.1423, 15.8085 )
+speed = 7
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -48,5 +48,10 @@ songPath = "res://Music/Intro.ogg"
 
 [node name="FadeIn" parent="." instance=ExtResource( 7 )]
 
-[node name="Rock_01" parent="." instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.87562, 1.81066, 23.0049 )
+[node name="ObjectCreationTrigger" parent="." instance=ExtResource( 8 )]
+transform = Transform( 15.109, 0, 0, 0, 1.349, 0, 0, 0, 1.349, 16.755, 0, 20.17 )
+objectPath = "res://scenes/Misc/IntroCredits.tscn"
+triggerName = "FPSController"
+delay = 7
+
+[node name="Temple" parent="." instance=ExtResource( 1 )]
