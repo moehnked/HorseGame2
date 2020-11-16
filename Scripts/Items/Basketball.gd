@@ -1,6 +1,7 @@
 extends "res://Scripts/Item.gd"
 export var launch_power = 200
 
+var basket
 var _controller = null
 var dir = Vector3()
 var parent_transform = null
@@ -38,8 +39,10 @@ func interact(controller):
 func is_basketball():
 	return true
 
-func shoot_basket():
-	if(playerRef.has_method("get_head")):
+func shoot_basket(vector = null):
+	if vector != null:
+		dir = vector
+	elif(playerRef.has_method("get_head")):
 		dir = -playerRef.get_head().global_transform.basis.z
 	else:
 		dir = -playerRef.global_transform.basis.z
