@@ -2,6 +2,7 @@ extends Area
 
 onready var rootRef = get_tree().get_root().get_node("World")
 export var songPath = "res://sounds/error_01.wav"
+export var enabled = true
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -19,6 +20,6 @@ func _ready():
 
 
 func _on_MusicTrigger_body_entered(body):
-	if body.name == "FPSController" and !rootRef.is_song_playing():
+	if body.name == "FPSController" and !rootRef.is_song_playing() and enabled:
 		rootRef.play_song(songPath)
 	pass # Replace with function body.

@@ -3,7 +3,7 @@ extends Spatial
 export var objectPath = ""
 export var triggerName = ""
 export var delay = 0
-
+export var enabled = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,7 +16,7 @@ func _ready():
 
 
 func _on_Area_body_entered(body):
-	if(body.name == triggerName):
+	if(body.name == triggerName) and enabled:
 		$Timer.start(delay)
 	pass # Replace with function body.
 

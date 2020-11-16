@@ -35,7 +35,8 @@ var normalAcceleration = 6
 var saddle
 var scaleMod = 1.0
 export var slope_limit = deg2rad(45)
-export var speed = 10
+export var speed = 7
+
 var state = State.normal
 var velocity = Vector3()
 

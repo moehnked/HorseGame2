@@ -31,8 +31,8 @@ music_enabled = false
 [node name="InteractionPrompt" parent="." instance=ExtResource( 4 )]
 
 [node name="FPSController" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.205994, 9.1423, 15.8085 )
-speed = 7
+transform = Transform( 0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0.205994, 9.1423, 15.8085 )
+speed = 6
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -41,6 +41,7 @@ speed = 7
 [node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = 2.0
 
 [node name="MusicTrigger" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1.44297, 0, 0, 0, 1.44297, 0, 0, 0, 1.44297, 15.109, 0, 20.1698 )
@@ -49,9 +50,10 @@ songPath = "res://Music/Intro.ogg"
 [node name="FadeIn" parent="." instance=ExtResource( 7 )]
 
 [node name="ObjectCreationTrigger" parent="." instance=ExtResource( 8 )]
-transform = Transform( 15.109, 0, 0, 0, 1.349, 0, 0, 0, 1.349, 16.755, 0, 20.17 )
+transform = Transform( 1.61485, 0, 0, 0, 1.349, 0, 0, 0, 1.81714, 16.755, 0, 20.17 )
 objectPath = "res://scenes/Misc/IntroCredits.tscn"
 triggerName = "FPSController"
-delay = 7
+delay = 10
+enabled = false
 
 [node name="Temple" parent="." instance=ExtResource( 1 )]
