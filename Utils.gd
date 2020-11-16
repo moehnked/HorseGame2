@@ -25,6 +25,9 @@ static func count(item, list):
 			c += 1
 	return c
 
+func interpolation(from, to, t):
+	return from * (1 - t) + to * t
+
 static func get_world(node):
 	return node.get_tree().get_root().get_node("World")
 

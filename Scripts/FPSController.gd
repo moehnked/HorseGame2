@@ -33,6 +33,7 @@ var mouseSensitivity = 0.09
 var movement = Vector3()
 var normalAcceleration = 6
 var saddle
+var scaleMod = 1.0
 export var slope_limit = deg2rad(45)
 export var speed = 10
 var state = State.normal
@@ -57,24 +58,18 @@ enum State {normal, lasso, giddyup, pilot, menu, knockback}
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	subscribe_to()
+	scaleMod = scale.x
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	pass # Replace with function body.
 
 func _physics_process(delta):
-	if $Head/Camera/RayCast.is_colliding():
-		update_placer_position($Head/Camera/RayCast.get_collision_point())
-		for o in raycastObservers:
-			o.parse_raycast($Head/Camera/RayCast)
-	else:
-		for o in raycastObservers:
-			o.clear_raycast()
-	
 	match state:
 		State.lasso:
 			moveTowards(saddle, delta)
 		State.knockback:
 			move_based_on_knockback(delta)
 		State.normal:
+			update_raycast()
 			apply_rotation()
 			parse_movement(delta)
 			move_based_on_input(delta)
@@ -171,6 +166,12 @@ func conclude_spell(spell):
 	$Head/Hand.idle_hand()
 	flush_spells()
 
+func toggle_all_collisions(tog = false):
+	$CollisionShape.disabled = tog
+	$InteractionController/CollisionShape.disabled = tog
+	$Foot.disabled = tog
+	$GroundCheck.enabled = not tog
+
 func enable_casting():
 	canCastLeft = true
 	canCastRight = true
@@ -180,7 +181,7 @@ func enter_giddyup(target):
 	$LassoTimeout.stop()
 	canExitHorse = false
 	global_transform = target.global_transform
-	scale = Vector3(0.402,0.402,0.402)
+	scale = Vector3(scaleMod,scaleMod,scaleMod)
 	state = State.giddyup
 	$CollisionShape.disabled = true
 	$InteractionController/CollisionShape.disabled = true
@@ -212,6 +213,7 @@ func enter_some_menu():
 func enter_pilot():
 	$ExitHorseTimer.start()
 	state = State.pilot
+	toggle_all_collisions(true)
 	unsubscribe_to()
 
 func enter_update_hands_menu():
@@ -239,8 +241,9 @@ func exit_pilot(callback = true):
 	state = State.normal
 	if(callback):
 		saddle.owner.exit_pilot()
-	$CollisionShape.disabled = false
-	$InteractionController/CollisionShape.disabled = false
+#	$CollisionShape.disabled = false
+#	$InteractionController/CollisionShape.disabled = false
+	toggle_all_collisions(false)
 	subscribe_to()
 
 func exit_some_menu():
@@ -440,6 +443,15 @@ func unsubscribe_to():
 func update_placer_position(point):
 	for placer in placer_observers:
 		placer.update_position(point, self.global_transform.origin)
+
+func update_raycast():
+	if $Head/Camera/RayCast.is_colliding():
+		update_placer_position($Head/Camera/RayCast.get_collision_point())
+		for o in raycastObservers:
+			o.parse_raycast($Head/Camera/RayCast)
+	else:
+		for o in raycastObservers:
+			o.clear_raycast()
 
 func update_spells(left, right):
 	lefthandSpell = left

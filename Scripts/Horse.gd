@@ -14,6 +14,7 @@ export var pep = 0
 export var readyToHaveKids = false
 
 var acceleration = 20
+var airAcceleration = 1
 var bloodlust_rate
 var callback
 var callback_kargs = {}
@@ -25,24 +26,32 @@ var enemies = []
 var fall = Vector3()
 var followThreshold = 20.0
 var followingTarget = null
-var gravity = 11.2
+var fullContact = false
+var gravity = 25
+var gravityVector = Vector3()
 var greedRate
+var hAcceleration = 6
+var hVelocity = Vector3()
 var hasBeenInitialized = false
 var horseComs = []
 var horse_icon = "res://Sprites/UI/Horse_Icon_01.png"
 var horse_icon_size = 1
 var HP = 10
 var impact_dir
+var input = InputMacro.new()
 var jump = 10
 var knockbackDirection = Vector3()
 var maxhp = 10
-var mouseSensitivity = 0.2
+var mouseSensitivity = 0.12
+var movement = Vector3()
+var normalAcceleration = 6
 var personality
 var playerRef
 var previousInteractionResult = 0
 var rootRef
 var rng
 var shouldFollowTrainer = true
+var speedAdjust = 5
 var state = State.idle
 var stopFollowThreshold = 4
 var temp_rot
@@ -114,14 +123,14 @@ func _on_KnockbackTimer_timeout():
 func _on_WalkTimer_timeout():
 	enter_idle_state()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	apply_gravity(delta)
+func _physics_process(delta):
 	match state:
 		State.attack:
+			apply_gravity(delta)
 			#move_towards(followingTarget, delta)
 			pass
 		State.idle:
+			apply_gravity(delta)
 			if(has_trainer() and shouldFollowTrainer):
 				look_for(trainer, followThreshold, "start_moving_towards", {'target': trainer, 'thresh': 5, 'callback':"enter_idle_state"})
 				pass
@@ -130,15 +139,20 @@ func _process(delta):
 			pass
 		State.knockback:
 			move_based_on_knockback(delta)
+			apply_gravity(delta)
 		State.lasso:
 			pass
 		State.pilot:
 			print("piloting...")
+			rotate_y(input.mouse_horizontal)
+			parse_movement(delta)
 			move_based_on_input(delta)
 		State.running:
 			run_towards(followingTarget, delta)
+			apply_gravity(delta)
 		State.walking:
 			walk_towards(followingTarget, delta)
+			apply_gravity(delta)
 			pass
 
 func add_horse_to_coms(h):
@@ -427,40 +441,56 @@ func look_for(target, r = 0, _callback = callback, kargs = {}):
 		pass
 
 func move_based_on_input(delta):
-	if is_on_floor():
-		canJump = true
-	else:
-		canJump = false
-		fall.y -= gravity * delta
+	direction = direction.normalized()
+	hVelocity = hVelocity.linear_interpolate(direction * 3 * (stats.Speed + speedAdjust), hAcceleration * delta)
+	movement.z = hVelocity.z + gravityVector.z
+	movement.x = hVelocity.x + gravityVector.x
+	movement.y = gravityVector.y
+	move_and_slide(movement, Vector3.UP)
+	playerRef.rotation.y = rotation.y
+	playerRef.global_transform.origin = saddle.global_transform.origin
 	if(direction.z != 0.0 and currentAnimation != "Trot"):
 		set_animation("Trot", 2)
 	elif (direction.z == 0.0 and currentAnimation != "Idle"):
 		set_animation("Idle")
-	velocity = velocity.linear_interpolate(direction * calculate_speed(), acceleration * delta)
-	velocity = move_and_slide(velocity, Vector3.UP)
-	
-	move_and_slide(fall, Vector3.UP)
-	playerRef.rotation.y = rotation.y
-	playerRef.global_transform.origin = saddle.global_transform.origin
 
 func move_based_on_knockback(delta):
 	move_and_slide(knockbackDirection, Vector3.UP)
 	apply_gravity(delta)
 
-func parse_input(input):
+func parse_input(_input):
+	input = _input
+
+func parse_movement(delta):
+	print("parsing horse")
 	direction = Vector3()
 	
-	if input.space:
-		if canJump == true:
-			play_random_sound()
-			fall.y = jump
-			canJump = false
+	if $GroundCheck.is_colliding():
+		fullContact = true
+	else:
+		fullContact = false
 	
-	direction += (input.forward * transform.basis.z * -1) + (input.backward * transform.basis.z)
-	direction += (input.right * transform.basis.x) + (input.left * -1 * transform.basis.x)
-	direction = direction.normalized()
+	if not is_on_floor():
+		gravityVector += Vector3.DOWN * gravity * delta
+		hAcceleration = airAcceleration
+	elif is_on_floor() and fullContact:
+		gravityVector = - get_floor_normal() * gravity
+		hAcceleration = normalAcceleration
+	else:
+		gravityVector = - get_floor_normal()
+		hAcceleration = normalAcceleration
 	
-	apply_rotation(input)
+	if input.space and (is_on_floor() or $GroundCheck.is_colliding()):
+		gravityVector = Vector3.UP * jump
+	
+	if input.forward:
+		direction -= transform.basis.z
+	if input.backward:
+		direction += transform.basis.z
+	if input.left:
+		direction -= transform.basis.x
+	if input.right:
+		direction += transform.basis.x
 
 func pick_random_spot_nearby():
 	if(followingTarget != null):
@@ -529,7 +559,8 @@ func roll_moods(weights):
 
 func run_towards(target, delta):
 	turn_and_face(target)
-	var facing = -global_transform.basis.z * calculate_speed() * 10 * delta
+	#var facing = -global_transform.basis.z * calculate_speed() * 10 * delta
+	var facing = -global_transform.basis.z * 10 * (calculate_speed() + speedAdjust) * delta
 	move_and_slide(facing)
 	if(report_distance(followingTarget) < stopFollowThreshold):
 		if(callback != ""):
@@ -683,7 +714,7 @@ func validate_reproduction(other):
 
 func walk_towards(other, delta):
 	turn_and_face(other)
-	var facing = -global_transform.basis.z * calculate_speed() * delta
+	var facing = -global_transform.basis.z * (calculate_speed() + speedAdjust) * delta
 	move_and_slide(facing)
 	if(report_distance(followingTarget) < stopFollowThreshold):
 		#print("close enough to ", followingTarget.name, " - ", report_distance(followingTarget), " - ", followThreshold)
