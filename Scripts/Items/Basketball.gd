@@ -33,7 +33,6 @@ func interact(controller):
 		controller.equip(self)
 	_controller = controller
 	playerRef = controller.owner
-	#shoot_position = controller.owner.global_transform.origin
 	disable_collisions()
 
 func is_basketball():
@@ -44,8 +43,6 @@ func shoot_basket():
 		dir = -playerRef.get_head().global_transform.basis.z
 	else:
 		dir = -playerRef.global_transform.basis.z
-	#print(playerRef, " - ", playerRef.name)
-	#dir = -playerRef.get_head().global_transform.basis.z
 	owner.linear_velocity = dir * launch_power
 	parent_transform = null
 	if(playerRef.has_method("is_player")):
@@ -55,8 +52,6 @@ func shoot_basket():
 	owner.get_node("Timer").start()
 	_controller.enable_interact()
 	shoot_position = playerRef.global_transform.origin
-
-
 
 func _on_Timer_timeout():
 	print("basketball collisions re-enabled")
