@@ -4,7 +4,7 @@ onready var promptRef = get_tree().get_root().get_node("World").get_node("Intera
 
 var canInteract = true
 var inventory = []
-var lookingAt = null
+var interactables = []
 var equipped = null
 
 func begin_dialogue(other):
@@ -33,16 +33,17 @@ func get_inventory():
 
 func parse_input(input):
 	if input.engage and canInteract:
-		if lookingAt != null:
-			if lookingAt.isInteractable:
-				print("interacting with ", lookingAt)
-				lookingAt.interact(self)
+		if interactables.size() > 0:
+			if interactables.back().isInteractable:
+				interactables.back().interact(self)
 				read_prompt()
 
 func read_prompt():
-	if canInteract:
-		promptRef.show_prompt(lookingAt.prompt(), lookingAt.has_method("is_low"))
+	if canInteract and interactables.size() > 0:
+		promptRef.show_prompt(interactables.back().prompt(), interactables.back().has_method("is_low"))
 		pass
+	else:
+		clear()
 
 func toggle_interactability():
 	canInteract = !canInteract
@@ -50,8 +51,7 @@ func toggle_interactability():
 func _on_InteractionController_area_entered(area):
 	if area.has_method("interact"):
 		if area.isInteractable:
-			print("interaction controller entered ", area.name)
-			lookingAt = area
+			interactables.append(area)
 			read_prompt()
 	pass # Replace with function body.
 
@@ -59,22 +59,20 @@ func _on_InteractionController_area_entered(area):
 func _on_InteractionController_body_entered(body):
 	if body.has_method("interact"):
 		print("interaction controller entered ", body.name)
-		lookingAt = body
+		interactables.append(body)
 		read_prompt()
 	pass # Replace with function body.
 
 
 func _on_InteractionController_body_exited(body):
-	if body == lookingAt:
-		print("interaction controller exited ", body.name)
-		promptRef.clear()
-		lookingAt = null
+	if interactables.has(body):
+		interactables.erase(body)
+		read_prompt()
 	pass # Replace with function body.
 
 
 func _on_InteractionController_area_exited(area):
-	if area == lookingAt:
-		print("interaction controller exited ", area.name)
-		promptRef.clear()
-		lookingAt = null
+	if interactables.has(area):
+		interactables.erase(area)
+		read_prompt()
 	pass # Replace with function body.
