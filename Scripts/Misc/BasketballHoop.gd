@@ -30,6 +30,8 @@ func _on_goal_body_entered(body):
 		hc.global_transform.origin = global_transform.origin
 		add_child(hc)
 		score_point = Utils.get_world(self).create_point(bi.shoot_position)
+		if bi.has_method("set_basket"):
+			bi.set_basket($Ring_Point)
 	pass # Replace with function body.
 
 

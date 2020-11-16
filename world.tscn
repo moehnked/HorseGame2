@@ -72,7 +72,7 @@ light_energy = 0.5
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="FPSController" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.459759, 0, 0, 0, 0.459759, 0, 0, 0, 0.459759, -0.57347, 3.71122, -11.5129 )
+transform = Transform( 0.459759, 0, 0, 0, 0.459759, 0, 0, 0, 0.459759, -0.57347, 6.30163, -11.5129 )
 
 [node name="Trophy" parent="." instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.31612, 1.70988, 0.0882611 )

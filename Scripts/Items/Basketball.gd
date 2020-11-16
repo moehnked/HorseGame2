@@ -1,7 +1,7 @@
 extends "res://Scripts/Item.gd"
 export var launch_power = 200
 
-var basket
+var basket = null
 var _controller = null
 var dir = Vector3()
 var parent_transform = null
@@ -24,6 +24,9 @@ func enable_collisions():
 	owner.set_collision_mask_bit(2, 1)
 	isInteractable = true
 
+func get_basket():
+	return basket
+
 func interact(controller):
 	print(itemName, " picked up by ", controller.owner.name)
 	if .get_inventory(controller) != null:
@@ -39,9 +42,14 @@ func interact(controller):
 func is_basketball():
 	return true
 
-func shoot_basket(vector = null):
-	if vector != null:
-		dir = vector
+func set_basket(_basket):
+	basket = _basket
+
+func shoot_basket(vector = null, thrown_from = null):
+	if vector != null and thrown_from != null:
+		dir = vector - thrown_from
+		dir = dir * .2
+		dir.y + 15
 	elif(playerRef.has_method("get_head")):
 		dir = -playerRef.get_head().global_transform.basis.z
 	else:

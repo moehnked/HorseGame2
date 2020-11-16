@@ -64,6 +64,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _physics_process(delta):
+	print(global_transform.origin.y)
 	match state:
 		State.lasso:
 			moveTowards(saddle, delta)

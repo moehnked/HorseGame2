@@ -107,6 +107,7 @@ one_shot = true
 transform = Transform( 0.764508, 0, 0, 0, 0.764508, 0, 0, 0, -0.764508, 0, 0, 0 )
 
 [node name="AggroRange" type="Area" parent="."]
+visible = false
 
 [node name="CollisionShape" type="CollisionShape" parent="AggroRange"]
 shape = SubResource( 5 )
@@ -126,6 +127,7 @@ one_shot = true
 one_shot = true
 
 [node name="HorseInteractionController" type="Area" parent="."]
+visible = false
 script = ExtResource( 2 )
 baby_threshold = 2
 
