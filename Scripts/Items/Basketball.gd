@@ -33,7 +33,7 @@ func interact(controller):
 		controller.equip(self)
 	_controller = controller
 	playerRef = controller.owner
-	shoot_position = controller.owner.global_transform.origin
+	#shoot_position = controller.owner.global_transform.origin
 	disable_collisions()
 
 func is_basketball():
@@ -54,6 +54,7 @@ func shoot_basket():
 	playerRef.get_inventory().erase(self)
 	owner.get_node("Timer").start()
 	_controller.enable_interact()
+	shoot_position = playerRef.global_transform.origin
 
 
 
