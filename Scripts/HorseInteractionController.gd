@@ -88,7 +88,10 @@ func throw_equipped():
 		print("equipped")
 		if(equipped.has_method("shoot_basket")):
 			print("shooting towards ", equipped.get_basket().global_transform.origin)
-			equipped.shoot_basket(equipped.get_basket().global_transform.origin, owner.get_node("ItemHold").global_transform.origin)
+			equipped.shoot_basket(
+				equipped.get_basket().global_transform.origin, 
+				owner.get_node("ItemHold").global_transform.origin
+				)
 
 func _on_HorseInteractionController_area_entered(area):
 	#var h = determine_horse_source(area)

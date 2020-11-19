@@ -681,6 +681,7 @@ func target_basket(args):
 	stop_walking()
 	state = State.none
 	turn_and_face(args.basket)
+	global_transform.origin = followingTarget.global_transform.origin
 	$TargetBasketTimer.start(rng.randf_range(0.5,1.5))
 
 func turn_and_face(target):

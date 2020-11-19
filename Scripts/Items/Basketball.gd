@@ -47,9 +47,10 @@ func set_basket(_basket):
 
 func shoot_basket(vector = null, thrown_from = null):
 	if vector != null and thrown_from != null:
-		dir = vector - thrown_from
+		#dir = vector - thrown_from
+		dir = basket.global_transform.origin - thrown_from
 		dir = dir * .2
-		dir.y + 15
+		dir.y + 25
 	elif(playerRef.has_method("get_head")):
 		dir = -playerRef.get_head().global_transform.basis.z
 	else:

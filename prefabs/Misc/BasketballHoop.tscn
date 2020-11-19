@@ -98,7 +98,7 @@ transform = Transform( 1.70277, 0, 0, 0, 1.70277, 0, 0, 0, 1.70277, 0, 10.2515, 
 shape = SubResource( 7 )
 
 [node name="goal" type="Area" parent="."]
-transform = Transform( 1.22058, 0, 0, 0, 1.22058, 0, 0, 0, 1.22058, 0, 11.1323, 0.817798 )
+transform = Transform( 1.22058, 0, 0, 0, 1.22058, 0, 0, 0, 1.22058, 0, 11.1323, 1.04586 )
 
 [node name="CollisionShape" type="CollisionShape" parent="goal"]
 shape = SubResource( 8 )
@@ -107,6 +107,6 @@ shape = SubResource( 8 )
 one_shot = true
 
 [node name="Ring_Point" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0678, 1.48811 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.6112, 2.92089 )
 [connection signal="body_entered" from="goal" to="." method="_on_goal_body_entered"]
 [connection signal="timeout" from="Score_reset" to="." method="_on_Score_reset_timeout"]
