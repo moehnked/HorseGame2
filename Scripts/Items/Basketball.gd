@@ -4,6 +4,7 @@ export var launch_power = 200
 var basket = null
 var _controller = null
 var dir = Vector3()
+var isAtemptingShot = false
 var parent_transform = null
 var playerRef = null
 var shoot_position = Vector3()
@@ -27,6 +28,9 @@ func enable_collisions():
 func get_basket():
 	return basket
 
+func get_shooter():
+	return playerRef
+
 func interact(controller):
 	print(itemName, " picked up by ", controller.owner.name)
 	if .get_inventory(controller) != null:
@@ -41,6 +45,9 @@ func interact(controller):
 
 func is_basketball():
 	return true
+
+func made_shot():
+	isAtemptingShot = false
 
 func set_basket(_basket):
 	basket = _basket
@@ -64,7 +71,19 @@ func shoot_basket(vector = null, thrown_from = null):
 	owner.get_node("Timer").start()
 	_controller.enable_interact()
 	shoot_position = playerRef.global_transform.origin
+	isAtemptingShot = true
 
 func _on_Timer_timeout():
 	print("basketball collisions re-enabled")
 	enable_collisions()
+
+
+func _on_Item_body_entered(body):
+	if(body.has_method("is_ground")):
+		print("basketball landed")
+		if(isAtemptingShot):
+			isAtemptingShot = false
+			print("missed that one, bud!")
+			if basket != null:
+				basket.set_score(playerRef.name, 0)
+	pass # Replace with function body.

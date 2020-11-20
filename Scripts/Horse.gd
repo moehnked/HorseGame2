@@ -595,6 +595,11 @@ func start_playing_horse(ball, basket):
 
 func start_moving_towards(args = {}):
 	args = Utils.check(args, {'target':null, 'thresh' : stopFollowThreshold, 'callback' : "", 'is_running' : false, 'kargs' : null})
+	if(followingTarget != null):
+		if(followingTarget.has_method("is_test_point")):
+			followingTarget.queue_free()
+			followingTarget = null
+	
 	if(args.target == self):
 		print("! you can't walk towards yourself, you dummy!")
 		#enter_wander_state()

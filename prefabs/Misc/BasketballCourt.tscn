@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Textures/misc/fullcourt.png" type="Texture" id=1]
+[ext_resource path="res://Textures/concrete/IMGP5497_seamless.jpg" type="Texture" id=2]
+[ext_resource path="res://Scripts/Misc/Court.gd" type="Script" id=3]
+[ext_resource path="res://prefabs/Misc/BasketballHoop.tscn" type="PackedScene" id=4]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="PlaneMesh" id=2]
+material = SubResource( 1 )
+
+[sub_resource type="CubeMesh" id=3]
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 21.6435, 1.07278, 46.0902 )
+
+[sub_resource type="BoxShape" id=6]
+
+[node name="BasketballCourt" type="Spatial"]
+
+[node name="court" type="StaticBody" parent="."]
+transform = Transform( 0.822707, 0, 0, 0, 0.518215, 0, 0, 0, 0.573117, 0, 0, 0 )
+script = ExtResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="court"]
+transform = Transform( 20.6358, 0, 0, 0, 0.834511, 0, 0, 0, 43.8479, 0, 0, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="court"]
+transform = Transform( 21.634, 0, 0, 0, 1, 0, 0, 0, -46.0856, 0, -1.01505, 0 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="MAIN" type="CollisionShape" parent="court"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.03259, 0 )
+shape = SubResource( 5 )
+
+[node name="Hoop" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.02108, -19.8812 )
+
+[node name="Hoop2" parent="." instance=ExtResource( 4 )]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, -2.02108, 19.4351 )
+
+[node name="slope" type="StaticBody" parent="."]
+transform = Transform( 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 26.6093, 17.8073, -1.3939, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="slope"]
+shape = SubResource( 6 )
+
+[node name="slope2" type="StaticBody" parent="."]
+transform = Transform( 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 26.6093, -17.8056, -1.3863, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="slope2"]
+shape = SubResource( 6 )
+
+[node name="slope3" type="StaticBody" parent="."]
+transform = Transform( -1.15202e-07, 1.15202e-07, 17.85, 0.707107, 0.707107, 1.11073e-13, -0.707107, 0.707107, -2.90813e-06, 0.00504303, -1.3863, 26.4308 )
+
+[node name="CollisionShape" type="CollisionShape" parent="slope3"]
+shape = SubResource( 6 )
+
+[node name="slope4" type="StaticBody" parent="."]
+transform = Transform( -1.15202e-07, 1.15202e-07, 17.85, 0.707107, 0.707107, 1.11073e-13, -0.707107, 0.707107, -2.90813e-06, 0.00504303, -1.3863, -26.4193 )
+
+[node name="CollisionShape" type="CollisionShape" parent="slope4"]
+shape = SubResource( 6 )

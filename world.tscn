@@ -3,7 +3,7 @@
 [ext_resource path="res://prefabs/FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Textures/100_1395_seamless.JPG" type="Texture" id=2]
 [ext_resource path="res://prefabs/Horse.tscn" type="PackedScene" id=3]
-[ext_resource path="res://prefabs/Misc/BasketballHoop.tscn" type="PackedScene" id=4]
+[ext_resource path="res://prefabs/Misc/BasketballCourt.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/world.gd" type="Script" id=5]
 [ext_resource path="res://Scripts/Misc/Debug.gd" type="Script" id=6]
 [ext_resource path="res://prefabs/InputObserver.tscn" type="PackedScene" id=7]
@@ -39,6 +39,9 @@ uv1_scale = Vector3( 30, 30, 1 )
 environment = SubResource( 2 )
 script = ExtResource( 5 )
 
+[node name="BasketballCourt" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -24.709, 0.122657, 41.2673 )
+
 [node name="Horse" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, 6.72797, 0, -6.23699 )
 garunteedConversation = true
@@ -72,7 +75,7 @@ light_energy = 0.5
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="FPSController" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.459759, 0, 0, 0, 0.459759, 0, 0, 0, 0.459759, -0.57347, 6.30163, -11.5129 )
+transform = Transform( 0.459759, 0, 0, 0, 0.459759, 0, 0, 0, 0.459759, -0.651342, 6.30163, 31.642 )
 
 [node name="Trophy" parent="." instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.31612, 1.70988, 0.0882611 )
@@ -87,7 +90,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.0547, -0.291551, 0.954863 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.1017, 3.45762, 0.370879 )
 
 [node name="Basketball" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.93831, 17.1757 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0801, 4.96283, 36.0804 )
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 
@@ -106,9 +109,6 @@ margin_top = 16.0
 margin_right = 56.0
 margin_bottom = 30.0
 script = ExtResource( 6 )
-
-[node name="Hoop" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.83738, -2.94843, 0.709343 )
 
 [node name="GlobalCorralRegistrar" type="Spatial" parent="."]
 script = ExtResource( 10 )

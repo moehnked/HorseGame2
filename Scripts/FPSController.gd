@@ -34,7 +34,6 @@ var movement = Vector3()
 var normalAcceleration = 6
 var saddle
 var scaleMod = 1.0
-export var slope_limit = deg2rad(45)
 export var speed = 7
 
 var state = State.normal
@@ -278,6 +277,9 @@ func get_head():
 func get_palm():
 	return $Head/Palm
 
+func initializeHUD(letter):
+	$Head/Camera/GuiLoadArea/H.initialize(letter)
+
 func is_player():
 	return true
 
@@ -436,7 +438,6 @@ func take_damage(dmg = 1, hitbox = null, source = null):
 	else:
 		enter_knockback(calculate_knockback_vector(hitbox, source), dmg)
 		pass
-
 
 func unsubscribe_to():
 	rootRef.get_node("InputObserver").unsubscribe(self)

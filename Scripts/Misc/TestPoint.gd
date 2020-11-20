@@ -18,7 +18,10 @@ func _process(delta):
 func is_test_point():
 	return true
 
+func queue_terminate():
+	$TTL.start()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
+func _on_TTL_timeout():
+	queue_free()
+	pass # Replace with function body.

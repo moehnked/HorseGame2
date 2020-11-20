@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Scripts/FPSController.gd" type="Script" id=1]
 [ext_resource path="res://Textures/Hand_idle.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://models/cowboy_hat_01.obj" type="ArrayMesh" id=12]
 [ext_resource path="res://Scripts/Misc/Hat.gd" type="Script" id=13]
 [ext_resource path="res://Scripts/Misc/Camera.gd" type="Script" id=14]
+[ext_resource path="res://prefabs/Letters/H.tscn" type="PackedScene" id=15]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 3.0
@@ -136,6 +137,12 @@ script = ExtResource( 14 )
 [node name="RayCast" type="RayCast" parent="Head/Camera"]
 enabled = true
 cast_to = Vector3( 0, 0, -10 )
+
+[node name="GuiLoadArea" type="Spatial" parent="Head/Camera"]
+transform = Transform( 0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.03, 0, 0, 0 )
+
+[node name="H" parent="Head/Camera/GuiLoadArea" instance=ExtResource( 15 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.87626 )
 
 [node name="Hand" type="StaticBody" parent="Head"]
 transform = Transform( 0.471814, 0, 0, 0, 0.162491, -0.489356, 0, 0.65621, 0.121175, 0.486894, -0.408205, -0.750011 )
