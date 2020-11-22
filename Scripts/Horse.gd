@@ -579,9 +579,12 @@ func roll_moods(weights):
 
 func run_towards(target, delta):
 	turn_and_face(target)
-	#var facing = -global_transform.basis.z * calculate_speed() * 10 * delta
-	var facing = -global_transform.basis.z * 10 * (calculate_speed() + speedAdjust) * delta
-	move_and_slide(facing)
+	direction = -global_transform.basis.z
+	hVelocity = hVelocity.linear_interpolate(direction * (stats.Speed + speedAdjust), hAcceleration * delta)
+	movement.z = hVelocity.z + gravityVector.z
+	movement.x = hVelocity.x + gravityVector.x
+	movement.y = gravityVector.y
+	move_and_slide(movement, Vector3.UP)
 	if(report_distance(followingTarget) < stopFollowThreshold):
 		if(callback != ""):
 			call(callback, callback_kargs) if (callback_kargs != null) else call(callback)
@@ -742,7 +745,6 @@ func validate_reproduction(other):
 
 func walk_towards(other, delta):
 	turn_and_face(other)
-	#var facing = -global_transform.basis.z * (calculate_speed() + speedAdjust) * delta
 	direction = -global_transform.basis.z
 	hVelocity = hVelocity.linear_interpolate(direction * 0.2 *(stats.Speed + speedAdjust), hAcceleration * delta)
 	movement.z = hVelocity.z + gravityVector.z
@@ -755,24 +757,6 @@ func walk_towards(other, delta):
 		else:
 			set_animation("Idle", 0)
 			state = State.none
-	#playerRef.rotation.y = rotation.y
-	#playerRef.global_transform.origin = saddle.global_transform.origin
-#	if(direction.z != 0.0 and currentAnimation != "Trot"):
-#		set_animation("Trot", 2)
-#	elif (direction.z == 0.0 and currentAnimation != "Idle"):
-#		set_animation("Idle")
-
-#func walk_towards(other, delta):
-#	turn_and_face(other)
-#	var facing = -global_transform.basis.z * (calculate_speed() + speedAdjust) * delta
-#	move_and_slide(facing)
-#	if(report_distance(followingTarget) < stopFollowThreshold):
-#		#print("close enough to ", followingTarget.name, " - ", report_distance(followingTarget), " - ", followThreshold)
-#		if(callback != ""):
-#			call(callback, callback_kargs) if (callback_kargs != null) else call(callback)
-#		else:
-#			set_animation("Idle", 0)
-#			state = State.none
 
 func _on_AggroRange_area_entered(area):
 	if pep < -5:
