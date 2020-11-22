@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Scripts/FPSController.gd" type="Script" id=1]
 [ext_resource path="res://Textures/Hand_idle.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Scripts/Misc/Hat.gd" type="Script" id=13]
 [ext_resource path="res://Scripts/Misc/Camera.gd" type="Script" id=14]
 [ext_resource path="res://prefabs/Letters/H.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scripts/Misc/fpsCameraMask.gd" type="Script" id=16]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 3.0
@@ -25,6 +26,16 @@ albedo_texture = ExtResource( 3 )
 [sub_resource type="CapsuleMesh" id=3]
 material = SubResource( 2 )
 mid_height = 3.0
+
+[sub_resource type="QuadMesh" id=15]
+
+[sub_resource type="SpatialMaterial" id=16]
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 1, 1, 1, 0 )
+
+[sub_resource type="BoxShape" id=17]
+extents = Vector3( 0.729209, 0.291349, 0.145031 )
 
 [sub_resource type="PlaneMesh" id=4]
 
@@ -143,6 +154,18 @@ transform = Transform( 0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.03, 0, 0, 0 )
 
 [node name="H" parent="Head/Camera/GuiLoadArea" instance=ExtResource( 15 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.87626 )
+
+[node name="Area" type="Area" parent="Head/Camera"]
+script = ExtResource( 16 )
+
+[node name="Mask" type="MeshInstance" parent="Head/Camera/Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.238554 )
+mesh = SubResource( 15 )
+material/0 = SubResource( 16 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Head/Camera/Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.212168, -0.19155 )
+shape = SubResource( 17 )
 
 [node name="Hand" type="StaticBody" parent="Head"]
 transform = Transform( 0.471814, 0, 0, 0, 0.162491, -0.489356, 0, 0.65621, 0.121175, 0.486894, -0.408205, -0.750011 )

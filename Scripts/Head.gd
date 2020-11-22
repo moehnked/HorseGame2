@@ -33,6 +33,9 @@ func look_at_object(object):
 	focus = object
 	unsubscribe_to()
 
+func set_mask(color):
+	$Camera/Area/Mask.get_surface_material(0).albedo_color = color
+
 func subscribe_to():
 	rootRef.get_node("InputObserver").subscribe(self)
 	Utils.capture_mouse()

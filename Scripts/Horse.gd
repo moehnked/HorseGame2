@@ -40,6 +40,7 @@ var HP = 10
 var impact_dir
 var input = InputMacro.new()
 var jump = 10
+var keepFollowing = false
 var knockbackDirection = Vector3()
 var maxhp = 10
 var mouseSensitivity = 0.12
@@ -318,6 +319,7 @@ func exit_pilot():
 	unsubscribe_to()
 	play_random_sound()
 	if(has_trainer()):
+		keepFollowing = true
 		look_for(trainer)
 	else:
 		enter_idle_state()
@@ -757,21 +759,22 @@ func walk_towards(other, delta):
 		else:
 			set_animation("Idle", 0)
 			state = State.none
-	elif(dist > followThreshold):
-		start_moving_towards({
-			'target':followingTarget, 
-			'thresh' : stopFollowThreshold, 
-			'callback' : "start_moving_towards", 
-			'is_running' : true, 
-			'kargs' : {
+	elif(keepFollowing):
+		if(dist > followThreshold):
+			start_moving_towards({
 				'target':followingTarget, 
 				'thresh' : stopFollowThreshold, 
 				'callback' : "start_moving_towards", 
-				'is_running' : false, 
-				'kargs' : callback_kargs
+				'is_running' : true, 
+				'kargs' : {
+					'target':followingTarget, 
+					'thresh' : stopFollowThreshold, 
+					'callback' : "start_moving_towards", 
+					'is_running' : false, 
+					'kargs' : callback_kargs
+					}
 				}
-			}
-		)
+			)
 
 func _on_AggroRange_area_entered(area):
 	if pep < -5:

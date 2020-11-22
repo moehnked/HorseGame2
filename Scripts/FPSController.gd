@@ -22,12 +22,15 @@ var flushing = false
 var fullContact = false
 var gravity = 20
 var gravityVector = Vector3()
+var gravityCoefficient = 1.0
 var HP = 10
 var hAcceleration = 6
 var hVelocity = Vector3()
 var input = InputMacro.new()
 var isBuilding = false
+var isSwimming = false
 var jump = 10
+var jumpCoefficient = 1.0
 var knockbackDirection = Vector3()
 var mouseSensitivity = 0.09
 var movement = Vector3()
@@ -343,7 +346,7 @@ func parse_movement(delta):
 		fullContact = false
 	
 	if not is_on_floor():
-		gravityVector += Vector3.DOWN * gravity * delta
+		gravityVector += Vector3.DOWN * gravity * delta * gravityCoefficient
 		hAcceleration = airAcceleration
 	elif is_on_floor() and fullContact:
 		gravityVector = - get_floor_normal() * gravity
@@ -352,8 +355,8 @@ func parse_movement(delta):
 		gravityVector = - get_floor_normal()
 		hAcceleration = normalAcceleration
 	
-	if input.space and (is_on_floor() or $GroundCheck.is_colliding()):
-		gravityVector = Vector3.UP * jump
+	if input.space and (is_on_floor() or $GroundCheck.is_colliding() or isSwimming):
+		gravityVector = Vector3.UP * jump * jumpCoefficient
 	
 	if input.forward:
 		direction -= transform.basis.z
@@ -424,9 +427,21 @@ func startLeftCooldown():
 func startRightCooldown():
 	$RightCooldown.start()
 
+func start_swimming():
+	gravityCoefficient = 0.1
+	jumpCoefficient = 0.2
+	isSwimming = true
+	#get_head().set_mask(Color(0, 0.80, 0.93, 0.32))
+
 func stop_cast_reset():
 	$LeftCooldown.stop()
 	$RightCooldown.stop()
+
+func stop_swimming():
+	gravityCoefficient = 1.0
+	jumpCoefficient = 1.0
+	isSwimming = false
+	#get_head().set_mask(Color(1,1,1,0))
 
 func subscribe_to():
 	rootRef.get_node("InputObserver").subscribe(self)
