@@ -669,7 +669,6 @@ func stop_all_timers():
 
 func stop_talking_to():
 	if(followingTarget != null):
-		#print(name, " did not enjoy talking to ", followingTarget.name)
 		tempTalkBanList.append(followingTarget)
 		followingTarget = null
 	previousInteractionResult = 0
@@ -751,12 +750,28 @@ func walk_towards(other, delta):
 	movement.x = hVelocity.x + gravityVector.x
 	movement.y = gravityVector.y
 	move_and_slide(movement, Vector3.UP)
-	if(report_distance(followingTarget) < stopFollowThreshold):
+	var dist = report_distance(followingTarget)
+	if(dist < stopFollowThreshold):
 		if(callback != ""):
 			call(callback, callback_kargs) if (callback_kargs != null) else call(callback)
 		else:
 			set_animation("Idle", 0)
 			state = State.none
+	elif(dist > followThreshold):
+		start_moving_towards({
+			'target':followingTarget, 
+			'thresh' : stopFollowThreshold, 
+			'callback' : "start_moving_towards", 
+			'is_running' : true, 
+			'kargs' : {
+				'target':followingTarget, 
+				'thresh' : stopFollowThreshold, 
+				'callback' : "start_moving_towards", 
+				'is_running' : false, 
+				'kargs' : callback_kargs
+				}
+			}
+		)
 
 func _on_AggroRange_area_entered(area):
 	if pep < -5:
