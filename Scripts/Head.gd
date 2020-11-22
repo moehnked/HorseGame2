@@ -21,6 +21,7 @@ func _process(delta):
 	if(focus != null):
 		rotation_degrees.x = interpolation(rotation_degrees.x,rad2deg(atan2(((focus.global_transform.origin.y + 2) - global_transform.origin.y), (Vector2(global_transform.origin.x, global_transform.origin.z).distance_to(Vector2(focus.global_transform.origin.x, focus.global_transform.origin.z))))), delta*speed)
 		owner.global_transform = owner.global_transform.interpolate_with(owner.global_transform.looking_at(focus.global_transform.origin, Vector3.UP), 0.1)
+		owner.correct_scale()
 		owner.rotation_degrees.x = 0
 		owner.rotation_degrees.z = 0
 

@@ -120,11 +120,6 @@ func apply_rotation():
 	if state != State.giddyup and not isBuilding:
 		rotate_y(input.mouse_horizontal)
 
-func begin_dialogue(other):
-	unsubscribe_to()
-	get_head().look_at_object(other)
-	$InteractionController.disable_interact()
-
 func calculate_knockback_vector(hitbox, source):
 	print("type:  --- ",hitbox.get_class())
 	return (hitbox.global_transform.origin - source.global_transform.origin) * 10
@@ -167,6 +162,9 @@ func conclude_spell(spell):
 	$Head/Hand.idle_hand()
 	flush_spells()
 
+func correct_scale():
+	scale = Vector3(scaleMod, scaleMod, scaleMod)
+
 func toggle_all_collisions(tog = false):
 	$CollisionShape.disabled = tog
 	$InteractionController/CollisionShape.disabled = tog
@@ -176,6 +174,11 @@ func toggle_all_collisions(tog = false):
 func enable_casting():
 	canCastLeft = true
 	canCastRight = true
+
+func enter_dialogue(other):
+	unsubscribe_to()
+	get_head().look_at_object(other)
+	$InteractionController.disable_interact()
 
 func enter_giddyup(target):
 	print("player enter_giddyup")

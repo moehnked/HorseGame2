@@ -8,7 +8,7 @@ var interactables = []
 var equipped = null
 
 func begin_dialogue(other):
-	owner.begin_dialogue(other)
+	owner.enter_dialogue(other)
 
 func clear():
 	promptRef.clear()
