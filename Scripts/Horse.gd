@@ -134,7 +134,7 @@ func _physics_process(delta):
 		State.idle:
 			apply_gravity(delta)
 			if(has_trainer() and shouldFollowTrainer):
-				look_for(trainer, followThreshold, "start_moving_towards", {'target': trainer, 'thresh': 5, 'callback':"enter_idle_state"})
+				look_for({'target':trainer, 'r':followThreshold, 'callback':"start_moving_towards", 'kargs':{'target': trainer, 'thresh': 5, 'callback':"enter_idle_state"}})
 				pass
 			else:
 				find_horse_to_talk_to()
@@ -320,7 +320,7 @@ func exit_pilot():
 	play_random_sound()
 	if(has_trainer()):
 		keepFollowing = true
-		look_for(trainer)
+		look_for({'target':trainer, 'callback':""})
 	else:
 		enter_idle_state()
 
@@ -455,9 +455,10 @@ func lasso(l):
 	impact_dir = l.rotation
 	temp_rot = Vector3(rotation.x, rotation.y, rotation.z)
 
-func look_for(target, r = 0, _callback = callback, kargs = {}):
-	if report_distance(target) > (followThreshold if (r == 0) else r):
-		start_moving_towards({'target':target, 'thresh':stopFollowThreshold, 'callback':_callback, 'is_running':true, 'kargs': kargs})
+func look_for(args = {}):
+	args = Utils.check(args, {'target':null, 'r':stopFollowThreshold, 'callback':callback, 'kargs':callback_kargs})
+	if report_distance(args.target) > args.r:
+		start_moving_towards({'target':args.target, 'thresh':stopFollowThreshold, 'callback':args.callback, 'is_running':true, 'kargs': args.kargs})
 	else:
 		enter_idle_state()
 		pass
@@ -587,12 +588,17 @@ func run_towards(target, delta):
 	movement.x = hVelocity.x + gravityVector.x
 	movement.y = gravityVector.y
 	move_and_slide(movement, Vector3.UP)
-	if(report_distance(followingTarget) < stopFollowThreshold):
+	var dist = report_distance(followingTarget)
+	if(dist < stopFollowThreshold):
 		if(callback != ""):
 			call(callback, callback_kargs) if (callback_kargs != null) else call(callback)
 		else:
 			set_animation("Idle", 0)
 			state = State.none
+	elif(keepFollowing):
+		if(dist > followThreshold):
+			print("too far away to walk, gotta run")
+			look_for({'target': target})
 
 func set_animation(clip = "Idle", s = 1.0):
 	currentAnimation = clip
@@ -761,20 +767,8 @@ func walk_towards(other, delta):
 			state = State.none
 	elif(keepFollowing):
 		if(dist > followThreshold):
-			start_moving_towards({
-				'target':followingTarget, 
-				'thresh' : stopFollowThreshold, 
-				'callback' : "start_moving_towards", 
-				'is_running' : true, 
-				'kargs' : {
-					'target':followingTarget, 
-					'thresh' : stopFollowThreshold, 
-					'callback' : "start_moving_towards", 
-					'is_running' : false, 
-					'kargs' : callback_kargs
-					}
-				}
-			)
+			print("too far away to walk, gotta run")
+			look_for({'target': other})
 
 func _on_AggroRange_area_entered(area):
 	if pep < -5:
