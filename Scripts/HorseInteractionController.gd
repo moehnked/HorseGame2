@@ -87,9 +87,9 @@ func throw_equipped():
 	if(equipped != null):
 		print("equipped")
 		if(equipped.has_method("shoot_basket")):
-			print("shooting towards ", equipped.get_basket().global_transform.origin)
+			#print("shooting towards ",equipped.get_basket().name, " - ",equipped.get_basket().global_transform.origin)
 			equipped.shoot_basket(
-				equipped.get_basket().global_transform.origin, 
+				null, 
 				owner.get_node("ItemHold").global_transform.origin
 				)
 

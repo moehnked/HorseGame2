@@ -5,7 +5,7 @@ const Utils = preload("res://Utils.gd")
 
 var active = true
 var scoreboard = {}
-var score_point = null
+var scorePoint = null
 
 func get_letter(scorer):
 	if(scoreboard.has(scorer)):
@@ -22,7 +22,9 @@ func get_letter(scorer):
 				return "E"
 
 func get_score_point():
-	return score_point
+	if(scorePoint == null):
+		print("basket is returning a null scorepoint")
+	return scorePoint
 
 func is_hoop():
 	return true
@@ -36,13 +38,17 @@ func increment_score(key):
 func set_score(key, val):
 	scoreboard[key] = val
 
+func set_score_point(point, setter = null):
+	if(point == null):
+		print("set score point to null by ", setter)
+	scorePoint = point
+
 func _on_goal_body_entered(body):
 	var bi = body.get_node("Item")
 	if(bi != null && active):
 		print("SCORE!")
 		body.linear_velocity = Vector3()
 		body.global_transform.origin = $Ring_Point.global_transform.origin
-		
 		$Ring.disabled = true
 		$goal/CollisionShape.disabled = true
 		active = false
@@ -53,7 +59,8 @@ func _on_goal_body_entered(body):
 		var hc = HORSE.instance()
 		hc.global_transform.origin = global_transform.origin
 		add_child(hc)
-		score_point = Utils.get_world(self).create_point(bi.shoot_position)
+		set_score_point(Utils.get_world(self).create_point(bi.shoot_position))
+		hc.set_score_pos(scorePoint)
 		if bi.has_method("set_basket"):
 			bi.set_basket(self)
 		if bi.has_method("get_shooter"):

@@ -3,12 +3,16 @@ extends Spatial
 var balls = []
 var horses = []
 var hoops = []
+var scorePos = self
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("time to play ball......")
 	pass # Replace with function body.
+
+func set_score_pos(point):
+	scorePos = point
 
 func _on_Area_body_entered(body):
 	if(body.has_method("is_horse")):
@@ -29,7 +33,7 @@ func _on_Area_body_entered(body):
 func _on_TTL_timeout():
 	if(horses.size() > 0 and balls.size() > 0 and hoops.size() > 0):
 		print(horses[0].name, " is ready to play")
-		horses[0].start_playing_horse(balls[0].get_node("Item"), hoops[0])
+		horses[0].start_playing_horse(balls[0].get_node("Item"), balls[0].get_node("Item").get_basket(), scorePos)
 	else:
 		print("no one could play")
 	queue_free()

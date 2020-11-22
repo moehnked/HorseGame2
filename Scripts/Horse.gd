@@ -50,6 +50,7 @@ var playerRef
 var previousInteractionResult = 0
 var rootRef
 var rng
+var scaleFactor = 1.666
 var shouldFollowTrainer = true
 var speedAdjust = 5
 var state = State.idle
@@ -161,13 +162,29 @@ func add_horse_to_coms(h):
 		horseComs.append(h)
 
 func apply_gravity(delta):
-	if not is_on_floor():
-		canJump = false
-		fall.y -= gravity * delta
+	if $GroundCheck.is_colliding():
+		fullContact = true
 	else:
-		canJump = true
+		fullContact = false
 	
-	move_and_slide(fall, Vector3.UP)
+	if not is_on_floor():
+		gravityVector += Vector3.DOWN * gravity * delta
+		hAcceleration = airAcceleration
+	elif is_on_floor() and fullContact:
+		gravityVector = - get_floor_normal() * gravity
+		hAcceleration = normalAcceleration
+	else:
+		gravityVector = - get_floor_normal()
+		hAcceleration = normalAcceleration
+#
+#func apply_gravity(delta):
+#	if not is_on_floor():
+#		canJump = false
+#		fall.y -= gravity * delta
+#	else:
+#		canJump = true
+#
+#	move_and_slide(fall, Vector3.UP)
 
 func apply_rotation(input):
 	if state == State.pilot:
@@ -221,6 +238,9 @@ func check_relationships(person):
 		return relationships[person]
 	else:
 		return 0
+
+func correct_scale():
+	scale = Vector3(scaleFactor, scaleFactor, scaleFactor)
 
 func create_horse(other_parent):
 	print(name, " had a baby with ", other_parent.name, " ~~ ", owner.name if owner != null else "null")
@@ -350,8 +370,8 @@ func get_state():
 	return str(State.keys()[state])
 
 func go_to_basket_point(args):
-	print("gonna go shoot my shot! at ", args.basket.get_score_point().global_transform.origin)
-	start_moving_towards({'target':args.basket.get_score_point(), 'thresh':3.0, 'callback':"target_basket", 'kargs': {'basket':args.basket}})
+	print("gonna go shoot my shot! at ", args.basket," - ", args.scorePos)
+	start_moving_towards({'target':args.scorePos, 'thresh':3.0, 'callback':"target_basket", 'kargs': {'basket':args.basket}})
 	pass
 
 func go_to_corral():
@@ -588,9 +608,9 @@ func start_conversation_with_horse():
 	$HorseInteractionController.determine_interaction(followingTarget)
 	$TalkCooldownTimer.start()
 
-func start_playing_horse(ball, basket):
+func start_playing_horse(ball, basket, scorePos):
 	turn_and_face(ball)
-	start_moving_towards({'target': ball, 'thresh':5.0, 'callback':'go_to_basket_point', 'kargs': {'basket':basket}})
+	start_moving_towards({'target': ball, 'thresh':5.0, 'callback':'go_to_basket_point', 'kargs': {'basket':basket, 'scorePos': scorePos}})
 	pass
 
 func start_moving_towards(args = {}):
@@ -599,10 +619,10 @@ func start_moving_towards(args = {}):
 		if(followingTarget.has_method("is_test_point")):
 			followingTarget.queue_free()
 			followingTarget = null
+			pass
 	
 	if(args.target == self):
 		print("! you can't walk towards yourself, you dummy!")
-		#enter_wander_state()
 		start_wandering()
 	else:
 		stop_all_timers()
@@ -686,15 +706,17 @@ func target_basket(args):
 	stop_walking()
 	state = State.none
 	turn_and_face(args.basket)
-	global_transform.origin = followingTarget.global_transform.origin
+	global_transform.origin.x = followingTarget.global_transform.origin.x
+	global_transform.origin.z = followingTarget.global_transform.origin.z
 	$TargetBasketTimer.start(rng.randf_range(0.5,1.5))
 
 func turn_and_face(target):
 	if(target != null):
-		var opposite = target.global_transform.origin.x - global_transform.origin.x
-		var adjacent = target.global_transform.origin.z - global_transform.origin.z
-		var angle = atan2(opposite, adjacent)
-		rotation_degrees.y = rad2deg(angle) - 180
+		var trs = global_transform.looking_at(target.global_transform.origin, Vector3.UP)
+		global_transform = trs
+		rotation_degrees.x = 0
+		rotation_degrees.z = 0
+		correct_scale()
 
 func unhighlight():
 	$full_rig_white2/RM_White_Horse_Rig/Skeleton/RM_White_Horse.set_surface_material(0, load("res://materials/horse_toon.tres"))
@@ -720,15 +742,37 @@ func validate_reproduction(other):
 
 func walk_towards(other, delta):
 	turn_and_face(other)
-	var facing = -global_transform.basis.z * (calculate_speed() + speedAdjust) * delta
-	move_and_slide(facing)
+	#var facing = -global_transform.basis.z * (calculate_speed() + speedAdjust) * delta
+	direction = -global_transform.basis.z
+	hVelocity = hVelocity.linear_interpolate(direction * 0.2 *(stats.Speed + speedAdjust), hAcceleration * delta)
+	movement.z = hVelocity.z + gravityVector.z
+	movement.x = hVelocity.x + gravityVector.x
+	movement.y = gravityVector.y
+	move_and_slide(movement, Vector3.UP)
 	if(report_distance(followingTarget) < stopFollowThreshold):
-		#print("close enough to ", followingTarget.name, " - ", report_distance(followingTarget), " - ", followThreshold)
 		if(callback != ""):
 			call(callback, callback_kargs) if (callback_kargs != null) else call(callback)
 		else:
 			set_animation("Idle", 0)
 			state = State.none
+	#playerRef.rotation.y = rotation.y
+	#playerRef.global_transform.origin = saddle.global_transform.origin
+#	if(direction.z != 0.0 and currentAnimation != "Trot"):
+#		set_animation("Trot", 2)
+#	elif (direction.z == 0.0 and currentAnimation != "Idle"):
+#		set_animation("Idle")
+
+#func walk_towards(other, delta):
+#	turn_and_face(other)
+#	var facing = -global_transform.basis.z * (calculate_speed() + speedAdjust) * delta
+#	move_and_slide(facing)
+#	if(report_distance(followingTarget) < stopFollowThreshold):
+#		#print("close enough to ", followingTarget.name, " - ", report_distance(followingTarget), " - ", followThreshold)
+#		if(callback != ""):
+#			call(callback, callback_kargs) if (callback_kargs != null) else call(callback)
+#		else:
+#			set_animation("Idle", 0)
+#			state = State.none
 
 func _on_AggroRange_area_entered(area):
 	if pep < -5:

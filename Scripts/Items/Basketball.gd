@@ -1,5 +1,5 @@
 extends "res://Scripts/Item.gd"
-export var launch_power = 200
+export var launch_power = 210
 
 var basket = null
 var _controller = null
@@ -54,14 +54,13 @@ func set_basket(_basket):
 
 func shoot_basket(vector = null, thrown_from = null):
 	if vector != null and thrown_from != null:
-		#dir = vector - thrown_from
-		dir = basket.global_transform.origin - thrown_from
-		dir = dir * .2
-		dir.y + 25
+		print("option 1")
+		dir = global_transform.origin.direction_to(basket.get_node("Ring_Point").global_transform.origin)
 	elif(playerRef.has_method("get_head")):
 		dir = -playerRef.get_head().global_transform.basis.z
 	else:
-		dir = -playerRef.global_transform.basis.z
+		print("option 3")
+		dir = global_transform.origin.direction_to((basket.get_node("Ring_Point").global_transform.origin + Vector3(0,5,0))) * 1.2
 	owner.linear_velocity = dir * launch_power
 	parent_transform = null
 	if(playerRef.has_method("is_player")):
