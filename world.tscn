@@ -1,8 +1,7 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://prefabs/FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Textures/100_1395_seamless.JPG" type="Texture" id=2]
-[ext_resource path="res://prefabs/Horse.tscn" type="PackedScene" id=3]
 [ext_resource path="res://prefabs/Misc/BasketballCourt.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/world.gd" type="Script" id=5]
 [ext_resource path="res://Scripts/Misc/Debug.gd" type="Script" id=6]
@@ -11,12 +10,12 @@
 [ext_resource path="res://prefabs/Trophy.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scripts/Misc/GlobalCorralRegistrar.gd" type="Script" id=10]
 [ext_resource path="res://prefabs/Items/Basketball.tscn" type="PackedScene" id=11]
-[ext_resource path="res://prefabs/Constructable/Gate.tscn" type="PackedScene" id=12]
-[ext_resource path="res://prefabs/Constructable/Fence.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/Mirror.tscn" type="PackedScene" id=14]
 [ext_resource path="res://prefabs/Misc/Block.tscn" type="PackedScene" id=15]
 [ext_resource path="res://prefabs/Items/Plank.tscn" type="PackedScene" id=16]
 [ext_resource path="res://prefabs/Nature/Water.tscn" type="PackedScene" id=17]
+[ext_resource path="res://prefabs/Misc/TempleTile.tscn" type="PackedScene" id=18]
+[ext_resource path="res://prefabs/SeaHorse2.tscn" type="PackedScene" id=19]
 
 [sub_resource type="ProceduralSky" id=1]
 ground_bottom_color = Color( 0.156863, 0.211765, 0.180882, 1 )
@@ -40,23 +39,14 @@ uv1_scale = Vector3( 30, 30, 1 )
 environment = SubResource( 2 )
 script = ExtResource( 5 )
 
+[node name="Horse2" parent="." instance=ExtResource( 19 )]
+transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, 34.0404, 8.04914, -13.1815 )
+
 [node name="Water" parent="." instance=ExtResource( 17 )]
-transform = Transform( 3.52931, 0, 0, 0, 3.52931, 0, 0, 0, 3.52931, 14.2551, 2.46069, -1.3058 )
+transform = Transform( 23.4736, 0, 0, 0, 3.52931, 0, 0, 0, 23.3355, 29.5493, 1.32266, -22.2464 )
 
 [node name="BasketballCourt" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -24.709, 0.122657, 41.2673 )
-
-[node name="Horse" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, -25.1422, 2.40431, 58.3174 )
-garunteedConversation = true
-isAggroAtStart = false
-pep = 10
-stats = {
-"Chaos": 1,
-"Silly": 1,
-"Speed": 6,
-"Width": 1
-}
 
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 97.1449, 0, 0, 0, 0.167856, 0, 0, 0, 97.2541, -1.53892, -0.4634, 1.90735e-06 )
@@ -117,36 +107,6 @@ script = ExtResource( 6 )
 [node name="GlobalCorralRegistrar" type="Spatial" parent="."]
 script = ExtResource( 10 )
 
-[node name="Fence" parent="." instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32.9892, -0.244645, -11.6455 )
-
-[node name="Fence2" parent="." instance=ExtResource( 13 )]
-transform = Transform( 0.076806, 0, 0.997046, 0, 1, 0, -0.997046, 0, 0.076806, -35.0138, -0.244645, -13.5947 )
-
-[node name="Fence3" parent="." instance=ExtResource( 13 )]
-transform = Transform( 0.076806, 0, 0.997046, 0, 1, 0, -0.997046, 0, 0.076806, -38.5616, -0.244645, -13.3438 )
-
-[node name="Fence4" parent="." instance=ExtResource( 13 )]
-transform = Transform( -0.997776, 0, 0.0666569, 0, 1, 0, -0.0666569, 0, -0.997776, -40.765, -0.244645, -11.4337 )
-
-[node name="Fence5" parent="." instance=ExtResource( 13 )]
-transform = Transform( -0.997776, 0, 0.0666569, 0, 1, 0, -0.0666569, 0, -0.997776, -40.765, -0.244645, -7.83953 )
-
-[node name="Fence6" parent="." instance=ExtResource( 13 )]
-transform = Transform( -0.997776, 0, 0.0666569, 0, 1, 0, -0.0666569, 0, -0.997776, -40.765, -0.244645, -4.38219 )
-
-[node name="Fence7" parent="." instance=ExtResource( 13 )]
-transform = Transform( -0.116965, 0, -0.993136, 0, 1, 0, 0.993136, 0, -0.116965, -38.9335, -0.244645, -2.265 )
-
-[node name="Fence8" parent="." instance=ExtResource( 13 )]
-transform = Transform( -0.116965, 0, -0.993136, 0, 1, 0, 0.993136, 0, -0.116965, -35.2914, -0.244645, -2.265 )
-
-[node name="Fence9" parent="." instance=ExtResource( 13 )]
-transform = Transform( 0.986124, 0, -0.166011, 0, 1, 0, 0.166011, 0, 0.986124, -32.9858, -0.244645, -4.10193 )
-
-[node name="Gate" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32.6964, -0.469477, -7.95996 )
-
 [node name="Spatial" parent="." instance=ExtResource( 15 )]
 transform = Transform( 1.86999, 0, 0, 0, 1.86999, 0, 0, 0, 1.86999, 14.103, -1.4119, 16.587 )
 
@@ -179,3 +139,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5342, 1.21985, 6.9796 )
 
 [node name="Plank5" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7011, 1.21985, 6.9796 )
+
+[node name="TempleTile" parent="." instance=ExtResource( 18 )]
+transform = Transform( 1.27012, 0, 0, 0, 2.7723, 0, 0, 0, 23.9423, 6.66439, 2.23589, -21.9024 )
+
+[node name="TempleTile5" parent="." instance=ExtResource( 18 )]
+transform = Transform( 24.1743, 0, 0, 0, 2.38485e-08, 1.26418, 0, 24.5296, -3.45137e-05, 29.1955, -1.46711, -21.9024 )
+
+[node name="TempleTile2" parent="." instance=ExtResource( 18 )]
+transform = Transform( -2.06929e-07, 0, 23.9423, 0, 2.7723, 0, -1.27012, 0, -3.90069e-06, 29.2754, 2.44045, 1.48343 )
+
+[node name="TempleTile3" parent="." instance=ExtResource( 18 )]
+transform = Transform( 1.27012, 0, 0, 0, 2.7723, 0, 0, 0, 23.9423, 52.083, 2.1546, -22.9309 )
+
+[node name="TempleTile4" parent="." instance=ExtResource( 18 )]
+transform = Transform( -2.06929e-07, 0, 23.9423, 0, 2.7723, 0, -1.27012, 0, -3.90069e-06, 29.1549, 2.1546, -46.5882 )

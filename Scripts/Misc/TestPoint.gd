@@ -14,6 +14,11 @@ func _ready():
 func _process(delta):
 	if(not $RayCast.is_colliding()):
 		global_transform.origin.y -= 0.1
+	else:
+		var col = $RayCast.get_collider()
+		if col.has_method("is_water"):
+			global_transform.origin.y -= 0.1
+		print(col.name)
 
 func is_test_point():
 	return true
