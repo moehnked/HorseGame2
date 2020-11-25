@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/seahorse_tex.png-2a747b6533903aa1bc7f856e31203830.s3tc.stex"
-path.etc2="res://.import/seahorse_tex.png-2a747b6533903aa1bc7f856e31203830.etc2.stex"
+path.s3tc="res://.import/solojazz.png-2e1abf5a949b550442f9569cede84c66.s3tc.stex"
+path.etc2="res://.import/solojazz.png-2e1abf5a949b550442f9569cede84c66.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://models/animals/seahorse_tex.png"
-dest_files=[ "res://.import/seahorse_tex.png-2a747b6533903aa1bc7f856e31203830.s3tc.stex", "res://.import/seahorse_tex.png-2a747b6533903aa1bc7f856e31203830.etc2.stex" ]
+source_file="res://Textures/misc/solojazz.png"
+dest_files=[ "res://.import/solojazz.png-2e1abf5a949b550442f9569cede84c66.s3tc.stex", "res://.import/solojazz.png-2e1abf5a949b550442f9569cede84c66.etc2.stex" ]
 
 [params]
 
@@ -22,9 +22,9 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=true
-flags/filter=false
+flags/filter=true
 flags/mipmaps=true
-flags/anisotropic=true
+flags/anisotropic=false
 flags/srgb=1
 process/fix_alpha_border=true
 process/premult_alpha=false

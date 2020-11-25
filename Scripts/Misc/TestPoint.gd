@@ -8,7 +8,6 @@ extends Spatial
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("HERE I AM ", global_transform.origin)
 	pass # Replace with function body.
 
 func _process(delta):
@@ -18,7 +17,7 @@ func _process(delta):
 		var col = $RayCast.get_collider()
 		if col.has_method("is_water"):
 			global_transform.origin.y -= 0.1
-		print(col.name)
+		#print(col.name)
 
 func is_test_point():
 	return true

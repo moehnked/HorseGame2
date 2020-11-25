@@ -145,7 +145,7 @@ func _physics_process(delta):
 		State.lasso:
 			pass
 		State.pilot:
-			print("piloting...")
+			#print("piloting...")
 			rotate_y(input.mouse_horizontal)
 			parse_movement(delta)
 			move_based_on_input(delta)
@@ -177,15 +177,6 @@ func apply_gravity(delta):
 	else:
 		gravityVector = - get_floor_normal()
 		hAcceleration = normalAcceleration
-#
-#func apply_gravity(delta):
-#	if not is_on_floor():
-#		canJump = false
-#		fall.y -= gravity * delta
-#	else:
-#		canJump = true
-#
-#	move_and_slide(fall, Vector3.UP)
 
 func apply_rotation(input):
 	if state == State.pilot:
@@ -485,7 +476,7 @@ func parse_input(_input):
 	input = _input
 
 func parse_movement(delta):
-	print("parsing horse")
+	#print("parsing horse")
 	direction = Vector3()
 	
 	if $GroundCheck.is_colliding():

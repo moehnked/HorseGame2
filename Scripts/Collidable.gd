@@ -17,7 +17,8 @@ func _ready():
 
 
 func _on_Area_area_shape_entered(area_id, area, area_shape, self_shape):
-	print(area)
+	#print(area)
+	pass
 
 
 func _on_Area_body_entered(body):
