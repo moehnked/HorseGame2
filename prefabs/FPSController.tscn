@@ -27,19 +27,21 @@ albedo_texture = ExtResource( 3 )
 material = SubResource( 2 )
 mid_height = 3.0
 
-[sub_resource type="QuadMesh" id=4]
+[sub_resource type="CylinderShape" id=4]
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="QuadMesh" id=5]
+
+[sub_resource type="SpatialMaterial" id=6]
 flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 1, 1, 1, 0 )
 
-[sub_resource type="BoxShape" id=6]
+[sub_resource type="BoxShape" id=7]
 extents = Vector3( 0.729209, 0.291349, 0.145031 )
 
-[sub_resource type="PlaneMesh" id=7]
+[sub_resource type="PlaneMesh" id=8]
 
-[sub_resource type="SpatialMaterial" id=8]
+[sub_resource type="SpatialMaterial" id=9]
 flags_transparent = true
 flags_unshaded = true
 params_use_alpha_scissor = true
@@ -47,7 +49,7 @@ params_alpha_scissor_threshold = 0.98
 albedo_texture = ExtResource( 2 )
 uv1_scale = Vector3( 0.999, 1, 1 )
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 step = 0.033
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:translation")
@@ -74,28 +76,28 @@ tracks/1/keys = {
 "values": [ Vector3( 76.0921, 0, 0 ), Vector3( 72.8363, -6.28152, 1.49242 ), Vector3( 74.1103, -20.6135, 0.908432 ), Vector3( 76.0921, 0, 0 ) ]
 }
 
-[sub_resource type="PlaneMesh" id=10]
+[sub_resource type="PlaneMesh" id=11]
 
-[sub_resource type="SpatialMaterial" id=11]
+[sub_resource type="SpatialMaterial" id=12]
 flags_transparent = true
 albedo_texture = ExtResource( 9 )
 
-[sub_resource type="SpatialMaterial" id=12]
+[sub_resource type="SpatialMaterial" id=13]
 flags_unshaded = true
 albedo_color = Color( 0.890196, 0.815686, 0.780392, 1 )
 
-[sub_resource type="SphereMesh" id=13]
-material = SubResource( 12 )
+[sub_resource type="SphereMesh" id=14]
+material = SubResource( 13 )
 
-[sub_resource type="SpatialMaterial" id=14]
+[sub_resource type="SpatialMaterial" id=15]
 flags_unshaded = true
 params_cull_mode = 1
 params_grow = true
 params_grow_amount = 0.02
 albedo_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="ShaderMaterial" id=15]
-next_pass = SubResource( 14 )
+[sub_resource type="ShaderMaterial" id=16]
+next_pass = SubResource( 15 )
 shader = ExtResource( 11 )
 shader_param/use_shade = true
 shader_param/use_specular = false
@@ -117,10 +119,8 @@ shader_param/rim_spread = 0.5
 shader_param/shadow_threshold = 0.7
 shader_param/shadow_softness = 0.1
 
-[sub_resource type="BoxShape" id=16]
+[sub_resource type="BoxShape" id=17]
 extents = Vector3( 1, 0.577481, 1 )
-
-[sub_resource type="CylinderShape" id=17]
 
 [node name="FPSController" type="KinematicBody"]
 collision_layer = 4
@@ -134,6 +134,15 @@ shape = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
 mesh = SubResource( 3 )
 material/0 = null
+
+[node name="Foot" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.51, 0 )
+shape = SubResource( 4 )
+
+[node name="GroundCheck" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
+enabled = true
+cast_to = Vector3( 0, -1.5, 0 )
 
 [node name="Head" type="Spatial" parent="."]
 transform = Transform( 1.89751, 0, 0, 0, 1.89751, 0, 0, 0, 1.89751, 0, 3.23334, -1.04173 )
@@ -160,44 +169,44 @@ script = ExtResource( 16 )
 
 [node name="Mask" type="MeshInstance" parent="Head/Camera/Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.238554 )
-mesh = SubResource( 4 )
-material/0 = SubResource( 5 )
+mesh = SubResource( 5 )
+material/0 = SubResource( 6 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Head/Camera/Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.212168, -0.19155 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="Hand" type="Spatial" parent="Head"]
 transform = Transform( 0.471814, 0, 0, 0, 0.162491, -0.489356, 0, 0.65621, 0.121175, 0.486894, -0.408205, -0.750011 )
 script = ExtResource( 6 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Head/Hand"]
-mesh = SubResource( 7 )
-material/0 = SubResource( 8 )
+mesh = SubResource( 8 )
+material/0 = SubResource( 9 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Hand"]
 anims/Idle = ExtResource( 7 )
-anims/Lasso = SubResource( 9 )
+anims/Lasso = SubResource( 10 )
 anims/Punch = ExtResource( 8 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="Head/Hand"]
 transform = Transform( 0.765655, -0.302677, -0.0604436, 0.114253, 0.997562, -0.102568, 0.048086, -0.0408827, 1.28119, 0.857178, 0.089996, 1.15902 )
-mesh = SubResource( 10 )
-material/0 = SubResource( 11 )
+mesh = SubResource( 11 )
+material/0 = SubResource( 12 )
 
 [node name="Palm" type="Spatial" parent="Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.404036, -0.137552, -0.988579 )
 
 [node name="Skull" type="MeshInstance" parent="Head"]
 transform = Transform( 0.409861, 0, 0, 0, 0.409861, 0, 0, 0, 0.409861, 0, 0, 0.556841 )
-mesh = SubResource( 13 )
+mesh = SubResource( 14 )
 material/0 = null
 
 [node name="Hat" type="MeshInstance" parent="Head/Skull"]
 transform = Transform( 1.96741, 0, 0, 0, 1.57227, 0, 0, 0, 1.80181, 0, 2.14431, -0.166266 )
 layers = 1024
 mesh = ExtResource( 12 )
-material/0 = SubResource( 15 )
+material/0 = SubResource( 16 )
 script = ExtResource( 13 )
 
 [node name="InteractionController" type="Area" parent="."]
@@ -205,7 +214,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.21177 )
 script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="InteractionController"]
-shape = SubResource( 16 )
+shape = SubResource( 17 )
 
 [node name="Special_Cooldown" type="Timer" parent="."]
 wait_time = 0.8
@@ -231,15 +240,6 @@ one_shot = true
 one_shot = true
 
 [node name="HUD" parent="." instance=ExtResource( 10 )]
-
-[node name="Foot" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.26539, 0 )
-shape = SubResource( 17 )
-
-[node name="GroundCheck" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
-enabled = true
-cast_to = Vector3( 0, -1.5, 0 )
 [connection signal="area_entered" from="InteractionController" to="InteractionController" method="_on_InteractionController_area_entered"]
 [connection signal="area_exited" from="InteractionController" to="InteractionController" method="_on_InteractionController_area_exited"]
 [connection signal="body_entered" from="InteractionController" to="InteractionController" method="_on_InteractionController_body_entered"]

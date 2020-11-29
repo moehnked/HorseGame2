@@ -3,7 +3,6 @@ extends KinematicBody
 onready var head = $Head
 onready var inputMacro = preload("res://Scripts/InputMacro.gd")
 onready var ropeResource = preload("res://prefabs/LassoBullet.tscn")
-#onready var rootRef = get_tree().get_root().get_node("World")
 onready var inventoryScreenSource = preload("res://prefabs/UI/InventoryScreen.tscn")
 
 
@@ -35,7 +34,6 @@ var knockbackDirection = Vector3()
 var mouseSensitivity = 0.09
 var movement = Vector3()
 var normalAcceleration = 6
-#var Global.world = Global.world
 var saddle
 var scaleMod = 1.0
 export var speed = 7
@@ -346,6 +344,7 @@ func parse_movement(delta):
 		fullContact = true
 	else:
 		fullContact = false
+
 	if not is_on_floor():
 		gravityVector += Vector3.DOWN * gravity * delta * gravityCoefficient
 		hAcceleration = airAcceleration
