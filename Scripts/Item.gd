@@ -12,14 +12,12 @@ func get_inventory(controller):
 	return null
 
 func interact(controller):
-	#pick up the item and add it to player inventory
 	if(get_inventory(controller) != null):
 		controller.inventory.append(self.duplicate())
 	queue_free()
 	pass
 	
 func prompt():
-	#print("ITEM PROMPTOS")
 	return "pick up"
 
 func get_name():

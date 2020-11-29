@@ -1,4 +1,4 @@
-extends StaticBody
+extends Spatial
 
 func update_hand_sprite(spell):
 	print("applying")

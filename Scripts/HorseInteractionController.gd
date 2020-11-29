@@ -70,6 +70,8 @@ func interact(controller):
 			create_dialogue(controller)
 		elif owner.pep >= -4:
 			owner.recieve_charm(hm.random_mood(), controller.owner)
+		else:
+			Global.InteractionPrompt.show_context("I don't think it wants to talk to me...")
 
 func is_horse_interaction_controller():
 	return true

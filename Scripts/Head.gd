@@ -15,7 +15,7 @@ func _ready():
 
 func _physics_process(delta):
 	rotate_x(input.mouse_vertical)
-	rotation.x = clamp(rotation.x, deg2rad(-90), deg2rad(90))
+	rotation.x = clamp(rotation.x, deg2rad(-70), deg2rad(70))
 
 func _process(delta):
 	if(focus != null):

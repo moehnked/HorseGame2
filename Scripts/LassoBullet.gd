@@ -27,9 +27,8 @@ func _ready():
 	pass # Replace with function body.
 
 func initialize(args):
-	var kargs = Utils.check(args, {'player':null, 'root':null, 'palm':null, 'callback':null, 'hand':null})
+	var kargs = Utils.check(args, {'player':null, 'palm':null, 'callback':null, 'hand':null})
 	playerRef = kargs['player']
-	rootRef = kargs['root']
 	playerRef.setLassoLimit()
 	playerRef.call(kargs['callback'])
 	global_transform = kargs['palm'].global_transform
@@ -40,7 +39,6 @@ func _process(delta):
 		var direction = Vector3() - transform.basis.z
 		move_and_slide(direction * speed, Vector3.UP)
 		spawn()
-	
 
 
 func _on_RopePartEffect_timeout():
@@ -51,7 +49,7 @@ func spawn():
 	if(can_spawn):
 		var particle = rope_resource.instance()
 		particle.global_transform = global_transform
-		rootRef.call_deferred("add_child", particle)
+		Global.world.call_deferred("add_child", particle)
 		$RopePartEffect.start()
 		particle_list.insert(0, particle)
 
@@ -62,7 +60,7 @@ func collision_effect(collided):
 			collided.lasso(self)
 			playerRef.lasso(collided.saddle)
 		else:
-			rootRef.play_sound()
+			Global.AudioManager.play_sound()
 	deload()
 	
 

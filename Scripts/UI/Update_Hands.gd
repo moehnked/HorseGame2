@@ -3,7 +3,7 @@ extends Control
 var a = 0.0
 export var fade_rate = 0.04
 var state = State.fadein
-var playerRef
+var source
 var rootRef
 var selected
 var options = ["Punch", "Lasso", "Build", "Charm"]
@@ -32,9 +32,8 @@ func _process(delta):
 		State.fadeout:
 			fadeout_step()
 
-func initialize(player, root, left, right):
-	playerRef = player
-	rootRef = root
+func initialize(_source, left, right):
+	source = _source
 	leftHand = left
 	rightHand = right
 	$container/LeftHand.texture_normal =  load("res://Sprites/UI/QE_" + leftHand + ".png")
@@ -42,19 +41,19 @@ func initialize(player, root, left, right):
 	play_sound(0)
 	
 func subscribe_to():
-	rootRef.get_node("InputObserver").subscribe(self)
+	Global.InputObserver.subscribe(self)
 
 func unsubscribe_to():
-	rootRef.get_node("InputObserver").unsubscribe(self)
+	Global.InputObserver.unsubscribe(self)
 
 func parse_input(input):
 	if input.mouse_down:
-		rootRef.play_sound(sfx[1])
+		Global.AudioManager.play_sound(sfx[1])
 		clear_options()
 		$container.visible = false
 		state = State.fadeout
 		unsubscribe_to()
-		playerRef.update_spells(leftHand, rightHand)
+		source.update_spells(leftHand, rightHand)
 
 func fadein_step():
 	a += fade_rate
@@ -73,7 +72,7 @@ func fadeout_step():
 	if (a < 0.0):
 		print("done")
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		playerRef.exit_update_hands_menu()
+		source.exit_update_hands_menu()
 		queue_free()
 
 func select_spell(spell, side):

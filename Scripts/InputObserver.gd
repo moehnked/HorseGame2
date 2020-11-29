@@ -12,6 +12,7 @@ var mouse_horizontal = 0.0
 var mouse_vertical = 0.0
 
 func _ready():
+	Global.InputObserver = self
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func subscribe(observer):

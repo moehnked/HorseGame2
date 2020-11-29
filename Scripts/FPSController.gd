@@ -3,7 +3,7 @@ extends KinematicBody
 onready var head = $Head
 onready var inputMacro = preload("res://Scripts/InputMacro.gd")
 onready var ropeResource = preload("res://prefabs/LassoBullet.tscn")
-onready var rootRef = get_tree().get_root().get_node("World")
+#onready var rootRef = get_tree().get_root().get_node("World")
 onready var inventoryScreenSource = preload("res://prefabs/UI/InventoryScreen.tscn")
 
 
@@ -35,6 +35,7 @@ var knockbackDirection = Vector3()
 var mouseSensitivity = 0.09
 var movement = Vector3()
 var normalAcceleration = 6
+#var Global.world = Global.world
 var saddle
 var scaleMod = 1.0
 export var speed = 7
@@ -60,6 +61,7 @@ enum State {normal, lasso, giddyup, pilot, menu, knockback}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Global.Player = self
 	subscribe_to()
 	scaleMod = scale.x
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -133,8 +135,8 @@ func cast(spell, callback, hand):
 	get_viewport().warp_mouse(OS.window_size/2)
 	random_grunt()
 	var spellInstance = load("res://prefabs/Spells/" + spell + ".tscn").instance()
-	spellInstance.initialize({'player':self, 'root':rootRef, 'palm':$Head/Palm, 'callback':callback, 'hand':hand})
-	rootRef.call_deferred("add_child", spellInstance)
+	spellInstance.initialize({'player':self, 'root':Global.world, 'palm':$Head/Palm, 'callback':callback, 'hand':hand})
+	Global.world.call_deferred("add_child", spellInstance)
 
 func cast_left():
 	if canCastLeft:
@@ -192,13 +194,13 @@ func enter_giddyup(target):
 	state = State.giddyup
 	$CollisionShape.disabled = true
 	$InteractionController/CollisionShape.disabled = true
-	saddle.owner.enter_giddyup(self, rootRef)
+	saddle.owner.enter_giddyup(self)
 
 func enter_inventory():
 	enter_some_menu()
 	var screen = inventoryScreenSource.instance()
-	screen.initialize({'source':self, 'root':rootRef, 'inv':get_inventory(), 'callback':"exit_inventory"})
-	rootRef.call_deferred("add_child", screen)
+	screen.initialize({'source':self, 'inv':get_inventory(), 'callback':"exit_inventory"})
+	Global.world.call_deferred("add_child", screen)
 
 func enter_knockback(vector, dmg):
 	revoke_casting()
@@ -226,8 +228,8 @@ func enter_pilot():
 func enter_update_hands_menu():
 	enter_some_menu()
 	var menu = load("res://prefabs/UI/Update_Hands.tscn").instance()
-	menu.initialize(self, rootRef, lefthandSpell, righthandSpell)
-	rootRef.call_deferred("add_child", menu)
+	menu.initialize(self, lefthandSpell, righthandSpell)
+	Global.world.call_deferred("add_child", menu)
 	print("updating hands")
 
 func exit_build_mode(callback):
@@ -344,7 +346,6 @@ func parse_movement(delta):
 		fullContact = true
 	else:
 		fullContact = false
-	
 	if not is_on_floor():
 		gravityVector += Vector3.DOWN * gravity * delta * gravityCoefficient
 		hAcceleration = airAcceleration
@@ -441,11 +442,10 @@ func stop_swimming():
 	gravityCoefficient = 1.0
 	jumpCoefficient = 1.0
 	isSwimming = false
-	#get_head().set_mask(Color(1,1,1,0))
 
 func subscribe_to():
-	rootRef.get_node("InputObserver").subscribe(self)
-	rootRef.get_node("InputObserver").subscribe($InteractionController)
+	Global.InputObserver.subscribe(self)
+	Global.InputObserver.subscribe($InteractionController)
 
 func take_damage(dmg = 1, hitbox = null, source = null):
 	HP -= dmg
@@ -458,8 +458,8 @@ func take_damage(dmg = 1, hitbox = null, source = null):
 		pass
 
 func unsubscribe_to():
-	rootRef.get_node("InputObserver").unsubscribe(self)
-	rootRef.get_node("InputObserver").unsubscribe($InteractionController)
+	Global.InputObserver.unsubscribe(self)
+	Global.InputObserver.unsubscribe($InteractionController)
 
 func update_placer_position(point):
 	for placer in placer_observers:

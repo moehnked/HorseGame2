@@ -71,7 +71,7 @@ func parse_input(input):
 func ready_placer():
 	var p = load("res://prefabs/Constructable/" + selected.prefab + "_Placer.tscn").instance()
 	p.initialize({'player':playerRef, 'world':rootRef, 'prefab':selected.prefab, 'callback':callback, 'hand':hand})
-	rootRef.call_deferred("add_child", p)
+	Global.world.call_deferred("add_child", p)
 	playerRef.placer_subscribe(p)
 	playerRef.return_control()
 	unsubscribe_to()
@@ -79,7 +79,7 @@ func ready_placer():
 	queue_free()
 
 func subscribe_to():
-	rootRef.get_node("InputObserver").subscribe(self)
+	Global.InputObserver.subscribe(self)
 
 func unsubscribe_to():
-	rootRef.get_node("InputObserver").unsubscribe(self)
+	Global.InputObserver.unsubscribe(self)

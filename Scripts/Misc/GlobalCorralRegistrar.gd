@@ -2,8 +2,9 @@ extends Spatial
 
 var corrals = []
 
-#get_list_of_points
-#get_mid_value
+func _ready():
+	Global.GCR = self
+
 func calculate_midpoint(li = []):
 	for i in li:
 		print("calculating midpoint..... ", i.name, " - ", i.global_transform.origin)

@@ -24,6 +24,11 @@ config/name="HorseGame2"
 run/main_scene="res://world.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://Global.gd"
+Utils="*res://Utils.gd"
+
 [display]
 
 window/stretch/mode="viewport"

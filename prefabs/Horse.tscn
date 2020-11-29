@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://models/whitehorse_full_rig.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/HorseInteractionController.gd" type="Script" id=2]
@@ -8,10 +8,19 @@
 [ext_resource path="res://Scripts/HorseParticleController.gd" type="Script" id=7]
 [ext_resource path="res://Sprites/UI/RE_Plus.png" type="Texture" id=8]
 
-[sub_resource type="CapsuleShape" id=1]
-radius = 0.547664
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1.24506, 1, 2.0015 )
 
-[sub_resource type="ParticlesMaterial" id=2]
+[sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_transparent = true
+albedo_color = Color( 0, 1, 0.180392, 0.247059 )
+
+[sub_resource type="CapsuleShape" id=4]
+height = 3.0
+
+[sub_resource type="ParticlesMaterial" id=6]
 emission_shape = 1
 emission_sphere_radius = 0.5
 flag_rotate_y = true
@@ -23,61 +32,97 @@ angular_velocity = 5.0
 angular_velocity_random = 0.05
 angle = 5.0
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=7]
 flags_transparent = true
 params_cull_mode = 2
 albedo_texture = ExtResource( 8 )
 
-[sub_resource type="QuadMesh" id=4]
-material = SubResource( 3 )
+[sub_resource type="QuadMesh" id=8]
+material = SubResource( 7 )
 size = Vector2( 0.3, 0.3 )
 
-[sub_resource type="SphereShape" id=5]
+[sub_resource type="SphereShape" id=9]
 radius = 20.0
 
-[sub_resource type="SphereMesh" id=6]
+[sub_resource type="SphereMesh" id=10]
 radius = 20.0
 height = 38.947
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="SpatialMaterial" id=11]
 flags_transparent = true
 albedo_color = Color( 1, 0, 0, 0.0862745 )
 
-[sub_resource type="BoxShape" id=8]
-extents = Vector3( 1.24506, 1, 2.0015 )
-
-[sub_resource type="CubeMesh" id=9]
-
-[sub_resource type="SpatialMaterial" id=10]
-flags_transparent = true
-albedo_color = Color( 0, 1, 0.180392, 0.247059 )
-
-[sub_resource type="CapsuleMesh" id=11]
-
-[sub_resource type="CylinderShape" id=12]
-radius = 0.5
-height = 0.5
+[sub_resource type="CylinderShape" id=14]
 
 [node name="Horse" type="KinematicBody"]
-transform = Transform( 1.66603, 0, 0, 0, 1.66603, 0, 0, 0, 1.66603, 0, 0, 0 )
+transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
+collision_layer = 5
+collision/safe_margin = 0.04
 script = ExtResource( 3 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( -1, -1.50996e-07, 6.60024e-15, 0, -4.37114e-08, -1, 1.50996e-07, -1, 4.37114e-08, 0, 1.097, 0 )
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="full_rig_white2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1.57127, 0, 0, 0, 1.57127, 0, 0, 0, -1.57127, 0, -2.4651, 0 )
+
+[node name="HorseInteractionController" type="Area" parent="."]
+script = ExtResource( 2 )
+baby_threshold = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="HorseInteractionController"]
+transform = Transform( 1, 0, 0, 0, 2.50273, 0, 0, 0, 1.5867, 0, 0.357526, -0.0946696 )
 shape = SubResource( 1 )
 
+[node name="MeshInstance" type="MeshInstance" parent="HorseInteractionController"]
+transform = Transform( 1.25137, 0, 0, 0, 2.50273, 0, 0, 0, 3.2387, 0, 0.366185, -0.129513 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+shape = SubResource( 4 )
+
 [node name="Collidable" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.50817, 0, -3.25841e-07, 0, 0.610547, 0, 1.65583e-07, 0, -1, 0, 1.526, 0 )
+transform = Transform( -0.868674, 0, -5.56998e-07, 0, 2.55161, 0, 5.09603e-07, 0, -3.07763, 0, 0.383961, 0 )
 
 [node name="Saddle" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.44269, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.90449, 0 )
 
 [node name="Sprite3D" type="Sprite3D" parent="Saddle"]
 transform = Transform( -0.0266254, 0, 0, 0, -0.0266254, 0, 0, 0, -0.0266254, 0, 0, 0 )
 visible = false
 texture = ExtResource( 5 )
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AttackPoint" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.501282, -4.75142 )
+
+[node name="ItemHold" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45708, -3.76741 )
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00350106, 2.44176, -3.40724 )
+emitting = false
+amount = 5
+lifetime = 2.0
+speed_scale = 2.0
+randomness = 0.47
+visibility_aabb = AABB( -4.61062, -2, -3.92006, 8.22124, 5, 9.84012 )
+process_material = SubResource( 6 )
+draw_pass_1 = SubResource( 8 )
+script = ExtResource( 7 )
+
+[node name="ParticleDurationTimer" type="Timer" parent="Particles"]
+one_shot = true
+
+[node name="AggroRange" type="Area" parent="."]
+visible = false
+
+[node name="CollisionShape" type="CollisionShape" parent="AggroRange"]
+shape = SubResource( 9 )
+
+[node name="MeshInstance" type="MeshInstance" parent="AggroRange"]
+mesh = SubResource( 10 )
+material/0 = SubResource( 11 )
 
 [node name="WalkTimer" type="Timer" parent="."]
 one_shot = true
@@ -85,39 +130,8 @@ one_shot = true
 [node name="IdleTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="Particles" type="Particles" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00350106, 2.44176, -2.13584 )
-emitting = false
-amount = 5
-lifetime = 2.0
-speed_scale = 2.0
-randomness = 0.47
-visibility_aabb = AABB( -3, -2, -3, 5, 5, 8 )
-process_material = SubResource( 2 )
-draw_pass_1 = SubResource( 4 )
-script = ExtResource( 7 )
-
-[node name="ParticleDurationTimer" type="Timer" parent="Particles"]
-one_shot = true
-
 [node name="KnockbackTimer" type="Timer" parent="."]
 one_shot = true
-
-[node name="full_rig_white2" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.764508, 0, 0, 0, 0.764508, 0, 0, 0, -0.764508, 0, 0, 0 )
-
-[node name="AggroRange" type="Area" parent="."]
-visible = false
-
-[node name="CollisionShape" type="CollisionShape" parent="AggroRange"]
-shape = SubResource( 5 )
-
-[node name="MeshInstance" type="MeshInstance" parent="AggroRange"]
-mesh = SubResource( 6 )
-material/0 = SubResource( 7 )
-
-[node name="AttackPoint" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.22326, -2.19168 )
 
 [node name="AttackHitboxTimer" type="Timer" parent="."]
 wait_time = 0.45
@@ -126,20 +140,6 @@ one_shot = true
 [node name="AttackCooldownTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="HorseInteractionController" type="Area" parent="."]
-visible = false
-script = ExtResource( 2 )
-baby_threshold = 2
-
-[node name="CollisionShape" type="CollisionShape" parent="HorseInteractionController"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29411, -0.973852 )
-shape = SubResource( 8 )
-
-[node name="MeshInstance" type="MeshInstance" parent="HorseInteractionController"]
-transform = Transform( 1.25137, 0, 0, 0, 1, 0, 0, 0, 2.04115, 0, 1.29757, -0.995812 )
-mesh = SubResource( 9 )
-material/0 = SubResource( 10 )
-
 [node name="TalkCooldownTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
@@ -147,40 +147,31 @@ one_shot = true
 [node name="TempTalkBanTick" type="Timer" parent="."]
 wait_time = 30.0
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 0.491636, 0, 0, 0, 1.05338, 0, 0, 0, 0.888916, 0, 1.05994, 0 )
-visible = false
-mesh = SubResource( 11 )
-material/0 = null
-
 [node name="InteractabilityTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
-
-[node name="ItemHold" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.04779, -1.78525 )
 
 [node name="TargetBasketTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="GroundCheck" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
 enabled = true
+cast_to = Vector3( 0, -1.5, 0 )
 
 [node name="Foot" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.296032, 0 )
-visible = false
-shape = SubResource( 12 )
-disabled = true
-[connection signal="timeout" from="WalkTimer" to="." method="_on_WalkTimer_timeout"]
-[connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]
-[connection signal="timeout" from="Particles/ParticleDurationTimer" to="Particles" method="_on_ParticleDurationTimer_timeout"]
-[connection signal="timeout" from="KnockbackTimer" to="." method="_on_KnockbackTimer_timeout"]
-[connection signal="area_entered" from="AggroRange" to="." method="_on_AggroRange_area_entered"]
-[connection signal="area_exited" from="AggroRange" to="." method="_on_AggroRange_area_exited"]
-[connection signal="timeout" from="AttackHitboxTimer" to="." method="_on_AttackHitboxTimer_timeout"]
-[connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_AttackCooldownTimer_timeout"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+shape = SubResource( 14 )
 [connection signal="area_entered" from="HorseInteractionController" to="HorseInteractionController" method="_on_HorseInteractionController_area_entered"]
 [connection signal="area_exited" from="HorseInteractionController" to="HorseInteractionController" method="_on_HorseInteractionController_area_exited"]
+[connection signal="timeout" from="Particles/ParticleDurationTimer" to="Particles" method="_on_ParticleDurationTimer_timeout"]
+[connection signal="area_entered" from="AggroRange" to="." method="_on_AggroRange_area_entered"]
+[connection signal="area_exited" from="AggroRange" to="." method="_on_AggroRange_area_exited"]
+[connection signal="timeout" from="WalkTimer" to="." method="_on_WalkTimer_timeout"]
+[connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]
+[connection signal="timeout" from="KnockbackTimer" to="." method="_on_KnockbackTimer_timeout"]
+[connection signal="timeout" from="AttackHitboxTimer" to="." method="_on_AttackHitboxTimer_timeout"]
+[connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_AttackCooldownTimer_timeout"]
 [connection signal="timeout" from="TalkCooldownTimer" to="." method="_on_TalkCooldownTimer_timeout"]
 [connection signal="timeout" from="TempTalkBanTick" to="." method="_on_TempTalkBanTick_timeout"]
 [connection signal="timeout" from="InteractabilityTimer" to="HorseInteractionController" method="_on_InteractabilityTimer_timeout"]

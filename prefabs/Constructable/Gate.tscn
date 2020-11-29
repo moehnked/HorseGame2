@@ -10,7 +10,7 @@
 albedo_texture = ExtResource( 2 )
 
 [sub_resource type="BoxShape" id=2]
-extents = Vector3( 0.364078, 1.59086, 1.85205 )
+extents = Vector3( 0.364078, 1.59086, 2.00887 )
 
 [node name="Gate" type="Area"]
 script = ExtResource( 3 )
