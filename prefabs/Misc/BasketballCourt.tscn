@@ -1,11 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Textures/misc/fullcourt.png" type="Texture" id=1]
 [ext_resource path="res://Textures/concrete/IMGP5497_seamless.jpg" type="Texture" id=2]
 [ext_resource path="res://prefabs/Misc/Ramp.tscn" type="PackedScene" id=3]
 [ext_resource path="res://prefabs/Misc/BasketballHoop.tscn" type="PackedScene" id=4]
-[ext_resource path="res://prefabs/Misc/Slope.tscn" type="PackedScene" id=5]
-[ext_resource path="res://prefabs/Misc/CornerSlope.tscn" type="PackedScene" id=6]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 1 )
@@ -32,38 +30,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.02108, -19.8812 )
 
 [node name="Hoop2" parent="." instance=ExtResource( 4 )]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, -2.02108, 19.4351 )
-
-[node name="Slope" parent="." instance=ExtResource( 5 )]
-transform = Transform( -1.17754e-06, 0, 1.319, 0, 0.563, 0, -26.939, 0, -5.76553e-08, 20.296, -0.573, 0.286579 )
-visible = false
-
-[node name="Slope4" parent="." instance=ExtResource( 5 )]
-transform = Transform( -4.38892e-06, 0, -1.319, 0, 0.563, 0, 26.939, 0, -2.14892e-07, -20.296, -0.573, 0.287 )
-visible = false
-
-[node name="Slope2" parent="." instance=ExtResource( 5 )]
-transform = Transform( -16.987, 0, -8.28112e-07, 0, 0.563, 0, 1.0665e-05, 0, -1.319, -0.489447, -0.573, -29.4607 )
-visible = false
-
-[node name="Slope3" parent="." instance=ExtResource( 5 )]
-transform = Transform( 16.987, 0, 0, 0, 0.563, 0, 0, 0, 1.319, -0.47, -0.573, 29.449 )
-visible = false
-
-[node name="CornerSlope" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1.3342, 0, 0, 0, 0.572487, 0, 0, 0, 1.52125, 17.6445, -0.582386, -29.6572 )
-visible = false
-
-[node name="CornerSlope3" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1.334, 0, 0, 0, 0.572, 0, 0, 0, -1.32189, 17.6445, -0.582386, 29.4658 )
-visible = false
-
-[node name="CornerSlope4" parent="." instance=ExtResource( 6 )]
-transform = Transform( -2.39586e-07, -3.49682e-14, 1.52239, -4.11982e-07, 0.566339, 0, 1.277, 1.86381e-07, 2.15381e-07, -20.4822, -0.571061, 26.8445 )
-visible = false
-
-[node name="CornerSlope2" parent="." instance=ExtResource( 6 )]
-transform = Transform( -2.12057e-07, 0, 1.48408, 0, 0.611497, 0, -1.43797, 0, -2.67121e-07, -20.3927, -0.619325, -26.6508 )
-visible = false
 
 [node name="Court" type="StaticBody" parent="."]
 transform = Transform( 18.977, 0, 0, 0, 1, 0, 0, 0, 28.13, 0, 0.104, 0 )
