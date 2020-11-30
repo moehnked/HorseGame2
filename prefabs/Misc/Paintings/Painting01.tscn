@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://models/objects/painting_frame.obj" type="ArrayMesh" id=1]
-[ext_resource path="res://materials/basic_cel.tres" type="Material" id=2]
+[ext_resource path="res://Materials/Painting.tres" type="Material" id=2]
 [ext_resource path="res://Sprites/misc/paintings/Painting01.png" type="Texture" id=3]
 [ext_resource path="res://prefabs/Items/Item.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Items/Painting.gd" type="Script" id=5]
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape" id=5]
 extents = Vector3( 1.83467, 1.81656, 0.156913 )
 
 [sub_resource type="QuadMesh" id=2]
@@ -33,10 +33,10 @@ mesh = ExtResource( 1 )
 material/0 = ExtResource( 2 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="Item"]
-shape = SubResource( 1 )
+shape = SubResource( 5 )
 
 [node name="painting" type="MeshInstance" parent="."]
-transform = Transform( 3.12192, 0, 0, 0, 3.14295, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 4.63757, 0, 0, 0, 4.63663, 0, 0, 0, 1, 0, 0, 0.0510788 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
 

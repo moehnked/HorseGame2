@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://models/pegasus3.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Scripts/Trophy.gd" type="Script" id=2]
-[ext_resource path="res://materials/toon_metal_01.tres" type="Material" id=3]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.207843, 0.164706, 0.184314, 1 )
@@ -17,15 +16,15 @@ script = ExtResource( 2 )
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 0.0667346, 0, 0, 0, 0.0667346, 0, 0, 0, 0.0667346, 0, 0.114706, 0 )
 mesh = ExtResource( 1 )
-material/0 = ExtResource( 3 )
+material/0 = null
 material/1 = null
 material/2 = null
 material/3 = null
-material/4 = ExtResource( 3 )
-material/5 = ExtResource( 3 )
-material/6 = ExtResource( 3 )
+material/4 = null
+material/5 = null
+material/6 = null
 material/7 = SubResource( 1 )
-material/8 = ExtResource( 3 )
+material/8 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.439981, 0 )

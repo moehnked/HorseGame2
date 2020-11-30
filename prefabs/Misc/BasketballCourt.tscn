@@ -26,10 +26,10 @@ mesh = SubResource( 2 )
 material/0 = null
 
 [node name="Hoop" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.02108, -19.8812 )
+transform = Transform( 0.722225, 0, 0, 0, 0.722225, 0, 0, 0, 0.722225, 0, -2.02108, -22.3141 )
 
 [node name="Hoop2" parent="." instance=ExtResource( 4 )]
-transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, -2.02108, 19.4351 )
+transform = Transform( -0.722225, 0, -2.35331e-07, 0, 0.722225, 0, 2.35331e-07, 0, -0.722225, 0, -2.02108, 22.7049 )
 
 [node name="Court" type="StaticBody" parent="."]
 transform = Transform( 18.977, 0, 0, 0, 1, 0, 0, 0, 28.13, 0, 0.104, 0 )

@@ -18,3 +18,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.88019, 8.12686, -6.1398 )
 
 [node name="Painting04" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.64785, 3.54905, -6.58141 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.14108, 5.40027, 0 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
