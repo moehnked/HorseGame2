@@ -62,6 +62,7 @@ func _ready():
 	Global.Player = self
 	subscribe_to()
 	scaleMod = scale.x
+	correct_scale()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	pass # Replace with function body.
 
@@ -188,7 +189,7 @@ func enter_giddyup(target):
 	$LassoTimeout.stop()
 	canExitHorse = false
 	global_transform = target.global_transform
-	scale = Vector3(scaleMod,scaleMod,scaleMod)
+	correct_scale()
 	state = State.giddyup
 	$CollisionShape.disabled = true
 	$InteractionController/CollisionShape.disabled = true
@@ -341,6 +342,7 @@ func parse_movement(delta):
 	direction = Vector3()
 	
 	if $GroundCheck.is_colliding():
+		print($GroundCheck.get_collision_normal())
 		fullContact = true
 	else:
 		fullContact = false

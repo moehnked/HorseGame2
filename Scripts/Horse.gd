@@ -162,7 +162,7 @@ func add_horse_to_coms(h):
 
 func apply_gravity(delta):
 	if $GroundCheck.is_colliding():
-		print($GroundCheck.get_collider().owner.name)
+		#print($GroundCheck.get_collider().owner.name)
 		fullContact = true
 	else:
 		fullContact = false
@@ -174,7 +174,7 @@ func apply_gravity(delta):
 		gravityVector = - get_floor_normal() * gravity
 		hAcceleration = normalAcceleration
 	else:
-		print("slant")
+		#print("slant")
 		gravityVector = - get_floor_normal()
 		hAcceleration = normalAcceleration
 
