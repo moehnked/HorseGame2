@@ -1,6 +1,5 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://Misc/fps3.tscn" type="PackedScene" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://prefabs/Misc/Ramp.tscn" type="PackedScene" id=3]
 [ext_resource path="res://prefabs/Misc/BasketballCourt.tscn" type="PackedScene" id=4]
@@ -20,7 +19,6 @@
 [ext_resource path="res://prefabs/Misc/TempleTile.tscn" type="PackedScene" id=18]
 [ext_resource path="res://prefabs/Constructable/Fence.tscn" type="PackedScene" id=19]
 [ext_resource path="res://prefabs/System/AudioManager.tscn" type="PackedScene" id=20]
-
 
 [sub_resource type="ProceduralSky" id=1]
 ground_bottom_color = Color( 0.156863, 0.211765, 0.180882, 1 )
@@ -181,7 +179,3 @@ pep = 10
 
 [node name="BasketballCourt" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25.7174, 0.702545, 40.1906 )
-
-[node name="FPS3" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3213, 4.2913, 45.4061 )
-MAX_SPEED = 1
