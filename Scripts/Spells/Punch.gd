@@ -7,13 +7,6 @@ var playerRef
 var rootRef
 var power = 1
 
-#func initialize(player, root, palm, callback, hand):
-#	playerRef = player
-#	rootRef = root
-#	$TimeToLive.start()
-#	global_transform.origin = palm.global_transform.origin
-#	playerRef.call(callback)
-
 func initialize(args):
 	args = Utils.check(args, {'player':null, 'root':null, 'palm':null, 'callback':null, 'hand':null, 'exit_callback':null, 'scale':1.0})
 	playerRef = args['player']

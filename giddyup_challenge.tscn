@@ -89,14 +89,6 @@ wait_time = 0.7
 [node name="MistakeEffectTimer" type="Timer" parent="."]
 wait_time = 0.1
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-
-[node name="Hurry" type="AudioStreamPlayer" parent="."]
-volume_db = 8.0
-
-[node name="FadeSound" type="AudioStreamPlayer" parent="."]
-volume_db = 10.0
-
 [node name="CorrectEffectTimer" type="Timer" parent="."]
 wait_time = 0.1
 [connection signal="timeout" from="Tik" to="." method="_on_Tik_timeout"]

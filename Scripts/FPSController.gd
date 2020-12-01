@@ -53,6 +53,8 @@ var sfx_grunts = [
 	"res://sounds/grunt_01.wav",
 	"res://sounds/grunt_02.wav",
 	"res://sounds/grunt_03.wav",
+	"res://sounds/grunt_04.wav",
+	"res://sounds/grunt_05.wav",
 ]
 
 enum State {normal, lasso, giddyup, pilot, menu, knockback}
