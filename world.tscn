@@ -182,4 +182,4 @@ pep = 10
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25.7174, 0.702545, 40.1906 )
 
 [node name="FPSController" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 4.33725, 7.00922, 51.283 )
+transform = Transform( 0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 6.57509, 7.00922, 51.283 )
