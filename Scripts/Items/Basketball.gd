@@ -15,9 +15,6 @@ func _process(delta):
 	if parent_transform != null:
 		owner.global_transform.origin = parent_transform.global_transform.origin
 
-		if Input.is_action_just_released("standard"):
-			shoot_basket()
-
 func disable_collisions():
 	owner.set_collision_mask_bit(2, 0)
 
@@ -42,12 +39,17 @@ func interact(controller):
 	_controller = controller
 	playerRef = controller.owner
 	disable_collisions()
+	subscribe()
 
 func is_basketball():
 	return true
 
 func made_shot():
 	isAtemptingShot = false
+
+func parse_input(input):
+	if input.standard:
+			shoot_basket()
 
 func set_basket(_basket):
 	basket = _basket
@@ -71,6 +73,12 @@ func shoot_basket(vector = null, thrown_from = null):
 	_controller.enable_interact()
 	shoot_position = playerRef.global_transform.origin
 	isAtemptingShot = true
+
+func subscribe():
+	Global.InputObserver.subscribe(self)
+
+func unsubscribe():
+	Global.InputObserver.unsubscribe(self)
 
 func _on_Timer_timeout():
 	print("basketball collisions re-enabled")

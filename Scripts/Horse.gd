@@ -30,7 +30,7 @@ var fall = Vector3()
 var followThreshold = 20.0
 var followingTarget = null
 var fullContact = false
-var gravity = -20
+var gravity = -15
 var gravityVector = Vector3()
 var greedRate
 var hAcceleration = 6
