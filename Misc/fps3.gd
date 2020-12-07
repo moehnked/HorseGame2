@@ -51,6 +51,7 @@ func walk(delta):
 	if has_contact and !is_on_floor():
 		move_and_collide(Vector3(0,-1,0))
 	
+	
 	var h_velocity = velocity
 	h_velocity.y = 0
 	var movement = direction * MAX_SPEED
@@ -69,10 +70,7 @@ func walk(delta):
 		velocity.y = 10
 		has_contact = false
 	
-	velocity = move_and_slide(velocity, Vector3.UP)
-	
-	
-
+	velocity = move_and_slide(velocity, Vector3.UP, true)
 
 func _input(event):
 	if event is InputEventMouseMotion:
