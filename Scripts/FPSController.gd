@@ -6,6 +6,18 @@ onready var ropeResource = preload("res://prefabs/LassoBullet.tscn")
 onready var inventoryScreenSource = preload("res://prefabs/UI/InventoryScreen.tscn")
 
 
+export var DEACCEL = 6
+export var MAX_SPEED = 40
+export var MAX_ACCEL = 2
+export var MAX_SLOPE_ANGLE = 90
+
+var camera_angle = 0
+var camera_change = Vector2()
+
+var has_contact = false
+
+var mouse_sensitivity = 0.3
+
 var aggro = 1
 var acceleration = 20
 var airAcceleration = 1
@@ -19,7 +31,7 @@ var direction = Vector3()
 var fall = Vector3()
 var flushing = false
 var fullContact = false
-var gravity = 20
+var gravity = -20
 var gravityVector = Vector3()
 var gravityCoefficient = 1.0
 var HP = 10
@@ -36,8 +48,6 @@ var movement = Vector3()
 var normalAcceleration = 6
 var saddle
 var scaleMod = 1.0
-export var speed = 7
-
 var state = State.normal
 var velocity = Vector3()
 
@@ -79,7 +89,7 @@ func _physics_process(delta):
 			update_raycast()
 			apply_rotation()
 			parse_movement(delta)
-			move_based_on_input(delta)
+			#move_based_on_input(delta)
 		State.pilot:
 			if Input.is_action_just_pressed("engage") and canExitHorse:
 				exit_pilot()
@@ -295,14 +305,14 @@ func is_player():
 func lasso(saddle):
 	state = State.lasso
 	self.saddle = saddle
-
-func move_based_on_input(delta):
-	direction = direction.normalized()
-	hVelocity = hVelocity.linear_interpolate(direction * speed, hAcceleration * delta)
-	movement.z = hVelocity.z + gravityVector.z
-	movement.x = hVelocity.x + gravityVector.x
-	movement.y = gravityVector.y
-	move_and_slide(movement, Vector3.UP)
+#
+#func move_based_on_input(delta):
+#	direction = direction.normalized()
+#	hVelocity = hVelocity.linear_interpolate(direction * speed, hAcceleration * delta)
+#	movement.z = hVelocity.z + gravityVector.z
+#	movement.x = hVelocity.x + gravityVector.x
+#	movement.y = gravityVector.y
+#	move_and_slide(movement, Vector3.UP)
 
 func move_based_on_knockback(delta):
 	move_and_slide(knockbackDirection, Vector3.UP)
@@ -313,7 +323,7 @@ func moveTowards(target, delta):
 	var adjacent = target.global_transform.origin.z - global_transform.origin.z
 	var angle = atan2(opposite, adjacent)
 	rotation_degrees.y = rad2deg(angle) - 180
-	var facing = -global_transform.basis.z * speed * 200 * delta
+	var facing = -global_transform.basis.z * MAX_SPEED * 200 * delta
 	move_and_slide(facing)
 	if(global_transform.origin.distance_to(target.global_transform.origin) < 5):
 		enter_giddyup(target)
@@ -342,34 +352,50 @@ func parse_input(_input):
 
 func parse_movement(delta):
 	direction = Vector3()
-	
-	if $GroundCheck.is_colliding():
-		print($GroundCheck.get_collision_normal())
-		fullContact = true
-	else:
-		fullContact = false
-
-	if not is_on_floor():
-		gravityVector += Vector3.DOWN * gravity * delta * gravityCoefficient
-		hAcceleration = airAcceleration
-	elif is_on_floor() and fullContact:
-		gravityVector = - get_floor_normal() * gravity
-		hAcceleration = normalAcceleration
-	else:
-		gravityVector = - get_floor_normal()
-		hAcceleration = normalAcceleration
-	
-	if input.space and (is_on_floor() or $GroundCheck.is_colliding() or isSwimming):
-		gravityVector = Vector3.UP * jump * jumpCoefficient
-	
+	var aim = $Head/Camera.global_transform.basis
 	if input.forward:
-		direction -= transform.basis.z
+		direction -= aim.z
 	if input.backward:
-		direction += transform.basis.z
+		direction += aim.z
 	if input.left:
-		direction -= transform.basis.x
+		direction -= aim.x
 	if input.right:
-		direction += transform.basis.x
+		direction += aim.x
+	direction.y = 0
+	direction = direction.normalized()
+	
+	if is_on_floor():
+		has_contact = true
+		var n = $GroundCheck.get_collision_normal()
+		var floor_angle = rad2deg(acos(n.dot(Vector3.UP)))
+		if floor_angle > MAX_SLOPE_ANGLE:
+			velocity.y += gravity * delta
+	else:
+		if not $GroundCheck.is_colliding():
+			has_contact = false
+		velocity.y += gravity * delta
+	if has_contact and !is_on_floor():
+		move_and_collide(Vector3(0,-1,0))
+	
+	var h_velocity = velocity
+	h_velocity.y = 0
+	var movement = direction * MAX_SPEED
+	
+	var acceleration
+	if direction.dot(h_velocity) > 0:
+		acceleration = MAX_ACCEL
+	else:
+		acceleration = DEACCEL
+		
+	h_velocity = h_velocity.linear_interpolate(movement, acceleration * delta)
+	velocity.x = h_velocity.x
+	velocity.z = h_velocity.z
+	
+	if input.space and (has_contact or isSwimming):
+		velocity.y = 10
+		has_contact = false
+	
+	velocity = move_and_slide(velocity, Vector3.UP)
 
 func placer_subscribe(placer):
 	placer_observers.append(placer)

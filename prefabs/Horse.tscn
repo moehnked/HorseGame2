@@ -75,6 +75,7 @@ shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="HorseInteractionController"]
 transform = Transform( 1.25137, 0, 0, 0, 2.50273, 0, 0, 0, 3.2387, 0, 0.366185, -0.129513 )
+visible = false
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
 

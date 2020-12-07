@@ -377,7 +377,7 @@ func has_trainer():
 	return trainer != null
 
 func highlight():
-	$full_rig_white2/RM_White_Horse_Rig/Skeleton/RM_White_Horse.set_surface_material(0, load("res://materials/horse_toon_highlighted.tres"))
+	$full_rig_white2/RM_White_Horse_Rig/Skeleton/RM_White_Horse.set_surface_material(0, load("res://Materials/horse_material_light_brown_highlighted.tres"))
 
 func initialize(mom, dad):
 	initialize_rng()
@@ -710,7 +710,7 @@ func turn_and_face(target):
 		correct_scale()
 
 func unhighlight():
-	$full_rig_white2/RM_White_Horse_Rig/Skeleton/RM_White_Horse.set_surface_material(0, load("res://materials/horse_toon.tres"))
+	$full_rig_white2/RM_White_Horse_Rig/Skeleton/RM_White_Horse.set_surface_material(0, load("res://Materials/horse_material_light_brown.tres"))
 
 func unsubscribe_to():
 	Global.InputObserver.unsubscribe(self)
