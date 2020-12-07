@@ -1,14 +1,13 @@
 extends Control
 var Utils = preload("res://Utils.gd")
 
-var _callback = null
+var callback = null
 var inventory = []
-var rootRef
 var sourceRef
 var listItemResource = preload("res://prefabs/UI/InventoryListItem.tscn")
 
 func _ready():
-	rootRef.play_sound("res://sounds/ui_open_01.wav")
+	Global.AudioManager.play_sound("res://sounds/ui_open_01.wav")
 
 func clear_display():
 	$Display.texture = null
@@ -25,12 +24,11 @@ func draw_list_items():
 			index += 1
 
 func initialize(args):
-	args = Utils.check(args, {'source':null, 'root':null, 'inv':[], 'callback':null})
+	args = Utils.check(args, {'source':null, 'inv':[], 'callback':null})
 	print("INITIALIZING INVENTORY SCREEN")
 	inventory = args.inv
-	rootRef = args.root
 	sourceRef = args.source
-	_callback = args.callback
+	callback = args.callback
 	Utils.show_mouse()
 	draw_list_items()
 	print(uniques())
@@ -44,14 +42,14 @@ func terminate():
 	print("inventory screen terminating...")
 	unsubscribe_to()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	print(_callback)
-	if _callback != null:
-		sourceRef.call(_callback)
-	rootRef.play_sound("res://sounds/ui_close_01.wav")
+	print(callback)
+	if callback != null:
+		sourceRef.call(callback)
+	Global.AudioManager.play_sound("res://sounds/ui_close_01.wav")
 	queue_free()
 
 func subscribe_to():
-	rootRef.get_node("InputObserver").subscribe(self)
+	Global.InputObserver.subscribe(self)
 
 func uniques():
 	var u = []
@@ -62,7 +60,7 @@ func uniques():
 
 
 func unsubscribe_to():
-	rootRef.get_node("InputObserver").unsubscribe(self)
+	Global.world.get_node("InputObserver").unsubscribe(self)
 
 func update_display(item):
 	var sprite = load(item.icon)

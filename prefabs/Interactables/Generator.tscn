@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://models/objects/generator.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://Scripts/Interactables/Generator.gd" type="Script" id=2]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1.19372, 0.916039, 1.20011 )
+
+[sub_resource type="CylinderMesh" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.564706, 0.996078, 0.662745, 1 )
+
+[sub_resource type="CylinderShape" id=4]
+
+[node name="Generator" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = ExtResource( 1 )
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17874, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="ButtonArea" type="Area" parent="."]
+transform = Transform( -6.44385e-09, 0.147418, 0, -0.147418, -6.44385e-09, 0, 0, 0, 0.147418, 1.0198, 0, 0.514675 )
+script = ExtResource( 2 )
+
+[node name="SpawnPoint" type="Spatial" parent="ButtonArea"]
+transform = Transform( -2.96513e-07, -6.78342, 0, 6.78342, -2.96513e-07, 0, 0, 0, 6.78342, -1.6409, -35.9145, -3.49126 )
+
+[node name="Button" type="MeshInstance" parent="ButtonArea"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="ButtonArea"]
+transform = Transform( 1, -7.10543e-15, 0, 7.10543e-15, 1, 0, 0, 0, 1, -8.20374e-08, 1.8768, 0 )
+shape = SubResource( 4 )

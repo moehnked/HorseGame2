@@ -16,12 +16,12 @@ var number_of_peices = 1
 
 func complete():
 	print("COMPLETE CORRAL - ", connected_peices.size())
-	var corrals = get_tree().get_root().get_node("World").get_node("GlobalCorralRegistrar")
+	var corrals = Global.GCR
 	midpoint = corrals.calculate_midpoint(connected_peices)
-	midpoint.y = global_transform.origin.y
+	midpoint.y = global_transform.origin.y + 3
 	midpoint_object = testPointResource.instance()
 	midpoint_object.global_transform.origin = midpoint
-	get_tree().get_root().get_node("World").add_child(midpoint_object)
+	Global.world.add_child(midpoint_object)
 	midpoint_object.scale = Vector3(1,1,1)
 	corrals.register(self)
 

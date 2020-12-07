@@ -1,14 +1,14 @@
-extends StaticBody
+extends Spatial
 
 func update_hand_sprite(spell):
 	print("applying")
-	apply_texture($MeshInstance, "res://Textures/Hand_" + spell + ".png")
+	apply_texture($MeshInstance, "res://Sprites/Player/Hand_" + spell + ".png")
 	$AnimationPlayer.play(spell)
 	
 func idle_hand():
 	print("returning hand to idle")
 	$AnimationPlayer.play("Idle")
-	apply_texture($MeshInstance, "res://Textures/Hand_idle.png")
+	apply_texture($MeshInstance, "res://Sprites/Player/Hand_idle.png")
 
 func apply_texture(mesh_instance_node, texture_path):
 	var texture = ImageTexture.new()

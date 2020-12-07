@@ -39,6 +39,7 @@ static func remove_item(item, list):
 	while(i < list.size()):
 		if(list[i].itemName == item.itemName):
 			list.remove(i)
+			return
 		i += 1
 
 static func show_mouse():

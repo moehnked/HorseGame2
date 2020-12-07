@@ -1,11 +1,19 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/UI/InteractionPrompt.gd" type="Script" id=1]
 [ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Textures/misc/Mask.png" type="Texture" id=3]
+[ext_resource path="res://fonts/Anisa Sans.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
 font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+use_filter = true
+extra_spacing_char = 4
+font_data = ExtResource( 4 )
 
 [node name="InteractionPrompt" type="Control"]
 anchor_right = 1.0
@@ -27,3 +35,23 @@ autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ColorRect" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 512, 536 )
+texture = ExtResource( 3 )
+
+[node name="Context" type="Label" parent="."]
+margin_left = 72.0
+margin_top = 544.0
+margin_right = 224.0
+margin_bottom = 573.0
+custom_fonts/font = SubResource( 2 )
+text = "Hello World"
+percent_visible = 0.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ContextTimer" type="Timer" parent="."]
+[connection signal="timeout" from="ContextTimer" to="." method="_on_ContextTimer_timeout"]

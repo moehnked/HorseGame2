@@ -21,17 +21,20 @@ var mistakes = 0
 var player_ref
 var horse_ref
 var time = 4
-var sfx_beats = [
-	"res://sounds/beat_01.wav",
-	"res://sounds/beat_02.wav",
-	"res://sounds/beat_03.wav",
-	"res://sounds/beat_04.wav",
-	"res://sounds/beat_05.wav",
-	"res://sounds/beat_06.wav",
-	"res://sounds/beat_07.wav",
+var sfx_scratchs = [
+	"res://sounds/scratch_00.wav",
+	"res://sounds/scratch_01.wav",
+	"res://sounds/scratch_02.wav",
+	"res://sounds/scratch_03.wav",
+	"res://sounds/scratch_04.wav",
+	"res://sounds/scratch_05.wav",
+	"res://sounds/scratch_06.wav",
+	"res://sounds/scratch_07.wav",
 ]
-onready var sfx_giddyup = preload("res://sounds/giddyup_01.wav")
-onready var sfx_hurry = preload("res://sounds/hurry.wav")
+var sfx_giddyup = "res://sounds/giddyup_01.wav"
+var sfx_hurry = "res://sounds/hurry.wav"
+var hurry
+var fadeout
 
 
 # Called when the node enters the scene tree for the first time.
@@ -43,12 +46,9 @@ func _ready():
 	$Control/completed.text = startup_phrase
 	$Control/completed.percent_visible = 0.0
 	completion_interval = 1.0 / startup_phrase.length()
-	$AudioStreamPlayer.stream = sfx_giddyup
-	$AudioStreamPlayer.play()
-	$Hurry.stream = sfx_hurry
-	$Hurry.play()
-	$FadeSound.stream = load("res://sounds/slowdown.wav")
-	$FadeSound.play()
+	Global.AudioManager.play_sound(sfx_giddyup)
+	hurry = Global.AudioManager.play_sound(sfx_hurry)
+	fadeout = Global.AudioManager.play_sound("res://sounds/slowdown.wav")
 	pass # Replace with function body.
 
 
@@ -85,26 +85,29 @@ func mistake():
 		failed()
 
 func failed():
-	$Hurry.stop()
+	hurry.stop()
 	print("FAILURE")
 	player_ref.exit_pilot()
 	stopAllTimers()
 	$Control/Clock.queue_free()
 	state = State.fadeout
-	$FadeSound.stop()
-	$FadeSound.stream = load("res://sounds/speedup.wav")
-	$FadeSound.play()
+	fadeout.stop()
+	Global.AudioManager.play_sound("res://sounds/speedup.wav")
+#	$FadeSound.stream = load("res://sounds/speedup.wav")
+#	$FadeSound.play()
 
 func success():
-	$Hurry.stop()
+	hurry.stop()
 	print("SUCCESS")
 	horse_ref.tame(player_ref)
 	stopAllTimers()
 	$Control/Clock.queue_free()
 	state = State.fadeout
-	$FadeSound.stop()
-	$FadeSound.stream = load("res://sounds/speedup.wav")
-	$FadeSound.play()
+	fadeout.stop()
+	Global.AudioManager.play_sound("res://sounds/speedup.wav")
+#	$FadeSound.stop()
+#	$FadeSound.stream = load("res://sounds/speedup.wav")
+#	$FadeSound.play()
 	
 func stopAllTimers():
 	$Tik.stop()
@@ -131,8 +134,7 @@ func jitter():
 func increase_completion():
 	$Control/completed.margin_top += 5
 	$CorrectEffectTimer.start()
-	$AudioStreamPlayer.stream = load(sfx_beats[min(completed_index, sfx_beats.size()-1)])
-	$AudioStreamPlayer.play()
+	Global.AudioManager.play_sound(sfx_scratchs[min(completed_index, sfx_scratchs.size()-1)])
 	percent_completed += completion_interval
 	completed_index += 1
 	$Control/completed.percent_visible = percent_completed

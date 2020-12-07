@@ -2,18 +2,21 @@ extends KinematicBody
 
 const hm = preload("res://Scripts/Statics/HorseMoods.gd")
 const HorseMoods = hm.HorseMoods
-const Utils = preload("res://Utils.gd")
 
 onready var challengeResource = preload("res://giddyup_challenge.tscn")
 onready var saddle = $Saddle
 
 export var createAngryChildren = false
+export var DEACCEL = 6
 export var garunteedConversation = false
 export var isAggroAtStart = true
+export var MAX_ACCEL = 2
+export var MAX_SLOPE_ANGLE = 90
 export var pep = 0
 export var readyToHaveKids = false
 
 var acceleration = 20
+var adjustedSpeed = 0
 var airAcceleration = 1
 var bloodlust_rate
 var callback
@@ -27,12 +30,13 @@ var fall = Vector3()
 var followThreshold = 20.0
 var followingTarget = null
 var fullContact = false
-var gravity = 25
+var gravity = -20
 var gravityVector = Vector3()
 var greedRate
 var hAcceleration = 6
 var hVelocity = Vector3()
 var hasBeenInitialized = false
+var has_contact = false
 var horseComs = []
 var horse_icon = "res://Sprites/UI/Horse_Icon_01.png"
 var horse_icon_size = 1
@@ -49,13 +53,12 @@ var normalAcceleration = 6
 var personality
 var playerRef
 var previousInteractionResult = 0
-var rootRef
 var rng
-var scaleFactor = 1.666
+var scaleFactor = 0.8
 var shouldFollowTrainer = true
 var speedAdjust = 5
 var state = State.idle
-var stopFollowThreshold = 4
+var stopFollowThreshold = 8
 var temp_rot
 var tempTalkBanList = []
 var trainer
@@ -109,6 +112,7 @@ func _ready():
 	horse_icon = "res://Sprites/UI/Horse_Icon_0" + String((rng.randi() % horse_icon_size) + 1) + ".png"
 	if(!hasBeenInitialized):
 		initialize_personality()
+	adjustedSpeed = calculate_adjusted_speed()
 	enter_idle_state()
 	pass # Replace with function body.
 
@@ -128,11 +132,11 @@ func _on_WalkTimer_timeout():
 func _physics_process(delta):
 	match state:
 		State.attack:
-			apply_gravity(delta)
+			#apply_gravity(delta)
 			#move_towards(followingTarget, delta)
 			pass
 		State.idle:
-			apply_gravity(delta)
+			#apply_gravity(delta)
 			if(has_trainer() and shouldFollowTrainer):
 				look_for({'target':trainer, 'r':followThreshold, 'callback':"start_moving_towards", 'kargs':{'target': trainer, 'thresh': 5, 'callback':"enter_idle_state"}})
 				pass
@@ -141,7 +145,7 @@ func _physics_process(delta):
 			pass
 		State.knockback:
 			move_based_on_knockback(delta)
-			apply_gravity(delta)
+			#apply_gravity(delta)
 		State.lasso:
 			pass
 		State.pilot:
@@ -150,12 +154,12 @@ func _physics_process(delta):
 			parse_movement(delta)
 			move_based_on_input(delta)
 		State.running:
+			#apply_gravity(delta)
 			run_towards(followingTarget, delta)
-			apply_gravity(delta)
 		State.walking:
+			#apply_gravity(delta)
 			walk_towards(followingTarget, delta)
-			apply_gravity(delta)
-			pass
+	apply_gravity(delta)
 
 func add_horse_to_coms(h):
 	if(h != self):
@@ -163,20 +167,36 @@ func add_horse_to_coms(h):
 		horseComs.append(h)
 
 func apply_gravity(delta):
-	if $GroundCheck.is_colliding():
-		fullContact = true
+	if is_on_floor():
+		has_contact = true
+		var n = $GroundCheck.get_collision_normal()
+		var floor_angle = rad2deg(acos(n.dot(Vector3.UP)))
+		if floor_angle > MAX_SLOPE_ANGLE:
+			velocity.y += gravity * delta
 	else:
-		fullContact = false
-	
-	if not is_on_floor():
-		gravityVector += Vector3.DOWN * gravity * delta
-		hAcceleration = airAcceleration
-	elif is_on_floor() and fullContact:
-		gravityVector = - get_floor_normal() * gravity
-		hAcceleration = normalAcceleration
-	else:
-		gravityVector = - get_floor_normal()
-		hAcceleration = normalAcceleration
+		if not $GroundCheck.is_colliding():
+			has_contact = false
+		velocity.y += gravity * delta
+	if has_contact and !is_on_floor():
+		move_and_collide(Vector3(0,-1,0))
+#
+#func apply_gravity(delta):
+#	if $GroundCheck.is_colliding():
+#		#print($GroundCheck.get_collider().owner.name)
+#		fullContact = true
+#	else:
+#		fullContact = false
+#
+#	if not is_on_floor():
+#		gravityVector += Vector3.DOWN * gravity * delta
+#		hAcceleration = airAcceleration
+#	elif is_on_floor() and fullContact:
+#		gravityVector = - get_floor_normal() * gravity
+#		hAcceleration = normalAcceleration
+#	else:
+#		#print("slant")
+#		gravityVector = - get_floor_normal()
+#		hAcceleration = normalAcceleration
 
 func apply_rotation(input):
 	if state == State.pilot:
@@ -209,11 +229,14 @@ func calculate_random_weights():
 		ps[n] = ps[n] / limit
 	return ps
 
+func calculate_adjusted_speed():
+	return 10 * sqrt(stats.Speed)
+
 func calculate_speed():
 	return stats.Speed * 15
 
 func can_be_charmed():
-	return ((pep > -5) and (state != State.attack and state != State.hors_de_combat))
+	return ((pep > -5) and (state != State.attack or state != State.hors_de_combat))
 
 func can_be_lassoed():
 	return (pep >= 0) or state == State.hors_de_combat
@@ -240,9 +263,7 @@ func create_horse(other_parent):
 	if(!createAngryChildren):
 		child.isAggroAtStart = false
 	child.initialize(self, other_parent)
-	if(rootRef == null):
-		rootRef = get_tree().get_root().get_node("World")
-	rootRef.add_child(child)
+	Global.world.add_child(child)
 	child.global_transform.origin = other_parent.global_transform.origin + Vector3(rng.randf_range(0.0, 40 * stats.Silly), 0.0, rng.randf_range(0.0, 40*stats.Silly))
 	var p = child.get_parent().name if child.get_parent() != null else "null"
 	print("~~~ child parent: ", p, " -- child owner: ", child.owner.name if child.owner != null else " null ")
@@ -255,9 +276,8 @@ func deal_damage(power):
 func enable_interact():
 	$HorseInteractionController.enable_interaction()
 
-func enter_giddyup(rider, root):
+func enter_giddyup(rider):
 	stop_all_timers()
-	rootRef = root
 	$HorseInteractionController.disable_interaction()
 	if (state != State.giddyup):
 		if(has_trainer()):
@@ -266,11 +286,10 @@ func enter_giddyup(rider, root):
 		else:
 			playerRef = rider
 			state = State.giddyup
-			var rootRef = get_tree().get_root().get_node("World")
 			var challenge_instance = challengeResource.instance()
 			challenge_instance.player_ref = playerRef
 			challenge_instance.horse_ref = self
-			rootRef.call_deferred("add_child", challenge_instance)
+			Global.world.call_deferred("add_child", challenge_instance)
 
 func enter_idle_state():
 	state = State.idle
@@ -368,12 +387,7 @@ func go_to_basket_point(args):
 	pass
 
 func go_to_corral():
-	var corrals
-	if(rootRef != null):
-		corrals = rootRef.get_node("GlobalCorralRegistrar")
-	else:
-		rootRef = get_tree().get_root().get_node("World")
-		corrals = rootRef.get_node("GlobalCorralRegistrar")
+	var corrals = Global.GCR
 	print("travelling to ", corral)
 	trainer.exit_pilot(false)
 	shouldFollowTrainer = false
@@ -386,7 +400,7 @@ func has_trainer():
 	return trainer != null
 
 func highlight():
-	$full_rig_white2/RM_White_Horse_Rig/Skeleton/RM_White_Horse.set_surface_material(0, load("res://materials/horse_toon_highlighted.tres"))
+	$full_rig_white2/RM_White_Horse_Rig/Skeleton/RM_White_Horse.set_surface_material(0, load("res://Materials/horse_material_light_brown_highlighted.tres"))
 
 func initialize(mom, dad):
 	initialize_rng()
@@ -455,18 +469,12 @@ func look_for(args = {}):
 		pass
 
 func move_based_on_input(delta):
-	direction = direction.normalized()
-	hVelocity = hVelocity.linear_interpolate(direction * 3 * (stats.Speed + speedAdjust), hAcceleration * delta)
-	movement.z = hVelocity.z + gravityVector.z
-	movement.x = hVelocity.x + gravityVector.x
-	movement.y = gravityVector.y
-	move_and_slide(movement, Vector3.UP)
 	playerRef.rotation.y = rotation.y
 	playerRef.global_transform.origin = saddle.global_transform.origin
 	if(direction.z != 0.0 and currentAnimation != "Trot"):
-		set_animation("Trot", 2)
+		set_animation("Trot", clamp(stats.Speed * 0.6, 1.0, 4.0))
 	elif (direction.z == 0.0 and currentAnimation != "Idle"):
-		set_animation("Idle")
+		set_animation("Idle", clamp(stats.Speed * 0.3, 1.0, 4.0))
 
 func move_based_on_knockback(delta):
 	move_and_slide(knockbackDirection, Vector3.UP)
@@ -476,35 +484,52 @@ func parse_input(_input):
 	input = _input
 
 func parse_movement(delta):
-	#print("parsing horse")
 	direction = Vector3()
-	
-	if $GroundCheck.is_colliding():
-		fullContact = true
-	else:
-		fullContact = false
-	
-	if not is_on_floor():
-		gravityVector += Vector3.DOWN * gravity * delta
-		hAcceleration = airAcceleration
-	elif is_on_floor() and fullContact:
-		gravityVector = - get_floor_normal() * gravity
-		hAcceleration = normalAcceleration
-	else:
-		gravityVector = - get_floor_normal()
-		hAcceleration = normalAcceleration
-	
-	if input.space and (is_on_floor() or $GroundCheck.is_colliding()):
-		gravityVector = Vector3.UP * jump
-	
+	var aim = global_transform.basis
 	if input.forward:
-		direction -= transform.basis.z
+		direction -= aim.z
 	if input.backward:
-		direction += transform.basis.z
+		direction += aim.z
 	if input.left:
-		direction -= transform.basis.x
+		direction -= aim.x
 	if input.right:
-		direction += transform.basis.x
+		direction += aim.x
+	direction.y = 0
+	direction = direction.normalized()
+	
+	var h_velocity = velocity
+	h_velocity.y = 0
+	print(adjustedSpeed)
+	var movement = direction * adjustedSpeed
+	
+	var acceleration
+	if direction.dot(h_velocity) > 0:
+		acceleration = MAX_ACCEL
+	else:
+		acceleration = DEACCEL
+		
+	h_velocity = h_velocity.linear_interpolate(movement, acceleration * delta)
+	velocity.x = h_velocity.x
+	velocity.z = h_velocity.z
+	
+	if input.space and (has_contact):
+		velocity.y = 10
+		has_contact = false
+	
+	velocity = move_and_slide(velocity, Vector3.UP)
+#
+#func parse_movement(delta):
+#	#print("parsing horse")
+#	direction = Vector3()
+#
+#	if input.forward:
+#		direction -= transform.basis.z
+#	if input.backward:
+#		direction += transform.basis.z
+#	if input.left:
+#		direction -= transform.basis.x
+#	if input.right:
+#		direction += transform.basis.x
 
 func pick_random_spot_nearby():
 	if(followingTarget != null):
@@ -515,9 +540,7 @@ func pick_random_spot_nearby():
 	var x = rand_range(-1,1) * wander_range
 	var z = rand_range(-1,1) * wander_range
 	var point = Vector3(global_transform.origin.x + x,global_transform.origin.y,global_transform.origin.z + z)
-	if(rootRef == null):
-		rootRef = Utils.get_world(self)
-	return rootRef.create_point(point)
+	return Global.world.create_point(point)
 
 func play_random_sound():
 	var sfx = load(sfx_other[randi() % sfx_other.size()])
@@ -573,12 +596,31 @@ func roll_moods(weights):
 
 func run_towards(target, delta):
 	turn_and_face(target)
-	direction = -global_transform.basis.z
-	hVelocity = hVelocity.linear_interpolate(direction * (stats.Speed + speedAdjust), hAcceleration * delta)
-	movement.z = hVelocity.z + gravityVector.z
-	movement.x = hVelocity.x + gravityVector.x
-	movement.y = gravityVector.y
-	move_and_slide(movement, Vector3.UP)
+	direction = Vector3()
+	var aim = global_transform.basis
+	direction -= aim.z
+	direction.y = 0
+	direction = direction.normalized()
+	
+	var h_velocity = velocity
+	h_velocity.y = 0
+	var movement = direction * (adjustedSpeed / 1.6)
+	
+	var acceleration
+	if direction.dot(h_velocity) > 0:
+		acceleration = MAX_ACCEL
+	else:
+		acceleration = DEACCEL
+		
+	h_velocity = h_velocity.linear_interpolate(movement, acceleration * delta)
+	velocity.x = h_velocity.x
+	velocity.z = h_velocity.z
+	
+	if input.space and (has_contact):
+		velocity.y = 10
+		has_contact = false
+	
+	velocity = move_and_slide(velocity, Vector3.UP)
 	var dist = report_distance(followingTarget)
 	if(dist < stopFollowThreshold):
 		if(callback != ""):
@@ -592,11 +634,12 @@ func run_towards(target, delta):
 			look_for({'target': target})
 
 func set_animation(clip = "Idle", s = 1.0):
-	currentAnimation = clip
-	$full_rig_white2/AnimationPlayer.get_animation(clip).set_loop(true)
-	$full_rig_white2/AnimationPlayer.play(clip)
-	$full_rig_white2/AnimationPlayer.playback_speed = s * (Utils.logWithBase(stats.Speed, 10) + 1)
-	$full_rig_white2/AnimationPlayer.seek(0)
+	if currentAnimation != clip:
+		currentAnimation = clip
+		$full_rig_white2/AnimationPlayer.get_animation(clip).set_loop(true)
+		$full_rig_white2/AnimationPlayer.play(clip)
+		$full_rig_white2/AnimationPlayer.playback_speed = s * (Utils.logWithBase(stats.Speed, 10) + 1)
+		$full_rig_white2/AnimationPlayer.seek(0)
 
 func set_moods(mb, i, v):
 	mood[mb[i]] = v
@@ -640,12 +683,12 @@ func start_running():
 	if(followingTarget == trainer):
 		stopFollowThreshold = 10
 	state = State.running
-	set_animation("Trot", 2)
+	set_animation("Trot", clamp(stats.Speed * 0.6,1.0,4))
 
 func start_walking():
 	print("starting to walk to ", followingTarget.name)
 	state = State.walking
-	set_animation("Walk")
+	set_animation("Walk", clamp(stats.Speed * 0.3, 1.0,3.0))
 
 func start_wandering():
 	start_moving_towards({
@@ -677,7 +720,7 @@ func stop_walking():
 	set_animation()
 
 func subscribe_to():
-	rootRef.get_node("InputObserver").subscribe(self)
+	Global.InputObserver.subscribe(self)
 
 func take_damage(dmg, hitbox, player):
 	update_relationship(player, -dmg)
@@ -720,10 +763,10 @@ func turn_and_face(target):
 		correct_scale()
 
 func unhighlight():
-	$full_rig_white2/RM_White_Horse_Rig/Skeleton/RM_White_Horse.set_surface_material(0, load("res://materials/horse_toon.tres"))
+	$full_rig_white2/RM_White_Horse_Rig/Skeleton/RM_White_Horse.set_surface_material(0, load("res://Materials/horse_material_light_brown.tres"))
 
 func unsubscribe_to():
-	rootRef.get_node("InputObserver").unsubscribe(self)
+	Global.InputObserver.unsubscribe(self)
 
 func update_audio_stream(sfx):
 	if not $AudioStreamPlayer.playing:
@@ -743,12 +786,31 @@ func validate_reproduction(other):
 
 func walk_towards(other, delta):
 	turn_and_face(other)
-	direction = -global_transform.basis.z
-	hVelocity = hVelocity.linear_interpolate(direction * 0.2 *(stats.Speed + speedAdjust), hAcceleration * delta)
-	movement.z = hVelocity.z + gravityVector.z
-	movement.x = hVelocity.x + gravityVector.x
-	movement.y = gravityVector.y
-	move_and_slide(movement, Vector3.UP)
+	direction = Vector3()
+	var aim = global_transform.basis
+	direction -= aim.z
+	direction.y = 0
+	direction = direction.normalized()
+	
+	var h_velocity = velocity
+	h_velocity.y = 0
+	var movement = direction * stats.Speed * 1.1
+	
+	var acceleration
+	if direction.dot(h_velocity) > 0:
+		acceleration = MAX_ACCEL
+	else:
+		acceleration = DEACCEL
+		
+	h_velocity = h_velocity.linear_interpolate(movement, acceleration * delta)
+	velocity.x = h_velocity.x
+	velocity.z = h_velocity.z
+	
+	if input.space and (has_contact):
+		velocity.y = 10
+		has_contact = false
+	
+	velocity = move_and_slide(velocity, Vector3.UP)
 	var dist = report_distance(followingTarget)
 	if(dist < stopFollowThreshold):
 		if(callback != ""):
@@ -760,6 +822,26 @@ func walk_towards(other, delta):
 		if(dist > followThreshold):
 			print("too far away to walk, gotta run")
 			look_for({'target': other})
+#
+#func walk_towards(other, delta):
+#	turn_and_face(other)
+#	direction = -global_transform.basis.z
+#	hVelocity = hVelocity.linear_interpolate(direction * 0.3 * (stats.Speed + speedAdjust), hAcceleration * delta)
+#	movement.z = hVelocity.z + gravityVector.z
+#	movement.x = hVelocity.x + gravityVector.x
+#	movement.y = gravityVector.y
+#	move_and_slide(movement, Vector3.UP)
+#	var dist = report_distance(followingTarget)
+#	if(dist < stopFollowThreshold):
+#		if(callback != ""):
+#			call(callback, callback_kargs) if (callback_kargs != null) else call(callback)
+#		else:
+#			set_animation("Idle", 0)
+#			state = State.none
+#	elif(keepFollowing):
+#		if(dist > followThreshold):
+#			print("too far away to walk, gotta run")
+#			look_for({'target': other})
 
 func _on_AggroRange_area_entered(area):
 	if pep < -5:
@@ -793,7 +875,7 @@ func _on_AggroRange_area_entered(area):
 func _on_AttackHitboxTimer_timeout():
 	var hitbox = load("res://prefabs/Spells/Punch.tscn").instance()
 	$AttackPoint.call("add_child", hitbox)
-	hitbox.initialize({'player':self, 'root':rootRef, 'palm':$AttackPoint})
+	hitbox.initialize({'player':self, 'palm':$AttackPoint})
 	$AttackCooldownTimer.start()
 	pass # Replace with function body.
 

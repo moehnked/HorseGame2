@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/Misc/confetti.gd" type="Script" id=1]
-[ext_resource path="res://sounds/swish_01.wav" type="AudioStream" id=2]
+[ext_resource path="res://Sounds/basketball_net.wav" type="AudioStream" id=2]
 
 [sub_resource type="ParticlesMaterial" id=1]
 lifetime_randomness = 0.53

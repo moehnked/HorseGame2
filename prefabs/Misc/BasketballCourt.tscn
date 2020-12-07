@@ -2,8 +2,9 @@
 
 [ext_resource path="res://Textures/misc/fullcourt.png" type="Texture" id=1]
 [ext_resource path="res://Textures/concrete/IMGP5497_seamless.jpg" type="Texture" id=2]
-[ext_resource path="res://Scripts/Misc/Court.gd" type="Script" id=3]
+[ext_resource path="res://prefabs/Misc/Slope.tscn" type="PackedScene" id=3]
 [ext_resource path="res://prefabs/Misc/BasketballHoop.tscn" type="PackedScene" id=4]
+[ext_resource path="res://prefabs/Misc/SlopeCorner.tscn" type="PackedScene" id=5]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 1 )
@@ -17,56 +18,55 @@ material = SubResource( 1 )
 albedo_texture = ExtResource( 2 )
 
 [sub_resource type="BoxShape" id=5]
-extents = Vector3( 21.6435, 1.07278, 46.0902 )
-
-[sub_resource type="BoxShape" id=6]
 
 [node name="BasketballCourt" type="Spatial"]
 
-[node name="court" type="StaticBody" parent="."]
-transform = Transform( 0.822707, 0, 0, 0, 0.518215, 0, 0, 0, 0.573117, 0, 0, 0 )
-script = ExtResource( 3 )
-
-[node name="MeshInstance" type="MeshInstance" parent="court"]
-transform = Transform( 20.6358, 0, 0, 0, 0.834511, 0, 0, 0, 43.8479, 0, 0, 0 )
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 16.9772, 0, 0, 0, 0.432456, 0, 0, 0, 25.13, 0, 0, 0 )
 mesh = SubResource( 2 )
 material/0 = null
 
-[node name="MeshInstance2" type="MeshInstance" parent="court"]
-transform = Transform( 21.634, 0, 0, 0, 1, 0, 0, 0, -46.0856, 0, -1.01505, 0 )
+[node name="Hoop" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.722225, 0, 0, 0, 0.722225, 0, 0, 0, 0.722225, 0, -2.02108, -22.3141 )
+
+[node name="Hoop2" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.722225, 0, -2.35331e-07, 0, 0.722225, 0, 2.35331e-07, 0, -0.722225, 0, -2.02108, 22.7049 )
+
+[node name="Court" type="StaticBody" parent="."]
+transform = Transform( 18.977, 0, 0, 0, 1, 0, 0, 0, 28.13, 0, 0.104, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MeshInstance" type="MeshInstance" parent="Court"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.10835, 0 )
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
-[node name="MAIN" type="CollisionShape" parent="court"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.03259, 0 )
+[node name="CollisionShape" type="CollisionShape" parent="Court"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.108, 0 )
 shape = SubResource( 5 )
 
-[node name="Hoop" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.02108, -19.8812 )
+[node name="SlopeCorner2" parent="." instance=ExtResource( 5 )]
+transform = Transform( -7.83099e-08, 0, 2.3932, 0, 1, 0, -2.36739, 0, -1.24271e-07, 18.977, -1.004, 28.13 )
 
-[node name="Hoop2" parent="." instance=ExtResource( 4 )]
-transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, -2.02108, 19.4351 )
+[node name="SlopeCorner3" parent="." instance=ExtResource( 5 )]
+transform = Transform( 2.36739, 0, 3.20936e-08, 0, 1, 0, 3.89405e-08, 0, 2.38169, -18.977, -1.004, 28.13 )
 
-[node name="slope" type="StaticBody" parent="."]
-transform = Transform( 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 26.6093, 17.8073, -1.3939, 0 )
+[node name="SlopeCorner4" parent="." instance=ExtResource( 5 )]
+transform = Transform( -1.3796e-07, 0, -2.10878, 0, 1, 0, 2.36739, 0, -6.00841e-08, -18.977, -1.004, -28.128 )
 
-[node name="CollisionShape" type="CollisionShape" parent="slope"]
-shape = SubResource( 6 )
+[node name="SlopeCorner5" parent="." instance=ExtResource( 5 )]
+transform = Transform( -2.36739, 0, 1.52262e-07, 0, 1, 0, -2.69923e-07, 0, -2.35754, 18.9769, -1.004, -28.13 )
 
-[node name="slope2" type="StaticBody" parent="."]
-transform = Transform( 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 26.6093, -17.8056, -1.3863, 0 )
+[node name="Slope" parent="." instance=ExtResource( 3 )]
+transform = Transform( 18.981, 1.50996e-07, -2.28317e-08, -2.86605e-06, 1, -2.11758e-22, -1.81023e-07, -1.44006e-15, -2.394, -18.9852, -1.99279, -28.0872 )
 
-[node name="CollisionShape" type="CollisionShape" parent="slope2"]
-shape = SubResource( 6 )
+[node name="Slope3" parent="." instance=ExtResource( 3 )]
+transform = Transform( -18.978, 3.89414e-07, 9.32258e-07, 7.39031e-06, 1, 0, 7.39031e-06, -1.51644e-13, 2.394, 18.9779, -1.99279, 28.1293 )
 
-[node name="slope3" type="StaticBody" parent="."]
-transform = Transform( -1.15202e-07, 1.15202e-07, 17.85, 0.707107, 0.707107, 1.11073e-13, -0.707107, 0.707107, -2.90813e-06, 0.00504303, -1.3863, 26.4308 )
+[node name="Slope2" parent="." instance=ExtResource( 3 )]
+transform = Transform( -1.2296e-06, -6.60024e-15, 2.394, -4.24751e-06, 1, 0, 28.13, 1.50996e-07, 1.04645e-07, 18.977, -1.99279, -28.13 )
 
-[node name="CollisionShape" type="CollisionShape" parent="slope3"]
-shape = SubResource( 6 )
-
-[node name="slope4" type="StaticBody" parent="."]
-transform = Transform( -1.15202e-07, 1.15202e-07, 17.85, 0.707107, 0.707107, 1.11073e-13, -0.707107, 0.707107, -2.90813e-06, 0.00504303, -1.3863, -26.4193 )
-
-[node name="CollisionShape" type="CollisionShape" parent="slope4"]
-shape = SubResource( 6 )
+[node name="Slope4" parent="." instance=ExtResource( 3 )]
+transform = Transform( -4.58296e-06, 5.30863e-14, -2.394, 9.16592e-06, 1, 0, -28.13, 3.25841e-07, 3.90032e-07, -18.9768, -1.99279, 28.1299 )

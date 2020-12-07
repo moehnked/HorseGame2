@@ -5,29 +5,24 @@ onready var resource_ref = preload("res://prefabs/Items/Plank.tscn")
 var callback
 var creation_prefab
 var hand
-var playerRef
 var previousMouseY
 export var required_materials = 5   #number of planks required to build
-var rootRef
 var rotationOffset = 0
 var touching = []
 var valid = true
 
 func check_materials():
 	print("checking materials")
-	#get inventory from player
-	var inv = playerRef.get_inventory()
-	#get count of material items
+	var inv = Global.Player.get_inventory()
 	var mat = resource_ref.instance().get_node("Item")
 	if(Utils.contains(mat, inv)):
 		print("player has ", mat.itemName)
 	var count = Utils.count(mat, inv)
 	print("player has : ", count, " ", mat.itemName)
-	#compare count in inventory to requirement and return
 	return count >= required_materials
 
 func consume_materials():
-	var inv = playerRef.get_inventory()
+	var inv = Global.Player.get_inventory()
 	var mat = resource_ref.instance().get_node("Item")
 	var i = 0
 	while(Utils.count(mat, inv) > 0 and i < required_materials):
@@ -44,10 +39,8 @@ func enable_place():
 	$MeshInstance.get_surface_material(0).albedo_color = Color(0.0,1.0,0.0,0.63)
 
 func initialize(args):
-	args = Utils.check(args, {'player':null, 'world':null, 'prefab':null, 'callback':null, 'hand':null})
+	args = Utils.check(args, {'prefab':null, 'callback':null, 'hand':null})
 	creation_prefab = args.prefab
-	rootRef = args.world
-	playerRef = args.player
 	callback = args.callback
 	hand = args.hand
 	subscribe_to()
@@ -75,24 +68,25 @@ func spawn_prefab():
 	if(valid and check_materials()):
 		var p = load("res://prefabs/Constructable/" + creation_prefab + ".tscn").instance()
 		p.global_transform = global_transform
-		rootRef.call_deferred("add_child", p)
+		Global.world.call_deferred("add_child", p)
 		consume_materials()
 	terminate()
 
 func subscribe_to():
-	rootRef.get_node("InputObserver").subscribe(self)
+	Global.InputObserver.subscribe(self)
 
 func terminate():
-	playerRef.exit_build_mode(callback)
-	playerRef.placer_unsubscribe(self)
-	playerRef.isBuilding = false
+	var player = Global.Player
+	player.exit_build_mode(callback)
+	player.placer_unsubscribe(self)
+	player.isBuilding = false
 	unsubscribe_to()
-	playerRef.conclude_spell("BUILD")
-	playerRef.exit_some_menu()
+	player.conclude_spell("BUILD")
+	player.exit_some_menu()
 	queue_free()
 
 func unsubscribe_to():
-	rootRef.get_node("InputObserver").unsubscribe(self)
+	Global.InputObserver.unsubscribe(self)
 
 func update_position(point, builder_pos):
 	global_transform.origin = point

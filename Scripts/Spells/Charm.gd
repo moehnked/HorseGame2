@@ -9,8 +9,7 @@ var hand
 var isCharming = false
 var lookingat = null
 var palm
-var playerRef
-var rootRef
+var source
 
 
 func _ready():
@@ -25,40 +24,41 @@ func charm(charm):
 	if(lookingat.has_method("recieve_charm")):
 		if(lookingat.can_be_charmed()):
 			print("sending charm to target ", lookingat)
-			lookingat.recieve_charm(charm, playerRef)
+			lookingat.recieve_charm(charm, source)
 		else:
-			rootRef.play_sound()
+			print("target state: ",lookingat.get_state(), " - target pep: ", lookingat.pep)
+			print("i don't think this horse likes me")
+			Global.InteractionPrompt.show_context("I don't think it wants to talk to me...")
+			Global.AudioManager.play_sound()
 	conclude()
 
 func clear_raycast():
 	if lookingat != null:
-		#print("lookingat = null")
 		lookingat.unhighlight()
 		if(canUpdateTarget):
 			lookingat = null
 
 func conclude():
-	playerRef.conclude_spell("CHARM")
+	source.conclude_spell("CHARM")
 	clear_raycast()
 	lookingat = null
-	playerRef.raycast_unsubscribe(self)
+	source.raycast_unsubscribe(self)
 	queue_free()
 
 func create_charm_wheel():
 	var prefab = load("res://prefabs/Spells/CharmSelect.tscn").instance()
-	rootRef.call_deferred("add_child", prefab)
-	prefab.initialize(playerRef, rootRef, palm, "charm", hand, self)
+	Global.world.call_deferred("add_child", prefab)
+	prefab.initialize({'source':source, 'palm':palm, 'callback':"charm", 'charm_origin':self})
 
 func initialize(args):
-	args = Utils.check(args, {'player':null, 'root':null, 'palm':null, 'callback':null, 'hand':null})
-	playerRef = args.player
-	rootRef = args.root
+	args = Utils.check(args, {'player':null, 'palm':null, 'callback':null, 'hand':null})
+	source = args.player
 	subscribe_to()
 	hand = args.hand
 	palm = args.palm
 	callback = args.callback
-	playerRef.raycast_subscribe(self)
-	playerRef.revoke_casting()
+	source.raycast_subscribe(self)
+	source.revoke_casting()
 
 func parse_input(input):
 	if input.standard:
@@ -68,10 +68,10 @@ func parse_input(input):
 			unsubscribe_to()
 
 func subscribe_to():
-	rootRef.get_node("InputObserver").subscribe(self)
+	Global.InputObserver.subscribe(self)
 
 func unsubscribe_to():
-	rootRef.get_node("InputObserver").unsubscribe(self)
+	Global.InputObserver.unsubscribe(self)
 
 func parse_raycast(raycast):
 	var col = raycast.get_collider()

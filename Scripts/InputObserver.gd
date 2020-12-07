@@ -12,6 +12,7 @@ var mouse_horizontal = 0.0
 var mouse_vertical = 0.0
 
 func _ready():
+	Global.InputObserver = self
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func subscribe(observer):
@@ -31,7 +32,7 @@ func _input(event):
 		elif event.button_index == BUTTON_WHEEL_DOWN and event.pressed:
 			mouse -= 1
 
-func _process(delta):
+func _physics_process(delta):
 	var input = InputMacro.new()
 	
 	if(mouse > mouse_prev):

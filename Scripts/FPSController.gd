@@ -3,9 +3,20 @@ extends KinematicBody
 onready var head = $Head
 onready var inputMacro = preload("res://Scripts/InputMacro.gd")
 onready var ropeResource = preload("res://prefabs/LassoBullet.tscn")
-onready var rootRef = get_tree().get_root().get_node("World")
 onready var inventoryScreenSource = preload("res://prefabs/UI/InventoryScreen.tscn")
 
+
+export var DEACCEL = 6
+export var MAX_SPEED = 40
+export var MAX_ACCEL = 2
+export var MAX_SLOPE_ANGLE = 90
+
+var camera_angle = 0
+var camera_change = Vector2()
+
+var has_contact = false
+
+var mouse_sensitivity = 0.3
 
 var aggro = 1
 var acceleration = 20
@@ -20,7 +31,7 @@ var direction = Vector3()
 var fall = Vector3()
 var flushing = false
 var fullContact = false
-var gravity = 20
+var gravity = -20
 var gravityVector = Vector3()
 var gravityCoefficient = 1.0
 var HP = 10
@@ -37,8 +48,6 @@ var movement = Vector3()
 var normalAcceleration = 6
 var saddle
 var scaleMod = 1.0
-export var speed = 7
-
 var state = State.normal
 var velocity = Vector3()
 
@@ -54,14 +63,18 @@ var sfx_grunts = [
 	"res://sounds/grunt_01.wav",
 	"res://sounds/grunt_02.wav",
 	"res://sounds/grunt_03.wav",
+	"res://sounds/grunt_04.wav",
+	"res://sounds/grunt_05.wav",
 ]
 
 enum State {normal, lasso, giddyup, pilot, menu, knockback}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Global.Player = self
 	subscribe_to()
 	scaleMod = scale.x
+	correct_scale()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	pass # Replace with function body.
 
@@ -76,7 +89,7 @@ func _physics_process(delta):
 			update_raycast()
 			apply_rotation()
 			parse_movement(delta)
-			move_based_on_input(delta)
+			#move_based_on_input(delta)
 		State.pilot:
 			if Input.is_action_just_pressed("engage") and canExitHorse:
 				exit_pilot()
@@ -133,8 +146,8 @@ func cast(spell, callback, hand):
 	get_viewport().warp_mouse(OS.window_size/2)
 	random_grunt()
 	var spellInstance = load("res://prefabs/Spells/" + spell + ".tscn").instance()
-	spellInstance.initialize({'player':self, 'root':rootRef, 'palm':$Head/Palm, 'callback':callback, 'hand':hand})
-	rootRef.call_deferred("add_child", spellInstance)
+	spellInstance.initialize({'player':self, 'root':Global.world, 'palm':$Head/Palm, 'callback':callback, 'hand':hand})
+	Global.world.call_deferred("add_child", spellInstance)
 
 func cast_left():
 	if canCastLeft:
@@ -171,7 +184,6 @@ func correct_scale():
 func toggle_all_collisions(tog = false):
 	$CollisionShape.disabled = tog
 	$InteractionController/CollisionShape.disabled = tog
-	$Foot.disabled = tog
 	$GroundCheck.enabled = not tog
 
 func enable_casting():
@@ -188,17 +200,17 @@ func enter_giddyup(target):
 	$LassoTimeout.stop()
 	canExitHorse = false
 	global_transform = target.global_transform
-	scale = Vector3(scaleMod,scaleMod,scaleMod)
+	correct_scale()
 	state = State.giddyup
 	$CollisionShape.disabled = true
 	$InteractionController/CollisionShape.disabled = true
-	saddle.owner.enter_giddyup(self, rootRef)
+	saddle.owner.enter_giddyup(self)
 
 func enter_inventory():
 	enter_some_menu()
 	var screen = inventoryScreenSource.instance()
-	screen.initialize({'source':self, 'root':rootRef, 'inv':get_inventory(), 'callback':"exit_inventory"})
-	rootRef.call_deferred("add_child", screen)
+	screen.initialize({'source':self, 'inv':get_inventory(), 'callback':"exit_inventory"})
+	Global.world.call_deferred("add_child", screen)
 
 func enter_knockback(vector, dmg):
 	revoke_casting()
@@ -226,8 +238,8 @@ func enter_pilot():
 func enter_update_hands_menu():
 	enter_some_menu()
 	var menu = load("res://prefabs/UI/Update_Hands.tscn").instance()
-	menu.initialize(self, rootRef, lefthandSpell, righthandSpell)
-	rootRef.call_deferred("add_child", menu)
+	menu.initialize(self, lefthandSpell, righthandSpell)
+	Global.world.call_deferred("add_child", menu)
 	print("updating hands")
 
 func exit_build_mode(callback):
@@ -292,14 +304,14 @@ func is_player():
 func lasso(saddle):
 	state = State.lasso
 	self.saddle = saddle
-
-func move_based_on_input(delta):
-	direction = direction.normalized()
-	hVelocity = hVelocity.linear_interpolate(direction * speed, hAcceleration * delta)
-	movement.z = hVelocity.z + gravityVector.z
-	movement.x = hVelocity.x + gravityVector.x
-	movement.y = gravityVector.y
-	move_and_slide(movement, Vector3.UP)
+#
+#func move_based_on_input(delta):
+#	direction = direction.normalized()
+#	hVelocity = hVelocity.linear_interpolate(direction * speed, hAcceleration * delta)
+#	movement.z = hVelocity.z + gravityVector.z
+#	movement.x = hVelocity.x + gravityVector.x
+#	movement.y = gravityVector.y
+#	move_and_slide(movement, Vector3.UP)
 
 func move_based_on_knockback(delta):
 	move_and_slide(knockbackDirection, Vector3.UP)
@@ -310,7 +322,7 @@ func moveTowards(target, delta):
 	var adjacent = target.global_transform.origin.z - global_transform.origin.z
 	var angle = atan2(opposite, adjacent)
 	rotation_degrees.y = rad2deg(angle) - 180
-	var facing = -global_transform.basis.z * speed * 200 * delta
+	var facing = -global_transform.basis.z * MAX_SPEED * 200 * delta
 	move_and_slide(facing)
 	if(global_transform.origin.distance_to(target.global_transform.origin) < 5):
 		enter_giddyup(target)
@@ -339,33 +351,51 @@ func parse_input(_input):
 
 func parse_movement(delta):
 	direction = Vector3()
-	
-	if $GroundCheck.is_colliding():
-		fullContact = true
-	else:
-		fullContact = false
-	
-	if not is_on_floor():
-		gravityVector += Vector3.DOWN * gravity * delta * gravityCoefficient
-		hAcceleration = airAcceleration
-	elif is_on_floor() and fullContact:
-		gravityVector = - get_floor_normal() * gravity
-		hAcceleration = normalAcceleration
-	else:
-		gravityVector = - get_floor_normal()
-		hAcceleration = normalAcceleration
-	
-	if input.space and (is_on_floor() or $GroundCheck.is_colliding() or isSwimming):
-		gravityVector = Vector3.UP * jump * jumpCoefficient
-	
+	var aim = $Head/Camera.global_transform.basis
 	if input.forward:
-		direction -= transform.basis.z
+		direction -= aim.z
 	if input.backward:
-		direction += transform.basis.z
+		direction += aim.z
 	if input.left:
-		direction -= transform.basis.x
+		direction -= aim.x
 	if input.right:
-		direction += transform.basis.x
+		direction += aim.x
+	direction.y = 0
+	direction = direction.normalized()
+	
+	if is_on_floor():
+		has_contact = true
+		var n = $GroundCheck.get_collision_normal()
+		var floor_angle = rad2deg(acos(n.dot(Vector3.UP)))
+		if floor_angle > MAX_SLOPE_ANGLE:
+			velocity.y += gravity * delta
+	else:
+		if not $GroundCheck.is_colliding():
+			has_contact = false
+		velocity.y += gravity * delta
+	if has_contact and !is_on_floor():
+		print("weirdness")
+		move_and_collide(Vector3(0,-1,0))
+	
+	var h_velocity = velocity
+	h_velocity.y = 0
+	var movement = direction * MAX_SPEED
+	
+	var acceleration
+	if direction.dot(h_velocity) > 0:
+		acceleration = MAX_ACCEL
+	else:
+		acceleration = DEACCEL
+		
+	h_velocity = h_velocity.linear_interpolate(movement, acceleration * delta)
+	velocity.x = h_velocity.x
+	velocity.z = h_velocity.z
+	
+	if input.space and (has_contact or isSwimming):
+		velocity.y = 10
+		has_contact = false
+	
+	velocity = move_and_slide(velocity, Vector3.UP)
 
 func placer_subscribe(placer):
 	placer_observers.append(placer)
@@ -441,11 +471,10 @@ func stop_swimming():
 	gravityCoefficient = 1.0
 	jumpCoefficient = 1.0
 	isSwimming = false
-	#get_head().set_mask(Color(1,1,1,0))
 
 func subscribe_to():
-	rootRef.get_node("InputObserver").subscribe(self)
-	rootRef.get_node("InputObserver").subscribe($InteractionController)
+	Global.InputObserver.subscribe(self)
+	Global.InputObserver.subscribe($InteractionController)
 
 func take_damage(dmg = 1, hitbox = null, source = null):
 	HP -= dmg
@@ -458,8 +487,8 @@ func take_damage(dmg = 1, hitbox = null, source = null):
 		pass
 
 func unsubscribe_to():
-	rootRef.get_node("InputObserver").unsubscribe(self)
-	rootRef.get_node("InputObserver").unsubscribe($InteractionController)
+	Global.InputObserver.unsubscribe(self)
+	Global.InputObserver.unsubscribe($InteractionController)
 
 func update_placer_position(point):
 	for placer in placer_observers:
