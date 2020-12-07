@@ -179,24 +179,6 @@ func apply_gravity(delta):
 		velocity.y += gravity * delta
 	if has_contact and !is_on_floor():
 		move_and_collide(Vector3(0,-1,0))
-#
-#func apply_gravity(delta):
-#	if $GroundCheck.is_colliding():
-#		#print($GroundCheck.get_collider().owner.name)
-#		fullContact = true
-#	else:
-#		fullContact = false
-#
-#	if not is_on_floor():
-#		gravityVector += Vector3.DOWN * gravity * delta
-#		hAcceleration = airAcceleration
-#	elif is_on_floor() and fullContact:
-#		gravityVector = - get_floor_normal() * gravity
-#		hAcceleration = normalAcceleration
-#	else:
-#		#print("slant")
-#		gravityVector = - get_floor_normal()
-#		hAcceleration = normalAcceleration
 
 func apply_rotation(input):
 	if state == State.pilot:
@@ -517,19 +499,6 @@ func parse_movement(delta):
 		has_contact = false
 	
 	velocity = move_and_slide(velocity, Vector3.UP)
-#
-#func parse_movement(delta):
-#	#print("parsing horse")
-#	direction = Vector3()
-#
-#	if input.forward:
-#		direction -= transform.basis.z
-#	if input.backward:
-#		direction += transform.basis.z
-#	if input.left:
-#		direction -= transform.basis.x
-#	if input.right:
-#		direction += transform.basis.x
 
 func pick_random_spot_nearby():
 	if(followingTarget != null):
@@ -822,26 +791,6 @@ func walk_towards(other, delta):
 		if(dist > followThreshold):
 			print("too far away to walk, gotta run")
 			look_for({'target': other})
-#
-#func walk_towards(other, delta):
-#	turn_and_face(other)
-#	direction = -global_transform.basis.z
-#	hVelocity = hVelocity.linear_interpolate(direction * 0.3 * (stats.Speed + speedAdjust), hAcceleration * delta)
-#	movement.z = hVelocity.z + gravityVector.z
-#	movement.x = hVelocity.x + gravityVector.x
-#	movement.y = gravityVector.y
-#	move_and_slide(movement, Vector3.UP)
-#	var dist = report_distance(followingTarget)
-#	if(dist < stopFollowThreshold):
-#		if(callback != ""):
-#			call(callback, callback_kargs) if (callback_kargs != null) else call(callback)
-#		else:
-#			set_animation("Idle", 0)
-#			state = State.none
-#	elif(keepFollowing):
-#		if(dist > followThreshold):
-#			print("too far away to walk, gotta run")
-#			look_for({'target': other})
 
 func _on_AggroRange_area_entered(area):
 	if pep < -5:
