@@ -32,7 +32,7 @@ func _input(event):
 		elif event.button_index == BUTTON_WHEEL_DOWN and event.pressed:
 			mouse -= 1
 
-func _process(delta):
+func _physics_process(delta):
 	var input = InputMacro.new()
 	
 	if(mouse > mouse_prev):

@@ -7,12 +7,16 @@ onready var challengeResource = preload("res://giddyup_challenge.tscn")
 onready var saddle = $Saddle
 
 export var createAngryChildren = false
+export var DEACCEL = 6
 export var garunteedConversation = false
 export var isAggroAtStart = true
+export var MAX_ACCEL = 2
+export var MAX_SLOPE_ANGLE = 90
 export var pep = 0
 export var readyToHaveKids = false
 
 var acceleration = 20
+var adjustedSpeed = 0
 var airAcceleration = 1
 var bloodlust_rate
 var callback
@@ -26,12 +30,13 @@ var fall = Vector3()
 var followThreshold = 20.0
 var followingTarget = null
 var fullContact = false
-var gravity = 20
+var gravity = -20
 var gravityVector = Vector3()
 var greedRate
 var hAcceleration = 6
 var hVelocity = Vector3()
 var hasBeenInitialized = false
+var has_contact = false
 var horseComs = []
 var horse_icon = "res://Sprites/UI/Horse_Icon_01.png"
 var horse_icon_size = 1
@@ -107,6 +112,7 @@ func _ready():
 	horse_icon = "res://Sprites/UI/Horse_Icon_0" + String((rng.randi() % horse_icon_size) + 1) + ".png"
 	if(!hasBeenInitialized):
 		initialize_personality()
+	adjustedSpeed = calculate_adjusted_speed()
 	enter_idle_state()
 	pass # Replace with function body.
 
@@ -161,22 +167,36 @@ func add_horse_to_coms(h):
 		horseComs.append(h)
 
 func apply_gravity(delta):
-	if $GroundCheck.is_colliding():
-		#print($GroundCheck.get_collider().owner.name)
-		fullContact = true
+	if is_on_floor():
+		has_contact = true
+		var n = $GroundCheck.get_collision_normal()
+		var floor_angle = rad2deg(acos(n.dot(Vector3.UP)))
+		if floor_angle > MAX_SLOPE_ANGLE:
+			velocity.y += gravity * delta
 	else:
-		fullContact = false
-	
-	if not is_on_floor():
-		gravityVector += Vector3.DOWN * gravity * delta
-		hAcceleration = airAcceleration
-	elif is_on_floor() and fullContact:
-		gravityVector = - get_floor_normal() * gravity
-		hAcceleration = normalAcceleration
-	else:
-		#print("slant")
-		gravityVector = - get_floor_normal()
-		hAcceleration = normalAcceleration
+		if not $GroundCheck.is_colliding():
+			has_contact = false
+		velocity.y += gravity * delta
+	if has_contact and !is_on_floor():
+		move_and_collide(Vector3(0,-1,0))
+#
+#func apply_gravity(delta):
+#	if $GroundCheck.is_colliding():
+#		#print($GroundCheck.get_collider().owner.name)
+#		fullContact = true
+#	else:
+#		fullContact = false
+#
+#	if not is_on_floor():
+#		gravityVector += Vector3.DOWN * gravity * delta
+#		hAcceleration = airAcceleration
+#	elif is_on_floor() and fullContact:
+#		gravityVector = - get_floor_normal() * gravity
+#		hAcceleration = normalAcceleration
+#	else:
+#		#print("slant")
+#		gravityVector = - get_floor_normal()
+#		hAcceleration = normalAcceleration
 
 func apply_rotation(input):
 	if state == State.pilot:
@@ -208,6 +228,9 @@ func calculate_random_weights():
 	for n in range(6):
 		ps[n] = ps[n] / limit
 	return ps
+
+func calculate_adjusted_speed():
+	return 10 * sqrt(stats.Speed)
 
 func calculate_speed():
 	return stats.Speed * 15
@@ -446,12 +469,6 @@ func look_for(args = {}):
 		pass
 
 func move_based_on_input(delta):
-	direction = direction.normalized()
-	hVelocity = hVelocity.linear_interpolate(direction * 2 * (stats.Speed + speedAdjust), hAcceleration * delta)
-	movement.z = hVelocity.z + gravityVector.z
-	movement.x = hVelocity.x + gravityVector.x
-	movement.y = gravityVector.y
-	move_and_slide(movement, Vector3.UP)
 	playerRef.rotation.y = rotation.y
 	playerRef.global_transform.origin = saddle.global_transform.origin
 	if(direction.z != 0.0 and currentAnimation != "Trot"):
@@ -467,35 +484,52 @@ func parse_input(_input):
 	input = _input
 
 func parse_movement(delta):
-	#print("parsing horse")
 	direction = Vector3()
-	
-#	if $GroundCheck.is_colliding():
-#		fullContact = true
-#	else:
-#		fullContact = false
-#
-#	if not is_on_floor():
-#		gravityVector += Vector3.DOWN * gravity * delta
-#		hAcceleration = airAcceleration
-#	elif is_on_floor() and fullContact:
-#		gravityVector = - get_floor_normal() * gravity
-#		hAcceleration = normalAcceleration
-#	else:
-#		gravityVector = - get_floor_normal()
-#		hAcceleration = normalAcceleration
-#
-#	if input.space and (is_on_floor() or $GroundCheck.is_colliding()):
-#		gravityVector = Vector3.UP * jump
-	
+	var aim = global_transform.basis
 	if input.forward:
-		direction -= transform.basis.z
+		direction -= aim.z
 	if input.backward:
-		direction += transform.basis.z
+		direction += aim.z
 	if input.left:
-		direction -= transform.basis.x
+		direction -= aim.x
 	if input.right:
-		direction += transform.basis.x
+		direction += aim.x
+	direction.y = 0
+	direction = direction.normalized()
+	
+	var h_velocity = velocity
+	h_velocity.y = 0
+	print(adjustedSpeed)
+	var movement = direction * adjustedSpeed
+	
+	var acceleration
+	if direction.dot(h_velocity) > 0:
+		acceleration = MAX_ACCEL
+	else:
+		acceleration = DEACCEL
+		
+	h_velocity = h_velocity.linear_interpolate(movement, acceleration * delta)
+	velocity.x = h_velocity.x
+	velocity.z = h_velocity.z
+	
+	if input.space and (has_contact):
+		velocity.y = 10
+		has_contact = false
+	
+	velocity = move_and_slide(velocity, Vector3.UP)
+#
+#func parse_movement(delta):
+#	#print("parsing horse")
+#	direction = Vector3()
+#
+#	if input.forward:
+#		direction -= transform.basis.z
+#	if input.backward:
+#		direction += transform.basis.z
+#	if input.left:
+#		direction -= transform.basis.x
+#	if input.right:
+#		direction += transform.basis.x
 
 func pick_random_spot_nearby():
 	if(followingTarget != null):
@@ -562,12 +596,31 @@ func roll_moods(weights):
 
 func run_towards(target, delta):
 	turn_and_face(target)
-	direction = -global_transform.basis.z
-	hVelocity = hVelocity.linear_interpolate(direction * 2 * (stats.Speed + speedAdjust), hAcceleration * delta)
-	movement.z = hVelocity.z + gravityVector.z
-	movement.x = hVelocity.x + gravityVector.x
-	movement.y = gravityVector.y
-	move_and_slide(movement, Vector3.UP)
+	direction = Vector3()
+	var aim = global_transform.basis
+	direction -= aim.z
+	direction.y = 0
+	direction = direction.normalized()
+	
+	var h_velocity = velocity
+	h_velocity.y = 0
+	var movement = direction * (adjustedSpeed / 1.6)
+	
+	var acceleration
+	if direction.dot(h_velocity) > 0:
+		acceleration = MAX_ACCEL
+	else:
+		acceleration = DEACCEL
+		
+	h_velocity = h_velocity.linear_interpolate(movement, acceleration * delta)
+	velocity.x = h_velocity.x
+	velocity.z = h_velocity.z
+	
+	if input.space and (has_contact):
+		velocity.y = 10
+		has_contact = false
+	
+	velocity = move_and_slide(velocity, Vector3.UP)
 	var dist = report_distance(followingTarget)
 	if(dist < stopFollowThreshold):
 		if(callback != ""):
@@ -733,12 +786,31 @@ func validate_reproduction(other):
 
 func walk_towards(other, delta):
 	turn_and_face(other)
-	direction = -global_transform.basis.z
-	hVelocity = hVelocity.linear_interpolate(direction * 0.3 * (stats.Speed + speedAdjust), hAcceleration * delta)
-	movement.z = hVelocity.z + gravityVector.z
-	movement.x = hVelocity.x + gravityVector.x
-	movement.y = gravityVector.y
-	move_and_slide(movement, Vector3.UP)
+	direction = Vector3()
+	var aim = global_transform.basis
+	direction -= aim.z
+	direction.y = 0
+	direction = direction.normalized()
+	
+	var h_velocity = velocity
+	h_velocity.y = 0
+	var movement = direction * stats.Speed * 1.1
+	
+	var acceleration
+	if direction.dot(h_velocity) > 0:
+		acceleration = MAX_ACCEL
+	else:
+		acceleration = DEACCEL
+		
+	h_velocity = h_velocity.linear_interpolate(movement, acceleration * delta)
+	velocity.x = h_velocity.x
+	velocity.z = h_velocity.z
+	
+	if input.space and (has_contact):
+		velocity.y = 10
+		has_contact = false
+	
+	velocity = move_and_slide(velocity, Vector3.UP)
 	var dist = report_distance(followingTarget)
 	if(dist < stopFollowThreshold):
 		if(callback != ""):
@@ -750,6 +822,26 @@ func walk_towards(other, delta):
 		if(dist > followThreshold):
 			print("too far away to walk, gotta run")
 			look_for({'target': other})
+#
+#func walk_towards(other, delta):
+#	turn_and_face(other)
+#	direction = -global_transform.basis.z
+#	hVelocity = hVelocity.linear_interpolate(direction * 0.3 * (stats.Speed + speedAdjust), hAcceleration * delta)
+#	movement.z = hVelocity.z + gravityVector.z
+#	movement.x = hVelocity.x + gravityVector.x
+#	movement.y = gravityVector.y
+#	move_and_slide(movement, Vector3.UP)
+#	var dist = report_distance(followingTarget)
+#	if(dist < stopFollowThreshold):
+#		if(callback != ""):
+#			call(callback, callback_kargs) if (callback_kargs != null) else call(callback)
+#		else:
+#			set_animation("Idle", 0)
+#			state = State.none
+#	elif(keepFollowing):
+#		if(dist > followThreshold):
+#			print("too far away to walk, gotta run")
+#			look_for({'target': other})
 
 func _on_AggroRange_area_entered(area):
 	if pep < -5:

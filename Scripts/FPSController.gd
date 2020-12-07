@@ -184,7 +184,6 @@ func correct_scale():
 func toggle_all_collisions(tog = false):
 	$CollisionShape.disabled = tog
 	$InteractionController/CollisionShape.disabled = tog
-	$Foot.disabled = tog
 	$GroundCheck.enabled = not tog
 
 func enable_casting():
@@ -375,6 +374,7 @@ func parse_movement(delta):
 			has_contact = false
 		velocity.y += gravity * delta
 	if has_contact and !is_on_floor():
+		print("weirdness")
 		move_and_collide(Vector3(0,-1,0))
 	
 	var h_velocity = velocity
