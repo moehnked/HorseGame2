@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Scripts/FPSController.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/Hand_Idle.png" type="Texture" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://Scripts/Misc/Camera.gd" type="Script" id=14]
 [ext_resource path="res://prefabs/Letters/H.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Scripts/Misc/fpsCameraMask.gd" type="Script" id=16]
+[ext_resource path="res://models/clothing/boot.obj" type="ArrayMesh" id=17]
+[ext_resource path="res://Materials/boot_01.tres" type="Material" id=18]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 3.0
@@ -27,19 +29,19 @@ albedo_texture = ExtResource( 3 )
 material = SubResource( 2 )
 mid_height = 3.0
 
-[sub_resource type="QuadMesh" id=5]
+[sub_resource type="QuadMesh" id=4]
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=5]
 flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 1, 1, 1, 0 )
 
-[sub_resource type="BoxShape" id=7]
+[sub_resource type="BoxShape" id=6]
 extents = Vector3( 0.729209, 0.291349, 0.145031 )
 
-[sub_resource type="PlaneMesh" id=8]
+[sub_resource type="PlaneMesh" id=7]
 
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="SpatialMaterial" id=8]
 flags_transparent = true
 flags_unshaded = true
 params_use_alpha_scissor = true
@@ -47,7 +49,7 @@ params_alpha_scissor_threshold = 0.98
 albedo_texture = ExtResource( 2 )
 uv1_scale = Vector3( 0.999, 1, 1 )
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=9]
 step = 0.033
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:translation")
@@ -74,28 +76,28 @@ tracks/1/keys = {
 "values": [ Vector3( 76.0921, 0, 0 ), Vector3( 72.8363, -6.28152, 1.49242 ), Vector3( 74.1103, -20.6135, 0.908432 ), Vector3( 76.0921, 0, 0 ) ]
 }
 
-[sub_resource type="PlaneMesh" id=11]
+[sub_resource type="PlaneMesh" id=10]
 
-[sub_resource type="SpatialMaterial" id=12]
+[sub_resource type="SpatialMaterial" id=11]
 flags_transparent = true
 albedo_texture = ExtResource( 9 )
 
-[sub_resource type="SpatialMaterial" id=13]
+[sub_resource type="SpatialMaterial" id=12]
 flags_unshaded = true
 albedo_color = Color( 0.890196, 0.815686, 0.780392, 1 )
 
-[sub_resource type="SphereMesh" id=14]
-material = SubResource( 13 )
+[sub_resource type="SphereMesh" id=13]
+material = SubResource( 12 )
 
-[sub_resource type="SpatialMaterial" id=15]
+[sub_resource type="SpatialMaterial" id=14]
 flags_unshaded = true
 params_cull_mode = 1
 params_grow = true
 params_grow_amount = 0.02
 albedo_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="ShaderMaterial" id=16]
-next_pass = SubResource( 15 )
+[sub_resource type="ShaderMaterial" id=15]
+next_pass = SubResource( 14 )
 shader = ExtResource( 11 )
 shader_param/use_shade = true
 shader_param/use_specular = false
@@ -117,7 +119,7 @@ shader_param/rim_spread = 0.5
 shader_param/shadow_threshold = 0.7
 shader_param/shadow_softness = 0.1
 
-[sub_resource type="BoxShape" id=17]
+[sub_resource type="BoxShape" id=16]
 extents = Vector3( 1, 0.577481, 1 )
 
 [node name="FPSController" type="KinematicBody"]
@@ -129,20 +131,30 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, -8.04372e-08, -0.493719, 0, 1, -1.62921e-07, 0, 1.23679, 0 )
 mesh = SubResource( 3 )
 material/0 = null
+
+[node name="Boot" type="MeshInstance" parent="."]
+transform = Transform( -2.97882e-08, 0, 0.681474, 0, 0.536862, 0, -0.372296, 0, -1.62736e-08, -0.540579, -1.33682, -0.178287 )
+mesh = ExtResource( 17 )
+material/0 = ExtResource( 18 )
+
+[node name="Boot2" type="MeshInstance" parent="."]
+transform = Transform( -2.97882e-08, 0, 0.681474, 0, 0.536862, 0, -0.372296, 0, -1.62736e-08, 0.519646, -1.33682, -0.178287 )
+mesh = ExtResource( 17 )
+material/0 = ExtResource( 18 )
 
 [node name="GroundCheck" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0 )
 enabled = true
 
 [node name="Head" type="Spatial" parent="."]
-transform = Transform( 1.89751, 0, 0, 0, 1.89751, 0, 0, 0, 1.89751, 0, 3.23334, -1.04173 )
+transform = Transform( 1.89751, 0, 0, 0, 1.89751, 0, 0, 0, 1.89751, 0, 3.233, 0 )
 script = ExtResource( 4 )
 
 [node name="Camera" type="Camera" parent="Head"]
-transform = Transform( 0.527006, 0, 0, 0, 0.527006, 0, 0, 0, 0.527006, 0, 0, 0.170543 )
+transform = Transform( 0.527006, 0, 0, 0, 0.527006, 0, 0, 0, 0.527006, 0, 0, -0.369126 )
 cull_mask = 1047551
 far = 666.0
 script = ExtResource( 14 )
@@ -162,44 +174,44 @@ script = ExtResource( 16 )
 
 [node name="Mask" type="MeshInstance" parent="Head/Camera/Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.238554 )
-mesh = SubResource( 5 )
-material/0 = SubResource( 6 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Head/Camera/Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.212168, -0.19155 )
-shape = SubResource( 7 )
+shape = SubResource( 6 )
 
 [node name="Hand" type="Spatial" parent="Head"]
-transform = Transform( 0.471814, 0, 0, 0, 0.162491, -0.489356, 0, 0.65621, 0.121175, 0.486894, -0.408205, -0.750011 )
+transform = Transform( 0.471814, 0, 0, 0, 0.162491, -0.489356, 0, 0.656209, 0.121175, 0.486894, -0.408205, -5.25729 )
 script = ExtResource( 6 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Head/Hand"]
-mesh = SubResource( 8 )
-material/0 = SubResource( 9 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Hand"]
 anims/Idle = ExtResource( 7 )
-anims/Lasso = SubResource( 10 )
+anims/Lasso = SubResource( 9 )
 anims/Punch = ExtResource( 8 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="Head/Hand"]
 transform = Transform( 0.765655, -0.302677, -0.0604436, 0.114253, 0.997562, -0.102568, 0.048086, -0.0408827, 1.28119, 0.857178, 0.089996, 1.15902 )
-mesh = SubResource( 11 )
-material/0 = SubResource( 12 )
+mesh = SubResource( 10 )
+material/0 = SubResource( 11 )
 
 [node name="Palm" type="Spatial" parent="Head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.404036, -0.137552, -0.988579 )
+transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0.437422, -0.20394, -1.94943 )
 
 [node name="Skull" type="MeshInstance" parent="Head"]
-transform = Transform( 0.409861, 0, 0, 0, 0.409861, 0, 0, 0, 0.409861, 0, 0, 0.556841 )
-mesh = SubResource( 14 )
+transform = Transform( 0.409861, 0, 0, 0, 0.409861, 0, 0, 0, 0.409861, 0, 0, 0 )
+mesh = SubResource( 13 )
 material/0 = null
 
 [node name="Hat" type="MeshInstance" parent="Head/Skull"]
 transform = Transform( 1.96741, 0, 0, 0, 1.57227, 0, 0, 0, 1.80181, 0, 2.14431, -0.166266 )
 layers = 1024
 mesh = ExtResource( 12 )
-material/0 = SubResource( 16 )
+material/0 = SubResource( 15 )
 script = ExtResource( 13 )
 
 [node name="InteractionController" type="Area" parent="."]
@@ -207,7 +219,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.21177 )
 script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="InteractionController"]
-shape = SubResource( 17 )
+shape = SubResource( 16 )
 
 [node name="Special_Cooldown" type="Timer" parent="."]
 wait_time = 0.8

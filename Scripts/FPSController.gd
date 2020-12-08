@@ -57,7 +57,7 @@ var raycastObservers = []
 var lefthandSpell = "Build"
 var righthandSpell = "Lasso"
 
-var buildList = ["Fence", "Gate", "Wall", "Doorway"]
+var buildList = ["Fence", "Gate", "Wall", "Doorway", "Platform", "Staircase"]
 
 var sfx_grunts = [
 	"res://sounds/grunt_01.wav",

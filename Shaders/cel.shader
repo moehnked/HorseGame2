@@ -1,4 +1,5 @@
 //By David Lipps aka DaveTheDev @ EXPWorlds
+//By David Lipps aka DaveTheDev @ EXPWorlds
 //v2.0.0 for Godot 3.2
 
 shader_type spatial;
