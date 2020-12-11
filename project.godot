@@ -28,6 +28,7 @@ config/icon="res://icon.png"
 
 Global="*res://Global.gd"
 Utils="*res://Utils.gd"
+LineCode="*res://Scripts/System/LineCode.gd"
 
 [display]
 

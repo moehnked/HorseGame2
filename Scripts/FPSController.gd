@@ -76,6 +76,7 @@ func _ready():
 	scaleMod = scale.x
 	correct_scale()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	$InteractionController.initialize_raycast(get_raycast())
 	pass # Replace with function body.
 
 func _physics_process(delta):
@@ -283,6 +284,9 @@ func flush_spells():
 		#o.queue_free()
 	flushing = false
 
+func get_camera():
+	return $Head/Camera
+
 func get_inventory():
 	return $InteractionController.inventory
 
@@ -294,6 +298,9 @@ func get_head():
 
 func get_palm():
 	return $Head/Palm
+
+func get_raycast():
+	return $Head/Camera/RayCast_Areas
 
 func initializeHUD(letter):
 	$Head/Camera/GuiLoadArea/H.initialize(letter)
@@ -374,7 +381,6 @@ func parse_movement(delta):
 			has_contact = false
 		velocity.y += gravity * delta
 	if has_contact and !is_on_floor():
-		print("weirdness")
 		move_and_collide(Vector3(0,-1,0))
 	
 	var h_velocity = velocity
@@ -495,10 +501,10 @@ func update_placer_position(point):
 		placer.update_position(point, self.global_transform.origin)
 
 func update_raycast():
-	if $Head/Camera/RayCast.is_colliding():
-		update_placer_position($Head/Camera/RayCast.get_collision_point())
+	if $Head/Camera/RayCast_Solids.is_colliding():
+		update_placer_position($Head/Camera/RayCast_Solids.get_collision_point())
 		for o in raycastObservers:
-			o.parse_raycast($Head/Camera/RayCast)
+			o.parse_raycast($Head/Camera/RayCast_Solids)
 	else:
 		for o in raycastObservers:
 			o.clear_raycast()
