@@ -2,28 +2,52 @@
 
 [resource]
 resource_name = "Punch"
-step = 0.03
+step = 0.033
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:translation")
+tracks/0/path = NodePath("Container/MeshInstance:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.06, 0.99 ),
-"transitions": PoolRealArray( 1, 0.203063, 0.267943 ),
+"times": PoolRealArray( 0, 0.066, 0.99 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0.486894, -0.408205, -0.750011 ), Vector3( 0.144954, -0.408205, -1.49154 ), Vector3( 0.486894, -0.408205, -0.750011 ) ]
+"values": [ Vector3( 0.0138932, -0.100297, 0.304661 ), Vector3( -0.492798, -1.66518, -0.0203378 ), Vector3( 0.0138932, -0.100297, 0.304661 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/path = NodePath("Container/MeshInstance2:translation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.09, 0.99 ),
+"times": PoolRealArray( 0, 0.066, 0.99 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 76.0922, 0, 0 ), Vector3( 61.9346, 59.2772, 62.3269 ), Vector3( 76.0922, 0, 0 ) ]
+"values": [ Vector3( 0.681267, 0.130899, 0.946457 ), Vector3( 0.374502, -1.11022, 0.115689 ), Vector3( 0.681267, 0.130899, 0.946457 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Container/MeshInstance:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.066, 0.99 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.116174, -6.03587, -1.1614 ), Vector3( -16.9841, 41.5528, 20.5317 ), Vector3( -0.116174, -6.03587, -1.1614 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Container/MeshInstance2:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.066, 0.99 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.508645, -3.7734, 8.41263 ), Vector3( -12.5238, 26.1539, 15.222 ), Vector3( 0.508643, -3.7734, 8.41263 ) ]
 }

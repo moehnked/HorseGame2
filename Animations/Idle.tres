@@ -2,30 +2,54 @@
 
 [resource]
 resource_name = "Idle"
-length = 3.0
+length = 2.5
 loop = true
 step = 0.033
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:translation")
-tracks/0/interp = 1
+tracks/0/path = NodePath("Container/MeshInstance:translation")
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.32, 2.97 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 1.089, 2.508 ),
+"transitions": PoolRealArray( 2, 1, 0.329877 ),
 "update": 0,
-"values": [ Vector3( 0.465309, -0.425448, -0.750011 ), Vector3( 0.465309, -0.452513, -0.750011 ), Vector3( 0.465309, -0.425448, -0.750011 ) ]
+"values": [ Vector3( 0.0155097, -0.0390208, -0.0133159 ), Vector3( -0.0302308, -0.0498043, 0.0425646 ), Vector3( 0.0155097, -0.0390208, -0.0133159 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/path = NodePath("Container/MeshInstance:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.485, 2.97 ),
+"times": PoolRealArray( 0, 1.254, 2.508 ),
+"transitions": PoolRealArray( 2, 1, 0.482968 ),
+"update": 0,
+"values": [ Vector3( -8.53774e-06, -1.33402e-08, 3.33505e-08 ), Vector3( -0.224436, 7.93188, 1.52419 ), Vector3( -8.53774e-06, -1.33402e-08, 3.33505e-08 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Container/MeshInstance2:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.155, 2.508 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 69.3913, 13.4557, 15.0824 ), Vector3( 68.3009, 22.2007, 24.4562 ), Vector3( 69.3913, 13.4557, 15.0824 ) ]
+"values": [ Vector3( 0.681267, 0.130899, 0.946457 ), Vector3( 0.665344, 0.128687, 0.957906 ), Vector3( 0.681267, 0.130899, 0.946457 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Container/MeshInstance2:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.353, 2.508 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.508645, -3.7734, 8.41263 ), Vector3( 0.536728, -2.32226, 8.69627 ), Vector3( 0.508645, -3.7734, 8.41263 ) ]
 }

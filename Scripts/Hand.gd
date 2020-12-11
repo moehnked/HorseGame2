@@ -1,14 +1,15 @@
 extends Spatial
+var handMesh
 
 func update_hand_sprite(spell):
 	print("applying")
-	apply_texture($MeshInstance, "res://Sprites/Player/Hand_" + spell + ".png")
+	apply_texture(handMesh, "res://Sprites/Player/Hand_" + spell + ".png")
 	$AnimationPlayer.play(spell)
 	
 func idle_hand():
 	print("returning hand to idle")
 	$AnimationPlayer.play("Idle")
-	apply_texture($MeshInstance, "res://Sprites/Player/Hand_idle.png")
+	apply_texture(handMesh, "res://Sprites/Player/Hand_idle.png")
 
 func apply_texture(mesh_instance_node, texture_path):
 	var texture = ImageTexture.new()
@@ -19,3 +20,4 @@ func apply_texture(mesh_instance_node, texture_path):
 	
 func _ready():
 	$AnimationPlayer.play("Idle")
+	handMesh = $Container/MeshInstance

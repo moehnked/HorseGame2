@@ -1,6 +1,8 @@
 extends Area
 const Utils = preload("res://Utils.gd")
 onready var resource_ref = preload("res://prefabs/Items/Plank.tscn")
+onready var valid = preload("res://Materials/construction_valid.tres")
+onready var invalid = preload("res://Materials/construction_invalid.tres")
 
 var callback
 var creation_prefab
@@ -9,7 +11,7 @@ var previousMouseY
 export var required_materials = 5   #number of planks required to build
 var rotationOffset = 0
 var touching = []
-var valid = true
+var placeable = true
 
 func check_materials():
 	print("checking materials")
@@ -31,12 +33,16 @@ func consume_materials():
 
 func disable_place():
 	print("cannot place item here")
-	valid = false
-	$MeshInstance.get_surface_material(0).albedo_color = Color(1.0,0.0,0.0,0.63)
+	placeable = false
+	#$MeshInstance.get_surface_material(0).albedo_color = Color(1.0,0.0,0.0,0.63)
+	#$MeshInstance.set_surface_material(0, load("res://Materials/construction_inplaceable.tres"))
+	$MeshInstance.material_override = invalid
 
 func enable_place():
-	valid = true
-	$MeshInstance.get_surface_material(0).albedo_color = Color(0.0,1.0,0.0,0.63)
+	placeable = true
+	#$MeshInstance.get_surface_material(0) = Color(0.0,1.0,0.0,0.63)
+	#$MeshInstance.set_surface_material(0, load("res://Materials/construction_placeable.tres"))
+	$MeshInstance.material_override = valid
 
 func initialize(args):
 	args = Utils.check(args, {'prefab':null, 'callback':null, 'hand':null})
@@ -65,7 +71,7 @@ func parse_input(input):
 				update_rotation(input)
 
 func spawn_prefab():
-	if(valid and check_materials()):
+	if(placeable and check_materials()):
 		var p = load("res://prefabs/Constructable/" + creation_prefab + ".tscn").instance()
 		p.global_transform = global_transform
 		Global.world.call_deferred("add_child", p)
