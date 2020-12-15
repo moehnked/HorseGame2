@@ -18,15 +18,9 @@ func enter_giddyup(target):
 	actor.canExitHorse = false
 	actor.global_transform = target.global_transform
 	actor.correct_scale()
-	#state = State.giddyup
 	actor.set_behavior("Giddyup")
 	actor.disable_collisions()
-	#$CollisionShape.disabled = true
-	#$InteractionController/CollisionShape.disabled = true
 	target.owner.enter_giddyup(actor)
-
-func exit_pilot(callback = true):
-	actor.exit_pilot(callback)
 
 func move_towards(target, delta):
 	var opposite = target.global_transform.origin.x - actor.global_transform.origin.x

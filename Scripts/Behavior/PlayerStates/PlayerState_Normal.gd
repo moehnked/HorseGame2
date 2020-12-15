@@ -16,8 +16,17 @@ func run_state(actor, delta):
 	update_raycast(actor)
 	apply_rotation(actor)
 	parse_movement(actor, delta)
-#	#move_based_on_input(delta)
 	pass
+
+func initialize(args = {}):
+	var actor = args.actor
+	var head = actor.get_head()
+	actor.subscribe_to()
+	head.subscribe_to()
+	actor.canUpdateHands = true
+	actor.canCheckInventory = true
+	actor.queue_spell_clear()
+	actor.enable_casting()
 
 func apply_rotation(actor):
 	#if state != State.giddyup and not isBuilding:

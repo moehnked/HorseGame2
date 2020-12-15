@@ -3,6 +3,7 @@ extends Control
 const Utils = preload("res://Utils.gd")
 
 var callback = ""
+var can_scrub = false
 var listener = null
 export var speed = 3
 var state = "nothing"
@@ -28,7 +29,7 @@ func _process(delta):
 		"raising":
 			raise_window(delta)
 	raise_window(delta)
-	if Input.is_action_just_released("engage"):
+	if Input.is_action_just_released("engage") and can_scrub:
 		start_exit()
 	#write_text()
 
@@ -36,6 +37,7 @@ func initialize(args = {}):
 	args = Utils.check(args, {'speaker':null, 'listener':null, 'text':["hellow", "world"], 'call_back':""})
 	speaker = args.speaker
 	listener = args.listener
+	print("initialize dialogue between ", speaker.name, " and ", listener.name)
 	if(speaker.has_method("get_icon")):
 		#print(speaker.get_icon())
 		set_icon(speaker.get_icon())
@@ -67,6 +69,7 @@ func set_icon(path):
 	$Container/Icon2.texture = ico
 
 func start_exit():
+	print("beginning exit")
 	state = "lowering"
 
 func write_text():
@@ -75,10 +78,9 @@ func write_text():
 	if(typing_text.length() < text.length()):
 		typing_text += text[min(typing_text.length(), text.length() - 1)]
 
-
-
 func _on_Timer_timeout():
 	#print("dialogue timer")
+	can_scrub = true
 	write_text()
 	if(typing_text.length() < text.length()):
 		$Timer.start()

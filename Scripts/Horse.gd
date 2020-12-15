@@ -117,6 +117,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _on_IdleTimer_timeout():
+	print("idle time")
 	if(horseComs.size() > 0):
 		find_horse_to_talk_to()
 	else:
@@ -285,7 +286,7 @@ func enter_knockback(vector, dmg):
 
 func enter_pilot():
 	stop_all_timers()
-	playerRef.enter_pilot()
+	Global.Player.enter_pilot()
 	play_random_sound()
 	state = State.pilot
 	subscribe_to()

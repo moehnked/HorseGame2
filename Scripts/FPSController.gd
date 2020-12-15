@@ -167,29 +167,11 @@ func enter_inventory():
 	screen.initialize({'source':self, 'inv':get_inventory(), 'callback':"exit_inventory"})
 	Global.world.call_deferred("add_child", screen)
 
-func enter_knockback(vector, dmg):
-	revoke_casting()
-	revoke_menu_options()
-	unsubscribe_to()
-	$Head.unsubscribe_to()
-	knockbackDirection = vector
-	set_behavior("Knockback")
-	$KnockbackTimer.start(0.2 * dmg)
-
 func enter_some_menu():
-	unsubscribe_to()
-	$Head.unsubscribe_to()
 	set_behavior("Menu")
-	canUpdateHands = false
-	canCheckInventory = false
-	revoke_casting()
 
 func enter_pilot():
-	$ExitHorseTimer.start()
-	#state = State.pilot
 	set_behavior("Pilot", {"actor":self})
-	toggle_all_collisions(true)
-	unsubscribe_to()
 
 func enter_update_hands_menu():
 	enter_some_menu()
@@ -220,13 +202,7 @@ func exit_pilot(callback = true):
 	subscribe_to()
 
 func exit_some_menu():
-	subscribe_to()
-	$Head.subscribe_to()
 	set_behavior("Normal")
-	canUpdateHands = true
-	canCheckInventory = true
-	queue_spell_clear()
-	enable_casting()
 
 func exit_update_hands_menu():
 	exit_some_menu()
@@ -346,10 +322,12 @@ func revoke_menu_options():
 func setLassoLimit():
 	$LassoTimeout.start()
 
-func set_behavior(statename, init_args = null):
+func set_behavior(statename, init_args = {"actor": self}):
 	currentBehavior = get_node("StateContainer/" + statename)
-	if init_args != null:
-		currentBehavior.initialize(init_args)
+	currentBehavior.initialize(init_args)
+
+func set_knockback_timer(time):
+	$KnockbackTimer.start(time)
 
 func startLeftCooldown():
 	$LeftCooldown.start()
@@ -362,6 +340,9 @@ func start_swimming():
 	jumpCoefficient = 0.2
 	isSwimming = true
 	#get_head().set_mask(Color(0, 0.80, 0.93, 0.32))
+
+func start_timer_exit_horse():
+	$ExitHorseTimer.start()
 
 func stop_cast_reset():
 	$LeftCooldown.stop()
@@ -386,7 +367,8 @@ func take_damage(dmg = 1, hitbox = null, source = null):
 		#GAME OVER
 		pass
 	else:
-		enter_knockback(calculate_knockback_vector(hitbox, source), dmg)
+		set_behavior("Knockback", {"actor":self, "vector": calculate_knockback_vector(hitbox, source), "dmg": dmg})
+		#enter_knockback(, dmg)
 		pass
 
 func unsubscribe_to():
