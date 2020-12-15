@@ -45,8 +45,7 @@ script = ExtResource( 5 )
 
 [node name="Horse" parent="." instance=ExtResource( 15 )]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -1.17923, 2.92841, 10.5978 )
-isAggroAtStart = false
-pep = 10
+pep = -4
 stats = {
 "Chaos": 1,
 "Silly": 1,

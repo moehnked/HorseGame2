@@ -9,13 +9,49 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "BehaviorState",
+"language": "GDScript",
+"path": "res://Scripts/Behavior/BehaviorState.gd"
+}, {
 "base": "Reference",
 "class": "InputMacro",
 "language": "GDScript",
 "path": "res://Scripts/InputMacro.gd"
+}, {
+"base": "Node",
+"class": "PlayerState_Giddyup",
+"language": "GDScript",
+"path": "res://Scripts/Behavior/PlayerStates/PlayerState_Giddyup.gd"
+}, {
+"base": "Node",
+"class": "PlayerState_Knockback",
+"language": "GDScript",
+"path": "res://Scripts/Behavior/PlayerStates/PlayerState_Knockback.gd"
+}, {
+"base": "Node",
+"class": "PlayerState_Lasso",
+"language": "GDScript",
+"path": "res://Scripts/Behavior/PlayerStates/PlayerState_Lasso.gd"
+}, {
+"base": "Node",
+"class": "PlayerState_Menu",
+"language": "GDScript",
+"path": "res://Scripts/Behavior/PlayerStates/PlayerState_Menu.gd"
+}, {
+"base": "Node",
+"class": "PlayerState_Normal",
+"language": "GDScript",
+"path": "res://Scripts/Behavior/PlayerStates/PlayerState_Normal.gd"
 } ]
 _global_script_class_icons={
-"InputMacro": ""
+"BehaviorState": "",
+"InputMacro": "",
+"PlayerState_Giddyup": "",
+"PlayerState_Knockback": "",
+"PlayerState_Lasso": "",
+"PlayerState_Menu": "",
+"PlayerState_Normal": ""
 }
 
 [application]
@@ -29,6 +65,11 @@ config/icon="res://icon.png"
 Global="*res://Global.gd"
 Utils="*res://Utils.gd"
 LineCode="*res://Scripts/System/LineCode.gd"
+
+[debug]
+
+gdscript/warnings/enable=false
+gdscript/warnings/unused_variable=false
 
 [display]
 

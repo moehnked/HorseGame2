@@ -19,24 +19,18 @@ var has_contact = false
 var mouse_sensitivity = 0.3
 
 var aggro = 1
-var acceleration = 20
-var airAcceleration = 1
 var canCastLeft = true
 var canCastRight = true
 var canCheckInventory = true
 var canExitHorse = false
 var canJump = true
 var canUpdateHands = true
-var direction = Vector3()
 var fall = Vector3()
 var flushing = false
 var fullContact = false
-var gravity = -20
 var gravityVector = Vector3()
 var gravityCoefficient = 1.0
 var HP = 10
-var hAcceleration = 6
-var hVelocity = Vector3()
 var input = InputMacro.new()
 var isBuilding = false
 var isSwimming = false
@@ -44,12 +38,10 @@ var jump = 10
 var jumpCoefficient = 1.0
 var knockbackDirection = Vector3()
 var mouseSensitivity = 0.09
-var movement = Vector3()
 var normalAcceleration = 6
 var saddle
 var scaleMod = 1.0
-var state = State.normal
-var velocity = Vector3()
+#var state = State.normal
 
 var placer_observers = []
 var raycastObservers = []
@@ -67,7 +59,8 @@ var sfx_grunts = [
 	"res://sounds/grunt_05.wav",
 ]
 
-enum State {normal, lasso, giddyup, pilot, menu, knockback}
+onready var currentBehavior = get_node("StateContainer/Normal")
+#enum State {normal, lasso, giddyup, pilot, menu, knockback}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -80,30 +73,15 @@ func _ready():
 	pass # Replace with function body.
 
 func _physics_process(delta):
-	#print(global_transform.origin.y)
-	match state:
-		State.lasso:
-			moveTowards(saddle, delta)
-		State.knockback:
-			move_based_on_knockback(delta)
-		State.normal:
-			update_raycast()
-			apply_rotation()
-			parse_movement(delta)
-			#move_based_on_input(delta)
-		State.pilot:
-			if Input.is_action_just_pressed("engage") and canExitHorse:
-				exit_pilot()
+	currentBehavior.run_state(self, delta)
 
 func _on_ExitHorseTimer_timeout():
 	print("times up")
 	canExitHorse = true
 
-func _on_InteractionController_area_entered(area):
-	print(area)
-
 func _on_LassoTimeout_timeout():
-	state = State.normal
+	#state = State.normal
+	set_behavior("Normal")
 	pass
 
 func _on_LeftCooldown_timeout():
@@ -128,14 +106,6 @@ func add_to_party(member):
 
 func aggroable():
 	return aggro
-
-func apply_gravity(delta):
-	if not is_on_floor():
-		move_and_slide(fall, Vector3.UP)
-
-func apply_rotation():
-	if state != State.giddyup and not isBuilding:
-		rotate_y(input.mouse_horizontal)
 
 func calculate_knockback_vector(hitbox, source):
 	print("type:  --- ",hitbox.get_class())
@@ -162,14 +132,6 @@ func cast_right():
 		canCastRight = false
 		cast(righthandSpell, "startRightCooldown", "right")
 
-func check_floor(delta):
-	if is_on_floor():
-		canJump = true
-		#fall.y = 0
-	else:
-		canJump = false
-		fall.y -= gravity * delta
-
 func conclude_spell(spell):
 	print("spell ", spell, " hase concluded...")
 	if $LeftCooldown.time_left <= 0:
@@ -182,9 +144,12 @@ func conclude_spell(spell):
 func correct_scale():
 	scale = Vector3(scaleMod, scaleMod, scaleMod)
 
+func disable_collisions():
+	$CollisionShape.disabled = true
+	pass
+
 func toggle_all_collisions(tog = false):
 	$CollisionShape.disabled = tog
-	$InteractionController/CollisionShape.disabled = tog
 	$GroundCheck.enabled = not tog
 
 func enable_casting():
@@ -195,17 +160,6 @@ func enter_dialogue(other):
 	unsubscribe_to()
 	get_head().look_at_object(other)
 	$InteractionController.disable_interact()
-
-func enter_giddyup(target):
-	print("player enter_giddyup")
-	$LassoTimeout.stop()
-	canExitHorse = false
-	global_transform = target.global_transform
-	correct_scale()
-	state = State.giddyup
-	$CollisionShape.disabled = true
-	$InteractionController/CollisionShape.disabled = true
-	saddle.owner.enter_giddyup(self)
 
 func enter_inventory():
 	enter_some_menu()
@@ -219,20 +173,21 @@ func enter_knockback(vector, dmg):
 	unsubscribe_to()
 	$Head.unsubscribe_to()
 	knockbackDirection = vector
-	state = State.knockback
+	set_behavior("Knockback")
 	$KnockbackTimer.start(0.2 * dmg)
 
 func enter_some_menu():
 	unsubscribe_to()
 	$Head.unsubscribe_to()
-	state = State.menu
+	set_behavior("Menu")
 	canUpdateHands = false
 	canCheckInventory = false
 	revoke_casting()
 
 func enter_pilot():
 	$ExitHorseTimer.start()
-	state = State.pilot
+	#state = State.pilot
+	set_behavior("Pilot", {"actor":self})
 	toggle_all_collisions(true)
 	unsubscribe_to()
 
@@ -258,18 +213,16 @@ func exit_inventory():
 
 func exit_pilot(callback = true):
 	print("exiting pilot")
-	state = State.normal
+	set_behavior("Normal")
 	if(callback):
 		saddle.owner.exit_pilot()
-#	$CollisionShape.disabled = false
-#	$InteractionController/CollisionShape.disabled = false
 	toggle_all_collisions(false)
 	subscribe_to()
 
 func exit_some_menu():
 	subscribe_to()
 	$Head.subscribe_to()
-	state = State.normal
+	set_behavior("Normal")
 	canUpdateHands = true
 	canCheckInventory = true
 	queue_spell_clear()
@@ -281,11 +234,13 @@ func exit_update_hands_menu():
 func flush_spells():
 	for o in raycastObservers:
 		raycast_unsubscribe(o)
-		#o.queue_free()
 	flushing = false
 
 func get_camera():
 	return $Head/Camera
+
+func get_ground_check():
+	return $GroundCheck
 
 func get_inventory():
 	return $InteractionController.inventory
@@ -302,6 +257,9 @@ func get_palm():
 func get_raycast():
 	return $Head/Camera/RayCast_Areas
 
+func get_solid_raycast():
+	return $Head/Camera/RayCast_Solids
+
 func initializeHUD(letter):
 	$Head/Camera/GuiLoadArea/H.initialize(letter)
 
@@ -309,30 +267,8 @@ func is_player():
 	return true
 
 func lasso(saddle):
-	state = State.lasso
+	set_behavior("Lasso")
 	self.saddle = saddle
-#
-#func move_based_on_input(delta):
-#	direction = direction.normalized()
-#	hVelocity = hVelocity.linear_interpolate(direction * speed, hAcceleration * delta)
-#	movement.z = hVelocity.z + gravityVector.z
-#	movement.x = hVelocity.x + gravityVector.x
-#	movement.y = gravityVector.y
-#	move_and_slide(movement, Vector3.UP)
-
-func move_based_on_knockback(delta):
-	move_and_slide(knockbackDirection, Vector3.UP)
-	apply_gravity(delta)
-
-func moveTowards(target, delta):
-	var opposite = target.global_transform.origin.x - global_transform.origin.x
-	var adjacent = target.global_transform.origin.z - global_transform.origin.z
-	var angle = atan2(opposite, adjacent)
-	rotation_degrees.y = rad2deg(angle) - 180
-	var facing = -global_transform.basis.z * MAX_SPEED * 200 * delta
-	move_and_slide(facing)
-	if(global_transform.origin.distance_to(target.global_transform.origin) < 5):
-		enter_giddyup(target)
 
 func parse_input(_input):
 	input = _input
@@ -355,53 +291,6 @@ func parse_input(_input):
 	elif input.tab:
 		if canCheckInventory:
 			enter_inventory()
-
-func parse_movement(delta):
-	direction = Vector3()
-	var aim = $Head/Camera.global_transform.basis
-	if input.forward:
-		direction -= aim.z
-	if input.backward:
-		direction += aim.z
-	if input.left:
-		direction -= aim.x
-	if input.right:
-		direction += aim.x
-	direction.y = 0
-	direction = direction.normalized()
-	
-	if is_on_floor():
-		has_contact = true
-		var n = $GroundCheck.get_collision_normal()
-		var floor_angle = rad2deg(acos(n.dot(Vector3.UP)))
-		if floor_angle > MAX_SLOPE_ANGLE:
-			velocity.y += gravity * delta
-	else:
-		if not $GroundCheck.is_colliding():
-			has_contact = false
-		velocity.y += gravity * delta
-	if has_contact and !is_on_floor():
-		move_and_collide(Vector3(0,-1,0))
-	
-	var h_velocity = velocity
-	h_velocity.y = 0
-	var movement = direction * MAX_SPEED
-	
-	var acceleration
-	if direction.dot(h_velocity) > 0:
-		acceleration = MAX_ACCEL
-	else:
-		acceleration = DEACCEL
-		
-	h_velocity = h_velocity.linear_interpolate(movement, acceleration * delta)
-	velocity.x = h_velocity.x
-	velocity.z = h_velocity.z
-	
-	if input.space and (has_contact or isSwimming):
-		velocity.y = 10
-		has_contact = false
-	
-	velocity = move_and_slide(velocity, Vector3.UP)
 
 func placer_subscribe(placer):
 	placer_observers.append(placer)
@@ -443,7 +332,7 @@ func restore_menu_options():
 func return_control():
 	subscribe_to()
 	$Head.subscribe_to()
-	state = State.normal
+	set_behavior("Normal")
 
 func revoke_casting():
 	canCastLeft = false
@@ -456,6 +345,11 @@ func revoke_menu_options():
 
 func setLassoLimit():
 	$LassoTimeout.start()
+
+func set_behavior(statename, init_args = null):
+	currentBehavior = get_node("StateContainer/" + statename)
+	if init_args != null:
+		currentBehavior.initialize(init_args)
 
 func startLeftCooldown():
 	$LeftCooldown.start()
@@ -472,6 +366,9 @@ func start_swimming():
 func stop_cast_reset():
 	$LeftCooldown.stop()
 	$RightCooldown.stop()
+
+func stop_lasso_timer():
+	$LassoTimeout.stop()
 
 func stop_swimming():
 	gravityCoefficient = 1.0
@@ -496,26 +393,13 @@ func unsubscribe_to():
 	Global.InputObserver.unsubscribe(self)
 	Global.InputObserver.unsubscribe($InteractionController)
 
-func update_placer_position(point):
-	for placer in placer_observers:
-		placer.update_position(point, self.global_transform.origin)
-
-func update_raycast():
-	if $Head/Camera/RayCast_Solids.is_colliding():
-		update_placer_position($Head/Camera/RayCast_Solids.get_collision_point())
-		for o in raycastObservers:
-			o.parse_raycast($Head/Camera/RayCast_Solids)
-	else:
-		for o in raycastObservers:
-			o.clear_raycast()
-
 func update_spells(left, right):
 	lefthandSpell = left
 	righthandSpell = right
 
 
 func _on_KnockbackTimer_timeout():
-	state = State.normal
+	set_behavior("Normal")
 	enable_casting()
 	restore_menu_options()
 	subscribe_to()
