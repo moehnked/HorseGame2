@@ -3,7 +3,6 @@ extends KinematicBody
 const hm = preload("res://Scripts/Statics/HorseMoods.gd")
 const HorseMoods = hm.HorseMoods
 
-onready var challengeResource = preload("res://giddyup_challenge.tscn")
 onready var saddle = $Saddle
 
 export var createAngryChildren = false
@@ -24,6 +23,7 @@ var callback_kargs = {}
 var canJump = true
 var corral
 var currentAnimation = ""
+onready var currentBehavior = get_node("StateContainer/Idle")
 var direction = Vector3()
 var enemies = []
 var fall = Vector3()
@@ -61,7 +61,7 @@ var state = State.idle
 var stopFollowThreshold = 8
 var temp_rot
 var tempTalkBanList = []
-var trainer
+var trainer = null
 var turnSpeed = 20
 var velocity = Vector3()
 var wandering_point = Vector3()
@@ -131,36 +131,38 @@ func _on_WalkTimer_timeout():
 	enter_idle_state()
 
 func _physics_process(delta):
-	match state:
-		State.attack:
-			#apply_gravity(delta)
-			#move_towards(followingTarget, delta)
-			pass
-		State.idle:
-			#apply_gravity(delta)
-			if(has_trainer() and shouldFollowTrainer):
-				look_for({'target':trainer, 'r':followThreshold, 'callback':"start_moving_towards", 'kargs':{'target': trainer, 'thresh': 5, 'callback':"enter_idle_state"}})
-				pass
-			else:
-				find_horse_to_talk_to()
-			pass
-		State.knockback:
-			move_based_on_knockback(delta)
-			#apply_gravity(delta)
-		State.lasso:
-			pass
-		State.pilot:
-			#print("piloting...")
-			rotate_y(input.mouse_horizontal)
-			parse_movement(delta)
-			move_based_on_input(delta)
-		State.running:
-			#apply_gravity(delta)
-			run_towards(followingTarget, delta)
-		State.walking:
-			#apply_gravity(delta)
-			walk_towards(followingTarget, delta)
 	apply_gravity(delta)
+	currentBehavior.run_state(self, delta)
+#	match state:
+#		State.attack:
+#			#apply_gravity(delta)
+#			#move_towards(followingTarget, delta)
+#			pass
+#		State.idle:
+#			#apply_gravity(delta)
+#			if(has_trainer() and shouldFollowTrainer):
+#				look_for({'target':trainer, 'r':followThreshold, 'callback':"start_moving_towards", 'kargs':{'target': trainer, 'thresh': 5, 'callback':"enter_idle_state"}})
+#				pass
+#			else:
+#				find_horse_to_talk_to()
+#			pass
+#		State.knockback:
+#			move_based_on_knockback(delta)
+#			#apply_gravity(delta)
+#		State.lasso:
+#			pass
+#		State.pilot:
+#			#print("piloting...")
+#			rotate_y(input.mouse_horizontal)
+#			parse_movement(delta)
+#			move_based_on_input(delta)
+#		State.running:
+#			#apply_gravity(delta)
+#			run_towards(followingTarget, delta)
+#		State.walking:
+#			#apply_gravity(delta)
+#			walk_towards(followingTarget, delta)
+	
 
 func add_horse_to_coms(h):
 	if(h != self):
@@ -191,10 +193,10 @@ func attack():
 	$AttackHitboxTimer.start()
 
 func begin_dialogue(other):
-	stop_all_timers()
-	turn_and_face(other)
-	set_animation("Idle")
-	state = State.dialogue
+	set_behavior("Dialogue", {"other": other})
+#	stop_all_timers()
+#	turn_and_face(other)
+#	set_animation("Idle")
 
 func calculate_knockback_vector(hitbox, player):
 	return (hitbox.global_transform.origin - player.global_transform.origin) * 10
@@ -260,24 +262,26 @@ func enable_interact():
 	$HorseInteractionController.enable_interaction()
 
 func enter_giddyup(rider):
-	stop_all_timers()
-	$HorseInteractionController.disable_interaction()
-	if (state != State.giddyup):
-		if(has_trainer()):
-			enter_pilot()
-			rider.enter_pilot()
-		else:
-			playerRef = rider
-			state = State.giddyup
-			var challenge_instance = challengeResource.instance()
-			challenge_instance.player_ref = playerRef
-			challenge_instance.horse_ref = self
-			Global.world.call_deferred("add_child", challenge_instance)
+	set_behavior("Giddyup", {"rider": rider})
+#	stop_all_timers()
+#	$HorseInteractionController.disable_interaction()
+#	if (state != State.giddyup):
+#		if(has_trainer()):
+#			enter_pilot()
+#			rider.enter_pilot()
+#		else:
+#			playerRef = rider
+#			state = State.giddyup
+#			var challenge_instance = challengeResource.instance()
+#			challenge_instance.player_ref = playerRef
+#			challenge_instance.horse_ref = self
+#			Global.world.call_deferred("add_child", challenge_instance)
 
 func enter_idle_state():
-	state = State.idle
+	#state = State.idle
 	start_idle_timer()
 	set_animation("Idle")
+	set_behavior("Idle")
 
 func enter_knockback(vector, dmg):
 	knockbackDirection = vector
@@ -340,6 +344,9 @@ func get_best_stat():
 func get_icon():
 	return horse_icon
 
+func get_interaction_controller():
+	return $HorseInteractionController
+
 func get_inventory():
 	return $HorseInteractionController.get_inventory()
 
@@ -348,6 +355,11 @@ func get_min_stat_between(a, b):
 
 func get_palm():
 	return $ItemHold
+
+func get_trainer():
+	if trainer != null:
+		return trainer
+	return pick_random_spot_nearby()
 
 func get_worst_stat():
 	var val = 10
@@ -611,6 +623,11 @@ func set_animation(clip = "Idle", s = 1.0):
 		$full_rig_white2/AnimationPlayer.playback_speed = s * (Utils.logWithBase(stats.Speed, 10) + 1)
 		$full_rig_white2/AnimationPlayer.seek(0)
 
+func set_behavior(statename, initargs = {}):
+	initargs = Utils.check(initargs, {"actor":self})
+	currentBehavior = get_node("StateContainer/" + statename)
+	currentBehavior.initialize(initargs)
+
 func set_moods(mb, i, v):
 	mood[mb[i]] = v
 	personality.remove(i)
@@ -629,41 +646,41 @@ func start_playing_horse(ball, basket, scorePos):
 	pass
 
 func start_moving_towards(args = {}):
-	args = Utils.check(args, {'target':null, 'thresh' : stopFollowThreshold, 'callback' : "", 'is_running' : false, 'kargs' : null})
-	if(followingTarget != null):
-		if(followingTarget.has_method("is_test_point")):
-			followingTarget.queue_free()
-			followingTarget = null
-			pass
-	
-	if(args.target == self):
-		print("! you can't walk towards yourself, you dummy!")
-		start_wandering()
-	else:
-		stop_all_timers()
-		followingTarget = args.target
-		callback = args.callback
-		callback_kargs = args.kargs
-		stopFollowThreshold = args.thresh
-		start_running() if args.is_running else start_walking()
-		print("departing from ", global_transform.origin, " - must travel : ", report_distance(followingTarget))
+	set_behavior("Moving", args)
+#	if(followingTarget != null):
+#		if(followingTarget.has_method("is_test_point")):
+#			followingTarget.queue_free()
+#			followingTarget = null
+#			pass
+#
+#	if(args.target == self):
+#		print("! you can't walk towards yourself, you dummy!")
+#		start_wandering()
+#	else:
+#		stop_all_timers()
+#		followingTarget = args.target
+#		callback = args.callback
+#		callback_kargs = args.kargs
+#		stopFollowThreshold = args.thresh
+#		start_running() if args.is_running else start_walking()
+#		print("departing from ", global_transform.origin, " - must travel : ", report_distance(followingTarget))
 
-func start_running():
-	print("starting to run to ", followingTarget.name)
-	if(followingTarget == trainer):
-		stopFollowThreshold = 10
-	state = State.running
-	set_animation("Trot", clamp(stats.Speed * 0.6,1.0,4))
-
-func start_walking():
-	print("starting to walk to ", followingTarget.name)
-	state = State.walking
-	set_animation("Walk", clamp(stats.Speed * 0.3, 1.0,3.0))
+#func start_running():
+#	print("starting to run to ", followingTarget.name)
+#	if(followingTarget == trainer):
+#		stopFollowThreshold = 10
+#	state = State.running
+#	set_animation("Trot", clamp(stats.Speed * 0.6,1.0,4))
+#
+#func start_walking():
+#	print("starting to walk to ", followingTarget.name)
+#	state = State.walking
+#	set_animation("Walk", clamp(stats.Speed * 0.3, 1.0,3.0))
 
 func start_wandering():
 	start_moving_towards({
 		'target':pick_random_spot_nearby(), 
-		'thresh':rng.randf_range(2.0, 10.0), 
+		'thresh':rng.randf_range(5.0, 10.0), 
 		'callback':"enter_idle_state"}
 	)
 	pass
@@ -753,45 +770,45 @@ func validate_reproduction(other):
 	print("validating reproduction...")
 	if self.get_index() < other.get_index():
 		create_horse(other)
-
-func walk_towards(other, delta):
-	turn_and_face(other)
-	direction = Vector3()
-	var aim = global_transform.basis
-	direction -= aim.z
-	direction.y = 0
-	direction = direction.normalized()
-	
-	var h_velocity = velocity
-	h_velocity.y = 0
-	var movement = direction * stats.Speed * 1.1
-	
-	var acceleration
-	if direction.dot(h_velocity) > 0:
-		acceleration = MAX_ACCEL
-	else:
-		acceleration = DEACCEL
-		
-	h_velocity = h_velocity.linear_interpolate(movement, acceleration * delta)
-	velocity.x = h_velocity.x
-	velocity.z = h_velocity.z
-	
-	if input.space and (has_contact):
-		velocity.y = 10
-		has_contact = false
-	
-	velocity = move_and_slide(velocity, Vector3.UP)
-	var dist = report_distance(followingTarget)
-	if(dist < stopFollowThreshold):
-		if(callback != ""):
-			call(callback, callback_kargs) if (callback_kargs != null) else call(callback)
-		else:
-			set_animation("Idle", 0)
-			state = State.none
-	elif(keepFollowing):
-		if(dist > followThreshold):
-			print("too far away to walk, gotta run")
-			look_for({'target': other})
+#
+#func walk_towards(other, delta):
+#	turn_and_face(other)
+#	direction = Vector3()
+#	var aim = global_transform.basis
+#	direction -= aim.z
+#	direction.y = 0
+#	direction = direction.normalized()
+#
+#	var h_velocity = velocity
+#	h_velocity.y = 0
+#	var movement = direction * stats.Speed * 1.1
+#
+#	var acceleration
+#	if direction.dot(h_velocity) > 0:
+#		acceleration = MAX_ACCEL
+#	else:
+#		acceleration = DEACCEL
+#
+#	h_velocity = h_velocity.linear_interpolate(movement, acceleration * delta)
+#	velocity.x = h_velocity.x
+#	velocity.z = h_velocity.z
+#
+#	if input.space and (has_contact):
+#		velocity.y = 10
+#		has_contact = false
+#
+#	velocity = move_and_slide(velocity, Vector3.UP)
+#	var dist = report_distance(followingTarget)
+#	if(dist < stopFollowThreshold):
+#		if(callback != ""):
+#			call(callback, callback_kargs) if (callback_kargs != null) else call(callback)
+#		else:
+#			set_animation("Idle", 0)
+#			state = State.none
+#	elif(keepFollowing):
+#		if(dist > followThreshold):
+#			print("too far away to walk, gotta run")
+#			look_for({'target': other})
 
 func _on_AggroRange_area_entered(area):
 	if pep < -5:

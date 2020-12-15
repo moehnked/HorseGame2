@@ -18,7 +18,6 @@ var completion_interval = 0.0
 var percent_completed = 0.0
 var completed_index = 0
 var mistakes = 0
-var player_ref
 var horse_ref
 var time = 4
 var sfx_scratchs = [
@@ -87,7 +86,7 @@ func mistake():
 func failed():
 	hurry.stop()
 	print("FAILURE")
-	player_ref.exit_pilot()
+	Global.Player.exit_pilot()
 	stopAllTimers()
 	$Control/Clock.queue_free()
 	state = State.fadeout
@@ -99,7 +98,7 @@ func failed():
 func success():
 	hurry.stop()
 	print("SUCCESS")
-	horse_ref.tame(player_ref)
+	horse_ref.tame(Global.Player)
 	stopAllTimers()
 	$Control/Clock.queue_free()
 	state = State.fadeout

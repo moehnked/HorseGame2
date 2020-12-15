@@ -4,7 +4,7 @@ static func capture_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 static func check(args = {}, def = {}):
-	var kargs = {}
+	var kargs = args
 	for i in def.keys():
 		if args.has(i):
 			kargs[i] = args[i]

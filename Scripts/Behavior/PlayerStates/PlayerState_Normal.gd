@@ -81,7 +81,7 @@ func parse_movement(actor, delta):
 
 func update_placer_position(point, actor):
 	for placer in actor.placer_observers:
-		placer.update_position(point, self.global_transform.origin)
+		placer.update_position(point, actor.global_transform.origin)
 
 func update_raycast(actor):
 	var raycastobj = actor.get_solid_raycast()
