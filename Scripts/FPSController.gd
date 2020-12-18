@@ -22,7 +22,7 @@ var aggro = 1
 var canCastLeft = true
 var canCastRight = true
 var canCheckInventory = true
-var canExitHorse = false
+#var canExitHorse = false
 var canJump = true
 var canUpdateHands = true
 var fall = Vector3()
@@ -75,9 +75,9 @@ func _ready():
 func _physics_process(delta):
 	currentBehavior.run_state(self, delta)
 
-func _on_ExitHorseTimer_timeout():
-	print("times up")
-	canExitHorse = true
+#func _on_ExitHorseTimer_timeout():
+#	print("times up")
+#	canExitHorse = true
 
 func _on_LassoTimeout_timeout():
 	#state = State.normal
@@ -341,8 +341,8 @@ func start_swimming():
 	isSwimming = true
 	#get_head().set_mask(Color(0, 0.80, 0.93, 0.32))
 
-func start_timer_exit_horse():
-	$ExitHorseTimer.start()
+#func start_timer_exit_horse():
+#	$ExitHorseTimer.start()
 
 func stop_cast_reset():
 	$LeftCooldown.stop()

@@ -1,6 +1,8 @@
 extends WorldEnvironment
 
 export var music_enabled = true
+var callback = []
+var caller = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,3 +17,12 @@ func create_point(point):
 	obj.global_transform.origin = point
 	add_child(obj)
 	return obj
+
+func queue_timer(_caller, time, _callback):
+	callback.append(_callback)
+	caller.append(_caller)
+	$MiscTimer1.start(time)
+
+func _on_MiscTimer1_timeout():
+	caller.pop_front().call(callback.pop_front())
+	pass # Replace with function body.

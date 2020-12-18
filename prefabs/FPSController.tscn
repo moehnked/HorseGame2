@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://Scripts/FPSController.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/Hand_Idle.png" type="Texture" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://Scripts/Behavior/PlayerStates/PlayerState_Giddyup.gd" type="Script" id=19]
 [ext_resource path="res://Scripts/Behavior/PlayerStates/PlayerState_Pilot.gd" type="Script" id=20]
 [ext_resource path="res://Scripts/Behavior/PlayerStates/PlayerState_Menu.gd" type="Script" id=21]
+[ext_resource path="res://Scripts/Behavior/PlayerStates/PlayerState_Knockback.gd" type="Script" id=22]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 3.0
@@ -405,6 +406,9 @@ script = ExtResource( 20 )
 
 [node name="Menu" type="Node" parent="StateContainer"]
 script = ExtResource( 21 )
+
+[node name="Knockback" type="Node" parent="StateContainer"]
+script = ExtResource( 22 )
 [connection signal="timeout" from="Special_Cooldown" to="." method="_on_Special_Cooldown_timeout"]
 [connection signal="timeout" from="ExitHorseTimer" to="." method="_on_ExitHorseTimer_timeout"]
 [connection signal="timeout" from="LassoTimeout" to="." method="_on_LassoTimeout_timeout"]

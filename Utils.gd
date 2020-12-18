@@ -1,5 +1,8 @@
 extends Node
 
+static func calculate_adjusted_speed(stat):
+	return 10 * sqrt(stat)
+
 static func capture_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 

@@ -15,7 +15,6 @@ func add_to_party(member):
 func enter_giddyup(target):
 	print("player enter_giddyup")
 	actor.stop_lasso_timer()
-	actor.canExitHorse = false
 	actor.global_transform = target.global_transform
 	actor.correct_scale()
 	actor.set_behavior("Giddyup")
