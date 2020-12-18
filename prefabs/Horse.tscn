@@ -126,6 +126,7 @@ script = ExtResource( 7 )
 one_shot = true
 
 [node name="AggroRange" type="Area" parent="."]
+visible = false
 
 [node name="CollisionShape" type="CollisionShape" parent="AggroRange"]
 shape = SubResource( 8 )

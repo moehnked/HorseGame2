@@ -14,9 +14,6 @@ export var MAX_SLOPE_ANGLE = 90
 export var pep = 0
 export var readyToHaveKids = false
 
-#var acceleration = 20
-#var adjustedSpeed = 0
-#var airAcceleration = 1
 var bloodlust_rate
 var callback = ""
 var callback_kargs = {}
@@ -24,7 +21,6 @@ var canJump = true
 var corral
 var currentAnimation = ""
 onready var currentBehavior = get_node("StateContainer/Idle")
-#var direction = Vector3()
 var enemies = []
 var fall = Vector3()
 var followThreshold = 20.0
@@ -33,8 +29,6 @@ var fullContact = false
 var gravity = -15
 var gravityVector = Vector3()
 var greedRate
-#var hAcceleration = 6
-#var hVelocity = Vector3()
 var hasBeenInitialized = false
 var has_contact = false
 var horseComs = []
@@ -48,7 +42,6 @@ var keepFollowing = false
 var knockbackDirection = Vector3()
 var maxhp = 10
 var mouseSensitivity = 0.12
-#var movement = Vector3()
 var normalAcceleration = 6
 var personality
 var playerRef
@@ -57,7 +50,7 @@ var rng
 var scaleFactor = 0.8
 var shouldFollowTrainer = true
 var speedAdjust = 5
-var state = State.idle
+#var state = State.idle
 var stopFollowThreshold = 8
 var temp_rot
 var tempTalkBanList = []
@@ -82,20 +75,20 @@ export var stats = {
 	'Silly':1
 }
 
-enum State {
-	attack,
-	dialogue,
-	giddyup,
-	hors_de_combat,
-	idle,
-	knockback,
-	lasso,
-	none,
-	pilot,
-	running,
-	talking,
-	walking,
-}
+#enum State {
+#	attack,
+#	dialogue,
+#	giddyup,
+#	hors_de_combat,
+#	idle,
+#	knockback,
+#	lasso,
+#	none,
+#	pilot,
+#	running,
+#	talking,
+#	walking,
+#}
 
 var sfx_whinnys = [
 	"res://sounds/horse_01.wav",
@@ -106,15 +99,13 @@ var sfx_other = [
 	"res://sounds/horse_02.wav"
 ]
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	print("state from currentBehavior: ",get_state())
 	initialize_rng()
 	horse_icon = "res://Sprites/UI/Horse_Icon_0" + String((rng.randi() % horse_icon_size) + 1) + ".png"
 	if(!hasBeenInitialized):
 		initialize_personality()
-#	adjustedSpeed = calculate_adjusted_speed()
 	enter_idle_state()
-	pass # Replace with function body.
 
 func _on_IdleTimer_timeout():
 	print("idle time")
@@ -125,7 +116,6 @@ func _on_IdleTimer_timeout():
 
 func _on_KnockbackTimer_timeout():
 	enter_idle_state()
-	pass # Replace with function body.
 
 func _on_WalkTimer_timeout():
 	enter_idle_state()
@@ -133,36 +123,6 @@ func _on_WalkTimer_timeout():
 func _physics_process(delta):
 	apply_gravity(delta)
 	currentBehavior.run_state(self, delta)
-#	match state:
-#		State.attack:
-#			#apply_gravity(delta)
-#			#move_towards(followingTarget, delta)
-#			pass
-#		State.idle:
-#			#apply_gravity(delta)
-#			if(has_trainer() and shouldFollowTrainer):
-#				look_for({'target':trainer, 'r':followThreshold, 'callback':"start_moving_towards", 'kargs':{'target': trainer, 'thresh': 5, 'callback':"enter_idle_state"}})
-#				pass
-#			else:
-#				find_horse_to_talk_to()
-#			pass
-#		State.knockback:
-#			move_based_on_knockback(delta)
-#			#apply_gravity(delta)
-#		State.lasso:
-#			pass
-#		State.pilot:
-#			#print("piloting...")
-#			rotate_y(input.mouse_horizontal)
-#			parse_movement(delta)
-#			move_based_on_input(delta)
-#		State.running:
-#			#apply_gravity(delta)
-#			run_towards(followingTarget, delta)
-#		State.walking:
-#			#apply_gravity(delta)
-#			walk_towards(followingTarget, delta)
-	
 
 func add_horse_to_coms(h):
 	if(h != self):
@@ -184,7 +144,7 @@ func apply_gravity(delta):
 		move_and_collide(Vector3(0,-1,0))
 
 func apply_rotation(input):
-	if state == State.pilot:
+	if currentBehavior == $StateContainer/Pilot:
 		rotate_y(input.mouse_horizontal)
 
 func attack(args={}):
@@ -197,13 +157,9 @@ func attack(args={}):
 func begin_dialogue(other):
 	print("starting dialogue")
 	set_behavior("Dialogue", {"other": other})
-#	stop_all_timers()
-#	turn_and_face(other)
-#	set_animation("Idle")
 
 func calculate_knockback_vector(hitbox, player):
 	return (hitbox.global_transform.origin - player.global_transform.origin) * 10
-	pass
 
 func calculate_random_weights():
 	var ps = []
@@ -217,17 +173,16 @@ func calculate_random_weights():
 		ps[n] = ps[n] / limit
 	return ps
 
-#func calculate_adjusted_speed():
-#	return 10 * sqrt(stats.Speed)
-
 func calculate_speed():
 	return stats.Speed * 15
 
 func can_be_charmed():
-	return ((pep > -5) and (state != State.attack or state != State.hors_de_combat))
+	var state = get_state()
+	return ((pep > -5) and (state != "Attack" or state != "HorsDeCombat"))
 
 func can_be_lassoed():
-	return (pep >= 0) or state == State.hors_de_combat
+	var state = get_state()
+	return (pep >= 0) or state == "HorsDeCombat"
 
 func can_play_horse():
 	return true
@@ -266,53 +221,18 @@ func enable_interact():
 
 func enter_giddyup(rider):
 	set_behavior("Giddyup", {"rider": rider})
-#	stop_all_timers()
-#	$HorseInteractionController.disable_interaction()
-#	if (state != State.giddyup):
-#		if(has_trainer()):
-#			enter_pilot()
-#			rider.enter_pilot()
-#		else:
-#			playerRef = rider
-#			state = State.giddyup
-#			var challenge_instance = challengeResource.instance()
-#			challenge_instance.player_ref = playerRef
-#			challenge_instance.horse_ref = self
-#			Global.world.call_deferred("add_child", challenge_instance)
 
 func enter_idle_state():
 	set_behavior("Idle", {"shouldFollowTrainer":shouldFollowTrainer, "actor": self})
-	#state = State.idle
-#	start_idle_timer()
-#	set_animation("Idle")
-#	set_behavior("Idle")
 
 func enter_knockback(vector, dmg):
-	print("entering knockback")
 	set_behavior("Knockback", {"vector": vector, "dmg": dmg})
-#	knockbackDirection = vector
-#	state = State.knockback
-#	$KnockbackTimer.start(0.2 * dmg)
 
 func enter_pilot():
 	set_behavior("Pilot")
-#	stop_all_timers()
-#	Global.Player.enter_pilot()
-#	play_random_sound()
-#	state = State.pilot
-#	subscribe_to()
-#	$HorseInteractionController.disable_interaction()
 
 func enter_talk_state():
-	#state = State.talking
-	print("stating talk state")
 	set_behavior("Talking", {"method":"enter_talk_state"})
-#	stop_all_timers()
-#	stop_walking()
-#	turn_and_face(followingTarget)
-#	previousInteractionResult = $HorseInteractionController.determine_interaction(followingTarget)
-#	$TalkCooldownTimer.start(2)
-#	pass
 
 func exit_dialogue():
 	if not has_trainer():
@@ -392,7 +312,7 @@ func get_stat_total():
 	return stats.Speed + stats.Chaos + stats.Width + stats.Silly
 
 func get_state():
-	return str(State.keys()[state])
+	return currentBehavior.name
 
 func go_to_basket_point(args):
 	print("gonna go shoot my shot! at ", args.basket," - ", args.scorePos)
@@ -479,7 +399,8 @@ func is_horse():
 	return true
 
 func lasso(l):
-	state = State.lasso
+	#state = State.lasso
+	set_behavior("Lasso")
 	impact_dir = l.rotation
 	temp_rot = Vector3(rotation.x, rotation.y, rotation.z)
 
@@ -497,55 +418,8 @@ func look_for(args = {}):
 		enter_idle_state()
 		pass
 
-#func move_based_on_input(delta):
-#	playerRef.rotation.y = rotation.y
-#	playerRef.global_transform.origin = saddle.global_transform.origin
-#	if(direction.z != 0.0 and currentAnimation != "Trot"):
-#		set_animation("Trot", clamp(stats.Speed * 0.6, 1.0, 4.0))
-#	elif (direction.z == 0.0 and currentAnimation != "Idle"):
-#		set_animation("Idle", clamp(stats.Speed * 0.3, 1.0, 4.0))
-
-#func move_based_on_knockback(delta):
-#	move_and_slide(knockbackDirection, Vector3.UP)
-#	apply_gravity(delta)
-
 func parse_input(_input):
 	input = _input
-
-#func parse_movement(delta):
-#	direction = Vector3()
-#	var aim = global_transform.basis
-#	if input.forward:
-#		direction -= aim.z
-#	if input.backward:
-#		direction += aim.z
-#	if input.left:
-#		direction -= aim.x
-#	if input.right:
-#		direction += aim.x
-#	direction.y = 0
-#	direction = direction.normalized()
-#
-#	var h_velocity = velocity
-#	h_velocity.y = 0
-#	print(adjustedSpeed)
-#	var movement = direction * adjustedSpeed
-#
-#	var acceleration
-#	if direction.dot(h_velocity) > 0:
-#		acceleration = MAX_ACCEL
-#	else:
-#		acceleration = DEACCEL
-#
-#	h_velocity = h_velocity.linear_interpolate(movement, acceleration * delta)
-#	velocity.x = h_velocity.x
-#	velocity.z = h_velocity.z
-#
-#	if input.space and (has_contact):
-#		velocity.y = 10
-#		has_contact = false
-#
-#	velocity = move_and_slide(velocity, Vector3.UP)
 
 func pick_random_spot_nearby():
 	if(followingTarget != null):
@@ -610,45 +484,6 @@ func roll_moods(weights):
 		i += 1
 	return i
 
-#func run_towards(target, delta):
-#	turn_and_face(target)
-#	direction = Vector3()
-#	var aim = global_transform.basis
-#	direction -= aim.z
-#	direction.y = 0
-#	direction = direction.normalized()
-#
-#	var h_velocity = velocity
-#	h_velocity.y = 0
-#	var movement = direction * (adjustedSpeed / 1.6)
-#
-#	var acceleration
-#	if direction.dot(h_velocity) > 0:
-#		acceleration = MAX_ACCEL
-#	else:
-#		acceleration = DEACCEL
-#
-#	h_velocity = h_velocity.linear_interpolate(movement, acceleration * delta)
-#	velocity.x = h_velocity.x
-#	velocity.z = h_velocity.z
-#
-#	if input.space and (has_contact):
-#		velocity.y = 10
-#		has_contact = false
-#
-#	velocity = move_and_slide(velocity, Vector3.UP)
-#	var dist = report_distance(followingTarget)
-#	if(dist < stopFollowThreshold):
-#		if(callback != ""):
-#			call(callback, callback_kargs) if (callback_kargs != null) else call(callback)
-#		else:
-#			set_animation("Idle", 0)
-#			state = State.none
-#	elif(keepFollowing):
-#		if(dist > followThreshold):
-#			print("too far away to walk, gotta run")
-#			look_for({'target': target})
-
 func set_animation(clip = "Idle", s = 1.0):
 	if currentAnimation != clip:
 		currentAnimation = clip
@@ -678,12 +513,7 @@ func set_moods(mb, i, v):
 	mb.remove(i)
 
 func start_conversation_with_horse():
-	print("I am now talking to ", followingTarget.name)
-	#state = State.talking
 	set_behavior("Talking", {"method":"start_conversation"})
-#	stop_walking()
-#	$HorseInteractionController.determine_interaction(followingTarget)
-#	$TalkCooldownTimer.start()
 
 func start_knockback_timer(time):
 	$KnockbackTimer.start(time)
@@ -699,35 +529,6 @@ func start_playing_horse(ball, basket, scorePos):
 
 func start_moving_towards(args = {}):
 	set_behavior("Moving", args)
-#	if(followingTarget != null):
-#		if(followingTarget.has_method("is_test_point")):
-#			followingTarget.queue_free()
-#			followingTarget = null
-#			pass
-#
-#	if(args.target == self):
-#		print("! you can't walk towards yourself, you dummy!")
-#		start_wandering()
-#	else:
-#		stop_all_timers()
-#		followingTarget = args.target
-#		callback = args.callback
-#		callback_kargs = args.kargs
-#		stopFollowThreshold = args.thresh
-#		start_running() if args.is_running else start_walking()
-#		print("departing from ", global_transform.origin, " - must travel : ", report_distance(followingTarget))
-
-#func start_running():
-#	print("starting to run to ", followingTarget.name)
-#	if(followingTarget == trainer):
-#		stopFollowThreshold = 10
-#	state = State.running
-#	set_animation("Trot", clamp(stats.Speed * 0.6,1.0,4))
-#
-#func start_walking():
-#	print("starting to walk to ", followingTarget.name)
-#	state = State.walking
-#	set_animation("Walk", clamp(stats.Speed * 0.3, 1.0,3.0))
 
 func start_wandering():
 	start_moving_towards({
@@ -790,7 +591,8 @@ func tame(tamer):
 
 func target_basket(args):
 	stop_walking()
-	state = State.none
+	#state = State.none
+	set_behavior("None")
 	turn_and_face(args.basket)
 	global_transform.origin.x = followingTarget.global_transform.origin.x
 	global_transform.origin.z = followingTarget.global_transform.origin.z
@@ -825,85 +627,12 @@ func validate_reproduction(other):
 	print("validating reproduction...")
 	if self.get_index() < other.get_index():
 		create_horse(other)
-#
-#func walk_towards(other, delta):
-#	turn_and_face(other)
-#	direction = Vector3()
-#	var aim = global_transform.basis
-#	direction -= aim.z
-#	direction.y = 0
-#	direction = direction.normalized()
-#
-#	var h_velocity = velocity
-#	h_velocity.y = 0
-#	var movement = direction * stats.Speed * 1.1
-#
-#	var acceleration
-#	if direction.dot(h_velocity) > 0:
-#		acceleration = MAX_ACCEL
-#	else:
-#		acceleration = DEACCEL
-#
-#	h_velocity = h_velocity.linear_interpolate(movement, acceleration * delta)
-#	velocity.x = h_velocity.x
-#	velocity.z = h_velocity.z
-#
-#	if input.space and (has_contact):
-#		velocity.y = 10
-#		has_contact = false
-#
-#	velocity = move_and_slide(velocity, Vector3.UP)
-#	var dist = report_distance(followingTarget)
-#	if(dist < stopFollowThreshold):
-#		if(callback != ""):
-#			call(callback, callback_kargs) if (callback_kargs != null) else call(callback)
-#		else:
-#			set_animation("Idle", 0)
-#			state = State.none
-#	elif(keepFollowing):
-#		if(dist > followThreshold):
-#			print("too far away to walk, gotta run")
-#			look_for({'target': other})
-
-#func _on_AggroRange_area_entered(area):
-#	print('aggro entered')
-#	if pep < -5:
-#		print("horse pep low")
-#		if area.has_method("aggroable"):
-#			if (rng.randf_range(0.0, 1.0) < area.aggroable()):
-#				set_attack_target(area)
-#				pass
-#		elif(area.owner != null):
-#			if area.owner.has_method("aggroable"):
-#				if (rng.randf_range(0.0, 1.0) < area.owner.aggroable()):
-#					set_attack_target(area.owner)
-#					pass
-#	elif(check_relationships(area) < -4):
-#		print("bad relationshiop")
-#		set_attack_target(area)
-#		pass
-#	elif(area.owner != null):
-#		if(check_relationships(area.owner) < -4):
-#			print("bad relationshionp")
-#			set_attack_target(area.owner)
-#			pass
-#		elif(area.owner.has_method("is_horse") and !horseComs.has(area.owner)):
-#			#add to list of horses in range of tlaking
-#			add_horse_to_coms(area.owner)
-#			pass
-#	elif(area.has_method("is_horse") and !horseComs.has(area)):
-#		#add to list of horses in range of talking
-#		add_horse_to_coms(area)
-#		pass
-#	pass # Replace with function body.
-
 
 func _on_AttackHitboxTimer_timeout():
 	var hitbox = load("res://prefabs/Spells/Punch.tscn").instance()
 	$AttackPoint.call("add_child", hitbox)
 	hitbox.initialize({'player':self, 'palm':$AttackPoint})
 	$AttackCooldownTimer.start()
-	pass # Replace with function body.
 
 func _on_AttackCooldownTimer_timeout():
 	print("attack done")
@@ -921,7 +650,7 @@ func _on_AttackCooldownTimer_timeout():
 	pass # Replace with function body.
 
 func _on_TalkCooldownTimer_timeout():
-	if(state == State.talking and previousInteractionResult != null):
+	if(get_state() == "Talking" and previousInteractionResult != null):
 		print(name,"'s previous interaction with ", (followingTarget.name if followingTarget != null else "n??"))
 		if(previousInteractionResult < 0):
 			followingTarget.stop_talking_to()
@@ -950,5 +679,6 @@ func _on_TempTalkBanTick_timeout():
 func _on_TargetBasketTimer_timeout():
 	print("time to shoot")
 	$HorseInteractionController.throw_equipped()
-	state = State.none
+	#state = State.none
+	set_behavior("None")
 	pass # Replace with function body.

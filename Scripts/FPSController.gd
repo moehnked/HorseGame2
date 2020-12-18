@@ -60,9 +60,7 @@ var sfx_grunts = [
 ]
 
 onready var currentBehavior = get_node("StateContainer/Normal")
-#enum State {normal, lasso, giddyup, pilot, menu, knockback}
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.Player = self
 	subscribe_to()
