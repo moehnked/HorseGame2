@@ -25,8 +25,6 @@ axis_lock_angular_z = true
 
 [node name="Item" parent="." instance=ExtResource( 1 )]
 script = ExtResource( 3 )
-icon = "res://Sprites/Items/Basketball_Icon.png"
-itemName = "Basketball"
 launch_power = 15
 
 [node name="Item_Mesh" parent="Item" index="0"]

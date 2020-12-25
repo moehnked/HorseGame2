@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Sprites/Nature/stump_tex.jpg" type="Texture" id=1]
+[ext_resource path="res://Sprites/Nature/bark.png" type="Texture" id=2]
+[ext_resource path="res://models/nature/stump.obj" type="ArrayMesh" id=3]
+
+[sub_resource type="SpatialMaterial" id=1]
+params_diffuse_mode = 1
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+params_diffuse_mode = 1
+params_cull_mode = 2
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="PlaneMesh" id=3]
+
+[sub_resource type="CylinderShape" id=4]
+radius = 0.649214
+height = 1.17819
+
+[node name="Stump" type="StaticBody"]
+
+[node name="Mesh" type="Spatial" parent="."]
+transform = Transform( 0.590081, 0, 0, 0, 1, 0, 0, 0, 0.590081, 0, 0, 0 )
+
+[node name="stump" type="MeshInstance" parent="Mesh"]
+mesh = ExtResource( 3 )
+material/0 = SubResource( 1 )
+material/1 = SubResource( 2 )
+material/2 = SubResource( 2 )
+material/3 = SubResource( 2 )
+material/4 = SubResource( 2 )
+material/5 = SubResource( 2 )
+material/6 = SubResource( 2 )
+material/7 = SubResource( 2 )
+material/8 = SubResource( 2 )
+material/9 = SubResource( 2 )
+material/10 = SubResource( 2 )
+material/11 = SubResource( 2 )
+material/12 = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Mesh"]
+transform = Transform( 0.447668, 0.492047, 0.0367591, -0.00550511, -0.0738601, 0.800982, 0.254408, -0.86743, -0.0473507, -0.472957, 0.00152779, 0.807358 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.419882, 0 )
+shape = SubResource( 4 )

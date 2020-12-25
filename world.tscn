@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://prefabs/FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Textures/random/Ll3Z3IH.jpeg" type="Texture" id=2]
@@ -20,6 +20,8 @@
 [ext_resource path="res://prefabs/Misc/TempleTile.tscn" type="PackedScene" id=18]
 [ext_resource path="res://prefabs/Constructable/Fence.tscn" type="PackedScene" id=19]
 [ext_resource path="res://prefabs/System/AudioManager.tscn" type="PackedScene" id=20]
+[ext_resource path="res://prefabs/Nature/Tree_Xmas.tscn" type="PackedScene" id=21]
+[ext_resource path="res://prefabs/Items/Axe.tscn" type="PackedScene" id=22]
 
 [sub_resource type="ProceduralSky" id=1]
 ground_bottom_color = Color( 0.156863, 0.211765, 0.180882, 1 )
@@ -195,4 +197,34 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 31.6352
 
 [node name="Staircase3" parent="." instance=ExtResource( 3 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 40.0232, 4.44168, 4.14281 )
+
+[node name="Tree_Xmas" parent="." instance=ExtResource( 21 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28.8348, -0.327245, 26.9142 )
+
+[node name="Tree_Xmas2" parent="." instance=ExtResource( 21 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28.8348, -0.327245, 32.2333 )
+
+[node name="Tree_Xmas3" parent="." instance=ExtResource( 21 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 38.4839, -0.327245, 32.2333 )
+
+[node name="Tree_Xmas4" parent="." instance=ExtResource( 21 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 38.4839, -0.327245, 26.229 )
+
+[node name="Tree_Xmas5" parent="." instance=ExtResource( 21 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 47.2355, -0.327245, 26.229 )
+
+[node name="Tree_Xmas6" parent="." instance=ExtResource( 21 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 47.2355, -0.327245, 21.3106 )
+
+[node name="Tree_Xmas7" parent="." instance=ExtResource( 21 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.2252, -0.327245, 21.3106 )
+
+[node name="Tree_Xmas8" parent="." instance=ExtResource( 21 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.2252, -0.327245, 35.3106 )
+
+[node name="Tree_Xmas9" parent="." instance=ExtResource( 21 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4735, -0.327245, 35.3106 )
+
+[node name="Axe" parent="." instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3313, 0.719313, 25.227 )
 [connection signal="timeout" from="MiscTimer1" to="." method="_on_MiscTimer1_timeout"]

@@ -18,6 +18,16 @@ func create_point(point):
 	add_child(obj)
 	return obj
 
+func ignore_unique():
+	return true
+
+func instantiate(ref, location = Vector3()):
+	var obj = load(ref).instance()
+	print("creating object ", obj.name, " at ", location)
+	call_deferred("add_child", obj)
+	obj.global_transform.origin = location
+	return obj
+
 func queue_timer(_caller, time, _callback):
 	callback.append(_callback)
 	caller.append(_caller)

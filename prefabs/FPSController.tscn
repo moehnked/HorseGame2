@@ -337,17 +337,17 @@ anims/Punch = SubResource( 9 )
 transform = Transform( 0.99961, -0.000630062, 0.00495997, 0.000584727, 1.0033, 0.00864507, -0.00497041, -0.00868328, 0.998525, -0.0156816, -0.00416166, 0.0225369 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Head/Hand/Container"]
-transform = Transform( 0.823631, 0.223003, 0.0519347, -0.147928, 1.26155, 0.218552, -0.0103498, -0.284674, 1.00921, 0.0353904, -0.186414, -0.433685 )
+transform = Transform( 0.829829, -0.0324751, 0.131402, 0.0204916, 1.31195, 0.00372819, -0.106402, -0.000608398, 1.02552, -0.0260263, -0.0488131, 0.037428 )
 mesh = SubResource( 10 )
 material/0 = SubResource( 11 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="Head/Hand/Container"]
-transform = Transform( 0.769335, -0.166133, -0.0855053, 0.114031, 1.12129, -0.0115346, 0.051755, -0.000980851, 1.29645, 0.681267, 0.130899, 0.946457 )
+transform = Transform( 0.769822, -0.17167, -0.052646, 0.117846, 1.12045, -0.0121714, 0.0323237, 0.00354314, 1.29819, 0.667688, 0.129013, 0.956221 )
 mesh = SubResource( 12 )
 material/0 = SubResource( 13 )
 
 [node name="Palm" type="Spatial" parent="Head"]
-transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0.750222, -0.268011, -2.03939 )
+transform = Transform( 0.999998, 0, 0, 0, 0.999998, 0, 0, 0, 0.999998, 0.659186, -0.268011, -2.00692 )
 
 [node name="Skull" type="MeshInstance" parent="Head"]
 transform = Transform( 0.409861, 0, 0, 0, 0.409861, 0, 0, 0, 0.409861, 0, 0, 0 )
