@@ -15,12 +15,20 @@ func _process(delta):
 	if parent_transform != null:
 		owner.global_transform.origin = parent_transform.global_transform.origin
 
+func destroy():
+	owner.queue_free()
+
 func disable_collisions():
 	owner.set_collision_mask_bit(2, 0)
 
 func enable_collisions():
 	owner.set_collision_mask_bit(2, 1)
 	isInteractable = true
+
+func equip():
+	playerRef = _controller.owner
+	disable_collisions()
+	subscribe()
 
 func get_basket():
 	return basket
@@ -37,9 +45,7 @@ func interact(controller):
 	if controller.has_method("equip"):
 		controller.equip(self)
 	_controller = controller
-	playerRef = controller.owner
-	disable_collisions()
-	subscribe()
+	equip()
 
 func is_basketball():
 	return true

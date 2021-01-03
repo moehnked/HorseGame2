@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://prefabs/FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Textures/random/Ll3Z3IH.jpeg" type="Texture" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://prefabs/System/AudioManager.tscn" type="PackedScene" id=20]
 [ext_resource path="res://prefabs/Nature/Tree_Xmas.tscn" type="PackedScene" id=21]
 [ext_resource path="res://prefabs/Items/Axe.tscn" type="PackedScene" id=22]
+[ext_resource path="res://prefabs/Items/Logs.tscn" type="PackedScene" id=23]
 
 [sub_resource type="ProceduralSky" id=1]
 ground_bottom_color = Color( 0.156863, 0.211765, 0.180882, 1 )
@@ -189,6 +190,12 @@ MAX_SPEED = 7
 [node name="MiscTimer1" type="Timer" parent="."]
 one_shot = true
 
+[node name="MiscTimer2" type="Timer" parent="."]
+one_shot = true
+
+[node name="MiscTimer3" type="Timer" parent="."]
+one_shot = true
+
 [node name="Staircase" parent="." instance=ExtResource( 3 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 23.183, -0.315572, 4.14281 )
 
@@ -225,6 +232,17 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.2252, -0.327245, 35.3106 )
 [node name="Tree_Xmas9" parent="." instance=ExtResource( 21 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4735, -0.327245, 35.3106 )
 
+[node name="Logs" parent="." instance=ExtResource( 23 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.9731, 11.0194, 13.7916 )
+
+[node name="Logs2" parent="." instance=ExtResource( 23 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.4175, 10.9423, 14.5937 )
+
+[node name="Logs3" parent="." instance=ExtResource( 23 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.8196, 11.0284, 14.8585 )
+
 [node name="Axe" parent="." instance=ExtResource( 22 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3313, 0.719313, 25.227 )
 [connection signal="timeout" from="MiscTimer1" to="." method="_on_MiscTimer1_timeout"]
+[connection signal="timeout" from="MiscTimer2" to="." method="_on_MiscTimer2_timeout"]
+[connection signal="timeout" from="MiscTimer3" to="." method="_on_MiscTimer3_timeout"]

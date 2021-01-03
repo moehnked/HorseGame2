@@ -2,6 +2,7 @@ extends Area
 
 export var icon = "res://icon.png"
 export var itemName = "Item"
+export var prefabPath = "res://prefabs/Items/Item.tscn"
 
 var isInteractable = true
 var mesh

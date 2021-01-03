@@ -1,6 +1,9 @@
-extends Spatial
+extends StaticBody
 
-var hp:int = 25
+var hp:int = 5
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
 
 func take_damage(dmg = 1, hitbox = null, source = null):
 	hp -= dmg
@@ -9,14 +12,12 @@ func take_damage(dmg = 1, hitbox = null, source = null):
 		fell()
 
 func fell():
-	Global.world.instantiate("res://prefabs/Nature/Stump.tscn", global_transform.origin)
-	Global.world.instantiate("res://prefabs/Effects/TreeFell.tscn", global_transform.origin + Vector3(0,1,0))
 	spawn_logs()
 	queue_free()
 
 func spawn_logs():
 	var rng = Global.world.get_rng()
-	var num = rng.randi_range(1,5)
+	var num = 1
 	for i in range(0, num):
 		var obj = Global.world.instantiate("res://prefabs/Items/Logs.tscn", global_transform.origin + Vector3(0,1,0))
 		var rx = rng.randf()

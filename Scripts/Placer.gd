@@ -34,14 +34,10 @@ func consume_materials():
 func disable_place():
 	print("cannot place item here")
 	placeable = false
-	#$MeshInstance.get_surface_material(0).albedo_color = Color(1.0,0.0,0.0,0.63)
-	#$MeshInstance.set_surface_material(0, load("res://Materials/construction_inplaceable.tres"))
 	$MeshInstance.material_override = invalid
 
 func enable_place():
 	placeable = true
-	#$MeshInstance.get_surface_material(0) = Color(0.0,1.0,0.0,0.63)
-	#$MeshInstance.set_surface_material(0, load("res://Materials/construction_placeable.tres"))
 	$MeshInstance.material_override = valid
 
 func initialize(args):

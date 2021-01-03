@@ -41,7 +41,7 @@ func check_relations(horse, other):
 	pass # Replace with function body.
 
 func _on_AggroRange_body_entered(body):
-	print(body.name,  " - entered aggro range, pep: ", owner.pep)
+	#print(body.name,  " - entered aggro range, pep: ", owner.pep)
 	var other = null
 	if body.has_method("aggroable"):
 		other = body

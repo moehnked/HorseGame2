@@ -23,8 +23,8 @@ func run_state(actor, delta):
 
 func initialize(args={}):
 	args = Utils.check(args, {'target':null, 'thresh' : 20, 'callback' : "", 'is_running' : false, 'kargs' : null})
-	print("initializing moving state - ", ("running" if args.is_running else "walking"))
-	print(args)
+	#print("initializing moving state - ", ("running" if args.is_running else "walking"))
+	#print(args)
 	callback = args.callback
 	is_running = args.is_running
 	actor = args.actor
@@ -45,17 +45,17 @@ func initialize(args={}):
 		callback_kargs = args.kargs
 		stopFollowThreshold = args.thresh
 		start_running() if args.is_running else start_walking()
-		print("departing from ", actor.global_transform.origin, " - must travel : ", actor.report_distance(followingTarget))
+		#print("departing from ", actor.global_transform.origin, " - must travel : ", actor.report_distance(followingTarget))
 
 func start_running():
-	print("starting to run to ", followingTarget.name)
+	#print("starting to run to ", followingTarget.name)
 	if(followingTarget == actor.get_trainer()):
 		stopFollowThreshold = 10
 	actor.set_animation("Trot", clamp(actor.stats.Speed * 0.6,1.0,4))
 	method = "run_towards"
 
 func start_walking():
-	print("starting to walk to ", followingTarget.name)
+	#print("starting to walk to ", followingTarget.name)
 	actor.set_animation("Walk", clamp(actor.stats.Speed * 0.3, 1.0,3.0))
 	method = "walk_towards"
 
@@ -92,7 +92,7 @@ func run_towards(target, delta):
 			actor.set_behavior("None")
 	elif(actor.keepFollowing):
 		if(dist > actor.followThreshold):
-			print("too far away to walk, gotta run")
+			#print("too far away to walk, gotta run")
 			actor.look_for({
 				'target':target, 
 				'r':actor.followThreshold, 
@@ -127,12 +127,12 @@ func walk_towards(other, delta):
 	var dist = actor.report_distance(followingTarget)
 	if(dist < stopFollowThreshold):
 		if(callback != ""):
-			print("transitioning to ", callback, " - ", callback_kargs)
+			#print("transitioning to ", callback, " - ", callback_kargs)
 			actor.call(callback, callback_kargs) if (callback_kargs != null) else actor.call(callback)
 		else:
 			actor.set_animation("Idle", 0)
 			actor.set_behavior("None")
 	elif(actor.keepFollowing):
 		if(dist > actor.followThreshold):
-			print("too far away to walk, gotta run")
+			#print("too far away to walk, gotta run")
 			actor.look_for({'target': other})

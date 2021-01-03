@@ -111,6 +111,7 @@ func calculate_knockback_vector(hitbox, source):
 	pass
 
 func cast(spell, callback, hand):
+	print("casting")
 	$Head/Hand.update_hand_sprite(spell)
 	get_viewport().warp_mouse(OS.window_size/2)
 	random_grunt()
@@ -153,6 +154,9 @@ func toggle_all_collisions(tog = false):
 func enable_casting():
 	canCastLeft = true
 	canCastRight = true
+
+func enable_cast_menu():
+	canUpdateHands = true
 
 func enter_dialogue(other):
 	unsubscribe_to()
@@ -215,6 +219,9 @@ func get_camera():
 
 func get_ground_check():
 	return $GroundCheck
+
+func get_interaction_controller():
+	return $InteractionController
 
 func get_inventory():
 	return $InteractionController.inventory
@@ -312,6 +319,9 @@ func revoke_casting():
 	canCastLeft = false
 	canCastRight = false
 	stop_cast_reset()
+
+func revoke_cast_menu():
+	canUpdateHands = false
 
 func revoke_menu_options():
 	canUpdateHands = false

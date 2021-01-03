@@ -10,6 +10,7 @@ extents = Vector3( 0.302967, 0.119253, 1 )
 
 [node name="Item" type="Area" parent="."]
 script = ExtResource( 1 )
+prefabPath = "res://prefabs/Items/Plank.tscn"
 
 [node name="Plank_Mesh" parent="Item" instance=ExtResource( 2 )]
 

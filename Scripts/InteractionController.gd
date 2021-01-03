@@ -29,13 +29,21 @@ func disable_interact():
 func enable_interact():
 	canInteract = true
 
+func enter_menu():
+	if equipped != null:
+		equipped.call("unsubscribe")
+
+func exit_menu():
+	if equipped != null:
+		equipped.call("subscribe")
+
 func equip(item):
 	clear()
 	disable_interact()
 	equipped = item
 	item.parent_transform = owner.get_palm()
 	owner.revoke_casting()
-	owner.revoke_menu_options()
+	owner.revoke_cast_menu()
 	pass
 
 func get_inventory():
@@ -55,6 +63,28 @@ func read_prompt():
 		Global.InteractionPrompt.show_prompt(interactable.prompt(), interactable.has_method("is_low"))
 	else:
 		clear()
+
+func toggle_equip(item):
+	print("toggle equip on ", item.get_name())
+	if item == equipped:
+		return unequip(item)
+	else:
+		if equipped != null:
+			unequip(equipped)
+		Utils.remove_item(item, inventory)
+		var i = Global.world.instantiate(item.prefabPath)
+		var it = i.get_node("Item")
+		it.interact(self)
+		return it
+		
+
+func unequip(item):
+	Utils.remove_item(item, inventory)
+	var i = item.duplicate()
+	inventory.append(i)
+	equipped.destroy()
+	equipped = null
+	return i
 
 func toggle_interactability():
 	canInteract = !canInteract

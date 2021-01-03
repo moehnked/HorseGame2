@@ -38,8 +38,12 @@ func collision_effect(other):
 	isRetracting = true
 	if other.has_method("take_damage"):
 		other.take_damage(5, self, self)
-	elif other.owner.has_method("take_damage"):
-		other.owner.take_damage(5,self,self)
+	elif other.owner != null:
+		if other.owner.has_method("take_damage"):
+			other.owner.take_damage(5,self,self)
+
+func destroy():
+	owner.queue_free()
 
 func disable_collisions():
 	owner.set_collision_mask_bit(2, 0)
@@ -60,6 +64,7 @@ func equip():
 			$AnimationPlayer.play("None")
 			_controller.owner.get_hand().update_hand_sprite("Holding")
 			_controller.owner.get_hand().set_animation_playback(false)
+			_controller.enable_interact()
 
 func interact(controller):
 	print(itemName, " picked up by ", controller.owner.name)
@@ -70,14 +75,14 @@ func interact(controller):
 	if controller.has_method("equip"):
 		_controller = controller
 		controller.equip(self)
-		equip()
+		call_deferred("equip")
 		equippedTo = controller.owner
-		disable_collisions()
+		call_deferred("disable_collisions")
 		subscribe()
 
 func parse_input(input):
-	if input.standard and canSwing:
-		print("axe swing")
+	if input.standard and canSwing and not beingThrown:
+		print("axe swing - ", canSwing)
 		throw()
 
 func subscribe():
@@ -91,6 +96,7 @@ func swing():
 func throw():
 	$AnimationPlayer.play("Throw")
 	$ThrowDuration.start()
+	_controller.owner.get_hand().update_hand_sprite("Idle")
 	canSwing = false
 	beingThrown = true
 	dir = -equippedTo.get_head().global_transform.basis.z * speed
@@ -98,11 +104,8 @@ func throw():
 func unsubscribe():
 	Global.InputObserver.unsubscribe(self)
 
-
 func _on_AnimationPlayer_animation_finished(anim_name):
 	canSwing = true
-	#_controller.owner.get_hand().toggle_sprite_visibility()
-	_controller.owner.get_hand().update_hand_sprite("Idle")
 	pass # Replace with function body.
 
 

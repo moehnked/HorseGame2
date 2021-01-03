@@ -38,6 +38,9 @@ func parse_input(input):
 		terminate()
 	pass
 
+func subscribe_to():
+	Global.InputObserver.subscribe(self)
+
 func terminate():
 	print("inventory screen terminating...")
 	unsubscribe_to()
@@ -48,16 +51,12 @@ func terminate():
 	Global.AudioManager.play_sound("res://sounds/ui_close_01.wav")
 	queue_free()
 
-func subscribe_to():
-	Global.InputObserver.subscribe(self)
-
 func uniques():
 	var u = []
 	for i in inventory:
 		if !Utils.contains(i,u):
 			u.append(i)
 	return u
-
 
 func unsubscribe_to():
 	Global.world.get_node("InputObserver").unsubscribe(self)
