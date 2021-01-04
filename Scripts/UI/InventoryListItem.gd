@@ -44,9 +44,9 @@ func _on_TextureButton_mouse_exited():
 
 func _on_TextureButton_button_up():
 	play_sound("res://sounds/ui_select_01.wav", -2)
-	if item.has_method("equip"):
-		var inv_owner = inventoryScreen.sourceRef
-		print("inventory owner: ", inv_owner)
-		var ic = inv_owner.call("get_interaction_controller")
-		item = ic.call("toggle_equip", item)
+	inventoryScreen.draw_context(item)
+#	if item.has_method("equip"):
+#		var inv_owner = inventoryScreen.sourceRef
+#		var ic = inv_owner.call("get_interaction_controller")
+#		item = ic.call("toggle_equip", item)
 	pass # Replace with function body.

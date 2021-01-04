@@ -56,5 +56,27 @@ position = Vector2( 221.113, 80.4866 )
 
 [node name="ListItemLoader" type="Node2D" parent="."]
 position = Vector2( 220.928, 80.4035 )
+
+[node name="Context" type="Node" parent="."]
+
+[node name="Description" type="Label" parent="Context"]
+margin_left = 222.0
+margin_top = 424.0
+margin_right = 850.0
+margin_bottom = 491.0
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonPoint" type="Control" parent="Context"]
+margin_left = 230.566
+margin_top = 512.788
+margin_right = 270.566
+margin_bottom = 552.788
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="button_up" from="ExitButton" to="." method="_on_ExitButton_button_up"]

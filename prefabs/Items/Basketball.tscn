@@ -31,9 +31,6 @@ launch_power = 15
 [node name="Item_Mesh" parent="Item" index="0"]
 visible = false
 
-[node name="CollisionShape" parent="Item" index="1"]
-visible = false
-
 [node name="Basketball_Mesh" parent="Item" instance=ExtResource( 2 )]
 
 [node name="CollisionShape2" type="CollisionShape" parent="Item"]

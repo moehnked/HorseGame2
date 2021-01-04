@@ -241,6 +241,9 @@ func get_raycast():
 func get_solid_raycast():
 	return $Head/Camera/RayCast_Solids
 
+func get_x_rotation():
+	return get_head().rotation.x
+
 func initializeHUD(letter):
 	$Head/Camera/GuiLoadArea/H.initialize(letter)
 

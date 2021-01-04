@@ -7,7 +7,7 @@
 script = ExtResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.600737, 0, 0, 0, 0.642563, 0, 3.16752, 0 )
+transform = Transform( 0.381, 0, 0, 0, 0.601, 0, 0, 0, 0.643, 0, 3.16752, 0 )
 mesh = ExtResource( 1 )
 material/0 = null
 material/1 = null

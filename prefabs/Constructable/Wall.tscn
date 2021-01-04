@@ -9,11 +9,11 @@ extents = Vector3( 0.719953, 5.71026, 5.54148 )
 [node name="Wall" type="StaticBody"]
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.600737, 0, 0, 0, 0.642563, 0, 3.16752, 0 )
+transform = Transform( 0.38229, 0, 0, 0, 0.60503, 0, 0, 0, 0.647155, 0.0808159, 3.16702, 0 )
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 2 )
 material/1 = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.600737, 0, 0, 0, 0.642563, 0.261663, 3.30792, 0 )
+transform = Transform( 0.38229, 0, 0, 0, 0.60503, 0, 0, 0, 0.647155, 0.180847, 3.30842, 0 )
 shape = SubResource( 1 )

@@ -42,16 +42,6 @@ func collision_effect(other):
 		if other.owner.has_method("take_damage"):
 			other.owner.take_damage(5,self,self)
 
-func destroy():
-	owner.queue_free()
-
-func disable_collisions():
-	owner.set_collision_mask_bit(2, 0)
-
-func enable_collisions():
-	owner.set_collision_mask_bit(2, 1)
-	isInteractable = true
-
 func equip():
 	if _controller.owner != null:
 		if(_controller.owner.has_method("get_hand")):
@@ -68,7 +58,7 @@ func equip():
 
 func interact(controller):
 	print(itemName, " picked up by ", controller.owner.name)
-	if .get_inventory(controller) != null:
+	if Utils.get_inventory(controller) != null:
 		print("added to ", controller.name, "'s inventory")
 		controller.inventory.append(self)
 	isInteractable = false

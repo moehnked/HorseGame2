@@ -2,17 +2,52 @@ extends Control
 var Utils = preload("res://Utils.gd")
 
 var callback = null
+var context_buttons = []
 var inventory = []
+var listItems = []
 var sourceRef
 var listItemResource = preload("res://prefabs/UI/InventoryListItem.tscn")
 
 func _ready():
+	add_to_group("InvScreen")
 	Global.AudioManager.play_sound("res://sounds/ui_open_01.wav")
+
+func clear_context():
+	draw_description()
+	for o in context_buttons:
+		o.queue_free()
+		context_buttons.erase(o)
+
+func clear_listItems():
+	clear_context()
+	for o in listItems:
+		o.queue_free()
+		listItems.erase(o)
 
 func clear_display():
 	$Display.texture = null
 
+func draw_context(item):
+	clear_context()
+	var c = item.get_context()
+	var d = c.get_description()
+	draw_description(d.get_description())
+	var i = 0
+	for b in c.get_buttons():
+		print(b)
+		var o = b.duplicate()
+		o.initialize({"item":item, "controller":sourceRef.get_interaction_controller()})
+		$Context.add_child(o)
+		o.visible = true
+		o.rect_position = $Context/ButtonPoint.rect_position + Vector2((256 * i),0)
+		i += 1
+		context_buttons.append(o)
+
+func draw_description(desc = ""):
+	$Context/Description.text = desc
+
 func draw_list_items():
+	clear_listItems()
 	var index = 0
 	for i in uniques():
 		if i.has_method("get_name"):
@@ -21,6 +56,7 @@ func draw_list_items():
 			item.position.x = $ListItemLoader.position.x
 			item.position.y = $ListItemLoader.position.y + (item.get_height() * (index))
 			add_child(item)
+			listItems.append(item)
 			index += 1
 
 func initialize(args):
@@ -44,6 +80,7 @@ func subscribe_to():
 func terminate():
 	print("inventory screen terminating...")
 	unsubscribe_to()
+	clear_context()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	print(callback)
 	if callback != null:

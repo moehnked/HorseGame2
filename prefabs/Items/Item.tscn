@@ -2,13 +2,11 @@
 
 [ext_resource path="res://Scripts/Item.gd" type="Script" id=1]
 [ext_resource path="res://models/Item/Item_Mesh.tscn" type="PackedScene" id=2]
-
-[sub_resource type="BoxShape" id=1]
+[ext_resource path="res://prefabs/UI/Context.tscn" type="PackedScene" id=3]
 
 [node name="Item" type="Area"]
 script = ExtResource( 1 )
 
 [node name="Item_Mesh" parent="." instance=ExtResource( 2 )]
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 1 )
+[node name="Context" parent="." instance=ExtResource( 3 )]

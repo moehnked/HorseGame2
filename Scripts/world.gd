@@ -38,8 +38,6 @@ func instantiate(ref, location = Vector3()):
 	return obj
 
 func queue_timer(_caller, time, _callback, args = {}):
-	#callback.append(_callback)
-	#caller.append(_caller)
 	print("queuing timer for ", _caller.name, " to call ", _callback, " with ")
 	print(args)
 	if not $MiscTimer1.time_left > 0:
@@ -64,11 +62,15 @@ func timer_timeout(timer):
 	#caller.pop_front().call(callback.pop_front())
 	print(args)
 	if args.size() > 0:
-		if args[timer] != null and args[timer] != {}:
-			caller[timer].call(callback[timer], args[timer])
+		if args[timer] != null:
+			if args[timer].keys().size() > 0:
+				caller[timer].call(callback[timer], args[timer])
 	else :
 		print(callback[timer])
 		caller[timer].call(callback[timer])
+	caller.erase(timer)
+	callback.erase(timer)
+	args.erase(timer)
 
 func _on_MiscTimer1_timeout():
 	timer_timeout($MiscTimer1)

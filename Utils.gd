@@ -28,11 +28,22 @@ static func count(item, list):
 			c += 1
 	return c
 
-func interpolation(from, to, t):
-	return from * (1 - t) + to * t
+func get_inventory(controller):
+	if(controller.has_method("get_inventory")):
+		return controller.get_inventory()
+	return null
 
 static func get_world(node):
 	return node.get_tree().get_root().get_node("World")
+
+func interpolation(from, to, t):
+	return from * (1 - t) + to * t
+
+func instance_item(item):
+	var rig = RigidBody.new()
+	rig.add_child(item)
+	rig.add_child(item.get_collision_shape())
+	return rig
 
 static func logWithBase(value, base):
 	return log(value) / log(base)

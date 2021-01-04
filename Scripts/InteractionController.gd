@@ -31,17 +31,25 @@ func enable_interact():
 
 func enter_menu():
 	if equipped != null:
-		equipped.call("unsubscribe")
+		#equipped.call("unsubscribe")
+		pass
 
 func exit_menu():
 	if equipped != null:
-		equipped.call("subscribe")
+		#equipped.call("subscribe")
+		pass
 
 func equip(item):
+	var i = item.duplicate()
+	equipped = i
+	Global.world.call("add_child", Utils.instance_item(i))
+	i.isEquipped = true
+	i.get_context().remove_child(i.get_context().get_equip())
+	i.get_context().add("Unequip").visible = false
+	i.set_point(owner.get_palm(), self)
+	inventory.append(i)
 	clear()
 	disable_interact()
-	equipped = item
-	item.parent_transform = owner.get_palm()
 	owner.revoke_casting()
 	owner.revoke_cast_menu()
 	pass
@@ -53,6 +61,7 @@ func initialize_raycast(_raycast):
 	raycast = _raycast
 
 func parse_input(input):
+	update_equipped(input)
 	if input.engage and canInteract:
 		if interactable != null:
 			if interactable.isInteractable:
@@ -78,12 +87,18 @@ func toggle_equip(item):
 		return it
 		
 
+func update_equipped(input):
+	if equipped != null:
+		equipped.parse_equip({
+			"input": input})
+
 func unequip(item):
+	equipped = null
 	Utils.remove_item(item, inventory)
 	var i = item.duplicate()
 	inventory.append(i)
-	equipped.destroy()
-	equipped = null
+	i.get_context().remove_child(i.get_context().get_unequip())
+	i.get_context().add("Equip").visible = false
 	return i
 
 func toggle_interactability():

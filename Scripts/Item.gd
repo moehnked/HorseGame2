@@ -1,20 +1,22 @@
-extends Area
+extends "res://Scripts/Interactable.gd"
 
 export var icon = "res://icon.png"
 export var itemName = "Item"
 export var prefabPath = "res://prefabs/Items/Item.tscn"
 
-var isInteractable = true
-var mesh
+#var isInteractable = true
 
-func get_inventory(controller):
-	if(controller.has_method("get_inventory")):
-		return controller.get_inventory()
-	return null
+func get_collision_shape():
+	for i in get_children():
+		if i is CollisionObject:
+			return i
+	return CollisionObject.new()
+
+func get_context():
+	return get_node("Context")
 
 func interact(controller):
-	if(get_inventory(controller) != null):
-		controller.inventory.append(self.duplicate())
+	.interact(controller)
 	queue_free()
 	pass
 	
