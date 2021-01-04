@@ -26,9 +26,9 @@ func initialize(args = {}):
 	actor.canUpdateHands = true
 	actor.canCheckInventory = true
 	actor.queue_spell_clear()
-	actor.enable_casting()
 	var ic = actor.get_interaction_controller()
-	ic.exit_menu()
+	if ic.equipped == null:
+		actor.enable_casting()
 
 func apply_rotation(actor):
 	#if state != State.giddyup and not isBuilding:

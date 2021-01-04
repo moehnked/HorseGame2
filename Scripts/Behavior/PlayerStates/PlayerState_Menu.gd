@@ -12,6 +12,3 @@ func initialize(args = {}):
 	actor.canUpdateHands = false
 	actor.canCheckInventory = false
 	actor.revoke_casting()
-	var ic = actor.get_interaction_controller()
-	ic.enter_menu()
-	

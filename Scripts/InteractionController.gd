@@ -29,16 +29,6 @@ func disable_interact():
 func enable_interact():
 	canInteract = true
 
-func enter_menu():
-	if equipped != null:
-		#equipped.call("unsubscribe")
-		pass
-
-func exit_menu():
-	if equipped != null:
-		#equipped.call("subscribe")
-		pass
-
 func equip(item):
 	var i = item.duplicate()
 	equipped = i
