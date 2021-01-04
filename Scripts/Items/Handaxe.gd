@@ -14,8 +14,6 @@ func _process(delta):
 			if global_transform.origin.distance_to(parentedTo.global_transform.origin) < 2:
 				initialize(controller)
 		get_parent().linear_velocity = dir
-		print(get_parent())
-		print(get_parent().linear_velocity)
 	if not beingThrown:
 		._process(delta)
 
@@ -79,5 +77,9 @@ func _on_ThrowDuration_timeout():
 
 func _on_Item_body_entered(body):
 	if beingThrown:
+		var par = 1 if Global.world.rng.randf() > 0.5 else -1
+		var v =  Vector3(Global.world.rng.randf() * par,Global.world.rng.randf() * -par,Global.world.rng.randf() * par) * 30
+		print("collided! : ", v)
+		get_parent().angular_velocity = v
 		check_collision(body)
 	pass # Replace with function body.

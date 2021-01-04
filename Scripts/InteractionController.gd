@@ -39,7 +39,7 @@ func equip(item):
 	i.set_point(owner.get_palm(), self)
 	inventory.append(i)
 	clear()
-	disable_interact()
+	#disable_interact()
 	owner.revoke_casting()
 	owner.revoke_cast_menu()
 	pass
