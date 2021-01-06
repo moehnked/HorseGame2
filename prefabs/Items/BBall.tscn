@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://prefabs/Items/Item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://prefabs/UI/ItemContext_Equip.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Items/Equipable.gd" type="Script" id=3]
+[ext_resource path="res://prefabs/UI/ItemContext_Description.tscn" type="PackedScene" id=4]
+[ext_resource path="res://models/Item/Basketball_Mesh.tscn" type="PackedScene" id=5]
+
+[sub_resource type="SphereShape" id=1]
+radius = 0.619306
+
+[node name="Equipable" type="RigidBody"]
+
+[node name="CollisionShape2" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="Item" parent="." instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="Equip" parent="Item/Context" index="0" instance=ExtResource( 2 )]
+visible = false
+
+[node name="Description" parent="Item/Context" index="1" instance=ExtResource( 4 )]
+description = "This is the basketball that Kobe used in his last Lakers game."
+
+[node name="BasketballMesh" parent="Item" instance=ExtResource( 5 )]
+
+[node name="CollisionShape" type="CollisionShape" parent="Item"]
+shape = SubResource( 1 )
+
+[editable path="Item"]
+
+[editable path="Item/Context"]

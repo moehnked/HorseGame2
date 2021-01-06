@@ -23,8 +23,6 @@ func _process(delta):
 	pass
 
 func _on_ReadyWait_timeout():
-	#print("yada timeout boyyyyyy")
-	#playerRef.isBuilding = false
 	canSelect = true
 	pass # Replace with function body.
 
