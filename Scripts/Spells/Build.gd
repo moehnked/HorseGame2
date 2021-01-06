@@ -23,8 +23,8 @@ func _process(delta):
 	pass
 
 func _on_ReadyWait_timeout():
-	#print("yada")
-	playerRef.isBuilding = false
+	#print("yada timeout boyyyyyy")
+	#playerRef.isBuilding = false
 	canSelect = true
 	pass # Replace with function body.
 
@@ -57,6 +57,7 @@ func initialize(args):
 
 func parse_input(input):
 	if input.mouse_down:
+		print("build mode - mouse down")
 		playerRef.exit_build_mode(callback)
 		playerRef.placer_unsubscribe(self)
 		playerRef.isBuilding = false

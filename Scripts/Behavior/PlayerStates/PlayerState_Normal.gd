@@ -27,7 +27,8 @@ func initialize(args = {}):
 	actor.canCheckInventory = true
 	actor.queue_spell_clear()
 	var ic = actor.get_interaction_controller()
-	if ic.equipped == null:
+	if ic.equipped == null and not actor.isBuilding:
+		print("renablke casting, returning to state: normal - ", actor.isBuilding)
 		actor.enable_casting()
 
 func apply_rotation(actor):

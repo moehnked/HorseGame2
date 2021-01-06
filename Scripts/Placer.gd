@@ -14,13 +14,13 @@ var touching = []
 var placeable = true
 
 func check_materials():
-	print("checking materials")
+	#print("checking materials")
 	var inv = Global.Player.get_inventory()
 	var mat = resource_ref.instance().get_node("Item")
-	if(Utils.contains(mat, inv)):
-		print("player has ", mat.itemName)
+	#if(Utils.contains(mat, inv)):
+		#print("player has ", mat.itemName)
 	var count = Utils.count(mat, inv)
-	print("player has : ", count, " ", mat.itemName)
+	#print("player has : ", count, " ", mat.itemName)
 	return count >= required_materials
 
 func consume_materials():
@@ -32,7 +32,7 @@ func consume_materials():
 		Utils.remove_item(mat, inv)
 
 func disable_place():
-	print("cannot place item here")
+	#print("cannot place item here")
 	placeable = false
 	$MeshInstance.material_override = invalid
 
