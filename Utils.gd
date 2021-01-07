@@ -28,6 +28,15 @@ static func count(item, list):
 			c += 1
 	return c
 
+func get_collider(item):
+	print("getting collider from ", item.itemName)
+	for o in item.get_children():
+		print(o, " - ", o.name, " - ")
+		if o is CollisionShape:
+			print(o, " is collision shape")
+			return o
+	return null
+
 func get_inventory(controller):
 	if(controller.has_method("get_inventory")):
 		return controller.get_inventory()
@@ -40,9 +49,22 @@ func interpolation(from, to, t):
 	return from * (1 - t) + to * t
 
 func instance_item(item):
-	var rig = RigidBody.new()
+	print("instancing ", item, ": controller: ", item.controller)
+	var rig = load(item.prefabPath).instance()
+	var undesirable = rig.get_node("Item")
+	rig.remove_child(undesirable)
+	undesirable.queue_free()
 	rig.add_child(item)
-	rig.add_child(item.get_collision_shape())
+#	var rig
+#	if item.has_method("get_rigidbody"):
+#		rig = item.get_rigidbody()
+#	else:
+#		rig = RigidBody.new()
+#	print("rigidbody name: ", rig.name)
+#	rig.add_child(item)
+#	var c = get_collider(item)
+#	print(c)
+#	rig.add_child(c)
 	return rig
 
 static func logWithBase(value, base):

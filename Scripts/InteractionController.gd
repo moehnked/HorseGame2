@@ -26,10 +26,7 @@ func clear():
 func disable_interact():
 	canInteract = false
 
-func enable_interact():
-	canInteract = true
-
-func equip(item):
+func duplicate_item(item):
 	var i = item.duplicate()
 	equipped = i
 	Global.world.call("add_child", Utils.instance_item(i))
@@ -38,6 +35,15 @@ func equip(item):
 	i.get_context().add("Unequip").visible = false
 	i.set_point(owner.get_palm(), self)
 	inventory.append(i)
+
+func enable_interact():
+	canInteract = true
+
+func equip(item):
+	item.set_point(owner.get_palm(), self)
+	if not Utils.contains(item, inventory):
+		inventory.append(item)
+	equipped = item
 	clear()
 	#disable_interact()
 	owner.revoke_casting()
@@ -63,6 +69,15 @@ func read_prompt():
 	else:
 		clear()
 
+func disconnect_item(item):
+	if item == equipped:
+		print("controller: unequipping ", item)
+		equipped = null
+	if Utils.contains(item, inventory):
+		inventory.erase(item)
+	enable_interact()
+	owner.set_behavior("Normal")
+
 func toggle_equip(item):
 	print("toggle equip on ", item.get_name())
 	if item == equipped:
@@ -83,6 +98,7 @@ func update_equipped(input):
 			"input": input})
 
 func unequip(item):
+	print("controller: unequipping item ", item)
 	equipped = null
 	Utils.remove_item(item, inventory)
 	var i = item.duplicate()

@@ -1,21 +1,38 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://prefabs/Items/Item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/UI/ItemContext_Equip.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scripts/Items/Equipable.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Items/Basketball.gd" type="Script" id=3]
 [ext_resource path="res://prefabs/UI/ItemContext_Description.tscn" type="PackedScene" id=4]
 [ext_resource path="res://models/Item/Basketball_Mesh.tscn" type="PackedScene" id=5]
 
-[sub_resource type="SphereShape" id=1]
-radius = 0.619306
+[sub_resource type="PhysicsMaterial" id=2]
+friction = 1.7
+bounce = 0.8
 
-[node name="Equipable" type="RigidBody"]
+[sub_resource type="SphereShape" id=1]
+radius = 0.544571
+
+[sub_resource type="SphereShape" id=3]
+radius = 0.780792
+
+[node name="BBall" type="RigidBody"]
+mass = 4.08163
+physics_material_override = SubResource( 2 )
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
 
 [node name="CollisionShape2" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
 
 [node name="Item" parent="." instance=ExtResource( 1 )]
+collision_mask = 2147483649
 script = ExtResource( 3 )
+deleteOnInteract = false
+icon = "res://Sprites/Items/Basketball_Icon.png"
+itemName = "Basketball"
+prefabPath = "res://prefabs/Items/BBall.tscn"
 
 [node name="Equip" parent="Item/Context" index="0" instance=ExtResource( 2 )]
 visible = false
@@ -26,7 +43,8 @@ description = "This is the basketball that Kobe used in his last Lakers game."
 [node name="BasketballMesh" parent="Item" instance=ExtResource( 5 )]
 
 [node name="CollisionShape" type="CollisionShape" parent="Item"]
-shape = SubResource( 1 )
+shape = SubResource( 3 )
+[connection signal="body_entered" from="Item" to="Item" method="_on_Item_body_entered"]
 
 [editable path="Item"]
 

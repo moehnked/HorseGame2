@@ -4,21 +4,21 @@
 [ext_resource path="res://models/Item/Basketball_Mesh.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Items/Basketball.gd" type="Script" id=3]
 
-[sub_resource type="PhysicsMaterial" id=1]
+[sub_resource type="PhysicsMaterial" id=2]
 friction = 1.7
 bounce = 0.8
 
-[sub_resource type="SphereShape" id=2]
+[sub_resource type="SphereShape" id=3]
 radius = 0.66136
 
-[sub_resource type="SphereShape" id=3]
+[sub_resource type="SphereShape" id=4]
 radius = 0.672283
 
 [node name="Basketball" type="RigidBody"]
 collision_layer = 0
 collision_mask = 5
 mass = 4.08163
-physics_material_override = SubResource( 1 )
+physics_material_override = SubResource( 2 )
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
@@ -26,18 +26,14 @@ axis_lock_angular_z = true
 [node name="Item" parent="." instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 prefabPath = "res://prefabs/Items/Basketball.tscn"
-launch_power = 15
-
-[node name="Item_Mesh" parent="Item" index="0"]
-visible = false
 
 [node name="Basketball_Mesh" parent="Item" instance=ExtResource( 2 )]
 
 [node name="CollisionShape2" type="CollisionShape" parent="Item"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5

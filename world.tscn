@@ -10,7 +10,7 @@
 [ext_resource path="res://prefabs/InteractionPrompt.tscn" type="PackedScene" id=8]
 [ext_resource path="res://prefabs/Trophy.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scripts/Misc/GlobalCorralRegistrar.gd" type="Script" id=10]
-[ext_resource path="res://prefabs/Items/Basketball.tscn" type="PackedScene" id=11]
+[ext_resource path="res://prefabs/Items/BBall.tscn" type="PackedScene" id=11]
 [ext_resource path="res://prefabs/Interactables/Generator.tscn" type="PackedScene" id=12]
 [ext_resource path="res://prefabs/Constructable/Gate.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/Mirror.tscn" type="PackedScene" id=14]
@@ -81,9 +81,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.0547, -0.291551, 0.954863 
 
 [node name="Trophy4" parent="." instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.1017, 3.45762, 0.370879 )
-
-[node name="Basketball" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0801, 4.96283, 36.0804 )
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 
@@ -172,8 +169,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6533, -0.344928, 45.1145 )
 [node name="BasketballCourt" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25.7174, 1.3738, 40.1906 )
 
+[node name="BBall" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -24.4388, 5.09739, 47.6106 )
+
+[node name="Handaxe" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.12291, 3.1414, 20.9638 )
+
 [node name="FPSController" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 10.3612, 1.68388, 27.8841 )
+transform = Transform( 0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 9.98812, 2.08988, 24.4477 )
 MAX_SPEED = 7
 
 [node name="MiscTimer1" type="Timer" parent="."]
@@ -229,9 +232,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.4175, 2.20399, 14.5937 )
 
 [node name="Logs3" parent="." instance=ExtResource( 23 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.8196, 2.29009, 14.8585 )
-
-[node name="Handaxe" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.15258, 1.0545, 23.1589 )
 [connection signal="timeout" from="MiscTimer1" to="." method="_on_MiscTimer1_timeout"]
 [connection signal="timeout" from="MiscTimer2" to="." method="_on_MiscTimer2_timeout"]
 [connection signal="timeout" from="MiscTimer3" to="." method="_on_MiscTimer3_timeout"]

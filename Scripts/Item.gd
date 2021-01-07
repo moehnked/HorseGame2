@@ -1,8 +1,10 @@
 extends "res://Scripts/Interactable.gd"
 
+export var deleteOnInteract:bool = true
 export var icon = "res://icon.png"
 export var itemName = "Item"
 export var prefabPath = "res://prefabs/Items/Item.tscn"
+
 
 #var isInteractable = true
 
@@ -17,7 +19,8 @@ func get_context():
 
 func interact(controller):
 	.interact(controller)
-	queue_free()
+	if deleteOnInteract:
+		queue_free()
 	pass
 	
 func prompt():

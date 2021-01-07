@@ -21,8 +21,10 @@ shape = SubResource( 1 )
 
 [node name="Item" parent="." instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+deleteOnInteract = false
 icon = "res://Sprites/Items/Axe_Icon.png"
 itemName = "Handaxe"
+prefabPath = "res://prefabs/Items/Handaxe.tscn"
 
 [node name="Description" parent="Item/Context" index="0" instance=ExtResource( 5 )]
 description = "A sturdy hatchet that can be thrown and chop down trees. It is quite reliable."

@@ -9,5 +9,11 @@ func initialize(args = {}):
 	controller = args.controller
 
 func _on_TextureButton_button_up():
-	item.equip(controller)
+	if controller.equipped != item:
+		#var i = item.duplicate()
+		#Utils.remove_item(item, controller.get_inventory())
+		print("equipping ", item," to ", controller)
+		var g = Utils.instance_item(item)
+		Global.world.call_deferred("add_child", g)
+		item.interact(controller)
 	pass # Replace with function body.
