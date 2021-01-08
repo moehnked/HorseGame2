@@ -53,8 +53,6 @@ func equip(item):
 	if equipped != null and equipped != item:
 		print("interactionController: unequipping old item: ",equipped.get_parent().name)
 		equipped.get_context().get_unequip().unequip()
-#		print(name,":",equipped.get_context().name)
-#		print(name,":",equipped.get_context().get_unequip().name)
 	item.set_point(owner.get_palm(), self)
 	if not Utils.contains(item, inventory):
 		inventory.append(item)
