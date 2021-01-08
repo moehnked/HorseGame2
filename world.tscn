@@ -228,12 +228,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4735, -0.327245, 35.3106 )
 
 [node name="Logs" parent="." instance=ExtResource( 23 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.9731, 2.28109, 13.7916 )
+hp = 1
+pathToEffect = "res://prefabs/Effects/SimpleBurst.tscn"
 
 [node name="Logs2" parent="." instance=ExtResource( 23 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.4175, 2.20399, 14.5937 )
+hp = 1
+pathToEffect = "res://prefabs/Effects/SimpleBurst.tscn"
 
 [node name="Logs3" parent="." instance=ExtResource( 23 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.8196, 2.29009, 14.8585 )
+hp = 1
+pathToEffect = "res://prefabs/Effects/SimpleBurst.tscn"
 [connection signal="timeout" from="MiscTimer1" to="." method="_on_MiscTimer1_timeout"]
 [connection signal="timeout" from="MiscTimer2" to="." method="_on_MiscTimer2_timeout"]
 [connection signal="timeout" from="MiscTimer3" to="." method="_on_MiscTimer3_timeout"]
