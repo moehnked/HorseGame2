@@ -6,6 +6,8 @@ var isEquipped:bool = false
 var parentedTo:Spatial = Spatial.new()
 var rigidbody:RigidBody = RigidBody.new()
 
+export var intendedSprite = "Holding"
+
 func _ready():
 	print("prefab path for ", itemName, ": ", prefabPath)
 	rigidbody = load(prefabPath).instance()

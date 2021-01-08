@@ -33,6 +33,7 @@ deleteOnInteract = false
 icon = "res://Sprites/Items/Basketball_Icon.png"
 itemName = "Basketball"
 prefabPath = "res://prefabs/Items/BBall.tscn"
+intendedSprite = "Idle"
 
 [node name="Equip" parent="Item/Context" index="0" instance=ExtResource( 2 )]
 visible = false

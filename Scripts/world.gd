@@ -60,14 +60,13 @@ func set_caller_and_callback(_caller, _callback, timer, _args ):
 
 func timer_timeout(timer):
 	#caller.pop_front().call(callback.pop_front())
-	print(args)
-	if args.size() > 0:
+	if args.keys().has(timer):
 		if args[timer] != null:
 			if args[timer].keys().size() > 0:
 				caller[timer].call(callback[timer], args[timer])
 	else :
-		print(callback[timer])
-		caller[timer].call(callback[timer])
+		if callback.keys().has(timer) and caller.keys().has(timer):
+			caller[timer].call(callback[timer])
 	caller.erase(timer)
 	callback.erase(timer)
 	args.erase(timer)

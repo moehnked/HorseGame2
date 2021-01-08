@@ -61,6 +61,7 @@ func equip(item):
 	#disable_interact()
 	owner.revoke_casting()
 	owner.revoke_cast_menu()
+	owner.get_hand().update_hand_sprite(item.intendedSprite)
 	pass
 
 func get_inventory():
@@ -82,19 +83,22 @@ func read_prompt():
 	else:
 		clear()
 
-func toggle_equip(item):
-	print("toggle equip on ", item.get_name())
-	if item == equipped:
-		return unequip(item)
-	else:
-		if equipped != null:
-			unequip(equipped)
-		Utils.remove_item(item, inventory)
-		var i = Global.world.instantiate(item.prefabPath)
-		var it = i.get_node("Item")
-		it.interact(self)
-		return it
-		
+func set_hand_playback(b = true):
+	owner.get_hand().set_animation_playback(b)
+
+#func toggle_equip(item):
+#	print("toggle equip on ", item.get_name())
+#	if item == equipped:
+#		return unequip(item)
+#	else:
+#		if equipped != null:
+#			unequip(equipped)
+#		Utils.remove_item(item, inventory)
+#		var i = Global.world.instantiate(item.prefabPath)
+#		var it = i.get_node("Item")
+#		it.interact(self)
+#		return it
+#
 
 func update_equipped(input):
 	if equipped != null:
@@ -109,6 +113,8 @@ func unequip(item, returnItemToInventory = true):
 		var i = item.duplicate()
 		inventory.append(i)
 		return i
+	owner.get_hand().update_hand_sprite("Idle")
+	set_hand_playback()
 	return item
 
 func toggle_interactability():

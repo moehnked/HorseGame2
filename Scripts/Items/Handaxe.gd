@@ -4,6 +4,7 @@ var beingThrown = false
 var canSwing:bool = true
 var dir:Vector3 = Vector3()
 var isRetracting = false
+
 export var speed:int = 100
 
 func _process(delta):
@@ -63,6 +64,7 @@ func throw():
 	#$AnimationPlayer.play("Throw")
 	$ThrowDuration.start()
 	controller.get_parent().get_hand().update_hand_sprite("Idle")
+	controller.set_hand_playback(true)
 	canSwing = false
 	beingThrown = true
 	isEquipped = false
