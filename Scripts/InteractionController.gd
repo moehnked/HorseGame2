@@ -40,6 +40,9 @@ func enable_interact():
 	canInteract = true
 
 func equip(item):
+	if equipped != null and equipped != item:
+		print("interactionController: unequipping old item: ",equipped.name)
+		equipped.unequip(self)
 	item.set_point(owner.get_palm(), self)
 	if not Utils.contains(item, inventory):
 		inventory.append(item)
@@ -72,9 +75,10 @@ func read_prompt():
 func disconnect_item(item):
 	if item == equipped:
 		print("controller: unequipping ", item)
-		equipped = null
+		unequip(item, false)
 	if Utils.contains(item, inventory):
-		inventory.erase(item)
+		Utils.remove_item(item, inventory)
+		#inventory.erase(item)
 	enable_interact()
 	owner.set_behavior("Normal")
 
@@ -97,15 +101,15 @@ func update_equipped(input):
 		equipped.parse_equip({
 			"input": input})
 
-func unequip(item):
+func unequip(item, returnItemToInventory = true):
 	print("controller: unequipping item ", item)
 	equipped = null
-	Utils.remove_item(item, inventory)
-	var i = item.duplicate()
-	inventory.append(i)
-	i.get_context().remove_child(i.get_context().get_unequip())
-	i.get_context().add("Equip").visible = false
-	return i
+	if returnItemToInventory:
+		Utils.remove_item(item, inventory)
+		var i = item.duplicate()
+		inventory.append(i)
+		return i
+	return item
 
 func toggle_interactability():
 	canInteract = !canInteract

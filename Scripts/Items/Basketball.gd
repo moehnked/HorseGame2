@@ -87,11 +87,12 @@ func unequip(controller, caller = null):
 	isEquipped = false
 	if caller != null:
 		.unequip(controller, caller)
-	controller.disconnect_item(self)
-	controller = null
-	parentedTo = Spatial.new()
-	input = InputMacro.new()
-	set_context("Equip")
+	else:
+		controller.disconnect_item(self)
+		controller = null
+		parentedTo = Spatial.new()
+		input = InputMacro.new()
+		set_context("Equip")
 
 func _on_Timer_timeout():
 	print("basketball collisions re-enabled")

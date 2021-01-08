@@ -61,8 +61,11 @@ func set_point(object, _controller):
 	controller = _controller
 	parentedTo = object
 
-func unequip(controller, caller):
-	caller.set_item(controller.unequip(self))
+func unequip(controller, caller = null):
+	var i = controller.unequip(self)
+	i.set_context("Equip")
+	if caller != null:
+		caller.set_item(i)
 	destroy()
 	pass
 
