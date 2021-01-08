@@ -20,6 +20,7 @@ func overidable_function():
 	pass
 
 func destroy():
+	print(get_parent().name, ": equipable: destroying self....")
 	get_parent().queue_free()
 
 func disable_collisions():
@@ -48,13 +49,20 @@ func parse_equip(args = {}):
 	input = args.input
 
 func set_context(equipState):
+	var prev = null
+	var newContext = null
 	match equipState:
 		"Equip":
-			get_context().remove_child(get_context().get_unequip())
-			get_context().add("Equip").visible = false
+			prev = get_context().get_unequip()
+			get_context().remove_child(prev)
+			prev.queue_free()
+			newContext = get_context().add("Equip")
 		"Unequip":
-			get_context().remove_child(get_context().get_equip())
-			get_context().add("Unequip").visible = false
+			prev = get_context().get_equip()
+			get_context().remove_child(prev)
+			prev.queue_free()
+			newContext = get_context().add("Unequip")
+	newContext.initialize({"item": self, "controller": controller})
 
 func set_point(object, _controller):
 	print("setting parent of ",name, " to ", object.name, " / ", _controller.name)
@@ -62,6 +70,7 @@ func set_point(object, _controller):
 	parentedTo = object
 
 func unequip(controller, caller = null):
+	print("[equipable]: unequiping ", get_parent().name)
 	var i = controller.unequip(self)
 	i.set_context("Equip")
 	if caller != null:

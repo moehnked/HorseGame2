@@ -11,9 +11,13 @@ func initialize(args = {}):
 func set_item(i):
 	item = i
 
-func _on_TextureButton_button_up():
+func unequip():
 	item.unequip(controller, self)
 	var tree = get_tree()
 	tree.call_group("InvScreen", "draw_list_items")
 	tree.call_group("InvScreen", "draw_context", item)
+
+func _on_TextureButton_button_up():
+	print("[unequip]: clicked")
+	unequip()
 	pass # Replace with function body.

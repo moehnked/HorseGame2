@@ -5,6 +5,7 @@ var callback = null
 var context_buttons = []
 var inventory = []
 var listItems = []
+var selected = null
 var sourceRef
 var listItemResource = preload("res://prefabs/UI/InventoryListItem.tscn")
 
@@ -25,9 +26,10 @@ func clear_listItems():
 		listItems.erase(o)
 
 func clear_display():
-	$Display.texture = null
+	$Display.texture = null if selected == null else selected.get_icon(true)
 
 func draw_context(item):
+	selected = item
 	clear_context()
 	var c = item.get_context()
 	var d = c.get_description()
@@ -98,9 +100,9 @@ func uniques():
 func unsubscribe_to():
 	Global.world.get_node("InputObserver").unsubscribe(self)
 
-func update_display(item):
-	var sprite = load(item.icon)
-	$Display.texture = sprite
+func update_display(item = null):
+	#var sprite = load(item.icon)
+	$Display.texture = item.get_icon(true) if item != null else null
 
 func _on_Timer_timeout():
 	print("inv subscribing")

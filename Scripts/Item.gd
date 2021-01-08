@@ -17,6 +17,9 @@ func get_collision_shape():
 func get_context():
 	return get_node("Context")
 
+func get_icon(asTexture = false):
+	return load(icon) if asTexture else icon
+
 func interact(controller):
 	.interact(controller)
 	if deleteOnInteract:

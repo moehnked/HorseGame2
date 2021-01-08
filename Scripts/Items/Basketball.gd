@@ -84,6 +84,7 @@ func shoot_basket():
 #	isAtemptingShot = true
 
 func unequip(controller, caller = null):
+	print(get_parent().name,": unequipping from ", controller.name, " by ", caller)
 	isEquipped = false
 	if caller != null:
 		.unequip(controller, caller)

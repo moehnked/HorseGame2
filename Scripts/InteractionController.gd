@@ -26,6 +26,16 @@ func clear():
 func disable_interact():
 	canInteract = false
 
+func disconnect_item(item):
+	if item == equipped:
+		print(name,": unequipping ", item.get_parent().name)
+		unequip(item, false)
+	if Utils.contains(item, inventory):
+		Utils.remove_item(item, inventory)
+		#inventory.erase(item)
+	enable_interact()
+	owner.set_behavior("Normal")
+
 func duplicate_item(item):
 	var i = item.duplicate()
 	equipped = i
@@ -41,8 +51,10 @@ func enable_interact():
 
 func equip(item):
 	if equipped != null and equipped != item:
-		print("interactionController: unequipping old item: ",equipped.name)
-		equipped.unequip(self)
+		print("interactionController: unequipping old item: ",equipped.get_parent().name)
+		equipped.get_context().get_unequip().unequip()
+#		print(name,":",equipped.get_context().name)
+#		print(name,":",equipped.get_context().get_unequip().name)
 	item.set_point(owner.get_palm(), self)
 	if not Utils.contains(item, inventory):
 		inventory.append(item)
@@ -72,16 +84,6 @@ func read_prompt():
 	else:
 		clear()
 
-func disconnect_item(item):
-	if item == equipped:
-		print("controller: unequipping ", item)
-		unequip(item, false)
-	if Utils.contains(item, inventory):
-		Utils.remove_item(item, inventory)
-		#inventory.erase(item)
-	enable_interact()
-	owner.set_behavior("Normal")
-
 func toggle_equip(item):
 	print("toggle equip on ", item.get_name())
 	if item == equipped:
@@ -102,7 +104,7 @@ func update_equipped(input):
 			"input": input})
 
 func unequip(item, returnItemToInventory = true):
-	print("controller: unequipping item ", item)
+	print(name,": unequipping item ", item.get_parent().name)
 	equipped = null
 	if returnItemToInventory:
 		Utils.remove_item(item, inventory)
