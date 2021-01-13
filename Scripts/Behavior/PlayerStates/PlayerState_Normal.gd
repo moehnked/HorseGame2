@@ -29,6 +29,8 @@ func initialize(args = {}):
 	var ic = actor.get_interaction_controller()
 	if ic.equipped == null and not actor.isBuilding:
 		print("renablke casting, returning to state: normal - ", actor.isBuilding)
+		actor.get_hand().update_hand_sprite("Idle")
+		actor.get_hand().set_animation_playback(true)
 		actor.enable_casting()
 
 func apply_rotation(actor):
@@ -60,7 +62,8 @@ func parse_movement(actor, delta):
 			has_contact = false
 		velocity.y += gravity * delta
 	if has_contact and !actor.is_on_floor():
-		actor.move_and_collide(Vector3(0,-1,0))
+		#print("pulling down: ", actor.global_transform.origin.y)
+		actor.move_and_collide(Vector3(0,-2,0))
 	
 	var h_velocity = velocity
 	h_velocity.y = 0
@@ -77,6 +80,7 @@ func parse_movement(actor, delta):
 	velocity.z = h_velocity.z
 	
 	if input.space and (has_contact or actor.isSwimming):
+		print("jumping")
 		velocity.y = 10
 		has_contact = false
 	

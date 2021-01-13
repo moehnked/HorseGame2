@@ -5,6 +5,9 @@ var hp:int = 5
 func _ready():
 	pass # Replace with function body.
 
+func get_hit_sound():
+	return "res://Sounds/wood_hit_0"+String(Global.world.rng.randi_range(0,2))+".wav"
+
 func take_damage(dmg = 1, hitbox = null, source = null):
 	hp -= dmg
 	print(name, " hp: ", hp)
@@ -12,6 +15,7 @@ func take_damage(dmg = 1, hitbox = null, source = null):
 		fell()
 
 func fell():
+	Global.AudioManager.play_sound_3d("res://Sounds/snap_01.wav", 0, global_transform.origin)
 	spawn_logs()
 	queue_free()
 

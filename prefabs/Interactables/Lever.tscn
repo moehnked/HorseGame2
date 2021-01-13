@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://models/objects/splitter/Wedge.material" type="Material" id=1]
+[ext_resource path="res://prefabs/Interactables/Interactable.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Interactables/Lever.gd" type="Script" id=3]
+
+[sub_resource type="CylinderMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.380392, 0.176471, 0.176471, 1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.121569, 0.113725, 0.113725, 1 )
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_unshaded = true
+params_cull_mode = 1
+params_grow = true
+params_grow_amount = 0.03
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=6]
+next_pass = SubResource( 5 )
+params_diffuse_mode = 4
+albedo_color = Color( 0.760784, 0.760784, 0.760784, 1 )
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.0
+
+[sub_resource type="CylinderMesh" id=4]
+
+[sub_resource type="SphereMesh" id=7]
+
+[node name="Lever" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( -1.58618e-08, 0.362875, 0, -0.362875, -1.58618e-08, 0, 0, 0, 0.362875, -0.235402, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+transform = Transform( -9.05674e-09, 0.207194, 0, -0.207194, -9.05674e-09, 0, 0, 0, 0.207194, 0.106287, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )
+
+[node name="LeverArm" type="Spatial" parent="."]
+transform = Transform( 1, 3.55271e-15, 0, -3.55271e-15, 1, 0, 0, 0, 1, 0.222003, -8.88178e-16, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MeshInstance" type="MeshInstance" parent="LeverArm"]
+transform = Transform( 0.0233691, 0, 0, 0, 0.249393, 0, 0, 0, 0.0233691, 0, 0.397468, 0 )
+material_override = SubResource( 6 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="LeverArm/MeshInstance"]
+transform = Transform( 2.16862, 0, 0, 0, 0.203208, 0, 0, 0, 2.16862, 0, 1.07234, 0 )
+mesh = SubResource( 7 )
+material/0 = ExtResource( 1 )
+
+[node name="Interactable" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.299349, 0, 0, 0, 0.534709, 0, 0, 0, 0.365144, 0.0845008, 0.0942907, 0 )
+isHoldToInteract = true
+[connection signal="holding" from="Interactable" to="." method="_on_Interactable_holding"]
+[connection signal="interaction" from="Interactable" to="." method="_on_Interactable_interaction"]
+[connection signal="release" from="Interactable" to="." method="_on_Interactable_release"]

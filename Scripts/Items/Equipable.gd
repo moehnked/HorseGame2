@@ -1,11 +1,13 @@
 extends "res://Scripts/Item.gd"
 
 var controller = null
+var equipState:String = "Equip"
 var input = InputMacro.new()
 var isEquipped:bool = false
 var parentedTo:Spatial = Spatial.new()
 var rigidbody:RigidBody = RigidBody.new()
 
+export var equipSoundPath:String = "res://Sounds/unequip_01.wav"
 export var intendedSprite = "Holding"
 
 func _ready():
@@ -35,9 +37,20 @@ func enable_collisions():
 func equip(_controller):
 	print("equipping: ",self)
 	controller = _controller
-	controller.equip(self)
+	var o = null
+	if controller.get_equipped() != null:
+		if controller.get_equipped().itemName == itemName:
+			if controller.get_inventory().find(self) < 0:
+				o =.add_to_inventory(controller)
+			destroy()
+			return
 	isEquipped = true
 	set_context("Unequip")
+	controller.equip(self)
+	Global.AudioManager.play_sound(equipSoundPath)
+
+func get_equip_state():
+	return equipState
 
 func get_rigidbody():
 	return rigidbody
@@ -50,35 +63,41 @@ func parse_equip(args = {}):
 	args = Utils.check(args, {"input":InputMacro.new()})
 	input = args.input
 
-func set_context(equipState):
+func set_context(_equipState):
 	var prev = null
 	var newContext = null
+	equipState = _equipState
 	match equipState:
 		"Equip":
 			prev = get_context().get_unequip()
 			get_context().remove_child(prev)
-			prev.queue_free()
+			if prev != null:
+				prev.queue_free()
 			newContext = get_context().add("Equip")
 		"Unequip":
 			prev = get_context().get_equip()
 			get_context().remove_child(prev)
-			prev.queue_free()
+			if prev != null:
+				prev.queue_free()
 			newContext = get_context().add("Unequip")
 	newContext.initialize({"item": self, "controller": controller})
+	newContext.visible = false
 
 func set_point(object, _controller):
 	print("setting parent of ",name, " to ", object.name, " / ", _controller.name)
 	controller = _controller
 	parentedTo = object
 
-func unequip(controller, caller = null):
+func unequip(controller, caller = null, callback = ""):
 	print("[equipable]: unequiping ", get_parent().name)
 	var i = controller.unequip(self)
 	i.set_context("Equip")
 	if caller != null:
-		caller.set_item(i)
+		if callback != "":
+			caller.call(callback, i)
+		else:
+			caller.set_item(i)
 	destroy()
-	pass
 
 func update_position_to_parent():
 	get_parent().global_transform.origin = parentedTo.global_transform.origin

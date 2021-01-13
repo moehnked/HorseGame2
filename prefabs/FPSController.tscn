@@ -279,7 +279,7 @@ mesh = ExtResource( 17 )
 material/0 = ExtResource( 18 )
 
 [node name="GroundCheck" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.55, 0 )
 enabled = true
 
 [node name="Head" type="Spatial" parent="."]
@@ -334,15 +334,15 @@ anims/Lasso = SubResource( 8 )
 anims/Punch = SubResource( 9 )
 
 [node name="Container" type="Spatial" parent="Head/Hand"]
-transform = Transform( 0.99961, -0.000630062, 0.00495997, 0.000584727, 1.0033, 0.00864507, -0.00497041, -0.00868328, 0.998525, -0.0156816, -0.00416166, 0.0225369 )
+transform = Transform( 0.390975, -0.000246434, 0.00193998, 0.000228703, 0.392418, 0.00338133, -0.00194406, -0.0033963, 0.39055, -1.20239, 1.28372, -0.320797 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Head/Hand/Container"]
-transform = Transform( 0.836874, -7.63889e-10, -2.40726e-10, 4.87124e-10, 1.31235, 1.54065e-07, 1.9485e-10, -1.95556e-07, 1.03391, 0.0155097, -0.0390208, -0.0133159 )
+transform = Transform( 0.836874, -7.63887e-10, -2.40726e-10, 4.87124e-10, 1.31235, 1.54065e-07, 1.9485e-10, -1.95555e-07, 1.03391, 0.0155097, -0.0390208, -0.0133159 )
 mesh = SubResource( 10 )
 material/0 = SubResource( 11 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="Head/Hand/Container"]
-transform = Transform( 0.769335, -0.166132, -0.0855054, 0.114031, 1.12129, -0.0115345, 0.051755, -0.000980862, 1.29645, 0.681267, 0.130899, 0.946457 )
+transform = Transform( 0.769335, -0.166132, -0.0855056, 0.114031, 1.12129, -0.0115346, 0.051755, -0.000980862, 1.29645, 0.681267, 0.130899, 0.946457 )
 mesh = SubResource( 12 )
 material/0 = SubResource( 13 )
 

@@ -19,10 +19,11 @@ script = ExtResource( 6 )
 pathToPrefab = "res://prefabs/Items/Plank.tscn"
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 0.705517, 0, 0, 0, 0.705517, 0, 0, 0, 0.705517, 0, 0, 0 )
+transform = Transform( 0.489236, 0, 0, 0, 0.489236, 0, 0, 0, 0.489236, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="Item" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.693443, 0, 0, 0, 0.693443, 0, 0, 0, 0.693443, 0, 0, 0 )
 script = ExtResource( 1 )
 icon = "res://Sprites/Items/Log_Icon.png"
 itemName = "Log"

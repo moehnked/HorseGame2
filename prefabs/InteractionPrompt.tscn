@@ -6,7 +6,7 @@
 [ext_resource path="res://fonts/Anisa Sans.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="DynamicFont" id=1]
-size = 32
+size = 24
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=2]
@@ -54,4 +54,46 @@ __meta__ = {
 }
 
 [node name="ContextTimer" type="Timer" parent="."]
+
+[node name="Crosshair" type="ColorRect" parent="."]
+margin_left = 512.0
+margin_top = 297.0
+margin_right = 514.0
+margin_bottom = 298.0
+color = Color( 1, 1, 1, 0.619608 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Crosshair2" type="ColorRect" parent="Crosshair"]
+margin_left = 0.463501
+margin_top = 1.5892
+margin_right = 2.4635
+margin_bottom = 2.5892
+rect_rotation = -89.9999
+color = Color( 1, 1, 1, 0.619608 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Crosshair4" type="ColorRect" parent="Crosshair"]
+margin_left = -1.19193
+margin_top = -0.198639
+margin_right = 0.808075
+margin_bottom = 0.801361
+color = Color( 1, 1, 1, 0.619608 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Crosshair3" type="ColorRect" parent="Crosshair"]
+margin_left = 0.430298
+margin_top = 0.761505
+margin_right = 2.4303
+margin_bottom = 1.76151
+rect_rotation = -89.9999
+color = Color( 1, 1, 1, 0.619608 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="timeout" from="ContextTimer" to="." method="_on_ContextTimer_timeout"]

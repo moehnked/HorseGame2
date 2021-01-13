@@ -16,10 +16,16 @@ static func check(args = {}, def = {}):
 	return kargs
 
 static func contains(item, list):
-	for i in list:
-		if i.itemName == item.itemName:
-			return true
-	return false
+	if item is String:
+		for i in list:
+			if i.itemName == item:
+				return true
+		return false
+	else:
+		for i in list:
+			if i.itemName == item.itemName:
+				return true
+		return false
 
 static func count(item, list):
 	var c = 0
@@ -27,6 +33,13 @@ static func count(item, list):
 		if i.itemName == item.itemName:
 			c += 1
 	return c
+
+func get_all_items_by_name(list, itemname):
+	var a = []
+	for i in list:
+		if i.itemName == itemname:
+			a.append(i)
+	return a
 
 func get_collider(item):
 	print("getting collider from ", item.itemName)
@@ -48,6 +61,9 @@ static func get_world(node):
 func interpolation(from, to, t):
 	return from * (1 - t) + to * t
 
+func uPrint(message, caller):
+	print(caller.name,": " + message)
+
 func instance_item(item):
 	print("instancing ", item, ": controller: ", item.controller)
 	var rig = load(item.prefabPath).instance()
@@ -55,20 +71,19 @@ func instance_item(item):
 	rig.remove_child(undesirable)
 	undesirable.queue_free()
 	rig.add_child(item)
-#	var rig
-#	if item.has_method("get_rigidbody"):
-#		rig = item.get_rigidbody()
-#	else:
-#		rig = RigidBody.new()
-#	print("rigidbody name: ", rig.name)
-#	rig.add_child(item)
-#	var c = get_collider(item)
-#	print(c)
-#	rig.add_child(c)
 	return rig
 
 static func logWithBase(value, base):
 	return log(value) / log(base)
+
+static func pop_item_by_name(itemName, list):
+	var i = 0
+	while(i < list.size()):
+		if(list[i].itemName == itemName):
+			var tmp = list[i]
+			list.remove(i)
+			return tmp
+		i += 1
 
 static func remove_item(item, list):
 	var i = 0

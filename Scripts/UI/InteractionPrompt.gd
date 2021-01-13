@@ -21,11 +21,13 @@ func _process(delta):
 
 func clear():
 	$Label.visible = false
+	$Crosshair.visible = true
 
 func hide_context():
 	fadeCoeff = -1
 
 func show_prompt(prompt, low = false):
+	$Crosshair.visible = false
 	if(low):
 		$Label.rect_position.y = screenOffset - ($Label.rect_size.y / 2)
 	else:

@@ -6,3 +6,4 @@ var InputObserver
 var InteractionPrompt
 var Player
 var world
+var SEM

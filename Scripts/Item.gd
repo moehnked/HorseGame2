@@ -25,7 +25,7 @@ func interact(controller):
 	if deleteOnInteract:
 		queue_free()
 	pass
-	
+
 func prompt():
 	return "pick up"
 

@@ -56,7 +56,7 @@ func shoot_basket():
 	var p = controller.owner
 	var dir = Vector3()
 	if p.has_method("get_head"):
-		dir = -p.get_head().global_transform.basis.z
+		dir = -p.get_head().global_transform.rotated(Vector3(1,0,0), deg2rad(-20)).basis.z
 	print("shooting in dir ", dir)
 	get_parent().linear_velocity = dir * launch_power
 	isAtemptingShot = true
@@ -83,11 +83,11 @@ func shoot_basket():
 #	shoot_position = controller.owner.global_transform.origin
 #	isAtemptingShot = true
 
-func unequip(controller, caller = null):
+func unequip(controller, caller = null, callback = ""):
 	print(get_parent().name,": unequipping from ", controller.name, " by ", caller)
 	isEquipped = false
 	if caller != null:
-		.unequip(controller, caller)
+		.unequip(controller, caller, callback)
 	else:
 		controller.disconnect_item(self)
 		controller = null

@@ -15,6 +15,11 @@ func _ready():
 func _process(delta):
 	environment.background_sky.sun_latitude += 0.01
 
+func call_no_args(timer):
+	if callback.keys().has(timer) and caller.keys().has(timer):
+		print("[world]: ",caller[timer], " calling ", callback[timer])
+		caller[timer].call(callback[timer])
+
 func create_point(point):
 	var obj = load("res://prefabs/Misc/TestPoint.tscn").instance()
 	obj.global_transform.origin = point
@@ -37,18 +42,26 @@ func instantiate(ref, location = Vector3()):
 	obj.global_transform.origin = location
 	return obj
 
+func place(obj, location = Vector3()):
+	call_deferred("add_child", obj)
+	obj.global_transform.origin = location
+	return obj
+
 func queue_timer(_caller, time, _callback, args = {}):
 	print("queuing timer for ", _caller.name, " to call ", _callback, " with ")
 	print(args)
-	if not $MiscTimer1.time_left > 0:
+	if $MiscTimer1.is_stopped():
+		#print("[world]: queing timer 1")
 		$MiscTimer1.start(time)
 		set_caller_and_callback(_caller, _callback, $MiscTimer1, args)
 	else:
-		if not $MiscTimer2.time_left > 0:
+		if $MiscTimer2.is_stopped():
+			#print("[world]: queing timer 1")
 			$MiscTimer2.start(time)
 			set_caller_and_callback(_caller, _callback, $MiscTimer1, args)
 		else:
-			if not $MiscTimer3.time_left > 0:
+			if $MiscTimer3.is_stopped():
+				#print("[world]: queing timer 1")
 				$MiscTimer3.start(time)
 				set_caller_and_callback(_caller, _callback, $MiscTimer1, args)
 
@@ -59,14 +72,22 @@ func set_caller_and_callback(_caller, _callback, timer, _args ):
 	
 
 func timer_timeout(timer):
+	#print("[World]: ",timer, " timeout")
 	#caller.pop_front().call(callback.pop_front())
 	if args.keys().has(timer):
+		#print("args...")
 		if args[timer] != null:
+			#print("args for ",timer,"not null")
 			if args[timer].keys().size() > 0:
+				#print("[world]: ",caller[timer], " calling ", callback[timer], " with ", args[timer])
 				caller[timer].call(callback[timer], args[timer])
+			else:
+				call_no_args(timer)
+		else:
+			call_no_args(timer)
 	else :
-		if callback.keys().has(timer) and caller.keys().has(timer):
-			caller[timer].call(callback[timer])
+		#print("[world]: ",callback)
+		call_no_args(timer)
 	caller.erase(timer)
 	callback.erase(timer)
 	args.erase(timer)

@@ -44,6 +44,7 @@ func _physics_process(delta):
 	mouse_prev = mouse
 	
 	if Input.is_action_just_pressed("jump"):
+		print("pressed jump")
 		input.space = true
 		input.direction_detected = true
 		
@@ -52,6 +53,9 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_released("special"):
 		input.special = true
+		
+	if Input.is_action_pressed("standard"):
+		input.left_mouse_pressed = true
 		
 	if Input.is_action_just_released("standard"):
 		input.standard = true

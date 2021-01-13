@@ -9,6 +9,7 @@
 
 [node name="Item" parent="." instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+equipSoundPath = "res://Sounds/equip_06.wav"
 
 [node name="Equip" parent="Item/Context" index="0" instance=ExtResource( 2 )]
 visible = false

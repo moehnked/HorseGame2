@@ -33,6 +33,7 @@ deleteOnInteract = false
 icon = "res://Sprites/Items/Basketball_Icon.png"
 itemName = "Basketball"
 prefabPath = "res://prefabs/Items/BBall.tscn"
+equipSoundPath = "res://Sounds/equip_05.wav"
 intendedSprite = "Idle"
 
 [node name="Equip" parent="Item/Context" index="0" instance=ExtResource( 2 )]

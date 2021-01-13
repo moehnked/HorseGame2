@@ -1,5 +1,6 @@
 extends "res://Scripts/Items/Equipable.gd"
 
+var audioChannel:AudioStreamPlayer3D = AudioStreamPlayer3D.new()
 var beingThrown = false
 var canSwing:bool = true
 var dir:Vector3 = Vector3()
@@ -59,6 +60,12 @@ func parse_input():
 	if input.standard and canSwing and not beingThrown:
 		throw()
 
+func play_sound(path):
+	#if not $AudioStreamPlayer3D.playing:
+	var sfx = load(path)
+	$AudioStreamPlayer3D.stream = sfx
+	$AudioStreamPlayer3D.play()
+
 func throw():
 	print("axe thrown")
 	#$AnimationPlayer.play("Throw")
@@ -78,10 +85,14 @@ func _on_ThrowDuration_timeout():
 
 
 func _on_Item_body_entered(body):
-	if beingThrown:
+	if beingThrown and body != get_parent():
+		var path = "res://Sounds/axe_hit_01.wav"
+		if body.has_method("get_hit_sound"):
+			path = body.get_hit_sound()
+		audioChannel = Global.AudioManager.play_sound_3d(path,0,global_transform.origin) if not audioChannel.playing else audioChannel
 		var par = 1 if Global.world.rng.randf() > 0.5 else -1
 		var v =  Vector3(Global.world.rng.randf() * par,Global.world.rng.randf() * -par,Global.world.rng.randf() * par) * 30
-		print("collided! : ", v)
+		print("collided! : ", body.name)
 		get_parent().angular_velocity = v
 		check_collision(body)
 	pass # Replace with function body.
