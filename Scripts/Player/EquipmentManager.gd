@@ -99,3 +99,9 @@ func _on_InteractionManager_broadcast_self(controller):
 func _on_Palm_broadcast_self(palm):
 	set_equip_point(palm)
 	pass # Replace with function body.
+
+
+func _on_InteractionManager_emit_looking_at(by, at):
+	if equipped != null:
+		equipped.recieve_looking_at(at)
+	pass # Replace with function body.

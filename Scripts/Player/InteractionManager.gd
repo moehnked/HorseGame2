@@ -21,6 +21,8 @@ func _process(delta):
 			interactable.recieve_looking_at(self)
 		emit_signal("emit_looking_at",self,interactable)
 	var obj = raycast.get_collider()
+	if obj != null:
+		print(obj.name)
 	if obj != null and check_if_ignore(obj):
 		if obj.has_method("interact"):
 			if obj.isInteractable:

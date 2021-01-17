@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://prefabs/PlayerStuff/NEW_FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/Constructable/Staircase.tscn" type="PackedScene" id=3]
@@ -9,12 +9,10 @@
 [ext_resource path="res://prefabs/InteractionPrompt.tscn" type="PackedScene" id=8]
 [ext_resource path="res://prefabs/Trophy.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scripts/Misc/GlobalCorralRegistrar.gd" type="Script" id=10]
-[ext_resource path="res://prefabs/Items/BBall.tscn" type="PackedScene" id=11]
 [ext_resource path="res://prefabs/Interactables/Generator.tscn" type="PackedScene" id=12]
 [ext_resource path="res://prefabs/Constructable/Gate.tscn" type="PackedScene" id=13]
 [ext_resource path="res://prefabs/System/SpecialEventManager.tscn" type="PackedScene" id=14]
 [ext_resource path="res://prefabs/Interactables/Splitter.tscn" type="PackedScene" id=15]
-[ext_resource path="res://prefabs/Items/Plank.tscn" type="PackedScene" id=16]
 [ext_resource path="res://prefabs/Nature/Water.tscn" type="PackedScene" id=17]
 [ext_resource path="res://prefabs/Misc/TempleTile.tscn" type="PackedScene" id=18]
 [ext_resource path="res://prefabs/Constructable/Fence.tscn" type="PackedScene" id=19]
@@ -22,11 +20,10 @@
 [ext_resource path="res://prefabs/Nature/Tree_Xmas.tscn" type="PackedScene" id=21]
 [ext_resource path="res://prefabs/Items/GasCanister.tscn" type="PackedScene" id=22]
 [ext_resource path="res://prefabs/Interactables/Grinder.tscn" type="PackedScene" id=24]
-[ext_resource path="res://prefabs/Items/Fossil.tscn" type="PackedScene" id=25]
-[ext_resource path="res://prefabs/NewItems/Test_Throwable.tscn" type="PackedScene" id=26]
-[ext_resource path="res://prefabs/NewItems/TestEquipable.tscn" type="PackedScene" id=27]
-[ext_resource path="res://prefabs/NewItems/TestItem.tscn" type="PackedScene" id=28]
-[ext_resource path="res://prefabs/NewItems/Handaxe.tscn" type="PackedScene" id=29]
+[ext_resource path="res://prefabs/Items/Test_Throwable.tscn" type="PackedScene" id=26]
+[ext_resource path="res://prefabs/Items/TestEquipable.tscn" type="PackedScene" id=27]
+[ext_resource path="res://prefabs/Items/TestItem.tscn" type="PackedScene" id=28]
+[ext_resource path="res://prefabs/Items/Handaxe.tscn" type="PackedScene" id=29]
 
 [sub_resource type="ProceduralSky" id=1]
 ground_bottom_color = Color( 0.156863, 0.211765, 0.180882, 1 )
@@ -69,6 +66,7 @@ transform = Transform( 23.4736, 0, 0, 0, 3.52931, 0, 0, 0, 23.3355, 29.5493, 1.3
 transform = Transform( 97.1449, 0, 0, 0, 0.167856, 0, 0, 0, 97.2541, -1.53892, -0.4634, 1.90735e-06 )
 
 [node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
@@ -106,21 +104,6 @@ margin_top = 16.0
 margin_right = 56.0
 margin_bottom = 30.0
 script = ExtResource( 6 )
-
-[node name="Plank" parent="." instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.55265, 1.21985, 3.58537 )
-
-[node name="Plank2" parent="." instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.55265, 1.21985, 6.9796 )
-
-[node name="Plank3" parent="." instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.33845, 1.21985, 6.9796 )
-
-[node name="Plank4" parent="." instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5342, 1.21985, 6.9796 )
-
-[node name="Plank5" parent="." instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7011, 1.21985, 6.9796 )
 
 [node name="TempleTile" parent="." instance=ExtResource( 18 )]
 transform = Transform( 1.27012, 0, 0, 0, 2.7723, 0, 0, 0, 23.9423, 6.66439, 2.23589, -21.9024 )
@@ -173,12 +156,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6533, -0.344928, 45.1145 )
 [node name="BasketballCourt" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25.7174, 1.3738, 40.1906 )
 
-[node name="BBall" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.8699, 1.94416, 27.3827 )
-
-[node name="BBall2" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7549, 1.94416, 27.3827 )
-
 [node name="MiscTimer1" type="Timer" parent="."]
 one_shot = true
 
@@ -227,23 +204,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4735, -0.327245, 35.3106 )
 [node name="Splitter" parent="." instance=ExtResource( 15 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.66593, 0.117031, 21.9349 )
 
-[node name="Equipable" parent="." instance=ExtResource( 22 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8203, 1.42501, 13.8401 )
-
 [node name="Grinder" parent="." instance=ExtResource( 24 )]
 transform = Transform( -0.0226524, 0, 0.999743, 0, 1, 0, -0.999743, 0, -0.0226524, 13.5127, 0.616196, 7.58401 )
-
-[node name="Throwable" parent="." instance=ExtResource( 25 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 31.4757, 2.8105, 16.8125 )
-
-[node name="Throwable2" parent="." instance=ExtResource( 25 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29.526, 2.8105, 16.8125 )
-
-[node name="Throwable3" parent="." instance=ExtResource( 25 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8375, 2.8105, 16.8125 )
-
-[node name="Throwable4" parent="." instance=ExtResource( 25 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8375, 2.8105, 18.8247 )
 
 [node name="TestEquipable" parent="." instance=ExtResource( 27 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.3772, 2.57044, 12.4167 )
@@ -276,6 +238,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.278, -0.0117503, 12.1456 )
 
 [node name="Handaxe2" parent="." instance=ExtResource( 29 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30.1881, 0.673849, 8.79266 )
+
+[node name="GasCanister" parent="." instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.3953, 2.12867, 14.0171 )
 [connection signal="timeout" from="MiscTimer1" to="." method="_on_MiscTimer1_timeout"]
 [connection signal="timeout" from="MiscTimer2" to="." method="_on_MiscTimer2_timeout"]
 [connection signal="timeout" from="MiscTimer3" to="." method="_on_MiscTimer3_timeout"]

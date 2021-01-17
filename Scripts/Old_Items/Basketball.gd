@@ -1,4 +1,4 @@
-extends "res://Scripts/Items/Equipable.gd"
+extends "res://Scripts/Old_Items/Equipable.gd"
 export var launch_power = 15
 
 var basket = null

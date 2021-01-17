@@ -3,8 +3,10 @@
 [ext_resource path="res://models/objects/painting_frame.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Materials/Painting.tres" type="Material" id=2]
 [ext_resource path="res://Sprites/misc/paintings/Painting01.png" type="Texture" id=3]
-[ext_resource path="res://prefabs/Items/Item.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scripts/Items/Painting.gd" type="Script" id=5]
+[ext_resource path="res://prefabs/Old_Items/Item.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Old_Items/Painting.gd" type="Script" id=5]
+
+
 
 [sub_resource type="BoxShape" id=5]
 extents = Vector3( 1.83467, 1.81656, 0.156913 )

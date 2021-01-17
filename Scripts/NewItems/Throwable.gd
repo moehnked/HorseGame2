@@ -1,4 +1,4 @@
-extends "res://Scripts/NewItems/Equipable.gd"
+extends "res://Scripts/Items/Equipable.gd"
 
 export var power:int = 20
 export var throwSoundPath = ""
