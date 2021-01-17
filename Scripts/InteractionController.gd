@@ -69,7 +69,7 @@ func equip(item):
 	if not inventory.find(item) >= 0:
 		inventory.append(item)
 	equipped = item
-	for i in Utils.get_all_items_by_name(get_inventory(), item.itemName):
+	for i in Utils.get_all_items_by_name(get_inventory(), item.name):
 		compare_item_with_equipped(i)
 	clear()
 	#disable_interact()

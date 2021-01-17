@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://prefabs/FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/Items/Handaxe.tscn" type="PackedScene" id=2]
@@ -25,6 +25,8 @@
 [ext_resource path="res://prefabs/Items/Logs.tscn" type="PackedScene" id=23]
 [ext_resource path="res://prefabs/Interactables/Grinder.tscn" type="PackedScene" id=24]
 [ext_resource path="res://prefabs/Items/Fossil.tscn" type="PackedScene" id=25]
+[ext_resource path="res://prefabs/NewItems/TestItem.tscn" type="PackedScene" id=26]
+[ext_resource path="res://prefabs/NewItems/TestEquipable.tscn" type="PackedScene" id=27]
 
 [sub_resource type="ProceduralSky" id=1]
 ground_bottom_color = Color( 0.156863, 0.211765, 0.180882, 1 )
@@ -258,6 +260,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8375, 2.8105, 16.8125 )
 
 [node name="Throwable4" parent="." instance=ExtResource( 25 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8375, 2.8105, 18.8247 )
+
+[node name="Item" parent="." instance=ExtResource( 26 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30.6985, 1.72247, 9.16839 )
+
+[node name="TestEquipable" parent="Item" instance=ExtResource( 27 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.67868, 0.84797, 3.24834 )
 [connection signal="timeout" from="MiscTimer1" to="." method="_on_MiscTimer1_timeout"]
 [connection signal="timeout" from="MiscTimer2" to="." method="_on_MiscTimer2_timeout"]
 [connection signal="timeout" from="MiscTimer3" to="." method="_on_MiscTimer3_timeout"]

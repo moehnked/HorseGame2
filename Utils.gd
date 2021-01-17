@@ -30,14 +30,14 @@ static func contains(item, list):
 static func count(item, list):
 	var c = 0
 	for i in list:
-		if i.itemName == item.itemName:
+		if i.name == item.name:
 			c += 1
 	return c
 
 func get_all_items_by_name(list, itemname):
 	var a = []
 	for i in list:
-		if i.itemName == itemname:
+		if i.name == itemname:
 			a.append(i)
 	return a
 
@@ -84,6 +84,12 @@ static func pop_item_by_name(itemName, list):
 			list.remove(i)
 			return tmp
 		i += 1
+
+static func pop_item(item, list):
+	var i = list.find(item)
+	var tmp = list[i]
+	list.remove(i)
+	return tmp
 
 static func remove_item(item, list):
 	var i = 0

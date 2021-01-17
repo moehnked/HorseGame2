@@ -16,4 +16,7 @@ func _on_TextureButton_button_up():
 		var g = Utils.instance_item(item)
 		Global.world.call_deferred("add_child", g)
 		item.interact(controller)
+		var tree = get_tree()
+		tree.call_group("InvScreen", "draw_list_items")
+		tree.call_group("InvScreen", "draw_context", item)
 	pass # Replace with function body.
