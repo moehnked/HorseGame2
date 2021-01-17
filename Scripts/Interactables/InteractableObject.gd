@@ -1,3 +1,4 @@
+#InteractableObject.gd
 extends Area
 
 var beingLookedAtBy = null
@@ -5,7 +6,7 @@ var isInteractable:bool = true
 
 export var interactSound:String = "res://Sounds/equipment_02.wav"
 export var isHoldToInteract:bool = false
-export var playSoundOnInteract:bool = false
+export var playSoundOnInteract:bool = true
 export var prompt = ""
 
 signal interaction(controller)
@@ -40,7 +41,8 @@ func recieve_looking_at(controller):
 func interact(controller):
 	if isInteractable:
 		emit_signal("interaction", controller)
-		play_sound(interactSound)
+		if playSoundOnInteract:
+			play_sound(interactSound)
 	pass
 
 func play_sound(path):
@@ -53,4 +55,6 @@ func prompt():
 
 func set_interactable(state = true):
 	isInteractable = state
-	$CollisionShape.disabled = not isInteractable
+	for o in get_children():
+		if o is CollisionShape:
+			o.disabled = not isInteractable

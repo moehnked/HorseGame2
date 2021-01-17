@@ -67,7 +67,7 @@ func _ready():
 	scaleMod = scale.x
 	correct_scale()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	$InteractionController.initialize_raycast(get_raycast())
+	get_interaction_controller().set_raycast(get_raycast())
 	pass # Replace with function body.
 
 func _physics_process(delta):
@@ -217,14 +217,22 @@ func flush_spells():
 func get_camera():
 	return $Head/Camera
 
+func get_equipped():
+	return get_equipment_manager().equipped
+
+func get_equipment_manager():
+	return get_node("EquipmentManager")
+
 func get_ground_check():
 	return $GroundCheck
 
 func get_interaction_controller():
-	return $InteractionController
+	#return $InteractionController
+	return get_node("InteractionManager")
 
 func get_inventory():
-	return $InteractionController.inventory
+	#return $InteractionController.inventory
+	return get_equipment_manager().get_inventory()
 
 func get_hand():
 	return $Head/Hand
@@ -369,7 +377,9 @@ func stop_swimming():
 
 func subscribe_to():
 	Global.InputObserver.subscribe(self)
-	Global.InputObserver.subscribe($InteractionController)
+	get_interaction_controller().subscribe_to()
+	get_equipment_manager().subscribe_to()
+	#Global.InputObserver.subscribe($InteractionController)
 
 func take_damage(dmg = 1, hitbox = null, source = null):
 	HP -= dmg
@@ -384,7 +394,8 @@ func take_damage(dmg = 1, hitbox = null, source = null):
 
 func unsubscribe_to():
 	Global.InputObserver.unsubscribe(self)
-	Global.InputObserver.unsubscribe($InteractionController)
+	Global.InputObserver.unsubscribe(get_equipment_manager())
+	Global.InputObserver.unsubscribe(get_interaction_controller())
 
 func update_spells(left, right):
 	lefthandSpell = left

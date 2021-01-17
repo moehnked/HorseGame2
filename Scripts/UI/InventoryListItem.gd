@@ -44,6 +44,7 @@ func _on_TextureButton_mouse_exited():
 
 func _on_TextureButton_button_up():
 	play_sound("res://sounds/ui_select_01.wav", -2)
+	print("[list item]:",item, inventoryScreen.sourceRef.get_equipped())
 	inventoryScreen.draw_context(item)
 #	if item.has_method("equip"):
 #		var inv_owner = inventoryScreen.sourceRef

@@ -17,7 +17,7 @@ func clear_context():
 	draw_description()
 	for o in context_buttons:
 		o.queue_free()
-		context_buttons.erase(o)
+	context_buttons = []
 
 func clear_listItems():
 	clear_context()
@@ -38,7 +38,8 @@ func draw_context(item):
 	for b in c.get_buttons():
 		print(b)
 		var o = b.duplicate()
-		o.initialize({"item":item, "controller":sourceRef.get_interaction_controller()})
+		#o.initialize({"item":item, "controller":sourceRef.get_interaction_controller()})
+		o.initialize({"item":item, "controller":sourceRef.get_equipment_manager()})
 		$Context.add_child(o)
 		o.visible = true
 		o.rect_position = $Context/ButtonPoint.rect_position + Vector2((256 * i),0)
@@ -51,10 +52,16 @@ func draw_description(desc = ""):
 func draw_list_items():
 	clear_listItems()
 	var index = 0
+	var equipped = sourceRef.get_equipped()
 	for i in uniques():
 		if i.has_method("get_name"):
+			var o = i
 			var item = listItemResource.instance()
-			item.initialize(i, self, Utils.count(i, inventory))
+			var numberOfItem = Utils.count(i, inventory)
+			if numberOfItem > 1 and equipped != null and equipped.get_name() == o.get_name():
+				print("list item is same as equipped")
+				o = equipped
+			item.initialize(o, self, numberOfItem)
 			item.position.x = $ListItemLoader.position.x
 			item.position.y = $ListItemLoader.position.y + (item.get_height() * (index))
 			add_child(item)

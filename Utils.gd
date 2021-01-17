@@ -18,35 +18,33 @@ static func check(args = {}, def = {}):
 static func contains(item, list):
 	if item is String:
 		for i in list:
-			if i.itemName == item:
+			if i.get_name() == item:
 				return true
 		return false
 	else:
 		for i in list:
-			if i.itemName == item.itemName:
+			if i.get_name() == item.get_name():
 				return true
 		return false
 
 static func count(item, list):
 	var c = 0
 	for i in list:
-		if i.name == item.name:
+		if i.get_name() == item.get_name():
 			c += 1
 	return c
 
 func get_all_items_by_name(list, itemname):
 	var a = []
 	for i in list:
-		if i.name == itemname:
+		if i.get_name() == itemname:
 			a.append(i)
 	return a
 
 func get_collider(item):
 	print("getting collider from ", item.itemName)
 	for o in item.get_children():
-		print(o, " - ", o.name, " - ")
 		if o is CollisionShape:
-			print(o, " is collision shape")
 			return o
 	return null
 
@@ -62,24 +60,34 @@ func interpolation(from, to, t):
 	return from * (1 - t) + to * t
 
 func uPrint(message, caller):
-	print(caller.name,": " + message)
+	print(caller.get_name(),": " + message)
 
 func instance_item(item):
 	print("instancing ", item, ": controller: ", item.controller)
-	var rig = load(item.prefabPath).instance()
-	var undesirable = rig.get_node("Item")
-	rig.remove_child(undesirable)
-	undesirable.queue_free()
-	rig.add_child(item)
-	return rig
+	Global.world.call_deferred("add_child", item)
+	return item
+#	var rig = load(item.prefabPath).instance()
+#	var undesirable = rig.get_node("Item")
+#	rig.remove_child(undesirable)
+#	undesirable.queue_free()
+#	rig.add_child(item)
+#	return rig
 
 static func logWithBase(value, base):
 	return log(value) / log(base)
 
+static func play_sound(player, sound_path = "", volume = 0.0):
+	player.stream = load(sound_path)
+	if player is AudioStreamPlayer:
+		player.volume_db = volume
+	else:
+		player.unit_db = volume
+	player.play()
+
 static func pop_item_by_name(itemName, list):
 	var i = 0
 	while(i < list.size()):
-		if(list[i].itemName == itemName):
+		if(list[i].get_name() == itemName):
 			var tmp = list[i]
 			list.remove(i)
 			return tmp

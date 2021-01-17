@@ -27,7 +27,7 @@ func spawn_logs():
 	var rng = Global.world.get_rng()
 	var num = rng.randi_range(1,5)
 	for i in range(0, num):
-		var obj = Global.world.instantiate("res://prefabs/Items/Logs.tscn", global_transform.origin + Vector3(0,1,0))
+		var obj = Global.world.instantiate("res://prefabs/NewItems/Logs.tscn", global_transform.origin + Vector3(0,1,0))
 		var rx = rng.randf()
 		var rz = rng.randf()
 		var dir = Vector3(rx, 1, rz).normalized()

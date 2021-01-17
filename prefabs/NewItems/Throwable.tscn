@@ -1,14 +1,15 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://prefabs/Interactables/InteractableNoPreset.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scripts/NewItems/Equipable.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/NewItems/Throwable.gd" type="Script" id=2]
 [ext_resource path="res://prefabs/UI/Context.tscn" type="PackedScene" id=3]
 [ext_resource path="res://prefabs/UI/ItemContext_Description.tscn" type="PackedScene" id=4]
 [ext_resource path="res://prefabs/UI/ItemContext_Equip.tscn" type="PackedScene" id=5]
 
-[node name="Equipable" type="RigidBody"]
+[node name="Throwable" type="RigidBody"]
 script = ExtResource( 2 )
-itemName = "Equipable"
+itemName = "Throwable"
+canInteractWhileEquipped = true
 equipSoundPath = "res://Sounds/equipment_02.wav"
 
 [node name="Interactable" parent="." instance=ExtResource( 1 )]

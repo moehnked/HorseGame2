@@ -26,7 +26,7 @@ func initialize(args = {}):
 	actor.canUpdateHands = true
 	actor.canCheckInventory = true
 	actor.queue_spell_clear()
-	var ic = actor.get_interaction_controller()
+	var ic = actor.get_equipment_manager()
 	if ic.equipped == null and not actor.isBuilding:
 		print("renablke casting, returning to state: normal - ", actor.isBuilding)
 		actor.get_hand().update_hand_sprite("Idle")

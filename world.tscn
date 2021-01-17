@@ -1,7 +1,6 @@
 [gd_scene load_steps=33 format=2]
 
-[ext_resource path="res://prefabs/FPSController.tscn" type="PackedScene" id=1]
-[ext_resource path="res://prefabs/Items/Handaxe.tscn" type="PackedScene" id=2]
+[ext_resource path="res://prefabs/PlayerStuff/NEW_FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/Constructable/Staircase.tscn" type="PackedScene" id=3]
 [ext_resource path="res://prefabs/Misc/BasketballCourt.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/world.gd" type="Script" id=5]
@@ -22,11 +21,12 @@
 [ext_resource path="res://prefabs/System/AudioManager.tscn" type="PackedScene" id=20]
 [ext_resource path="res://prefabs/Nature/Tree_Xmas.tscn" type="PackedScene" id=21]
 [ext_resource path="res://prefabs/Items/GasCanister.tscn" type="PackedScene" id=22]
-[ext_resource path="res://prefabs/Items/Logs.tscn" type="PackedScene" id=23]
 [ext_resource path="res://prefabs/Interactables/Grinder.tscn" type="PackedScene" id=24]
 [ext_resource path="res://prefabs/Items/Fossil.tscn" type="PackedScene" id=25]
-[ext_resource path="res://prefabs/NewItems/TestItem.tscn" type="PackedScene" id=26]
+[ext_resource path="res://prefabs/NewItems/Test_Throwable.tscn" type="PackedScene" id=26]
 [ext_resource path="res://prefabs/NewItems/TestEquipable.tscn" type="PackedScene" id=27]
+[ext_resource path="res://prefabs/NewItems/TestItem.tscn" type="PackedScene" id=28]
+[ext_resource path="res://prefabs/NewItems/Handaxe.tscn" type="PackedScene" id=29]
 
 [sub_resource type="ProceduralSky" id=1]
 ground_bottom_color = Color( 0.156863, 0.211765, 0.180882, 1 )
@@ -179,13 +179,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.8699, 1.94416, 27.3827 )
 [node name="BBall2" parent="." instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7549, 1.94416, 27.3827 )
 
-[node name="Handaxe" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5918, 3.1414, 20.9638 )
-
-[node name="FPSController" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 28.0415, 2.08988, 11.6353 )
-MAX_SPEED = 7
-
 [node name="MiscTimer1" type="Timer" parent="."]
 one_shot = true
 
@@ -231,15 +224,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.2252, -0.327245, 35.3106 )
 [node name="Tree_Xmas9" parent="." instance=ExtResource( 21 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4735, -0.327245, 35.3106 )
 
-[node name="Logs" parent="." instance=ExtResource( 23 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.9731, 2.28109, 13.7916 )
-
-[node name="Logs2" parent="." instance=ExtResource( 23 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.4175, 2.20399, 14.5937 )
-
-[node name="Logs3" parent="." instance=ExtResource( 23 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.8196, 2.29009, 14.8585 )
-
 [node name="Splitter" parent="." instance=ExtResource( 15 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.66593, 0.117031, 21.9349 )
 
@@ -261,11 +245,37 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8375, 2.8105, 16.8125 )
 [node name="Throwable4" parent="." instance=ExtResource( 25 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8375, 2.8105, 18.8247 )
 
-[node name="Item" parent="." instance=ExtResource( 26 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30.6985, 1.72247, 9.16839 )
+[node name="TestEquipable" parent="." instance=ExtResource( 27 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.3772, 2.57044, 12.4167 )
 
-[node name="TestEquipable" parent="Item" instance=ExtResource( 27 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.67868, 0.84797, 3.24834 )
+[node name="NEW_FPSController" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 25.4388, 6.48164, 14.12 )
+MAX_SPEED = 7
+MAX_SLOPE_ANGLE = 70
+
+[node name="Equipable2" parent="." instance=ExtResource( 26 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 31.0117, 1.38449, 7.6476 )
+
+[node name="Equipable3" parent="." instance=ExtResource( 26 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32.4194, 1.38449, 7.6476 )
+
+[node name="Equipable4" parent="." instance=ExtResource( 26 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.7251, 1.38449, 7.6476 )
+
+[node name="Equipable5" parent="." instance=ExtResource( 26 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.7251, 1.38449, 9.10923 )
+
+[node name="Item" parent="." instance=ExtResource( 28 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34.9018, -0.0117503, 9.95465 )
+
+[node name="Item2" parent="." instance=ExtResource( 28 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34.0826, -0.0117503, 10.9628 )
+
+[node name="Item3" parent="." instance=ExtResource( 28 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.278, -0.0117503, 12.1456 )
+
+[node name="Handaxe2" parent="." instance=ExtResource( 29 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30.1881, 0.673849, 8.79266 )
 [connection signal="timeout" from="MiscTimer1" to="." method="_on_MiscTimer1_timeout"]
 [connection signal="timeout" from="MiscTimer2" to="." method="_on_MiscTimer2_timeout"]
 [connection signal="timeout" from="MiscTimer3" to="." method="_on_MiscTimer3_timeout"]

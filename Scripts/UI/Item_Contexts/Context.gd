@@ -25,3 +25,9 @@ func get_buttons():
 func get_unequip():
 	var u = get_node("Unequip")
 	return u
+
+func clear_equipment_context():
+	for o in get_children():
+		if o.has_method("is_equip") or o.has_method("is_unequip"):
+			remove_child(o)
+			o.queue_free()
