@@ -1,5 +1,11 @@
 extends Node
 
+static func angle_to(from, to):
+	return atan2(to.y - from.y, to.x - from.x) * 180 / PI;
+
+static func between(val, mi, ma):
+	return (val > mi and val < ma)
+
 static func calculate_adjusted_speed(stat):
 	return 10 * sqrt(stat)
 
@@ -33,6 +39,16 @@ static func count(item, list):
 		if i.get_name() == item.get_name():
 			c += 1
 	return c
+
+static func custom_function_env_light(x):
+	var y = x
+	y = x * 0.0345
+	y = y - 1.5
+	y = sin(y)
+	y = y / 2
+	y = y + 0.5
+	return y
+	
 
 func get_all_items_by_name(list, itemname):
 	var a = []

@@ -11,7 +11,7 @@ albedo_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="AudioStreamSample" id=4]
 
-[node name="LassoBullet" type="KinematicBody"]
+[node name="LassoBullet" type="Area"]
 script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
@@ -35,7 +35,8 @@ autostart = true
 stream = SubResource( 4 )
 
 [node name="milisecondDelay" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.05
+[connection signal="body_entered" from="." to="." method="_on_LassoBullet_body_entered"]
 [connection signal="timeout" from="RopePartEffect" to="." method="_on_RopePartEffect_timeout"]
 [connection signal="timeout" from="TimeToLive" to="." method="_on_TimeToLive_timeout"]
 [connection signal="timeout" from="milisecondDelay" to="." method="_on_milisecondDelay_timeout"]

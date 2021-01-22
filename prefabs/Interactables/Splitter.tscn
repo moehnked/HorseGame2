@@ -53,7 +53,6 @@ transform = Transform( -2.8375e-08, 0, 0.649144, 0, 0.649144, 0, -0.649144, 0, -
 
 [node name="Interactable" parent="." instance=ExtResource( 7 )]
 transform = Transform( 0.268705, 0, 0, 0, 0.101786, 0, 0, 0, 0.221294, 2.24068, 1.2012, 0 )
-playSoundOnInteract = true
 prompt = "Place Logs"
 [connection signal="pull" from="Lever" to="." method="_on_Lever_pull"]
 [connection signal="stop" from="Lever" to="." method="_on_Lever_stop"]

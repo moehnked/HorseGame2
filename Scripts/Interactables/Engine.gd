@@ -54,7 +54,7 @@ func _on_Interactable_interaction(controller):
 
 func _on_Interactable_emit_prompt(_prompt):
 	if usingGasPrompt:
-		_prompt.prompt = "Add Gasoline : "+ String(gas) + "%"
+		_prompt.prompt = "[click]: Add Gasoline "+ String(gas) + "% | Turn On "
 		return
 	_prompt.prompt = "Turn " + ("Off" if isRunning else "On") + " - " + String(gas) + "%"
 	pass # Replace with function body.

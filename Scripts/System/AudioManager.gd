@@ -1,6 +1,7 @@
 extends Node
 
-export var music_enabled = true
+export var music_enabled:bool = true
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

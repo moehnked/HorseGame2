@@ -25,6 +25,7 @@ func clear_context():
 	get_context().clear_equipment_context()
 
 func equip(_controller):
+	print("[eq]:equip - ", isEquipped)
 	controller = _controller
 	if controller.equip(self):
 		isEquipped = true
@@ -34,16 +35,18 @@ func equip(_controller):
 	return false
 
 func interact(_controller):
-	print("EQUIP!!")
+	print("[eq]:interact")
 	if not equip(_controller):
 		pickup(_controller)
 
-func parse_equipped(args = {}):
+func parse_equip(args = {}):
 	args = Utils.check(args, {"input":InputMacro.new()})
 	input = args.input
 
+func recieve_looking_at(by, obj):
+	pass
+
 func set_context(_equipState):
-	print("equipable",self,": setting context to ", _equipState)
 	var prev = null
 	var newContext = null
 	clear_context()
@@ -53,37 +56,15 @@ func set_context(_equipState):
 			newContext = get_context().add("Equip")
 		"Unequip":
 			newContext = get_context().add("Unequip")
-#	match equipState:
-#		"Equip":
-#			prev = get_context().get_unequip()
-#			get_context().remove_child(prev)
-#			print("setcontext equip:",prev)
-#			if prev != null:
-#				prev.queue_free()
-#			newContext = get_context().get_equip()
-#			if newContext == null:
-#				 newContext = get_context().add("Equip")
-#		"Unequip":
-#			prev = get_context().get_equip()
-#			print("setcontext unequip:",prev)
-#			get_context().remove_child(prev)
-#			if prev != null:
-#				prev.queue_free()
-#			newContext = get_context().get_unequip()
-#			if newContext == null:
-#				newContext = get_context().add("Unequip")
 	newContext.initialize({"item": self, "controller": controller})
 	newContext.visible = false
-	print("Setting context:")
-	print(get_context().get_children())
 
 func set_point(object, _controller):
-	print("setting parent of ",name, " to ", object.name, " / ", _controller.name)
 	controller = _controller
 	parentedTo = object
 
-func unequip():
-	print("equ:",name,": unequipping")
+func unequip(args = {}):
+	args = Utils.check(args, {"caller":null})
 	set_context("Equip")
 	isEquipped = false
 	parentedTo = Spatial.new()

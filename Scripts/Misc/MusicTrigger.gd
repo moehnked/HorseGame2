@@ -20,6 +20,6 @@ func _ready():
 
 
 func _on_MusicTrigger_body_entered(body):
-	if body.name == "FPSController" and !rootRef.is_song_playing() and enabled:
-		rootRef.play_song(songPath)
+	if body == Global.Player and !Global.AudioManager.is_song_playing() and enabled:
+		Global.AudioManager.play_song(songPath)
 	pass # Replace with function body.

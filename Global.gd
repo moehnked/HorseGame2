@@ -7,3 +7,4 @@ var InteractionPrompt
 var Player
 var world
 var SEM
+var Sun

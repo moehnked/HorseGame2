@@ -17,7 +17,7 @@ func set_item(i):
 func unequip():
 	#item.unequip(controller, self)
 	print("unequip clicked ",item,", ",controller.equipped)
-	item = controller.unequip()
+	item = controller.unequip({"caller":self})
 	var tree = get_tree()
 	tree.call_group("InvScreen", "draw_list_items")
 	tree.call_group("InvScreen", "draw_context", item)

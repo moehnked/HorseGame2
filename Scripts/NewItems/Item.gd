@@ -37,6 +37,7 @@ func interact(_controller):
 	pass
 
 func pickup(_controller):
+	print("[Item]:pickup")
 	duplicate().add_self_to_inventory(_controller)
 	#Utils.play_sound($Interactable/AudioStreamPlayer3D, pickupSoundPath)
 	Global.AudioManager.play_sound(pickupSoundPath)

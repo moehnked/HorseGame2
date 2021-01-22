@@ -59,9 +59,10 @@ func _on_Interactable_interaction(controller):
 	if Utils.contains("Log", controller.get_inventory()):
 		var l = Utils.pop_item_by_name("Log", controller.get_inventory())
 		Utils.uPrint("controller has logs...", self)
-		var obj = Global.world.instantiate(l.prefabPath, $Interactable.global_transform.origin)
+		#var obj = Global.world.instantiate(l.prefabPath, $Interactable.global_transform.origin)
+		var obj = Utils.instance_item(l)
+		obj.global_transform.origin = $Interactable.global_transform.origin
 		obj.rotation_degrees.y = rotation_degrees.y + 90
-		l.queue_free()
 		
 	pass # Replace with function body.
 

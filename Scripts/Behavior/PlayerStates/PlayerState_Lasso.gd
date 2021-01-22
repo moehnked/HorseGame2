@@ -19,7 +19,6 @@ func enter_giddyup(target):
 	actor.correct_scale()
 	actor.set_behavior("Giddyup")
 	actor.disable_collisions()
-	target.owner.enter_giddyup(actor)
 
 func move_towards(target, delta):
 	var opposite = target.global_transform.origin.x - actor.global_transform.origin.x

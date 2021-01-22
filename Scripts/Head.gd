@@ -10,7 +10,7 @@ export var speed = 4
 
 
 func _ready():
-	subscribe_to()
+	call_deferred("subscribe_to")
 	pass # Replace with function body.
 
 func _physics_process(delta):
@@ -37,7 +37,7 @@ func set_mask(color):
 	$Camera/Area/Mask.get_surface_material(0).albedo_color = color
 
 func subscribe_to():
-	rootRef.get_node("InputObserver").subscribe(self)
+	Global.InputObserver.subscribe(self)
 	Utils.capture_mouse()
 
 func unfocus():

@@ -130,6 +130,8 @@ _global_script_class_icons={
 
 config/name="HorseGame2"
 run/main_scene="res://world.tscn"
+boot_splash/image="res://Sprites/System/covalentbonds_splash.png"
+boot_splash/use_filter=false
 config/icon="res://icon.png"
 
 [autoload]

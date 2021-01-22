@@ -1,4 +1,4 @@
-extends "res://Scripts/NewItems/Throwable.gd"
+extends "res://Scripts/Items/Throwable.gd"
 
 var beingThrown = false
 var canChop:bool = true
@@ -53,7 +53,7 @@ func initialize(controller):
 	h.set_animation_playback(false)
 
 func parse_input():
-	if input.standard and canSwing and not beingThrown:
+	if input.standard and canSwing and not beingThrown and isEquipped:
 		throw()
 
 func throw():
@@ -74,7 +74,7 @@ func _on_ThrowDuration_timeout():
 
 
 func _on_Handaxe_body_entered(body):
-	if beingThrown and body != self and canChop:
+	if beingThrown and body != self and canChop and body != controller.get_parent():
 		var path = "res://Sounds/axe_hit_01.wav"
 		if body.has_method("get_hit_sound"):
 			path = body.get_hit_sound()

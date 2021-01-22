@@ -25,6 +25,7 @@ light_energy = 3.59
 
 [node name="Interactable" parent="." instance=ExtResource( 3 )]
 transform = Transform( 0.577675, 0, 0, 0, 1, 0, 0, 0, 0.465104, 0, 0, 0 )
+isHoldToInteract = true
 [connection signal="emit_prompt" from="Interactable" to="." method="_on_Interactable_emit_prompt"]
 [connection signal="holding" from="Interactable" to="." method="_on_Interactable_holding"]
 [connection signal="release" from="Interactable" to="." method="_on_Interactable_release"]

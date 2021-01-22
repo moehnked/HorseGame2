@@ -17,12 +17,14 @@ func _ready():
 
 func _process(delta):
 	if equipped != null:
-		equipped.parse_equipped({"input":input})
+		equipped.parse_equip({"input":input})
 
 func check_if_equip_is_valid(other):
 	if equipped != null:
 		if equipped.get_name() == other.get_name():
 			return false
+		else:
+			unequip({"caller":self})
 	return other != self and other != null and other != get_parent() and other != equipped
 
 func equip(other):
@@ -75,15 +77,16 @@ func subscribe_to():
 func update_equipped():
 	pass
 
-func unequip(returnToInventory = true):
+func unequip(args = {}):
+	args = Utils.check(args, {"returnToInventory": true,})
 	var i = equipped
-	equipped.unequip()
-	if returnToInventory:
+	equipped.unequip({"caller":self})
+	if args.returnToInventory:
 		i = return_equipped_to_inventory()
 		equipped.queue_free()
 	else:
 		inventory.erase(equipped)
-		equipped.unequip()
+		equipped.unequip({"caller":self})
 	emit_signal("emit_unequip", equipped)
 	equipped = null
 	modify_parent_state(true)
@@ -103,5 +106,5 @@ func _on_Palm_broadcast_self(palm):
 
 func _on_InteractionManager_emit_looking_at(by, at):
 	if equipped != null:
-		equipped.recieve_looking_at(at)
+		equipped.recieve_looking_at(by, at)
 	pass # Replace with function body.

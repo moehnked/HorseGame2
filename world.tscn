@@ -1,6 +1,7 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://prefabs/PlayerStuff/NEW_FPSController.tscn" type="PackedScene" id=1]
+[ext_resource path="res://prefabs/Items/Fossil.tscn" type="PackedScene" id=2]
 [ext_resource path="res://prefabs/Constructable/Staircase.tscn" type="PackedScene" id=3]
 [ext_resource path="res://prefabs/Misc/BasketballCourt.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/world.gd" type="Script" id=5]
@@ -9,40 +10,41 @@
 [ext_resource path="res://prefabs/InteractionPrompt.tscn" type="PackedScene" id=8]
 [ext_resource path="res://prefabs/Trophy.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scripts/Misc/GlobalCorralRegistrar.gd" type="Script" id=10]
+[ext_resource path="res://prefabs/Items/Basketball.tscn" type="PackedScene" id=11]
 [ext_resource path="res://prefabs/Interactables/Generator.tscn" type="PackedScene" id=12]
 [ext_resource path="res://prefabs/Constructable/Gate.tscn" type="PackedScene" id=13]
 [ext_resource path="res://prefabs/System/SpecialEventManager.tscn" type="PackedScene" id=14]
 [ext_resource path="res://prefabs/Interactables/Splitter.tscn" type="PackedScene" id=15]
+[ext_resource path="res://prefabs/Sun.tscn" type="PackedScene" id=16]
 [ext_resource path="res://prefabs/Nature/Water.tscn" type="PackedScene" id=17]
 [ext_resource path="res://prefabs/Misc/TempleTile.tscn" type="PackedScene" id=18]
 [ext_resource path="res://prefabs/Constructable/Fence.tscn" type="PackedScene" id=19]
 [ext_resource path="res://prefabs/System/AudioManager.tscn" type="PackedScene" id=20]
 [ext_resource path="res://prefabs/Nature/Tree_Xmas.tscn" type="PackedScene" id=21]
 [ext_resource path="res://prefabs/Items/GasCanister.tscn" type="PackedScene" id=22]
+[ext_resource path="res://prefabs/Horses/Horse.tscn" type="PackedScene" id=23]
 [ext_resource path="res://prefabs/Interactables/Grinder.tscn" type="PackedScene" id=24]
 [ext_resource path="res://prefabs/Items/Test_Throwable.tscn" type="PackedScene" id=26]
 [ext_resource path="res://prefabs/Items/TestEquipable.tscn" type="PackedScene" id=27]
 [ext_resource path="res://prefabs/Items/TestItem.tscn" type="PackedScene" id=28]
 [ext_resource path="res://prefabs/Items/Handaxe.tscn" type="PackedScene" id=29]
 
-[sub_resource type="ProceduralSky" id=1]
-ground_bottom_color = Color( 0.156863, 0.211765, 0.180882, 1 )
-ground_horizon_color = Color( 0.378922, 0.423529, 0.372549, 1 )
-ground_energy = 5.51
-
 [sub_resource type="Environment" id=2]
 background_mode = 2
-background_sky = SubResource( 1 )
 fog_enabled = true
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="PhysicsMaterial" id=3]
+rough = true
+bounce = 0.1
+absorbent = true
 
-[sub_resource type="SpatialMaterial" id=4]
-flags_unshaded = true
+[sub_resource type="CubeMesh" id=4]
+
+[sub_resource type="SpatialMaterial" id=5]
 albedo_color = Color( 0.317647, 0.364706, 0.278431, 1 )
 uv1_scale = Vector3( 30, 30, 1 )
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="BoxShape" id=6]
 
 [node name="World" type="WorldEnvironment"]
 environment = SubResource( 2 )
@@ -64,14 +66,14 @@ transform = Transform( 23.4736, 0, 0, 0, 3.52931, 0, 0, 0, 23.3355, 29.5493, 1.3
 
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 97.1449, 0, 0, 0, 0.167856, 0, 0, 0, 97.2541, -1.53892, -0.4634, 1.90735e-06 )
+physics_material_override = SubResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-mesh = SubResource( 3 )
-material/0 = SubResource( 4 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -201,6 +203,26 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.2252, -0.327245, 35.3106 )
 [node name="Tree_Xmas9" parent="." instance=ExtResource( 21 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4735, -0.327245, 35.3106 )
 
+[node name="TestThrowable" parent="." instance=ExtResource( 26 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19.0212, 9.19645, 33.6945 )
+
+[node name="TestThrowable2" parent="." instance=ExtResource( 26 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19.0212, 9.19645, 31.5342 )
+
+[node name="TestThrowable3" parent="." instance=ExtResource( 26 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19.0212, 9.19645, 34.8531 )
+
+[node name="TestThrowable4" parent="." instance=ExtResource( 26 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19.0212, 9.19645, 34.8531 )
+
+[node name="Basketball" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -27.3272, 3.25746, 27.6578 )
+mass = 100.0
+power = 18
+
+[node name="Basketball2" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.3416, 1.41641, 13.2992 )
+
 [node name="Splitter" parent="." instance=ExtResource( 15 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.66593, 0.117031, 21.9349 )
 
@@ -211,7 +233,7 @@ transform = Transform( -0.0226524, 0, 0.999743, 0, 1, 0, -0.999743, 0, -0.022652
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.3772, 2.57044, 12.4167 )
 
 [node name="NEW_FPSController" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 25.4388, 6.48164, 14.12 )
+transform = Transform( 0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, -21.7154, 6.48164, 32.7068 )
 MAX_SPEED = 7
 MAX_SLOPE_ANGLE = 70
 
@@ -239,8 +261,40 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.278, -0.0117503, 12.1456 )
 [node name="Handaxe2" parent="." instance=ExtResource( 29 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30.1881, 0.673849, 8.79266 )
 
+[node name="Fossil" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.8667, 1.92685, 13.7128 )
+
+[node name="Fossil2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.9022, 1.92685, 13.7128 )
+
+[node name="Fossil3" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5449, 1.92685, 13.7128 )
+
+[node name="Fossil4" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26.4432, 2.75685, 34.118 )
+
+[node name="Fossil5" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -27.6276, 2.75685, 34.118 )
+
+[node name="Fossil6" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28.9111, 2.75685, 34.118 )
+
+[node name="Fossil7" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -30.2987, 2.75685, 34.118 )
+
+[node name="Fossil8" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -30.2987, 2.75685, 34.118 )
+
 [node name="GasCanister" parent="." instance=ExtResource( 22 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.3953, 2.12867, 14.0171 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28.0544, 2.12867, 10.8316 )
+
+[node name="Horse" parent="." instance=ExtResource( 23 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.85104, 1.96327, 19.3069 )
+
+[node name="Sun" parent="." instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -10.7995, 23.673, 0 )
+shadow_color = Color( 0.215686, 0, 0.262745, 1 )
+shadow_reverse_cull_face = true
 [connection signal="timeout" from="MiscTimer1" to="." method="_on_MiscTimer1_timeout"]
 [connection signal="timeout" from="MiscTimer2" to="." method="_on_MiscTimer2_timeout"]
 [connection signal="timeout" from="MiscTimer3" to="." method="_on_MiscTimer3_timeout"]

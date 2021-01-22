@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://models/horse_animated_scene.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/Horse/StateMachine.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Horse/Horse.gd" type="Script" id=3]
+[ext_resource path="res://prefabs/Horses/Behaviors/HB_Idle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://prefabs/Horses/Behaviors/HB_Wander.tscn" type="PackedScene" id=5]
+[ext_resource path="res://prefabs/Horses/Behaviors/HB_Giddyup.tscn" type="PackedScene" id=6]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.687674
+height = 2.4
+
+[sub_resource type="CylinderShape" id=2]
+radius = 0.695545
+height = 1.71457
+
+[node name="Horse" type="KinematicBody"]
+script = ExtResource( 3 )
+
+[node name="horse_animated" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.01048 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="HB_Idle" parent="StateMachine" instance=ExtResource( 4 )]
+
+[node name="HB_Wander" parent="StateMachine" instance=ExtResource( 5 )]
+
+[node name="HB_Giddyup" parent="StateMachine" instance=ExtResource( 6 )]
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.85162, 0 )
+shape = SubResource( 1 )
+
+[node name="GroundCheck" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.0948903, -0.995488, 0, 0.995488, -0.0948903, 0, 1.9231, -1.46241 )
+shape = SubResource( 2 )
+
+[node name="Saddle" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5867, -0.914209 )

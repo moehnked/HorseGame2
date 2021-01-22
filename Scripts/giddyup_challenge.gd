@@ -1,25 +1,33 @@
 extends Control
 
-
-
 enum State{fadein, test, fadeout}
-var state = State.fadein
-var op = 0.0
+
 export var fadein_rate = 0.03
 export var fade_threshold = 0.6
-var dict = ["CANTLE", "GIDDYUP", "DRESSAGE", "YEEHAW", "CHAMPING", "HAY", "PRANCE"]
-var startup_phrase = ""
-var check = ""
-var jitter_intensity = 1
+
 onready var clock_start_pos = $Control/Clock.transform
 onready var container_start_pos = $Control.margin_top
 onready var completed_start_pos = $Control/completed.margin_top
-var completion_interval = 0.0
-var percent_completed = 0.0
+
+var callback:String = ""
+var check = ""
 var completed_index = 0
-var mistakes = 0
+var completion_interval = 0.0
+var dict = ["CANTLE", "GIDDYUP", "DRESSAGE", "YEEHAW", "CHAMPING", "HAY", "PRANCE"]
+var fadeout
 var horse_ref
+var hurry
+var jitter_intensity = 1
+var kargs = {}
+var mistakes = 0
+var op = 0.0
+var percent_completed = 0.0
+var startup_phrase = ""
+var state = State.fadein
 var time = 4
+
+var sfx_giddyup = "res://sounds/giddyup_01.wav"
+var sfx_hurry = "res://sounds/hurry.wav"
 var sfx_scratchs = [
 	"res://sounds/scratch_00.wav",
 	"res://sounds/scratch_01.wav",
@@ -30,10 +38,6 @@ var sfx_scratchs = [
 	"res://sounds/scratch_06.wav",
 	"res://sounds/scratch_07.wav",
 ]
-var sfx_giddyup = "res://sounds/giddyup_01.wav"
-var sfx_hurry = "res://sounds/hurry.wav"
-var hurry
-var fadeout
 
 
 # Called when the node enters the scene tree for the first time.
@@ -74,44 +78,7 @@ func _input(ev):
 						success()
 				else:
 					mistake()
-					
-func mistake():
-	$Control.margin_top += 5
-	$MistakeEffectTimer.start()
-	$ColorRect.color += Color(0.2,0,0,0)
-	mistakes += 1
-	if(mistakes == 3):
-		failed()
 
-func failed():
-	hurry.stop()
-	print("FAILURE")
-	Global.Player.exit_pilot()
-	stopAllTimers()
-	$Control/Clock.queue_free()
-	state = State.fadeout
-	fadeout.stop()
-	Global.AudioManager.play_sound("res://sounds/speedup.wav")
-#	$FadeSound.stream = load("res://sounds/speedup.wav")
-#	$FadeSound.play()
-
-func success():
-	hurry.stop()
-	print("SUCCESS")
-	horse_ref.tame(Global.Player)
-	stopAllTimers()
-	$Control/Clock.queue_free()
-	state = State.fadeout
-	fadeout.stop()
-	Global.AudioManager.play_sound("res://sounds/speedup.wav")
-#	$FadeSound.stop()
-#	$FadeSound.stream = load("res://sounds/speedup.wav")
-#	$FadeSound.play()
-	
-func stopAllTimers():
-	$Tik.stop()
-	$MistakeEffectTimer.stop()
-	
 func fadeIn():
 	op += fadein_rate
 	$ColorRect.set_frame_color($ColorRect.color + Color(0,0,0,fadein_rate))
@@ -126,10 +93,16 @@ func fadeOut():
 	if(op < 0):
 		queue_free()
 
-func jitter():
-	$Control/Clock.transform = clock_start_pos
-	$Control/Clock.translate(jitter_intensity * Vector2(rand_range(0,2),rand_range(0,2)))
-	
+func failed():
+	hurry.stop()
+	print("FAILURE")
+	Global.Player.exit_pilot()
+	stopAllTimers()
+	$Control/Clock.queue_free()
+	state = State.fadeout
+	fadeout.stop()
+	Global.AudioManager.play_sound("res://sounds/speedup.wav")
+
 func increase_completion():
 	$Control/completed.margin_top += 5
 	$CorrectEffectTimer.start()
@@ -137,6 +110,39 @@ func increase_completion():
 	percent_completed += completion_interval
 	completed_index += 1
 	$Control/completed.percent_visible = percent_completed
+
+func initialize(args = {}):
+	args = Utils.check(args, {"horse_ref":null, "callback":"", "kargs":{}})
+	horse_ref = args.horse_ref
+	callback = args.callback
+	kargs = args.kargs
+
+func jitter():
+	$Control/Clock.transform = clock_start_pos
+	$Control/Clock.translate(jitter_intensity * Vector2(rand_range(0,2),rand_range(0,2)))
+
+func mistake():
+	$Control.margin_top += 5
+	$MistakeEffectTimer.start()
+	$ColorRect.color += Color(0.2,0,0,0)
+	mistakes += 1
+	if(mistakes == 3):
+		failed()
+
+func success():
+	hurry.stop()
+	print("SUCCESS")
+	#horse_ref.tame(Global.Player)
+	horse_ref.call(callback, {"tamer":Global.Player})
+	stopAllTimers()
+	$Control/Clock.queue_free()
+	state = State.fadeout
+	fadeout.stop()
+	Global.AudioManager.play_sound("res://sounds/speedup.wav")
+	
+func stopAllTimers():
+	$Tik.stop()
+	$MistakeEffectTimer.stop()
 
 func _on_Tik_timeout():
 	$Control/Clock.frame += 1
@@ -146,7 +152,6 @@ func _on_Tik_timeout():
 		failed()
 	else:
 		$Tik.start()
-	
 
 
 func _on_MistakeEffectTimer_timeout():

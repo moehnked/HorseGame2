@@ -21,8 +21,6 @@ func _process(delta):
 			interactable.recieve_looking_at(self)
 		emit_signal("emit_looking_at",self,interactable)
 	var obj = raycast.get_collider()
-	if obj != null:
-		print(obj.name)
 	if obj != null and check_if_ignore(obj):
 		if obj.has_method("interact"):
 			if obj.isInteractable:
@@ -60,6 +58,9 @@ func enable_can_read():
 
 func get_equipment_manager():
 	return equipmentManager
+
+func get_equipped():
+	return get_equipment_manager().equipped
 
 func get_looking_at():
 	return interactable

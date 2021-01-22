@@ -1,7 +1,7 @@
-extends KinematicBody
+extends Area
 var Utils = preload("res://Utils.gd")
 
-var speed = 60
+var speed = 40
 onready var rope_resource = preload("res://prefabs/LassoBlob.tscn")
 onready var rootRef = get_tree().get_root().get_node("World")
 var particle_list = []
@@ -32,12 +32,14 @@ func initialize(args):
 	playerRef.setLassoLimit()
 	playerRef.call(kargs['callback'])
 	global_transform = kargs['palm'].global_transform
+	#linear_velocity = Vector3() - transform.basis.z * speed
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if(begun):
 		var direction = Vector3() - transform.basis.z
-		move_and_slide(direction * speed, Vector3.UP)
+		#move_and_slide(direction * speed, Vector3.UP)
+		global_transform.origin += direction * speed * delta
 		spawn()
 
 
@@ -56,9 +58,9 @@ func spawn():
 func collision_effect(collided):
 	$TimeToLive.stop()
 	if(collided.has_method("lasso")):
-		if(collided.can_be_lassoed()):
+		if(collided.can_be_lassod()):
 			collided.lasso(self)
-			playerRef.lasso(collided.saddle)
+			playerRef.lasso(collided.get_saddle())
 		else:
 			Global.AudioManager.play_sound()
 	deload()
@@ -79,3 +81,8 @@ func deload():
 
 func _on_milisecondDelay_timeout():
 	begun = true
+
+
+func _on_LassoBullet_body_entered(body):
+	collision_effect(body)
+	pass # Replace with function body.

@@ -63,7 +63,7 @@ onready var currentBehavior = get_node("StateContainer/Normal")
 
 func _ready():
 	Global.Player = self
-	subscribe_to()
+	call_deferred("subscribe_to")
 	scaleMod = scale.x
 	correct_scale()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

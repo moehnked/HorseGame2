@@ -218,6 +218,7 @@ uv1_scale = Vector3( 0.999, 1, 1 )
 
 [sub_resource type="SpatialMaterial" id=13]
 flags_transparent = true
+flags_unshaded = true
 albedo_texture = ExtResource( 9 )
 
 [sub_resource type="SpatialMaterial" id=14]
