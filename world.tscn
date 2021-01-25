@@ -22,13 +22,13 @@
 [ext_resource path="res://prefabs/System/AudioManager.tscn" type="PackedScene" id=20]
 [ext_resource path="res://prefabs/Nature/Tree_Xmas.tscn" type="PackedScene" id=21]
 [ext_resource path="res://prefabs/Items/GasCanister.tscn" type="PackedScene" id=22]
-[ext_resource path="res://prefabs/Horses/Horse.tscn" type="PackedScene" id=23]
 [ext_resource path="res://prefabs/Interactables/Grinder.tscn" type="PackedScene" id=24]
 [ext_resource path="res://Textures/sky/kloppenheim_06_2k.hdr" type="Texture" id=25]
 [ext_resource path="res://prefabs/Items/Test_Throwable.tscn" type="PackedScene" id=26]
 [ext_resource path="res://prefabs/Items/TestEquipable.tscn" type="PackedScene" id=27]
 [ext_resource path="res://prefabs/Items/TestItem.tscn" type="PackedScene" id=28]
 [ext_resource path="res://prefabs/Items/Handaxe.tscn" type="PackedScene" id=29]
+[ext_resource path="res://prefabs/Items/Mallet.tscn" type="PackedScene" id=30]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 25 )
@@ -238,8 +238,11 @@ transform = Transform( -0.0226524, 0, 0.999743, 0, 1, 0, -0.999743, 0, -0.022652
 [node name="TestEquipable" parent="." instance=ExtResource( 27 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.3772, 2.57044, 12.4167 )
 
+[node name="Mallet" parent="." instance=ExtResource( 30 )]
+transform = Transform( 0.991723, 0, 0, 0, 0.991723, 0, 0, 0, 0.991723, 23.0285, 2.15169, 54.3149 )
+
 [node name="NEW_FPSController" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 4.25064, 6.48164, 52.6998 )
+transform = Transform( 0.456193, 0, 0, 0, 0.456193, 0, 0, 0, 0.456193, 26.5428, 4.37843, 58.7246 )
 MAX_SPEED = 7
 MAX_SLOPE_ANGLE = 70
 
@@ -297,11 +300,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28.0544, 2.12867, 10.8316 )
 [node name="Sun" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -10.7995, 23.673, 0 )
 shadow_color = Color( 0.215686, 0, 0.262745, 1 )
-
-[node name="Horse" parent="." instance=ExtResource( 23 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3984, 0.156601, 44.8988 )
 [connection signal="timeout" from="MiscTimer1" to="." method="_on_MiscTimer1_timeout"]
 [connection signal="timeout" from="MiscTimer2" to="." method="_on_MiscTimer2_timeout"]
 [connection signal="timeout" from="MiscTimer3" to="." method="_on_MiscTimer3_timeout"]
-
-[editable path="Horse"]

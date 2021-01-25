@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://Scripts/FPSController.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/Hand_Idle.png" type="Texture" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://prefabs/PlayerStuff/InteractionManager.tscn" type="PackedScene" id=24]
 [ext_resource path="res://Scripts/Player/Palm_telegrapher.gd" type="Script" id=25]
 [ext_resource path="res://Shaders/cloud.shader" type="Shader" id=26]
+[ext_resource path="res://prefabs/Effects/WaterSheet.tscn" type="PackedScene" id=27]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 3.0
@@ -329,8 +330,12 @@ script = ExtResource( 16 )
 
 [node name="Mask" type="MeshInstance" parent="Head/Camera/Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.238554 )
+visible = false
 mesh = SubResource( 4 )
 material/0 = SubResource( 5 )
+
+[node name="WaterSheet" parent="Head/Camera/Area/Mask" instance=ExtResource( 27 )]
+visible = false
 
 [node name="CollisionShape" type="CollisionShape" parent="Head/Camera/Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.212168, -0.19155 )
@@ -430,6 +435,8 @@ script = ExtResource( 22 )
 [connection signal="emit_equipped" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_emit_equipped"]
 [connection signal="emit_unequip" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_emit_unequip"]
 [connection signal="broadcast_self" from="Head/Camera/RayCast_Areas" to="InteractionManager" method="_on_RayCast_Areas_broadcast_self"]
+[connection signal="area_entered" from="Head/Camera/Area" to="Head/Camera/Area" method="_on_Area_area_entered"]
+[connection signal="area_exited" from="Head/Camera/Area" to="Head/Camera/Area" method="_on_Area_area_exited"]
 [connection signal="broadcast_self" from="Head/Palm" to="EquipmentManager" method="_on_Palm_broadcast_self"]
 [connection signal="timeout" from="Special_Cooldown" to="." method="_on_Special_Cooldown_timeout"]
 [connection signal="timeout" from="ExitHorseTimer" to="." method="_on_ExitHorseTimer_timeout"]

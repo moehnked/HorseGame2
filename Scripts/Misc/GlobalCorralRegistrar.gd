@@ -35,3 +35,7 @@ func get_mid_Value(li = []):
 func register(corral):
 	if(!corrals.has(corral)):
 		corrals.append(corral)
+
+func unregister(corral):
+	if corrals.has(corral):
+		corrals.erase(corral)

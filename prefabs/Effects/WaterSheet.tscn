@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Shaders/bubbles.shader" type="Shader" id=2]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
+shader_param/FORCE = 0.2
+shader_param/INIT_SPEED = 50.0
+shader_param/AMOUNT = 0.1
+shader_param/WATER_COL = Vector3( 18, 140, 200 )
+shader_param/TIME_SCALE = 0.2
+
+[node name="WaterSheet" type="Sprite"]
+material = SubResource( 1 )
+position = Vector2( 510.932, 308.716 )
+rotation = 3.14159
+scale = Vector2( 17.9861, 13.0879 )
+texture = ExtResource( 1 )

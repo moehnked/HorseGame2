@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://models/constructable/gate.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Materials/invisible.tres" type="Material" id=2]
@@ -18,6 +18,12 @@ albedo_color = Color( 0.427451, 0.184314, 0.054902, 1 )
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.364078, 1.59086, 2.00887 )
+
+[sub_resource type="PrismMesh" id=4]
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_unshaded = true
+albedo_color = Color( 0.054902, 0, 1, 1 )
 
 [node name="Gate" type="Area"]
 script = ExtResource( 3 )
@@ -65,5 +71,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.80456 )
 
 [node name="AutoShutTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="isCompleteViewer" type="MeshInstance" parent="."]
+transform = Transform( -4.53729e-08, -9.07458e-08, -0.278497, 0, -0.278497, 9.07458e-08, -0.278497, 1.47844e-14, 4.53729e-08, -0.178311, 3.58244, 0 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
 [connection signal="area_entered" from="." to="." method="_on_Gate_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_Gate_area_exited"]
+[connection signal="body_exited" from="." to="." method="_on_Gate_body_exited"]
 [connection signal="timeout" from="AutoShutTimer" to="." method="_on_AutoShutTimer_timeout"]

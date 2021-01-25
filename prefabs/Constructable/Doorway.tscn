@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://models/constructable/doorway.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Materials/Building_Cel.tres" type="Material" id=2]
+[ext_resource path="res://Scripts/Objects/Destructable.gd" type="Script" id=3]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.485202, 3.43685, 0.994717 )
@@ -9,7 +10,8 @@ extents = Vector3( 0.485202, 3.43685, 0.994717 )
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.515626, 0.837584, 1.43173 )
 
-[node name="Wall" type="StaticBody"]
+[node name="Doorway" type="StaticBody"]
+script = ExtResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1.0095, 0, 0, 0, 0.625684, 0, 0, 0, 0.643658, 0, 3.26685, 0 )

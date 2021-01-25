@@ -55,9 +55,12 @@ func _on_Engine_toggle_engine(state):
 
 
 func _on_Interactable_interaction(controller):
+	var c = controller
+	if controller.has_method("get_equipment_manager"):
+		c = controller.get_equipment_manager()
 	Utils.uPrint("placing logs", self)
-	if Utils.contains("Log", controller.get_inventory()):
-		var l = Utils.pop_item_by_name("Log", controller.get_inventory())
+	if Utils.contains("Log", c.get_inventory()):
+		var l = Utils.pop_item_by_name("Log", c.get_inventory())
 		Utils.uPrint("controller has logs...", self)
 		#var obj = Global.world.instantiate(l.prefabPath, $Interactable.global_transform.origin)
 		var obj = Utils.instance_item(l)

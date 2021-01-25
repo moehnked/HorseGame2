@@ -1,4 +1,4 @@
-extends StaticBody
+extends "res://Scripts/Objects/Destructable.gd"
 
 var gateRef = null
 var leftLink = null
@@ -38,3 +38,20 @@ func link(other, isGate = false):
 		gateRef = other.gateRef
 	if gateRef != null:
 		gateRef.search()
+
+func unlink(other, isGate = false):
+	print("[Fence] unlinking ", other, " from ", self)
+	if other == leftLink:
+		leftLink = null
+	if other == rightLink:
+		rightLink = null
+	if gateRef != null:
+		gateRef.test_complete()
+	if isGate:
+		gateRef = null
+
+
+func _on_SnapZone_area_exited(area):
+	if area.get_parent().has_method("unlink"):
+		area.get_parent().call("unlink", area.get_parent(), area.get_parent().has_method("is_gate"))
+	pass # Replace with function body.

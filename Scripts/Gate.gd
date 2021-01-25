@@ -8,6 +8,7 @@ var gateRef = self
 var interactionPrompt = ""
 var isOpen = false
 var isInteractable = true
+var isComplete:bool = false
 var leftLink = null
 var midpoint = Vector3()
 var midpoint_object = null
@@ -23,7 +24,9 @@ func complete():
 	midpoint_object.global_transform.origin = midpoint
 	Global.world.add_child(midpoint_object)
 	midpoint_object.scale = Vector3(1,1,1)
+	isComplete = true
 	corrals.register(self)
+	$isCompleteViewer.visible = true
 
 func get_midpoint():
 	return midpoint_object
@@ -93,6 +96,14 @@ func search():
 	else:
 		return false
 
+func test_complete():
+	if search():
+		if not isComplete:
+			complete()
+	else:
+		uncomplete()
+	pass
+
 func toggle():
 	isOpen = not isOpen
 	$Open.visible = isOpen
@@ -100,6 +111,27 @@ func toggle():
 	$Blocker/CollisionShape2.disabled = isOpen
 	interactionPrompt = prompt()
 	play_sound()
+
+func uncomplete():
+	var corrals = Global.GCR
+	corrals.unregister(self)
+	isComplete = false
+	$isCompleteViewer.visible = false
+	if midpoint_object != null:
+		midpoint_object.queue_free()
+		midpoint_object = null
+
+func unlink(other):
+	print("unlinking ", other.name)
+	if other == leftLink:
+		leftLink = null
+	if other == rightLink:
+		rightLink = null
+	if search() and not isComplete:
+		complete()
+	else:
+		uncomplete()
+	pass
 
 func _on_Gate_area_entered(area):
 	if area.has_method("link"):
@@ -119,4 +151,28 @@ func _on_Gate_area_entered(area):
 
 func _on_AutoShutTimer_timeout():
 	toggle()
+	pass # Replace with function body.
+
+
+func _on_Gate_area_exited(area):
+	print("[Gate] area_exited: ",area," ",area.name)
+	if area.has_method("link"):
+		unlink(area)
+	else:
+		var p = area.get_parent()
+		if(p != null):
+			if p.has_method("link"):
+				unlink(p)
+	pass # Replace with function body.
+
+
+func _on_Gate_body_exited(body):
+	print("[Gate] body_exited: ", body, " ", body.name)
+	if body.has_method("link"):
+		unlink(body)
+	else:
+		var p = body.get_parent()
+		if(p != null):
+			if p.has_method("link"):
+				unlink(p)
 	pass # Replace with function body.

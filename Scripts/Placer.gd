@@ -16,7 +16,7 @@ var placeable = true
 func check_materials():
 	#print("checking materials")
 	var inv = Global.Player.get_inventory()
-	var mat = resource_ref.instance().get_node("Item")
+	var mat = resource_ref.instance()
 	#if(Utils.contains(mat, inv)):
 		#print("player has ", mat.itemName)
 	var count = Utils.count(mat, inv)
@@ -25,7 +25,7 @@ func check_materials():
 
 func consume_materials():
 	var inv = Global.Player.get_inventory()
-	var mat = resource_ref.instance().get_node("Item")
+	var mat = resource_ref.instance()
 	var i = 0
 	while(Utils.count(mat, inv) > 0 and i < required_materials):
 		i += 1
