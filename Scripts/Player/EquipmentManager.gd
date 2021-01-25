@@ -41,6 +41,9 @@ func equip(other):
 func get_equipped():
 	return equipped
 
+func get_interaction_manager():
+	return interactionController
+
 func get_inventory():
 	return inventory
 
@@ -96,6 +99,7 @@ func unsubscribe_to():
 	Global.InputObserver.unsubscribe(self)
 
 func _on_InteractionManager_broadcast_self(controller):
+	interactionController = controller
 	pass # Replace with function body.
 
 

@@ -161,7 +161,7 @@ func enable_cast_menu():
 func enter_dialogue(other):
 	unsubscribe_to()
 	get_head().look_at_object(other)
-	$InteractionController.disable_interact()
+	get_interaction_controller().disable_interact()
 
 func enter_inventory():
 	enter_some_menu()
@@ -190,7 +190,7 @@ func exit_build_mode(callback):
 func exit_dialogue():
 	subscribe_to()
 	get_head().unfocus()
-	$InteractionController.enable_interact()
+	get_interaction_controller().enable_interact()
 
 func exit_inventory():
 	exit_some_menu()

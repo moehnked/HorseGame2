@@ -29,11 +29,8 @@ func get_name():
 
 func interact(_controller):
 	print("interacting")
-	controller = _controller
+	controller = _controller.get_equipment_manager()
 	pickup(controller)
-#	duplicate().add_self_to_inventory(controller)
-#	#Utils.play_sound($Interactable/AudioStreamPlayer3D,pickupSoundPath)
-#	destroy()
 	pass
 
 func pickup(_controller):

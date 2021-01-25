@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://models/horse_animated_scene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/HorseInteractionController.gd" type="Script" id=2]
@@ -6,8 +6,7 @@
 [ext_resource path="res://prefabs/Collidable.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Textures/flannel.jpg" type="Texture" id=5]
 [ext_resource path="res://Scripts/Behavior/HorseStates/HorseState_Idle.gd" type="Script" id=6]
-[ext_resource path="res://Scripts/HorseParticleController.gd" type="Script" id=7]
-[ext_resource path="res://Sprites/UI/RE_Plus.png" type="Texture" id=8]
+[ext_resource path="res://prefabs/Effects/HorseMoodParticles.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scripts/Behavior/HorseStates/HorseState_Moving.gd" type="Script" id=9]
 [ext_resource path="res://Scripts/Behavior/HorseStates/HorseState_Dialogue.gd" type="Script" id=10]
 [ext_resource path="res://Scripts/Behavior/HorseStates/HorseState_Giddyup.gd" type="Script" id=11]
@@ -30,27 +29,6 @@ albedo_color = Color( 0, 1, 0.180392, 0.247059 )
 
 [sub_resource type="CapsuleShape" id=4]
 height = 3.0
-
-[sub_resource type="ParticlesMaterial" id=5]
-emission_shape = 1
-emission_sphere_radius = 0.5
-flag_rotate_y = true
-direction = Vector3( 0, 0, 0 )
-gravity = Vector3( 0, 1, 0 )
-initial_velocity = 1.0
-initial_velocity_random = 1.0
-angular_velocity = 5.0
-angular_velocity_random = 0.05
-angle = 5.0
-
-[sub_resource type="SpatialMaterial" id=6]
-flags_transparent = true
-params_cull_mode = 2
-albedo_texture = ExtResource( 8 )
-
-[sub_resource type="QuadMesh" id=7]
-material = SubResource( 6 )
-size = Vector2( 0.3, 0.3 )
 
 [sub_resource type="SphereShape" id=8]
 radius = 20.0
@@ -110,20 +88,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.501282, -4.75142 )
 [node name="ItemHold" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45708, -3.76741 )
 
-[node name="Particles" type="Particles" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00350106, 2.44176, -3.40724 )
-emitting = false
-amount = 5
-lifetime = 2.0
-speed_scale = 2.0
-randomness = 0.47
-visibility_aabb = AABB( -4.61062, -2, -3.92006, 8.22124, 5, 9.84012 )
-process_material = SubResource( 5 )
-draw_pass_1 = SubResource( 7 )
-script = ExtResource( 7 )
-
-[node name="ParticleDurationTimer" type="Timer" parent="Particles"]
-one_shot = true
+[node name="Particles" parent="." instance=ExtResource( 7 )]
 
 [node name="AggroRange" type="Area" parent="."]
 visible = false
@@ -205,7 +170,6 @@ script = ExtResource( 16 )
 script = ExtResource( 17 )
 [connection signal="area_entered" from="HorseInteractionController" to="HorseInteractionController" method="_on_HorseInteractionController_area_entered"]
 [connection signal="area_exited" from="HorseInteractionController" to="HorseInteractionController" method="_on_HorseInteractionController_area_exited"]
-[connection signal="timeout" from="Particles/ParticleDurationTimer" to="Particles" method="_on_ParticleDurationTimer_timeout"]
 [connection signal="area_entered" from="AggroRange" to="." method="_on_AggroRange_area_entered"]
 [connection signal="area_exited" from="AggroRange" to="." method="_on_AggroRange_area_exited"]
 [connection signal="body_entered" from="AggroRange" to="StateContainer/Attack" method="_on_AggroRange_body_entered"]

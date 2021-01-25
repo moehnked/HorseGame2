@@ -11,7 +11,7 @@ func initialize(args = {}):
 
 func discard():
 	if controller.equipped == item:
-		controller.unequip(false)
+		controller.unequip({"returnToInventory":false})
 	var p = controller.get_parent()
 	var h = p.get_head()
 	var point = h.global_transform.origin - (h.global_transform.basis.z * 1.5)

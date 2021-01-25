@@ -1,23 +1,26 @@
-extends Node
+extends "res://Scripts/Horse/Behaviors/HorseBehavior.gd"
 
-var actor = null
-var stateMachine = null
+var velocity:Vector3 = Vector3()
 
 func exit():
+	print("exiting horse state idle")
 	$Timer.stop()
 	pass
 
 func initialize(args = {}):
-	args = Utils.check(args, {"actor":actor, "stateMachine":get_parent()})
-	actor = args.actor
-	stateMachine = args.stateMachine
+	args = .initialize(args)
 	var anim = actor.get_animation_controller()
 	anim.set_playback_speed(1.0)
 	anim.play_animation("Idle")
 	$Timer.start(Global.world.rng.randi_range(1,5))
+	if args.callback != "":
+		stateMachine.call(args.callback)
 	pass
 
 func run(delta):
+	#velocity = actor.move_at_speed({"dir":Vector3(), "speed":1, "velocity":velocity, "delta":0.0, "jump":false}).velocity
+	velocity = actor.apply_gravity(velocity, delta)
+	actor.move_and_slide(velocity)
 	#Wait some seconds
 	pass
 

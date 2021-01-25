@@ -27,6 +27,8 @@ func clear_context():
 func equip(_controller):
 	print("[eq]:equip - ", isEquipped)
 	controller = _controller
+	if _controller.has_method("get_equipment_manager"):
+		controller = _controller.get_equipment_manager()
 	if controller.equip(self):
 		isEquipped = true
 		set_context("Unequip")
@@ -37,7 +39,7 @@ func equip(_controller):
 func interact(_controller):
 	print("[eq]:interact")
 	if not equip(_controller):
-		pickup(_controller)
+		pickup(controller)
 
 func parse_equip(args = {}):
 	args = Utils.check(args, {"input":InputMacro.new()})

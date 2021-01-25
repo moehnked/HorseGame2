@@ -9,6 +9,7 @@ var rng = RandomNumberGenerator.new()
 func _ready():
 	Global.world = self
 	rng.randomize()
+	get_tree().call_group("rng_dependant", "initialize")
 	pass # Replace with function body.
 
 func call_no_args(timer):

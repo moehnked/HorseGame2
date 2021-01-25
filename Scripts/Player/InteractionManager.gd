@@ -72,7 +72,7 @@ func parse_input(input):
 	if input.engage and canInteract:
 		if interactable != null:
 			if interactable.isInteractable:
-				interactable.interact(equipmentManager)
+				interactable.interact(self)
 				Global.world.queue_timer(self, 5.0, "enable_can_read")
 				canReadPrompt = false
 				clear()

@@ -3,7 +3,7 @@ extends Area
 onready var testPointResource = preload("res://prefabs/Misc/TestPoint.tscn")
 
 var connected_peices = []
-var _controller = null
+var controller = null
 var gateRef = self
 var interactionPrompt = ""
 var isOpen = false
@@ -31,9 +31,12 @@ func get_midpoint():
 func get_size():
 	return connected_peices.size()
 
-func interact(controller):
-	_controller = controller
-	controller.read_prompt()
+func interact(_controller):
+	controller = _controller
+	if controller.has_method("read_prompt"):
+		controller.read_prompt()
+	if controller.has_method("add_to_ignore"):
+		controller.add_to_ignore(self)
 	toggle()
 	$AutoShutTimer.stop()
 	if(isOpen):

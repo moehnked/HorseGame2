@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Horse/Behaviors/HB_Pilot.gd" type="Script" id=1]
+
+[node name="HB_Pilot" type="Node"]
+script = ExtResource( 1 )

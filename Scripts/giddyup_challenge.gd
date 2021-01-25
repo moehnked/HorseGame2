@@ -112,6 +112,7 @@ func increase_completion():
 	$Control/completed.percent_visible = percent_completed
 
 func initialize(args = {}):
+	print("initializing giddyup challenge")
 	args = Utils.check(args, {"horse_ref":null, "callback":"", "kargs":{}})
 	horse_ref = args.horse_ref
 	callback = args.callback
@@ -134,6 +135,7 @@ func success():
 	print("SUCCESS")
 	#horse_ref.tame(Global.Player)
 	horse_ref.call(callback, {"tamer":Global.Player})
+	#Global.Player.enter_pilot()
 	stopAllTimers()
 	$Control/Clock.queue_free()
 	state = State.fadeout
