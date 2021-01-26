@@ -13,6 +13,7 @@ func calculate_midpoint(li = []):
 func get_corral():
 	if corrals.size() > 0:
 		return corrals[0]
+	return null
 
 func get_corrals():
 	return corrals

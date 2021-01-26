@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Materials/building_mat.tres" type="Material" id=1]
 [ext_resource path="res://models/misc/stair_piece.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://Scripts/Objects/Destructable.gd" type="Script" id=3]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
@@ -27,6 +28,8 @@ points = PoolVector3Array( -1.49891, -0.625095, -1, 1.49891, -0.625095, -1, -1.4
 points = PoolVector3Array( -1, -1, 1, -1, -1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, 1, -1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1, 1, -1, 1, -1, -1, -1, -1, 1, 1, -1, 1, -1, -1 )
 
 [node name="Staircase" type="StaticBody"]
+script = ExtResource( 3 )
+effect_scale = 0.6
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00222, -0.995835 )

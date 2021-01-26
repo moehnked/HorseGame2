@@ -14,13 +14,13 @@ func initialize(args = {}):
 
 func choose_random_point():
 	var rng = Global.world.rng
-	wanderToPoint = actor.global_transform.origin + (Vector3(rng.randf_range(-1,1),rng.randf_range(-1,1),rng.randf_range(-1,1)) * rng.randi_range(10,40))
+	wanderToPoint = actor.global_transform.origin + (Vector3(rng.randf_range(-1,1),rng.randf_range(-1,1),rng.randf_range(-1,1)) * rng.randi_range(10,60))
 	pass
 
 func run(delta):
 	actor.rotate_towards_point(wanderToPoint)
 	direction = actor.global_transform.origin.direction_to(wanderToPoint)
 	var movement = actor.move_at_speed({"dir":direction, "velocity":velocity, "delta":delta})
-	if movement.position.distance_to(wanderToPoint) < 4:
+	if movement.position.distance_to(wanderToPoint) < 10:
 		stateMachine.set_behavior({"behaviorName":"Idle"})
 	pass

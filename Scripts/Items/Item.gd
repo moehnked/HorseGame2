@@ -40,6 +40,9 @@ func pickup(_controller):
 	Global.AudioManager.play_sound(pickupSoundPath)
 	destroy()
 
+func set_pickup_sound(sound_path):
+	pickupSoundPath = sound_path
+
 func _on_Interactable_interaction(controller):
 	interact(controller)
 	pass # Replace with function body.

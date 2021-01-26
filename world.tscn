@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://prefabs/PlayerStuff/NEW_FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/Items/Fossil.tscn" type="PackedScene" id=2]
@@ -9,7 +9,7 @@
 [ext_resource path="res://prefabs/InputObserver.tscn" type="PackedScene" id=7]
 [ext_resource path="res://prefabs/InteractionPrompt.tscn" type="PackedScene" id=8]
 [ext_resource path="res://prefabs/Trophy.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scripts/Misc/GlobalCorralRegistrar.gd" type="Script" id=10]
+[ext_resource path="res://prefabs/System/GlobalCorralRegistrar.tscn" type="PackedScene" id=10]
 [ext_resource path="res://prefabs/Items/Basketball.tscn" type="PackedScene" id=11]
 [ext_resource path="res://prefabs/Interactables/Generator.tscn" type="PackedScene" id=12]
 [ext_resource path="res://prefabs/Constructable/Gate.tscn" type="PackedScene" id=13]
@@ -22,6 +22,7 @@
 [ext_resource path="res://prefabs/System/AudioManager.tscn" type="PackedScene" id=20]
 [ext_resource path="res://prefabs/Nature/Tree_Xmas.tscn" type="PackedScene" id=21]
 [ext_resource path="res://prefabs/Items/GasCanister.tscn" type="PackedScene" id=22]
+[ext_resource path="res://prefabs/Items/PileOfPlanks.tscn" type="PackedScene" id=23]
 [ext_resource path="res://prefabs/Interactables/Grinder.tscn" type="PackedScene" id=24]
 [ext_resource path="res://Textures/sky/kloppenheim_06_2k.hdr" type="Texture" id=25]
 [ext_resource path="res://prefabs/Items/Test_Throwable.tscn" type="PackedScene" id=26]
@@ -29,6 +30,7 @@
 [ext_resource path="res://prefabs/Items/TestItem.tscn" type="PackedScene" id=28]
 [ext_resource path="res://prefabs/Items/Handaxe.tscn" type="PackedScene" id=29]
 [ext_resource path="res://prefabs/Items/Mallet.tscn" type="PackedScene" id=30]
+[ext_resource path="res://prefabs/Horses/Horse.tscn" type="PackedScene" id=31]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 25 )
@@ -64,8 +66,7 @@ script = ExtResource( 5 )
 
 [node name="InteractionPrompt" parent="." instance=ExtResource( 8 )]
 
-[node name="GlobalCorralRegistrar" type="Spatial" parent="."]
-script = ExtResource( 10 )
+[node name="GlobalCorralRegistrar" parent="." instance=ExtResource( 10 )]
 
 [node name="Water" parent="." instance=ExtResource( 17 )]
 transform = Transform( 23.4736, 0, 0, 0, 3.52931, 0, 0, 0, 23.3355, 29.5493, 1.32266, -22.2464 )
@@ -75,6 +76,7 @@ transform = Transform( 97.1449, 0, 0, 0, 0.167856, 0, 0, 0, 97.2541, -1.53892, -
 physics_material_override = SubResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 mesh = SubResource( 4 )
 material/0 = SubResource( 5 )
 
@@ -130,36 +132,6 @@ transform = Transform( -2.06929e-07, 0, 23.9423, 0, 2.7723, 0, -1.27012, 0, -3.9
 
 [node name="Generator" parent="." instance=ExtResource( 12 )]
 transform = Transform( -0.519281, 0, -0.854604, 0, 1, 0, 0.854604, 0, -0.519281, 4.40594, 0.468706, 37.2208 )
-
-[node name="Fence" parent="." instance=ExtResource( 19 )]
-transform = Transform( 0.980526, 0, 0.196391, 0, 1, 0, -0.196391, 0, 0.980526, 19.5236, -0.311618, 48.8304 )
-
-[node name="Fence2" parent="." instance=ExtResource( 19 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7412, -0.311618, 41.6377 )
-
-[node name="Fence3" parent="." instance=ExtResource( 19 )]
-transform = Transform( 0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 20.4097, -0.311618, 39.8721 )
-
-[node name="Fence4" parent="." instance=ExtResource( 19 )]
-transform = Transform( 0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 24.0867, -0.311618, 40.5019 )
-
-[node name="Fence5" parent="." instance=ExtResource( 19 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.0848, -0.311618, 42.9596 )
-
-[node name="Fence6" parent="." instance=ExtResource( 19 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.4168, -0.311618, 46.3341 )
-
-[node name="Fence7" parent="." instance=ExtResource( 19 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.7728, -0.311618, 49.856 )
-
-[node name="Fence8" parent="." instance=ExtResource( 19 )]
-transform = Transform( -0.163102, 0, -0.986609, 0, 1, 0, 0.986609, 0, -0.163102, 24.8687, -0.311618, 51.4693 )
-
-[node name="Fence9" parent="." instance=ExtResource( 19 )]
-transform = Transform( -0.255513, 0, -0.966806, 0, 1, 0, 0.966806, 0, -0.255513, 21.4713, -0.311618, 51.109 )
-
-[node name="Gate" parent="." instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6533, -0.344928, 45.1145 )
 
 [node name="BasketballCourt" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25.7174, 1.3738, 40.1906 )
@@ -241,8 +213,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.3772, 2.57044, 12.4167 )
 [node name="Mallet" parent="." instance=ExtResource( 30 )]
 transform = Transform( 0.991723, 0, 0, 0, 0.991723, 0, 0, 0, 0.991723, 23.0285, 2.15169, 54.3149 )
 
+[node name="PileOfPlanks" parent="." instance=ExtResource( 23 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.392409, 3.23316, 38.4306 )
+
 [node name="NEW_FPSController" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.456193, 0, 0, 0, 0.456193, 0, 0, 0, 0.456193, 26.5428, 4.37843, 58.7246 )
+transform = Transform( 0.456193, 0, 0, 0, 0.456193, 0, 0, 0, 0.456193, 4.39337, 4.37843, 41.0021 )
 MAX_SPEED = 7
 MAX_SLOPE_ANGLE = 70
 
@@ -300,6 +275,24 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28.0544, 2.12867, 10.8316 )
 [node name="Sun" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -10.7995, 23.673, 0 )
 shadow_color = Color( 0.215686, 0, 0.262745, 1 )
+
+[node name="Fence" parent="." instance=ExtResource( 19 )]
+transform = Transform( 0.373781, 0, -0.927517, 0, 1, 0, 0.927517, 0, 0.373781, 19.4006, -0.0683556, 39.5173 )
+
+[node name="Fence2" parent="." instance=ExtResource( 19 )]
+transform = Transform( -0.49929, 0, -0.866435, 0, 1, 0, 0.866435, 0, -0.49929, 19.4699, -0.0683556, 41.5385 )
+
+[node name="Fence3" parent="." instance=ExtResource( 19 )]
+transform = Transform( -0.865344, 0, -0.501178, 0, 1, 0, 0.501178, 0, -0.865344, 20.623, -0.0683556, 39.7082 )
+
+[node name="Fence4" parent="." instance=ExtResource( 19 )]
+transform = Transform( 0.836458, 0, -0.54803, 0, 1, 0, 0.54803, 0, 0.836458, 20.8436, -0.0683556, 41.2777 )
+
+[node name="Gate" parent="." instance=ExtResource( 13 )]
+transform = Transform( 0.999978, 0, 0.00663219, 0, 1, 0, -0.00663219, 0, 0.999978, 18.9571, -0.319088, 40.4689 )
+
+[node name="Horse" parent="." instance=ExtResource( 31 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9751, 0.0886612, 43.0706 )
 [connection signal="timeout" from="MiscTimer1" to="." method="_on_MiscTimer1_timeout"]
 [connection signal="timeout" from="MiscTimer2" to="." method="_on_MiscTimer2_timeout"]
 [connection signal="timeout" from="MiscTimer3" to="." method="_on_MiscTimer3_timeout"]

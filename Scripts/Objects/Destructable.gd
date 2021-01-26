@@ -1,8 +1,13 @@
 extends StaticBody
 
+signal emit_deconstruct()
+
+export var effect_scale = 1.0
+
 func deconstruct():
 	spawn_prefab()
 	spawn_materials()
+	emit_signal("emit_deconstruct")
 	queue_free()
 	pass
 
@@ -20,3 +25,4 @@ func spawn_prefab():
 	var obj = load("res://prefabs/Effects/deconstruct.tscn").instance()
 	Global.world.call_deferred("add_child", obj)
 	obj.global_transform.origin = global_transform.origin + Vector3(0,2,0)
+	obj.scale = Vector3(effect_scale,effect_scale,effect_scale)

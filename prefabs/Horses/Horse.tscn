@@ -15,17 +15,17 @@
 [ext_resource path="res://prefabs/Interactables/InteractableNoPreset.tscn" type="PackedScene" id=13]
 [ext_resource path="res://prefabs/Horses/Behaviors/HB_Dialogue.tscn" type="PackedScene" id=14]
 
-[sub_resource type="CapsuleShape" id=4]
+[sub_resource type="CapsuleShape" id=1]
 radius = 0.687674
 height = 2.4
 
-[sub_resource type="CylinderShape" id=5]
+[sub_resource type="CylinderShape" id=2]
 radius = 0.695545
 height = 1.71457
 
-[sub_resource type="BoxShape" id=6]
+[sub_resource type="BoxShape" id=3]
 
-[sub_resource type="BoxShape" id=7]
+[sub_resource type="BoxShape" id=4]
 extents = Vector3( 0.860839, 1.21461, 1.93213 )
 
 [node name="Horse" type="KinematicBody"]
@@ -60,14 +60,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00350106, 2.97081, -0.87964
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( -1, -8.74228e-08, 1.4243e-14, 0, -1.62921e-07, -1, 8.74228e-08, -1, 1.62921e-07, -6.3924e-08, 1.85162, 0.00358844 )
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="GroundCheck" type="RayCast" parent="."]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -6.3924e-08, 0.95, 0.00358844 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="."]
 transform = Transform( -1, -8.70283e-08, 8.29557e-09, 0, -0.0948903, -0.995488, 8.74228e-08, -0.995488, 0.0948903, 6.3924e-08, 1.9231, 1.466 )
-shape = SubResource( 5 )
+shape = SubResource( 2 )
 
 [node name="Saddle" type="Spatial" parent="."]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.59987e-08, 2.5867, 0.917797 )
@@ -77,13 +77,13 @@ script = ExtResource( 12 )
 
 [node name="CollisionShape" type="CollisionShape" parent="InteractionController"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10664, -1.29656 )
-shape = SubResource( 6 )
+shape = SubResource( 3 )
 
 [node name="Interactable" parent="." instance=ExtResource( 13 )]
 
 [node name="CollisionShape" type="CollisionShape" parent="Interactable"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.77911, 0.829752 )
-shape = SubResource( 7 )
+shape = SubResource( 4 )
 [connection signal="emit_charm_recieved" from="." to="RelationshipManager" method="_on_Horse_emit_charm_recieved"]
 [connection signal="emit_highlight" from="." to="horse_animated" method="_on_Horse_emit_highlight"]
 [connection signal="area_entered" from="InteractionController" to="InteractionController" method="_on_InteractionController_area_entered"]

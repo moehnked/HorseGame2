@@ -1,5 +1,5 @@
 #Equipable.gd
-extends "res://Scripts/NewItems/Item.gd"
+extends "res://Scripts/Items/Item.gd"
 
 var equipState:String = "Equip"
 var input = InputMacro.new()
