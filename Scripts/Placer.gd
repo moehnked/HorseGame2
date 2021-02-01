@@ -34,11 +34,20 @@ func consume_materials():
 func disable_place():
 	#print("cannot place item here")
 	placeable = false
-	$MeshInstance.material_override = invalid
+	for o in get_meshes():
+		o.material_override = invalid
 
 func enable_place():
 	placeable = true
-	$MeshInstance.material_override = valid
+	for o in get_meshes():
+		o.material_override = valid
+
+func get_meshes():
+	var m = []
+	for i in get_children():
+		if i is MeshInstance:
+			m.append(i)
+	return m
 
 func initialize(args):
 	args = Utils.check(args, {'prefab':null, 'callback':null, 'hand':null})

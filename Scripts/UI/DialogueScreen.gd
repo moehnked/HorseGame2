@@ -1,9 +1,9 @@
 extends Control
 
-const Utils = preload("res://Utils.gd")
-
 var callback = ""
-var can_scrub = false
+var canExit:bool = false
+var canScrub = false
+var destroyOnLower:bool = true
 var listener = null
 export var speed = 3
 var state = "nothing"
@@ -28,40 +28,68 @@ func _process(delta):
 			pass
 		"raising":
 			raise_window(delta)
-	raise_window(delta)
-	if Input.is_action_just_released("engage") and can_scrub:
-		start_exit()
-	#write_text()
+
+func destroy():
+	speaker.call("exit_dialogue")
+	listener.call("exit_dialogue")
+	Global.InputObserver.unsubscribe(self)
+	queue_free()
+
+func exit_trade():
+	start_timer_exit()
 
 func initialize(args = {}):
-	args = Utils.check(args, {'speaker':null, 'listener':null, 'text':["hellow", "world"], 'call_back':""})
+	args = Utils.check(args, {'speaker':null, 'listener':null, 'text':["hellow", "world"], 'call_back':"", "relationship":0})
 	speaker = args.speaker
 	listener = args.listener
-	print("initialize dialogue between ", speaker.name, " and ", listener.name)
 	if(speaker.has_method("get_icon")):
 		#print(speaker.get_icon())
 		set_icon(speaker.get_icon())
+	if speaker.has_method("get_horse_name"):
+		$Container/Nametag.text = speaker.get_horse_name()
 	for i in args.text:
 		text += i + " "
-	$Timer.start()
+	if args.relationship > -1:
+		#start dialogue options tree
+		init_dialogue_options()
+		pass
+	else:
+		$Timer.start()
+	Global.InputObserver.subscribe(self)
 	state = "raising"
 	callback = args.call_back
+	start_timer_exit()
 	#$Container/Label.text = text
 
+func init_dialogue_options():
+	Utils.show_mouse()
+	$Container/Dialogue.text = ""
+	$Container/Dialogue.visible = false
+	$Container/OptionsContainer.visible = true
+	pass
+
 func lower_window(delta):
-	print("lowering - ", $Container.position.y, " - ",  (start_point.y))
+	#print("lowering - ", $Container.position.y, " - ",  (start_point.y))
 	if($Container.position.y < start_point.y):
 		#$Container.position = $Container.position.linear_interpolate(start_point, delta * speed)
 		$Container.position.y += 20
-	else:
+	elif destroyOnLower:
 		print("exiting dialogue..........")
-		speaker.call("exit_dialogue")
-		listener.call("exit_dialogue")
-		queue_free()
+		destroy()
+	else:
+		state = "nothing"
+
+func parse_input(input):
+	if input.engage and canExit:
+		destroyOnLower = true
+		start_exit()
 
 func raise_window(delta):
 	if($Container.position.y > stop_point.y):
 		$Container.position = $Container.position.linear_interpolate(stop_point, delta * speed)
+
+func set_can_exit():
+	canExit = true
 
 func set_icon(path):
 	var ico = load(path)
@@ -72,16 +100,50 @@ func start_exit():
 	print("beginning exit")
 	state = "lowering"
 
+func start_timer_exit():
+	var timer = Timer.new()
+	timer.connect("timeout",self,"set_can_exit")
+	timer.one_shot = true
+	add_child(timer) #to process
+	timer.start(0.1) #to start
+	state = "raising"
+
+func start_trade():
+	destroyOnLower = false
+	canExit = false
+	state = "lowering"
+	var ts = load("res://prefabs/UI/Dialogue/TradingScreen.tscn").instance()
+	Global.world.add_child(ts)
+	ts.initialize({"vendor":speaker, "customer":listener, "callback":"exit_trade", "source":self})
+	Global.InputObserver.unsubscribe(self)
+
 func write_text():
 	#print(typing_text)
-	$Container/Label.text = typing_text
+	$Container/Dialogue.text = typing_text
 	if(typing_text.length() < text.length()):
 		typing_text += text[min(typing_text.length(), text.length() - 1)]
 
 func _on_Timer_timeout():
 	#print("dialogue timer")
-	can_scrub = true
+	canScrub = true
 	write_text()
 	if(typing_text.length() < text.length()):
 		$Timer.start()
+	pass # Replace with function body.
+
+
+func _on_Talk_emit_selected():
+	$Container/OptionsContainer.visible = false
+	$Container/Dialogue.visible = true
+	$Timer.start()
+	pass # Replace with function body.
+
+
+func _on_Exit_emit_selected():
+	destroyOnLower = true
+	start_exit()
+	pass # Replace with function body.
+
+func _on_Trade_emit_selected():
+	start_trade()
 	pass # Replace with function body.

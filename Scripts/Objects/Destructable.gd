@@ -7,6 +7,7 @@ export var effect_scale = 1.0
 func deconstruct():
 	spawn_prefab()
 	spawn_materials()
+	Global.AudioManager.play_sound_3d("res://Sounds/destroy_0" + str(Global.world.rng.randi_range(1,4)) +".wav", 0, global_transform.origin, 11)
 	emit_signal("emit_deconstruct")
 	queue_free()
 	pass

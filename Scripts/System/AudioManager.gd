@@ -30,9 +30,9 @@ func play_sound(sound_path = "res://sounds/error_01.wav", db = 0):
 
 func play_sound_3d(sound_path = "res://sounds/error_01.wav", db = 0, pos = Vector3(), size = 3):
 	if $AudioStreamPlayer3D.playing:
-		return queue_3d_channel($AudioStreamPlayer3D2, sound_path, db, pos)
+		return queue_3d_channel($AudioStreamPlayer3D2, sound_path, db, pos, size)
 	else:
-		return queue_3d_channel($AudioStreamPlayer3D, sound_path, db, pos)
+		return queue_3d_channel($AudioStreamPlayer3D, sound_path, db, pos, size)
 
 func queue_channel(channel = $AudioStreamPlayer, sound_path = "res://sounds/error_01.wav", db = 0):
 	print("queing channel ", channel.name)

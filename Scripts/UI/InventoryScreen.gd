@@ -22,8 +22,9 @@ func clear_context():
 func clear_listItems():
 	clear_context()
 	for o in listItems:
+		o.visible = false
 		o.queue_free()
-		listItems.erase(o)
+	listItems = []
 
 func clear_display():
 	$Display.texture = null if selected == null else selected.get_icon(true)
@@ -32,11 +33,13 @@ func draw_context(item):
 	selected = item
 	clear_context()
 	var c = item.get_context()
+	var buttons = c.get_buttons()
 	var d = c.get_description()
 	draw_description(d.get_description())
 	var i = 0
-	for b in c.get_buttons():
-		print(b)
+	print("[inv]:drawing context ",buttons)
+	for b in buttons:
+		print(b.name)
 		var o = b.duplicate()
 		#o.initialize({"item":item, "controller":sourceRef.get_interaction_controller()})
 		o.initialize({"item":item, "controller":sourceRef.get_equipment_manager()})

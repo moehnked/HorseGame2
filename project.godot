@@ -103,6 +103,11 @@ _global_script_classes=[ {
 "class": "PlayerState_Normal",
 "language": "GDScript",
 "path": "res://Scripts/Behavior/PlayerStates/PlayerState_Normal.gd"
+}, {
+"base": "VisualShaderNodeCustom",
+"class": "VisualShaderNodePerlinNoise3D",
+"language": "GDScript",
+"path": "res://Shaders/PerlinNoise.gd"
 } ]
 _global_script_class_icons={
 "BehaviorState": "",
@@ -123,7 +128,8 @@ _global_script_class_icons={
 "PlayerState_Knockback": "",
 "PlayerState_Lasso": "",
 "PlayerState_Menu": "",
-"PlayerState_Normal": ""
+"PlayerState_Normal": "",
+"VisualShaderNodePerlinNoise3D": ""
 }
 
 [application]
@@ -147,6 +153,8 @@ gdscript/warnings/unused_variable=false
 
 [display]
 
+window/size/test_width=1024
+window/size/test_height=600
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 

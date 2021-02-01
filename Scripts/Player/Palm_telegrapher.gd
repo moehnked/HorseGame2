@@ -1,15 +1,5 @@
-extends Spatial
+extends "res://Scripts/System/broadcast_self.gd"
 
-
-signal broadcast_self(palm)
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	emit_signal("broadcast_self", self)
+func _on_EquipmentManager_broadcast_self(obj):
+	obj.set_equip_point(self)
 	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

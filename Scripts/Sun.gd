@@ -25,7 +25,7 @@ func _on_SunTickTimer_timeout():
 	var hour = clamp_clock(floor((rot / 15)) - 6)
 	if time.hour != hour:
 		time.hour = hour
-		print(rotation_degrees.x,"]the time is ",time.hour,":00 ", time.meridiem)
+		#print(rotation_degrees.x,"]the time is ",time.hour,":00 ", time.meridiem)
 	update_meridiem()
 	$SunTickTimer.start()
 	pass # Replace with function body.

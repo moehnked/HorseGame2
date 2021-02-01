@@ -37,6 +37,7 @@ var isSwimming = false
 var jump = 10
 var jumpCoefficient = 1.0
 var knockbackDirection = Vector3()
+var money:float = 20
 var mouseSensitivity = 0.09
 var normalAcceleration = 6
 var saddle
@@ -243,6 +244,9 @@ func get_head():
 func get_palm():
 	return $Head/Palm
 
+func get_money():
+	return money
+
 func get_raycast():
 	return $Head/Camera/RayCast_Areas
 
@@ -347,6 +351,9 @@ func set_behavior(statename, init_args = {"actor": self}):
 
 func set_knockback_timer(time):
 	$KnockbackTimer.start(time)
+
+func set_money(val):
+	money = val
 
 func startLeftCooldown():
 	$LeftCooldown.start()

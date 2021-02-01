@@ -48,7 +48,12 @@ static func custom_function_env_light(x):
 	y = y / 2
 	y = y + 0.5
 	return y
-	
+
+static func get_item_by_name(itemName, list):
+	for i in list:
+		if i.get_name() == itemName:
+			return i
+	return null
 
 func get_all_items_by_name(list, itemname):
 	var a = []
@@ -125,3 +130,12 @@ static func remove_item(item, list):
 
 static func show_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+static func uniques(list):
+	var u = []
+	for i in list:
+		if u.size() == 0:
+			u.append(i)
+		elif !Utils.contains(i,u):
+			u.append(i)
+	return u

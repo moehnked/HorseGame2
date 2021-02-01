@@ -18,18 +18,21 @@ func _ready():
 func _process(delta):
 	if isEquipped:
 		update_position_to_parent()
-		update_rotation_to_parent()
+		if controller.get_parent().has_method("get_x_rotation"):
+			update_rotation_to_parent()
 		pass
 
 func clear_context():
 	get_context().clear_equipment_context()
 
 func equip(_controller):
-	print("[eq]:equip - ", isEquipped)
+	print("[eq]",self,":equip - ", isEquipped)
 	controller = _controller
 	if _controller.has_method("get_equipment_manager"):
 		controller = _controller.get_equipment_manager()
 	if controller.equip(self):
+		print("successfully equipped")
+		$Interactable.isInteractable = false
 		isEquipped = true
 		set_context("Unequip")
 		Global.AudioManager.play_sound(equipSoundPath)
@@ -62,6 +65,7 @@ func set_context(_equipState):
 	newContext.visible = false
 
 func set_point(object, _controller):
+	print("setting point to ", object)
 	controller = _controller
 	parentedTo = object
 

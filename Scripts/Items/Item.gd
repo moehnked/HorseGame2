@@ -4,6 +4,7 @@ extends RigidBody
 export var icon = "res://icon.png"
 export var itemName = "Item"
 export var pickupSoundPath = "res://Sounds/pop_01.wav"
+export var value = 5.0
 
 var controller
 
@@ -12,7 +13,7 @@ func _ready():
 	pass # Replace with function body.
 
 func add_self_to_inventory(_controller = controller):
-	_controller.get_inventory().append(self)
+	_controller.add_item(self)
 	pass
 
 func destroy():
@@ -27,16 +28,24 @@ func get_icon(asTexture = false):
 func get_name():
 	return itemName
 
+func get_value():
+	return value
+
 func interact(_controller):
 	print("interacting")
 	controller = _controller.get_equipment_manager()
 	pickup(controller)
 	pass
 
+func is_item():
+	return true
+
 func pickup(_controller):
-	print("[Item]:pickup")
-	duplicate().add_self_to_inventory(_controller)
-	#Utils.play_sound($Interactable/AudioStreamPlayer3D, pickupSoundPath)
+	print(name,":picked up by ",_controller.get_parent().name)
+	controller = _controller
+	if controller.has_method("get_equipment_manager"):
+		controller = controller.get_equipment_manager()
+	duplicate(7).add_self_to_inventory(controller)
 	Global.AudioManager.play_sound(pickupSoundPath)
 	destroy()
 

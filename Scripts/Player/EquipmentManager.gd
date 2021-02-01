@@ -1,4 +1,4 @@
-extends Node
+extends "res://Scripts/System/broadcast_self.gd"
 
 var equipped = null
 var equipPoint:Spatial = Spatial.new()
@@ -6,18 +6,24 @@ var input:InputMacro = InputMacro.new()
 var interactionController = null
 var inventory = []
 
-signal broadcast_self(manager)
 signal emit_equipped(equipment)
 signal emit_unequip(equipment)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	emit_signal("broadcast_self", self)
+	if get_parent().has_method("get_palm"):
+		equipPoint = get_parent().get_palm()
+	else:
+		equipPoint = get_parent().get_node("HoldingPoint")
 	pass # Replace with function body.
 
 func _process(delta):
 	if equipped != null:
 		equipped.parse_equip({"input":input})
+
+func add_item(item):
+	inventory.append(item)
 
 func check_if_equip_is_valid(other):
 	if equipped != null:
@@ -29,8 +35,9 @@ func check_if_equip_is_valid(other):
 
 func equip(other):
 	if check_if_equip_is_valid(other):
+		print(other.name, " is valid to equip")
 		if !get_inventory().has(other):
-			get_inventory().append(other)
+			add_item(other)
 		equipped = other
 		equipped.set_point(equipPoint, self)
 		emit_signal("emit_equipped", equipped)
@@ -49,14 +56,15 @@ func get_inventory():
 
 func modify_parent_state(toggle):
 	var p = get_parent()
-	if toggle:
-		p.enable_casting()
-		p.enable_cast_menu()
-		p.get_hand().update_hand_sprite("Idle")
-	else:
-		p.revoke_casting()
-		p.revoke_cast_menu()
-		p.get_hand().update_hand_sprite(equipped.intendedSprite, false)
+	if p.has_method("enable_casting"):
+		if toggle:
+			p.enable_casting()
+			p.enable_cast_menu()
+			p.get_hand().update_hand_sprite("Idle")
+		else:
+			p.revoke_casting()
+			p.revoke_cast_menu()
+			p.get_hand().update_hand_sprite(equipped.intendedSprite, false)
 
 func parse_input(_input):
 	input = _input
@@ -102,13 +110,12 @@ func _on_InteractionManager_broadcast_self(controller):
 	interactionController = controller
 	pass # Replace with function body.
 
-
-func _on_Palm_broadcast_self(palm):
-	set_equip_point(palm)
-	pass # Replace with function body.
-
-
 func _on_InteractionManager_emit_looking_at(by, at):
 	if equipped != null:
 		equipped.recieve_looking_at(by, at)
+	pass # Replace with function body.
+
+
+func _on_InteractionController_broadcast_self(obj):
+	interactionController = obj
 	pass # Replace with function body.

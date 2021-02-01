@@ -20,7 +20,7 @@ func choose_random_point():
 func run(delta):
 	actor.rotate_towards_point(wanderToPoint)
 	direction = actor.global_transform.origin.direction_to(wanderToPoint)
-	var movement = actor.move_at_speed({"dir":direction, "velocity":velocity, "delta":delta})
+	var movement = actor.move_at_speed({"dir":direction, "velocity":velocity, "delta":delta, "speed":1 + actor.stats.speed / 2})
 	if movement.position.distance_to(wanderToPoint) < 10:
 		stateMachine.set_behavior({"behaviorName":"Idle"})
 	pass

@@ -16,14 +16,17 @@ func place_canister():
 	pass
 
 func get_canister(_controller):
-	if Utils.contains("Gas Can", _controller.get_inventory()):
+	var controller = _controller
+	if controller.has_method("get_equipment_manager"):
+		controller = controller.get_equipment_manager
+	if Utils.contains("Gas Can", controller.get_inventory()):
 		Utils.uPrint("controller has Gas Canister...", self)
-		if _controller.equipped != null:
-			if _controller.equipped.itemName == "Gas Can":
-				canister = _controller.unequip(false)
+		if controller.equipped != null:
+			if controller.equipped.itemName == "Gas Can":
+				canister = controller.unequip(false)
 				place_canister()
 				return
-		canister = Utils.pop_item_by_name("Gas Can", _controller.get_inventory())
+		canister = Utils.pop_item_by_name("Gas Can", controller.get_inventory())
 		Global.world.add_child(canister)
 		place_canister()
 

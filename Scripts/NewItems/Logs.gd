@@ -1,5 +1,5 @@
 #Log.gd
-extends "res://Scripts/NewItems/Item.gd"
+extends "res://Scripts/Items/Item.gd"
 
 export var hp = 1
 export var pathToEffect = "res://prefabs/Effects/SimpleBurst.tscn"

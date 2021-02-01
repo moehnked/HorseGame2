@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/Placer.gd" type="Script" id=1]
-
-[sub_resource type="CubeMesh" id=1]
+[ext_resource path="res://models/constructable/2,0/base.obj" type="ArrayMesh" id=2]
 
 [node name="Platform" type="Area"]
 script = ExtResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 3.44104, 0, 0, 0, 0.0881259, 0, 0, 0, 3.44104, 3.45437, 0, 0 )
-mesh = SubResource( 1 )
+[node name="base" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.84745, 0, 0 )
+mesh = ExtResource( 2 )
 material/0 = null

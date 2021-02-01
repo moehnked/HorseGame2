@@ -7,12 +7,13 @@ var callbackKargs = {}
 var talkingToController = null
 var velocity:Vector3 = Vector3()
 
-func create_dialogue(controller):
+#func create_dialogue(controller):
+func create_dialogue(args):
 	var o = load("res://Scripts/UI/DialogueScreen.tscn").instance()
 	add_child(o)
 	#actor.begin_dialogue(controller)
-	controller.begin_dialogue(actor)
-	o.initialize({'speaker':actor, 'text':RSG.generate_sentance(), 'listener':controller.get_parent()})
+	talkingToController.begin_dialogue(args.actor)
+	o.initialize({'speaker':args.actor, 'text':RSG.generate_sentance(), 'listener':talkingToController.get_parent(), 'relationship':args.relationship})
 
 func exit():
 	print("exiting horse state dialogue")
@@ -23,22 +24,18 @@ func initialize(args = {}):
 	var anim = actor.get_animation_controller()
 	anim.set_playback_speed(1.0)
 	anim.play_animation("Idle")
+	print("init dialogue state - relationship between ", args.actor.name, " and ", args.talkingToController.get_parent().name, " = ", args.relationship)
 	if args.callback != "":
 		callback = args.callback
 		callbackKargs = args.kargs
-	#create dialogue
 	if args.talkingToController != null:
 		talkingToController = args.talkingToController
-		create_dialogue(talkingToController)
+		create_dialogue(args)
 		pass
 	pass
 
 func run(delta):
 	actor.rotate_towards_point(talkingToController.get_parent().global_transform.origin, 0.02)
-	#velocity = actor.move_at_speed({"dir":Vector3(), "speed":1, "velocity":velocity, "delta":0.0, "jump":false}).velocity
-	#velocity = actor.apply_gravity(velocity, delta)
-	#actor.move_and_slide(velocity)
-	#Wait some seconds
 	pass
 
 

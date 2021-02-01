@@ -1,13 +1,18 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://models/constructable/wall.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://models/constructable/2,0/wall.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Scripts/Placer.gd" type="Script" id=3]
 
 [node name="Wall" type="Area"]
 script = ExtResource( 3 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 0.381, 0, 0, 0, 0.601, 0, 0, 0, 0.643, 0, 3.16752, 0 )
+[node name="wall" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.217297, 0 )
 mesh = ExtResource( 1 )
 material/0 = null
 material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+material/6 = null

@@ -1,3 +1,4 @@
+#Horse.gd
 extends KinematicBody
 
 signal emit_charm_recieved(charm, charmer, spell)
@@ -6,7 +7,16 @@ signal emit_highlight(toggle)
 export var DEACCEL:int = 6
 export var MAX_ACCEL:int = 2
 export var MAX_SLOPE_ANGLE:float = 90
-export var MAX_SPEED:int= 10
+export var MAX_SPEED:int= 7
+export var horseName = "Horse"
+export var stats:Dictionary = {
+	"speed":1,
+	"chaos":1,
+	"silly":1,
+	"poise":1,
+	"range":1,
+	"girth":1
+}
 
 var has_contact:bool = false
 var gravity = -20
@@ -65,8 +75,23 @@ func get_behavior():
 	return $StateMachine.currentBehavior
 	pass
 
+func get_equipment_manager():
+	return $EquipmentManager
+
 func get_ground_check():
 	return $GroundCheck
+
+func get_horse_name():
+	return horseName
+
+func get_icon():
+	return "res://Sprites/UI/Horse_Icon_01.png"
+
+func get_inventory():
+	return get_equipment_manager().get_inventory()
+
+func get_relationship_manager():
+	return $RelationshipManager
 
 func get_saddle():
 	return $Saddle
@@ -93,7 +118,7 @@ func lasso(lasso):
 		enter_giddyup()
 
 func move_at_speed(args = {}):
-	args = Utils.check(args, {"dir":Vector3(), "speed":1, "velocity":Vector3(), "delta":0.0, "jump":false})
+	args = Utils.check(args, {"dir":Vector3(), "speed":stats.speed, "velocity":Vector3(), "delta":0.0, "jump":false})
 	var delta = args.delta
 	var velocity = args.velocity
 	var direction = args.dir
@@ -118,7 +143,7 @@ func move_at_speed(args = {}):
 	
 	if args.jump and is_on_floor():
 		print("jumping")
-		velocity.y = 10
+		velocity.y = 10 * (min(stats.speed / 2.5, 1.0))
 		has_contact = false
 	
 	velocity = move_and_slide(velocity, Vector3.UP)
@@ -166,5 +191,5 @@ func _on_Interactable_emit_prompt(_prompt):
 
 func _on_Interactable_interaction(controller):
 	#start dialogue
-	set_state({"behaviorName":"Dialogue", "callback":"set_state", "kargs":{"behaviorName":get_state(), "initialArgs":get_behavior().initialArgs }, "talkingToController":controller})
+	set_state({"behaviorName":"Dialogue", "callback":"set_state", "kargs":{"behaviorName":get_state(), "initialArgs":get_behavior().initialArgs }, "talkingToController":controller, "relationship":$RelationshipManager.check_relationships(controller.get_parent())})
 	pass # Replace with function body.
