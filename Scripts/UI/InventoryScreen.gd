@@ -20,11 +20,7 @@ func clear_context():
 	context_buttons = []
 
 func clear_listItems():
-	clear_context()
-	for o in listItems:
-		o.visible = false
-		o.queue_free()
-	listItems = []
+	get_list_screen().clear_list()
 
 func clear_display():
 	$Display.texture = null if selected == null else selected.get_icon(true)
@@ -41,7 +37,6 @@ func draw_context(item):
 	for b in buttons:
 		print(b.name)
 		var o = b.duplicate()
-		#o.initialize({"item":item, "controller":sourceRef.get_interaction_controller()})
 		o.initialize({"item":item, "controller":sourceRef.get_equipment_manager()})
 		$Context.add_child(o)
 		o.visible = true
@@ -53,23 +48,10 @@ func draw_description(desc = ""):
 	$Context/Description.text = desc
 
 func draw_list_items():
-	clear_listItems()
-	var index = 0
-	var equipped = sourceRef.get_equipped()
-	for i in uniques():
-		if i.has_method("get_name"):
-			var o = i
-			var item = listItemResource.instance()
-			var numberOfItem = Utils.count(i, inventory)
-			if numberOfItem > 1 and equipped != null and equipped.get_name() == o.get_name():
-				print("list item is same as equipped")
-				o = equipped
-			item.initialize(o, self, numberOfItem)
-			item.position.x = $ListItemLoader.position.x
-			item.position.y = $ListItemLoader.position.y + (item.get_height() * (index))
-			add_child(item)
-			listItems.append(item)
-			index += 1
+	get_list_screen().draw_list_items(inventory)
+
+func get_list_screen():
+	return $ListItemScreen
 
 func initialize(args):
 	args = Utils.check(args, {'source':null, 'inv':[], 'callback':null})
@@ -98,6 +80,8 @@ func terminate():
 	if callback != null:
 		sourceRef.call(callback)
 	Global.AudioManager.play_sound("res://sounds/ui_close_01.wav")
+	for i in get_children():
+		i.call("queue_free")
 	queue_free()
 
 func uniques():
@@ -111,7 +95,6 @@ func unsubscribe_to():
 	Global.world.get_node("InputObserver").unsubscribe(self)
 
 func update_display(item = null):
-	#var sprite = load(item.icon)
 	$Display.texture = item.get_icon(true) if item != null else null
 
 func _on_Timer_timeout():

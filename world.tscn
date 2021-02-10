@@ -12,6 +12,7 @@
 [ext_resource path="res://prefabs/System/GlobalCorralRegistrar.tscn" type="PackedScene" id=10]
 [ext_resource path="res://prefabs/Items/Basketball.tscn" type="PackedScene" id=11]
 [ext_resource path="res://prefabs/Interactables/Generator.tscn" type="PackedScene" id=12]
+[ext_resource path="res://prefabs/Horses/TraderHorse.tscn" type="PackedScene" id=13]
 [ext_resource path="res://prefabs/System/SpecialEventManager.tscn" type="PackedScene" id=14]
 [ext_resource path="res://prefabs/Interactables/Splitter.tscn" type="PackedScene" id=15]
 [ext_resource path="res://prefabs/Sun.tscn" type="PackedScene" id=16]
@@ -28,7 +29,6 @@
 [ext_resource path="res://prefabs/Items/TestItem.tscn" type="PackedScene" id=28]
 [ext_resource path="res://prefabs/Items/Handaxe.tscn" type="PackedScene" id=29]
 [ext_resource path="res://prefabs/Items/Mallet.tscn" type="PackedScene" id=30]
-[ext_resource path="res://prefabs/Horses/Horse.tscn" type="PackedScene" id=31]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 25 )
@@ -273,17 +273,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28.0544, 2.12867, 10.8316 )
 transform = Transform( 1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -10.7995, 23.673, 0 )
 shadow_color = Color( 0.215686, 0, 0.262745, 1 )
 
-[node name="Horse" parent="." instance=ExtResource( 31 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.14659, 0.0886612, 47.0304 )
-horseName = "CooFM"
-stats = {
-"chaos": 1,
-"girth": 1,
-"poise": 1,
-"range": 1,
-"silly": 1,
-"speed": 1
-}
+[node name="TraderHorse" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.56001, 7.81396, 52.6871 )
 [connection signal="timeout" from="MiscTimer1" to="." method="_on_MiscTimer1_timeout"]
 [connection signal="timeout" from="MiscTimer2" to="." method="_on_MiscTimer2_timeout"]
 [connection signal="timeout" from="MiscTimer3" to="." method="_on_MiscTimer3_timeout"]

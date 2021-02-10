@@ -88,6 +88,7 @@ func get_icon():
 	return "res://Sprites/UI/Horse_Icon_01.png"
 
 func get_inventory():
+	#return []
 	return get_equipment_manager().get_inventory()
 
 func get_relationship_manager():

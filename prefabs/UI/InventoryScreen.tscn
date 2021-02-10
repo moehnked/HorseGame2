@@ -4,7 +4,7 @@
 [ext_resource path="res://Sprites/UI/InventoryScreen.png" type="Texture" id=2]
 [ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Sprites/UI/ExitButton.png" type="Texture" id=4]
-[ext_resource path="res://prefabs/UI/InventoryListItem.tscn" type="PackedScene" id=5]
+[ext_resource path="res://prefabs/UI/Dialogue/ListItemScreen.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 outline_size = 1
@@ -49,12 +49,15 @@ margin_right = 935.021
 margin_bottom = 147.878
 rect_scale = Vector2( 0.25378, 0.25378 )
 texture_normal = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="InventoryListItem" parent="." instance=ExtResource( 5 )]
-visible = false
-position = Vector2( 221.113, 80.4866 )
+[node name="ListItemScreen" parent="." instance=ExtResource( 5 )]
+position = Vector2( 224, 120 )
 
 [node name="ListItemLoader" type="Node2D" parent="."]
+visible = false
 position = Vector2( 220.928, 80.4035 )
 
 [node name="Context" type="Node" parent="."]

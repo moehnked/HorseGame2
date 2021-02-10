@@ -84,6 +84,8 @@ func parse_input(input):
 	if input.engage:
 		print("e")
 		if canExit:
+			for o in get_children():
+				o.call("queue_free")
 			Global.InputObserver.unsubscribe(self)
 			if source != null:
 				if callback != "":

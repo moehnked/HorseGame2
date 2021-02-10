@@ -145,6 +145,8 @@ config/icon="res://icon.png"
 Global="*res://Global.gd"
 Utils="*res://Utils.gd"
 LineCode="*res://Scripts/System/LineCode.gd"
+InventoryParser="*res://Scripts/Statics/InventoryParser.gd"
+GlobalItemRepo="*res://Scripts/Statics/GlobalItemRepo.gd"
 
 [debug]
 
