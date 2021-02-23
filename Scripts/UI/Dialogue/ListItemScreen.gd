@@ -32,13 +32,12 @@ func draw_list_items(displayInventory):
 	for i in u:
 		var li = ref.instance()
 		add_child(li)
-		#li.initialize(i, get_parent(), Utils.count(i, displayInventory))
-#		add_child(li)
-#		li.global_position = Vector2(0,0)
-#		print("my pos:",position)
-#		print(li.position)
-		#index += 1
-		#listItems.append(li)
+		li.initialize(i, get_parent(), Utils.count(i, displayInventory))
+		add_child(li)
+		li.position.y += 20 * index
+		index += 1
+		
+		listItems.append(li)
 
 func parse_input(input):
 	if input.mouse_up:
