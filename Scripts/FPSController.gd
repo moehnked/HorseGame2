@@ -42,6 +42,7 @@ var mouseSensitivity = 0.09
 var normalAcceleration = 6
 var saddle
 var scaleMod = 1.0
+var spellqueue = []
 #var state = State.normal
 
 var placer_observers = []
@@ -112,13 +113,14 @@ func calculate_knockback_vector(hitbox, source):
 	pass
 
 func cast(spell, callback, hand):
-	print("casting")
+	print("casting ", spell)
 	$Head/Hand.update_hand_sprite(spell)
 	get_viewport().warp_mouse(OS.window_size/2)
 	random_grunt()
 	var spellInstance = load("res://prefabs/Spells/" + spell + ".tscn").instance()
 	spellInstance.initialize({'player':self, 'root':Global.world, 'palm':$Head/Palm, 'callback':callback, 'hand':hand})
 	Global.world.call_deferred("add_child", spellInstance)
+	spellqueue.append(spell)
 
 func cast_left():
 	if canCastLeft:
@@ -139,7 +141,8 @@ func conclude_spell(spell):
 	if $RightCooldown.time_left <= 0:
 		canCastRight = true
 	$Head/Hand.idle_hand()
-	flush_spells()
+	flush_spell(spell)
+	spellqueue.remove(0)
 
 func correct_scale():
 	scale = Vector3(scaleMod, scaleMod, scaleMod)
@@ -210,9 +213,13 @@ func exit_some_menu():
 func exit_update_hands_menu():
 	exit_some_menu()
 
-func flush_spells():
+func flush_spell(spell):
+	print("FLUSHING SPELL ", spell)
+	print(raycastObservers)
 	for o in raycastObservers:
-		raycast_unsubscribe(o)
+		print(o, " , ", o.name, " - ", spell)
+		if o.spellname == spell and spell != null:
+			raycast_unsubscribe(o)
 	flushing = false
 
 func get_camera():
@@ -271,16 +278,14 @@ func parse_input(_input):
 	
 	if input.standard:
 		if canCastLeft:
-			if flushing:
-				flush_spells()
-			else:
-				cast_left()
+			#if flushing:
+			#	flush_spell(spellqueue.pop_front())
+			cast_left()
 	elif input.special:
 		if canCastRight:
-			if flushing:
-				flush_spells()
-			else:
-				cast_right()
+			#if flushing:
+			#	flush_spell(spellqueue.pop_front())
+			cast_right()
 	elif input.mouse_up:
 		if canUpdateHands:
 			enter_update_hands_menu()
@@ -299,6 +304,7 @@ func play_sound(sound_path):
 	$AudioStreamPlayer.play()
 
 func queue_spell_clear():
+	print("Queuing speel clear")
 	flushing = true
 
 func random_grunt():

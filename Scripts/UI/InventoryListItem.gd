@@ -16,6 +16,10 @@ func set_label_names(text, count = 1):
 	$Container/Label.text = (text + " X" + String(count)) if (count > 1) else text
 	$Container/Label2.text = (text + " X" + String(count)) if (count > 1) else text
 
+func set_opacity(val):
+	val = clamp(val, 0, 1)
+	$Container.modulate = Color(1,1,1,val)
+
 func get_height():
 	return $Container/TextureButton.rect_size.y * $Container.scale.y
 	pass

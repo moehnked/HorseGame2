@@ -54,11 +54,10 @@ __meta__ = {
 }
 
 [node name="ListItemScreen" parent="." instance=ExtResource( 5 )]
-position = Vector2( 224, 104 )
+position = Vector2( 219, 104 )
 
 [node name="ListItemLoader" type="Node2D" parent="."]
-visible = false
-position = Vector2( 220.928, 80.4035 )
+position = Vector2( 219, 104 )
 
 [node name="Context" type="Node" parent="."]
 

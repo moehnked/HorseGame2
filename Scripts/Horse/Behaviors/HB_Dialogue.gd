@@ -24,7 +24,6 @@ func initialize(args = {}):
 	var anim = actor.get_animation_controller()
 	anim.set_playback_speed(1.0)
 	anim.play_animation("Idle")
-	print("init dialogue state - relationship between ", args.actor.name, " and ", args.talkingToController.get_parent().name, " = ", args.relationship)
 	if args.callback != "":
 		callback = args.callback
 		callbackKargs = args.kargs

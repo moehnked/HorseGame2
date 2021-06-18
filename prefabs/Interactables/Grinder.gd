@@ -18,12 +18,12 @@ func place_canister():
 func get_canister(_controller):
 	var controller = _controller
 	if controller.has_method("get_equipment_manager"):
-		controller = controller.get_equipment_manager
+		controller = controller.get_equipment_manager()
 	if Utils.contains("Gas Can", controller.get_inventory()):
 		Utils.uPrint("controller has Gas Canister...", self)
 		if controller.equipped != null:
 			if controller.equipped.itemName == "Gas Can":
-				canister = controller.unequip(false)
+				canister = controller.unequip({"returnToInventory":false})
 				place_canister()
 				return
 		canister = Utils.pop_item_by_name("Gas Can", controller.get_inventory())

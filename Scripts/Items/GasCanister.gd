@@ -7,6 +7,9 @@ onready var prevLowestPoint = $Bottom
 var pouringGas = false
 var raycastPoint:Vector3 = Vector3()
 
+func _ready():
+	$PourGasTick.start()
+
 func _process(delta):
 	if pouringGas:
 		check_raycast()
@@ -14,7 +17,6 @@ func _process(delta):
 	if linear_velocity <= Vector3(0.1,0.1,0.1) and not isEquipped:
 		check_tip()
 		if lowestPoint != prevLowestPoint:
-			print("change")
 			if not $AudioStreamPlayer3D.playing:
 				$AudioStreamPlayer3D.stream = load(equipSoundPath)
 				raycastPoint = lowestPoint.global_transform.origin
@@ -35,7 +37,6 @@ func check_tip():
 
 func check_raycast():
 	raycastPoint = $RayCast.get_collision_point()
-	print("checking raycast ", raycastPoint )
 
 func get_y_value_of(point):
 	return point.global_transform.origin.y
@@ -45,7 +46,6 @@ func recieve_looking_at(by, obj):
 		if obj.has_method("recieve_gas"):
 			lookingAt = obj
 		elif obj.get_parent().has_method("recieve_gas"):
-			print("looking at gas recievable")
 			lookingAt = obj.get_parent()
 
 func parse_equip(args = {}):

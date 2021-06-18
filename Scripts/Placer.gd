@@ -1,26 +1,25 @@
 extends Area
 const Utils = preload("res://Utils.gd")
-onready var resource_ref = preload("res://prefabs/Items/Plank.tscn")
+var resource_ref = null
 onready var valid = preload("res://Materials/construction_valid.tres")
 onready var invalid = preload("res://Materials/construction_invalid.tres")
+
+export var required_materials = 5   #number of planks required to build
 
 var callback
 var creation_prefab
 var hand
+var isSnapped = false
 var previousMouseY
-export var required_materials = 5   #number of planks required to build
-var rotationOffset = 0
-var touching = []
 var placeable = true
+var rotationOffset = 0
+var snapOffset = 0
+var touching = []
 
 func check_materials():
-	#print("checking materials")
 	var inv = Global.Player.get_inventory()
 	var mat = resource_ref.instance()
-	#if(Utils.contains(mat, inv)):
-		#print("player has ", mat.itemName)
 	var count = Utils.count(mat, inv)
-	#print("player has : ", count, " ", mat.itemName)
 	return count >= required_materials
 
 func consume_materials():
@@ -54,6 +53,7 @@ func initialize(args):
 	creation_prefab = args.prefab
 	callback = args.callback
 	hand = args.hand
+	resource_ref = load("res://prefabs/Items/Plank.tscn")
 	subscribe_to()
 
 func parse_input(input):
@@ -69,11 +69,25 @@ func parse_input(input):
 				spawn_prefab()
 			if Input.is_action_pressed("special"):
 				update_rotation(input)
+			if input.special:
+				snapOffset += PI / 2
+				rotationOffset = 0
 		"right":
 			if input.special:
 				spawn_prefab()
 			if Input.is_action_pressed("standard"):
 				update_rotation(input)
+			if input.standard:
+				snapOffset += PI / 2
+				rotationOffset = 0
+
+func parse_raycast(raycastobj, builder_pos):
+	update_position(raycastobj.get_collision_point(), builder_pos)
+	var col = raycastobj.get_collider()
+	if col.has_method("deconstruct"):
+		rotation.y = col.rotation.y + snapOffset
+		isSnapped = true
+	pass
 
 func spawn_prefab():
 	if(placeable and check_materials()):
@@ -106,7 +120,8 @@ func update_position(point, builder_pos):
 	rotation_degrees.y = rad2deg(atan2(x,y) + 90) + rotationOffset
 
 func update_rotation(input):
-	rotationOffset += 3
+	if not isSnapped :
+		rotationOffset += 3
 
 func _on_Fence_Placer_area_entered(area):
 	if(area.has_method("link")):

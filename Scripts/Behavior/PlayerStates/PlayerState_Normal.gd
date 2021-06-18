@@ -26,7 +26,6 @@ func initialize(args = {}):
 	actor.canUpdateHands = true
 	actor.canCheckInventory = true
 	actor.queue_spell_clear()
-	actor.flush_spells()
 	var ic = actor.get_equipment_manager()
 	if ic.equipped == null and not actor.isBuilding:
 		print("renablke casting, returning to state: normal - ", actor.isBuilding)
@@ -87,14 +86,14 @@ func parse_movement(actor, delta):
 	
 	velocity = actor.move_and_slide(velocity, Vector3.UP)
 
-func update_placer_position(point, actor):
+func send_raycast_data(raycastobj, actor):
 	for placer in actor.placer_observers:
-		placer.update_position(point, actor.global_transform.origin)
+		placer.parse_raycast(raycastobj, actor.global_transform.origin)
 
 func update_raycast(actor):
 	var raycastobj = actor.get_solid_raycast()
 	if raycastobj.is_colliding():
-		update_placer_position(raycastobj.get_collision_point(), actor)
+		send_raycast_data(raycastobj, actor)
 		for o in actor.raycastObservers:
 			o.parse_raycast(raycastobj)
 	else:

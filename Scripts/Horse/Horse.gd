@@ -99,6 +99,9 @@ func get_saddle():
 
 func get_state():
 	return $StateMachine.get_state()
+	
+func get_state_machine():
+	return $StateMachine
 
 func go_to_corral():
 	var corral = Global.GCR.get_corral()

@@ -25,3 +25,5 @@ func split():
 		spawn_prefab()
 		i -= 1
 	queue_free()
+
+

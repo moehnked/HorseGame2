@@ -82,5 +82,7 @@ func _physics_process(delta):
 	mouse_horizontal = 0.0
 	mouse_vertical = 0.0
 	
+	#print("observers")
 	for o in observers:
+		#print(o, ", - ", o.name)
 		o.parse_input(input)

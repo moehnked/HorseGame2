@@ -38,8 +38,8 @@ func run(delta):
 	update_animation(direction)
 	var movement = actor.move_at_speed({"dir":direction, "velocity":velocity, "delta":delta, "jump":input.space})
 	velocity = movement.velocity
-	if movement.position.distance_to(wanderToPoint) < 4:
-		stateMachine.set_behaivor("Idle")
+#	if movement.position.distance_to(wanderToPoint) < 4:
+#		actor.get_state_machine().set_behaivor("Idle")
 	pass
 
 func update_animation(direction):

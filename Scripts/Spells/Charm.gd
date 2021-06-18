@@ -11,6 +11,7 @@ var isCharming = false
 var lookingat = null
 var palm
 var source
+var spellname = "CHARM"
 
 
 func _ready():

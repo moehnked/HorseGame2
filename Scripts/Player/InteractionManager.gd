@@ -5,7 +5,7 @@ var canReadPrompt:bool = true
 var equipmentManager = null
 var ignore = []
 var interactables = []
-var interactable
+var interactable = null
 var raycast:RayCast = RayCast.new()
 
 signal broadcast_self(controller)
