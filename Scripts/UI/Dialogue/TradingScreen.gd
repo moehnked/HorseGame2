@@ -81,8 +81,8 @@ func draw_trading_screen():
 		index += 1
 
 func parse_input(input):
-	if input.engage:
-		print("e")
+	if input.engage or input.:
+		#print("e")
 		if canExit:
 			for o in get_children():
 				o.call("queue_free")

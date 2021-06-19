@@ -50,3 +50,6 @@ func unsubscribe_to():
 	
 func parse_input(_input):
 	input = _input
+
+func stop():
+	input = InputMacro.new()

@@ -48,8 +48,8 @@ var spellqueue = []
 var placer_observers = []
 var raycastObservers = []
 
-var lefthandSpell = "Build"
-var righthandSpell = "Lasso"
+var lefthandSpell = "Lasso"
+var righthandSpell = "Build"
 
 var buildList = ["Fence", "Gate", "Wall", "Doorway", "Platform", "Staircase"]
 
@@ -123,13 +123,13 @@ func cast(spell, callback, hand):
 	spellqueue.append(spell)
 
 func cast_left():
-	if canCastLeft:
+	if canCastLeft and lefthandSpell != "":
 		print("casting left")
 		canCastLeft = false
 		cast(lefthandSpell, "startLeftCooldown", "left")
 
 func cast_right():
-	if canCastRight:
+	if canCastRight and righthandSpell != "":
 		print("casting right")
 		canCastRight = false
 		cast(righthandSpell, "startRightCooldown", "right")
@@ -181,6 +181,7 @@ func enter_pilot():
 
 func enter_update_hands_menu():
 	enter_some_menu()
+	get_head().stop()
 	var menu = load("res://prefabs/UI/Update_Hands.tscn").instance()
 	menu.initialize(self, lefthandSpell, righthandSpell)
 	Global.world.call_deferred("add_child", menu)

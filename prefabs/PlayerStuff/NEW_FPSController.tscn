@@ -430,8 +430,8 @@ script = ExtResource( 21 )
 script = ExtResource( 22 )
 [connection signal="broadcast_self" from="InteractionManager" to="EquipmentManager" method="_on_InteractionManager_broadcast_self"]
 [connection signal="emit_looking_at" from="InteractionManager" to="EquipmentManager" method="_on_InteractionManager_emit_looking_at"]
-[connection signal="broadcast_self" from="EquipmentManager" to="Head/Palm" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="broadcast_self" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_broadcast_self"]
+[connection signal="broadcast_self" from="EquipmentManager" to="Head/Palm" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="emit_equipped" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_emit_equipped"]
 [connection signal="emit_unequip" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_emit_unequip"]
 [connection signal="broadcast_self" from="Head/Camera/RayCast_Areas" to="InteractionManager" method="_on_RayCast_Areas_broadcast_self"]
