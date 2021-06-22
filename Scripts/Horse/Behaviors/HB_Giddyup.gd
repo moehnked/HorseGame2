@@ -13,4 +13,5 @@ func initialize(args = {}):
 
 func run(delta):
 	#Wait some seconds
+	print("HORSE GIDDYUP")
 	pass

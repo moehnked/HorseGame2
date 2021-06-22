@@ -6,6 +6,8 @@ export var itemName = "Item"
 export var pickupSoundPath = "res://Sounds/pop_01.wav"
 export var value = 5.0
 
+const HB = preload("res://Scripts/Horse/Behaviors/HorseBehavior.gd")
+
 var controller
 
 # Called when the node enters the scene tree for the first time.
@@ -18,6 +20,14 @@ func add_self_to_inventory(_controller = controller):
 
 func destroy():
 	queue_free()
+
+func get_behavior():
+	print("GETTING BEHAVIOR FROM ", get_name())
+	print(get_children())
+	for i in get_children():
+		if i is HB:
+			return i
+	return null
 
 func get_context():
 	return get_node("Context")

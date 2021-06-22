@@ -30,14 +30,14 @@ albedo_color = Color( 0, 1, 0.180392, 0.247059 )
 [sub_resource type="CapsuleShape" id=4]
 height = 3.0
 
-[sub_resource type="SphereShape" id=8]
+[sub_resource type="SphereShape" id=5]
 radius = 20.0
 
-[sub_resource type="SphereMesh" id=9]
+[sub_resource type="SphereMesh" id=6]
 radius = 20.0
 height = 38.947
 
-[sub_resource type="SpatialMaterial" id=10]
+[sub_resource type="SpatialMaterial" id=7]
 flags_transparent = true
 albedo_color = Color( 1, 0, 0, 0.0862745 )
 
@@ -94,11 +94,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45708, -3.76741 )
 visible = false
 
 [node name="CollisionShape" type="CollisionShape" parent="AggroRange"]
-shape = SubResource( 8 )
+shape = SubResource( 5 )
 
 [node name="MeshInstance" type="MeshInstance" parent="AggroRange"]
-mesh = SubResource( 9 )
-material/0 = SubResource( 10 )
+mesh = SubResource( 6 )
+material/0 = SubResource( 7 )
 
 [node name="WalkTimer" type="Timer" parent="."]
 one_shot = true

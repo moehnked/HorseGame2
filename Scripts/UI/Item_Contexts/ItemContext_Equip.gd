@@ -13,6 +13,8 @@ func initialize(args = {}):
 
 func equip():
 	print("equipping ", item," to ", controller)
+	if controller.get_equipped() != null:
+		controller.unequip()
 	Global.world.call_deferred("add_child", item)
 	item.interact(controller)
 	var tree = get_tree()

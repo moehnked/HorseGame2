@@ -14,6 +14,7 @@ func _ready():
 	Global.AudioManager.play_sound("res://sounds/ui_open_01.wav")
 
 func clear_context():
+	print("clearing context")
 	draw_description()
 	for o in context_buttons:
 		o.queue_free()
@@ -55,13 +56,13 @@ func get_list_screen():
 
 func initialize(args):
 	args = Utils.check(args, {'source':null, 'inv':[], 'callback':null})
-	print("INITIALIZING INVENTORY SCREEN")
+	#print("INITIALIZING INVENTORY SCREEN")
 	inventory = args.inv
 	sourceRef = args.source
 	callback = args.callback
 	Utils.show_mouse()
 	draw_list_items()
-	print(uniques())
+	#print(uniques())
 
 func parse_input(input):
 	if input.tab:

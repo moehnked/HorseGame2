@@ -15,6 +15,7 @@ func run_state(actor, delta):
 	move_based_on_input(actor, delta)
 
 func initialize(args = {}):
+	print("initializing HB pilot")
 	actor = args.actor
 	actor.stop_all_timers()
 	Global.Player.enter_pilot()

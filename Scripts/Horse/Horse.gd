@@ -1,6 +1,8 @@
 #Horse.gd
 extends KinematicBody
 
+const hbRef = preload("res://Scripts/Horse/Behaviors/HorseBehavior.gd")
+
 signal emit_charm_recieved(charm, charmer, spell)
 signal emit_highlight(toggle)
 
@@ -25,6 +27,13 @@ var trainer = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
+
+func add_behavior(HB):
+	if HB is hbRef:
+		print(name, " is adding behavior ", HB.name)
+		get_state_machine().add_child(HB.duplicate())
+	for i in get_state_machine().get_children():
+		print(i.name)
 
 func apply_gravity(velocity, delta):
 	if is_on_floor():
@@ -61,7 +70,10 @@ func enter_walk_to(args = {}):
 	set_state(args)
 
 func exit_pilot():
-	set_state({"behaviorName":"Follow", "target":trainer})
+	if trainer == null:
+		enter_idle()
+	else:
+		set_state({"behaviorName":"Follow", "target":trainer})
 
 func exit_dialogue():
 	var resumeBehaviorArgs = get_behavior().callbackKargs.initialArgs

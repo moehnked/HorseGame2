@@ -39,6 +39,13 @@ func instantiate(ref, location = Vector3()):
 	obj.global_transform.origin = location
 	return obj
 
+func instance_resource(res, location = Vector3()):
+	var obj = res.instance()
+	print("creating object from resource  ", obj.name, " at ", location)
+	call_deferred("add_child", obj)
+	obj.global_transform.origin = location
+	return obj
+
 func place(obj, location = Vector3()):
 	call_deferred("add_child", obj)
 	obj.global_transform.origin = location

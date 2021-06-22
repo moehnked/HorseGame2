@@ -29,6 +29,14 @@ func _on_Timer_timeout():
 	#determine if wandering or waiting again
 	var i = Global.world.rng.randf()
 	if i > 0.5:
+		#check if equipment has behavior and maybe do that
+		var eq = null
+		eq = actor.get_equipment_manager().get_equipped()
+		if eq != null:
+			var hb = null
+			hb = eq.get_behavior()
+			if hb != null:
+				stateMachine.set_behavior({"behaviorName":hb.stateName})
 		#wander
 		stateMachine.set_behavior({"behaviorName":"Wander"})
 		return

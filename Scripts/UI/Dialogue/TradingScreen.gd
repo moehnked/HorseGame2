@@ -79,15 +79,19 @@ func draw_trading_screen():
 		li.position .y += 20 * index
 		$InventoryContainer.add_child(li)
 		index += 1
+	if customer != null:
+		if customer.has_method("get_treats"):
+			print("customer has treats")
+			$Treats/TreatCounter.text = String(customer.get_treats())
 
 func parse_input(input):
-	if input.engage or input.:
-		#print("e")
+	if input.engage or input.tab:
 		if canExit:
 			for o in get_children():
 				o.call("queue_free")
 			Global.InputObserver.unsubscribe(self)
 			if source != null:
+				Global.InputObserver.subscribe(source)
 				if callback != "":
 					source.call(callback)
 			Global.AudioManager.play_sound("res://sounds/ui_close_01.wav")
@@ -107,12 +111,12 @@ func _on_BuyButton_pressed():
 	print(self,"BUY BUTTON PRESSED")
 	print(displayInventory)
 	if selected != null:
-		var money = customer.get_money()
-		if money >= selected.get_value():
+		var treats = customer.get_treats()
+		if treats >= selected.get_value():
 			if vendor.get_equipment_manager().equipped == selected:
 				selected = vendor.get_equipment_manager().unequip()
-			money -= selected.get_value()
-			customer.set_money(money)
+			treats -= selected.get_value()
+			customer.set_treats(treats)
 			var a = selected.duplicate(7)
 			a.get_context().reset_context()
 			a.pickup(customer.get_equipment_manager())

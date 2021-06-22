@@ -1,6 +1,8 @@
 #Equipable.gd
 extends "res://Scripts/Items/Item.gd"
 
+const horseRef = preload("res://Scripts/Horse/Horse.gd")
+
 var equipState:String = "Equip"
 var input = InputMacro.new()
 var isEquipped:bool = false
@@ -22,6 +24,16 @@ func _process(delta):
 			update_rotation_to_parent()
 		pass
 
+func apply_behavior(HB):
+	if HB != null:
+		var p = controller.get_parent()
+		if p != null:
+			print("p is ", p.name)
+			if p is horseRef:
+				print("applying to horse")
+				p.call("add_behavior", HB)
+				p.call("set_state", Utils.check(HB.initialArgs, {"behaviorName":HB.stateName}))
+
 func clear_context():
 	get_context().clear_equipment_context()
 
@@ -36,6 +48,7 @@ func equip(_controller):
 		isEquipped = true
 		set_context("Unequip")
 		Global.AudioManager.play_sound(equipSoundPath)
+		apply_behavior(get_behavior())
 		return true
 	return false
 
@@ -65,7 +78,7 @@ func set_context(_equipState):
 	newContext.visible = false
 
 func set_point(object, _controller):
-	print("setting point to ", object)
+	#print("setting point to ", object)
 	controller = _controller
 	parentedTo = object
 

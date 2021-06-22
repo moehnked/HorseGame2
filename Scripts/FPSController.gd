@@ -24,6 +24,7 @@ var canCastRight = true
 var canCheckInventory = true
 #var canExitHorse = false
 var canJump = true
+var canResetCasting = true
 var canUpdateHands = true
 var fall = Vector3()
 var flushing = false
@@ -37,7 +38,7 @@ var isSwimming = false
 var jump = 10
 var jumpCoefficient = 1.0
 var knockbackDirection = Vector3()
-var money:float = 20
+var treats:float = 20
 var mouseSensitivity = 0.09
 var normalAcceleration = 6
 var saddle
@@ -81,16 +82,16 @@ func _physics_process(delta):
 
 func _on_LassoTimeout_timeout():
 	#state = State.normal
-	set_behavior("Normal")
+	#set_behavior("Normal")
 	pass
 
 func _on_LeftCooldown_timeout():
 	print("cast left cooldown complete....")
-	canCastLeft = true
+	canCastLeft = canResetCasting
 
 func _on_RightCooldown_timeout():
 	print("cast right cooldown complete....")
-	canCastRight = true
+	canCastRight = canResetCasting
 
 func add_to_party(member):
 	print("===---=== ", $HUD.party.size(), " - ", $Head/Skull/Hat.level)
@@ -137,9 +138,9 @@ func cast_right():
 func conclude_spell(spell):
 	print("spell ", spell, " hase concluded...")
 	if $LeftCooldown.time_left <= 0:
-		canCastLeft = true
+		canCastLeft = canResetCasting
 	if $RightCooldown.time_left <= 0:
-		canCastRight = true
+		canCastRight = canResetCasting
 	$Head/Hand.idle_hand()
 	flush_spell(spell)
 	spellqueue.remove(0)
@@ -174,14 +175,15 @@ func enter_inventory():
 	Global.world.call_deferred("add_child", screen)
 
 func enter_some_menu():
+	get_head().stop()
 	set_behavior("Menu")
 
 func enter_pilot():
+	print("FPS entring pilot")
 	set_behavior("Pilot", {"actor":self})
 
 func enter_update_hands_menu():
 	enter_some_menu()
-	get_head().stop()
 	var menu = load("res://prefabs/UI/Update_Hands.tscn").instance()
 	menu.initialize(self, lefthandSpell, righthandSpell)
 	Global.world.call_deferred("add_child", menu)
@@ -252,8 +254,11 @@ func get_head():
 func get_palm():
 	return $Head/Palm
 
-func get_money():
-	return money
+func get_party():
+	return $HUD.party
+
+func get_treats():
+	return treats
 
 func get_raycast():
 	return $Head/Camera/RayCast_Areas
@@ -279,13 +284,9 @@ func parse_input(_input):
 	
 	if input.standard:
 		if canCastLeft:
-			#if flushing:
-			#	flush_spell(spellqueue.pop_front())
 			cast_left()
 	elif input.special:
 		if canCastRight:
-			#if flushing:
-			#	flush_spell(spellqueue.pop_front())
 			cast_right()
 	elif input.mouse_up:
 		if canUpdateHands:
@@ -340,7 +341,6 @@ func return_control():
 func revoke_casting():
 	canCastLeft = false
 	canCastRight = false
-	stop_cast_reset()
 
 func revoke_cast_menu():
 	canUpdateHands = false
@@ -359,8 +359,8 @@ func set_behavior(statename, init_args = {"actor": self}):
 func set_knockback_timer(time):
 	$KnockbackTimer.start(time)
 
-func set_money(val):
-	money = val
+func set_treats(val):
+	treats = val
 
 func startLeftCooldown():
 	$LeftCooldown.start()
@@ -380,6 +380,7 @@ func start_swimming():
 func stop_cast_reset():
 	$LeftCooldown.stop()
 	$RightCooldown.stop()
+	canResetCasting = false
 
 func stop_lasso_timer():
 	$LassoTimeout.stop()

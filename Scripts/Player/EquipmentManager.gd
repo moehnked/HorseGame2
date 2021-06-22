@@ -82,7 +82,7 @@ func set_equip_point(other):
 	equipPoint = other
 
 func subscribe_to():
-	print("[eqManager]:Subscribing")
+	#print("[eqManager]:Subscribing")
 	Global.InputObserver.subscribe(self)
 
 func update_equipped():

@@ -89,6 +89,7 @@ func raise_window(delta):
 		$Container.position = $Container.position.linear_interpolate(stop_point, delta * speed)
 
 func set_can_exit():
+	canScrub = true
 	canExit = true
 
 func set_icon(path):

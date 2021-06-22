@@ -12,3 +12,5 @@ func initialize(args = {}):
 	actor.canUpdateHands = false
 	actor.canCheckInventory = false
 	actor.revoke_casting()
+	actor.canResetCasting = false
+	actor.stop_cast_reset()

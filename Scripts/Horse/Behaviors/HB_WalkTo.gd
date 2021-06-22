@@ -5,6 +5,14 @@ var callback_kargs = {}
 var target = null
 var velocity:Vector3 = Vector3()
 
+func call_callback():
+	if callback_kargs.keys().size() > 0:
+		print("callback kargs ", callback_kargs)
+		actor.call(callback, callback_kargs)
+	else:
+		actor.call(callback)
+	pass
+
 func check_distance(from, to, thresh):
 	return from.global_transform.origin.distance_to(to.global_transform.origin) > thresh
 
@@ -22,13 +30,14 @@ func set_animation(animName = "Idle", spd = 1.0):
 	ac.set_playback_speed(spd)
 
 func run(delta):
+	if target == null:
+		call_callback()
+		return
 	var speed = 1
 	actor.rotate_towards_point(target.global_transform.origin, 0.02)
 	var direction = actor.global_transform.origin.direction_to(target.global_transform.origin)
 	var movement = actor.move_at_speed({"dir":direction, "velocity":velocity, "delta":delta, "speed": speed})
-	if not check_distance(actor, target, 1):
-		if callback_kargs.keys().size() > 0:
-			actor.call(callback, callback_kargs)
-		else:
-			actor.call(callback)
+	if not check_distance(actor, target, 2):
+		print("close enough, callingback ", callback)
+		call_callback()
 	pass

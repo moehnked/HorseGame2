@@ -17,6 +17,11 @@ func discard():
 	var point = h.global_transform.origin - (h.global_transform.basis.z * 1.5)
 	Utils.instance_item(item).global_transform.origin = point
 	controller.get_inventory().erase(item)
+	var tree = get_tree()
+	tree.call_group("InvScreen", "draw_list_items")
+	#print("calling clear context from discard button")
+	tree.call_group("InvScreen", "clear_context")
+	#print("end of discard")
 	pass
 
 func _on_TextureButton_button_up():

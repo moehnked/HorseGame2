@@ -20,6 +20,10 @@ func enter_giddyup(target):
 	actor.set_behavior("Giddyup")
 	actor.disable_collisions()
 
+func enter_pilot(target):
+	enter_giddyup(target)
+	actor.set_behavior("Pilot")
+
 func move_towards(target, delta):
 	var opposite = target.global_transform.origin.x - actor.global_transform.origin.x
 	var adjacent = target.global_transform.origin.z - actor.global_transform.origin.z
@@ -28,4 +32,7 @@ func move_towards(target, delta):
 	var facing = -actor.global_transform.basis.z * actor.MAX_SPEED * 200 * delta
 	actor.move_and_slide(facing)
 	if(actor.global_transform.origin.distance_to(target.global_transform.origin) < 5):
-		enter_giddyup(target)
+		if actor.get_party().has(target.owner):
+			enter_pilot(target)
+		else:
+			enter_giddyup(target)

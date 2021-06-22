@@ -37,8 +37,8 @@ transform = Transform( 0.59, 0, 0, 0, 1, 0, 0, 0, 0.4, 0, 0.417226, 0 )
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
-[node name="StaticBody" type="StaticBody" parent="."]
+[node name="TreeCollider" type="StaticBody" parent="."]
 
-[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="TreeCollider"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.56553, 0 )
 shape = SubResource( 5 )

@@ -25,6 +25,7 @@ func initialize(args = {}):
 	head.subscribe_to()
 	actor.canUpdateHands = true
 	actor.canCheckInventory = true
+	actor.canResetCasting = true
 	actor.queue_spell_clear()
 	var ic = actor.get_equipment_manager()
 	if ic.equipped == null and not actor.isBuilding:

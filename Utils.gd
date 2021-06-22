@@ -21,6 +21,9 @@ static func check(args = {}, def = {}):
 			kargs[i] = def[i]
 	return kargs
 
+static func check_dist(from, to, thresh):
+	return from.global_transform.origin.distance_to(to.global_transform.origin) > thresh
+
 static func contains(item, list):
 	if item is String:
 		for i in list:
@@ -29,15 +32,17 @@ static func contains(item, list):
 		return false
 	else:
 		for i in list:
-			if i.get_name() == item.get_name():
-				return true
+			if i != null:
+				if i.get_name() == item.get_name():
+					return true
 		return false
 
 static func count(item, list):
 	var c = 0
 	for i in list:
-		if i.get_name() == item.get_name():
-			c += 1
+		if i != null:
+			if i.get_name() == item.get_name():
+				c += 1
 	return c
 
 static func custom_function_env_light(x):
@@ -134,8 +139,9 @@ static func show_mouse():
 static func uniques(list):
 	var u = []
 	for i in list:
-		if u.size() == 0:
-			u.append(i)
-		elif !Utils.contains(i,u):
-			u.append(i)
+		if i != null:
+			if u.size() == 0:
+				u.append(i)
+			elif !Utils.contains(i,u):
+				u.append(i)
 	return u

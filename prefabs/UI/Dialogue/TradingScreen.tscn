@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Sprites/UI/InventoryScreen.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/UI/HUD_Party_BG_02.png" type="Texture" id=2]
@@ -7,12 +7,19 @@
 [ext_resource path="res://Scripts/Misc/FadeInController.gd" type="Script" id=5]
 [ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://prefabs/UI/ItemContext_Button.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Sprites/UI/treat02.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/UI/treat.png" type="Texture" id=9]
+[ext_resource path="res://fonts/freewaygothic.ttf" type="DynamicFontData" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 39
 extra_spacing_char = 2
 extra_spacing_space = 18
 font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 116
+font_data = ExtResource( 10 )
 
 [node name="TradingScreen" type="Control"]
 anchor_right = 1.0
@@ -102,5 +109,28 @@ margin_top = 504.0
 margin_right = 504.0
 margin_bottom = 504.0
 text = "BUY"
+
+[node name="Treats" type="Sprite" parent="."]
+position = Vector2( 775.274, 58.625 )
+scale = Vector2( 0.168, 0.163 )
+texture = ExtResource( 8 )
+
+[node name="Treats2" type="Sprite" parent="Treats"]
+modulate = Color( 0.282353, 0.129412, 0.054902, 1 )
+position = Vector2( -5.95264, -6.13498 )
+scale = Vector2( 0.877595, 0.904515 )
+texture = ExtResource( 9 )
+
+[node name="TreatCounter" type="Label" parent="Treats"]
+margin_left = 68.0
+margin_top = -77.0
+margin_right = 454.0
+margin_bottom = 70.0
+custom_fonts/font = SubResource( 2 )
+text = "0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="fade_in_complete" from="BG" to="." method="_on_BG_fade_in_complete"]
 [connection signal="pressed" from="Context/BuyButton" to="." method="_on_BuyButton_pressed"]

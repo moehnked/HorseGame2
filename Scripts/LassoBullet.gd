@@ -59,6 +59,7 @@ func collision_effect(collided):
 	$TimeToLive.stop()
 	if(collided.has_method("lasso")):
 		if(collided.can_be_lassod()):
+			print("EXECUTING LASSO")
 			collided.lasso(self)
 			playerRef.lasso(collided.get_saddle())
 		else:

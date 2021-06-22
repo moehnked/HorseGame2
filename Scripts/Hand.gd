@@ -25,7 +25,7 @@ func toggle_sprite_visibility():
 	visible = !visible
 
 func update_hand_sprite(spell, b = true):
-	print("applying")
+	#print("applying")
 	apply_texture(handMesh, "res://Sprites/Player/Hand_" + spell + ".png")
 	set_animation_playback(b)
 	$AnimationPlayer.play(spell)
