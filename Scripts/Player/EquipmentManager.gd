@@ -23,7 +23,7 @@ func _process(delta):
 		equipped.parse_equip({"input":input})
 
 func add_item(item):
-	inventory.append(item)
+	owner.get_inventory().append(item)
 
 func check_if_equip_is_valid(other):
 	if equipped != null:

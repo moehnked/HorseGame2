@@ -69,7 +69,6 @@ func init_dialogue_options():
 	pass
 
 func lower_window(delta):
-	#print("lowering - ", $Container.position.y, " - ",  (start_point.y))
 	if($Container.position.y < start_point.y):
 		#$Container.position = $Container.position.linear_interpolate(start_point, delta * speed)
 		$Container.position.y += 20
@@ -113,7 +112,8 @@ func start_trade():
 	destroyOnLower = false
 	canExit = false
 	state = "lowering"
-	var ts = load("res://prefabs/UI/Dialogue/TradingScreen.tscn").instance()
+	print("starting trade with ", listener, " - ", speaker.get_trainer())
+	var ts = load("res://prefabs/UI/Dialogue/TradingScreen.tscn").instance() if speaker.get_trainer() != listener else load("res://prefabs/UI/Dialogue/ExchangeScreen.tscn").instance()
 	Global.world.add_child(ts)
 	ts.initialize({"vendor":speaker, "customer":listener, "callback":"exit_trade", "source":self})
 	Global.InputObserver.unsubscribe(self)

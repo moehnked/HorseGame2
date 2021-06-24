@@ -38,6 +38,7 @@ var isSwimming = false
 var jump = 10
 var jumpCoefficient = 1.0
 var knockbackDirection = Vector3()
+var lassoRef = null
 var treats:float = 20
 var mouseSensitivity = 0.09
 var normalAcceleration = 6
@@ -245,6 +246,9 @@ func get_inventory():
 	#return $InteractionController.inventory
 	return get_equipment_manager().get_inventory()
 
+func get_hat():
+	return $Head/Skull/Hat
+
 func get_hand():
 	return $Head/Hand
 
@@ -275,8 +279,8 @@ func initializeHUD(letter):
 func is_player():
 	return true
 
-func lasso(saddle):
-	set_behavior("Lasso")
+func lasso(saddle, lasso):
+	set_behavior("Lasso", {"lassoSucceeded": lasso.lassoSucceeded})
 	self.saddle = saddle
 
 func parse_input(_input):
@@ -352,9 +356,9 @@ func revoke_menu_options():
 func setLassoLimit():
 	$LassoTimeout.start()
 
-func set_behavior(statename, init_args = {"actor": self}):
+func set_behavior(statename, init_args = {}):
 	currentBehavior = get_node("StateContainer/" + statename)
-	currentBehavior.initialize(init_args)
+	currentBehavior.initialize(Utils.check(init_args, {"actor": self}))
 
 func set_knockback_timer(time):
 	$KnockbackTimer.start(time)

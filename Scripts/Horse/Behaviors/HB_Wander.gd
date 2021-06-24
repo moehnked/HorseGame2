@@ -6,6 +6,7 @@ var wanderToPoint:Vector3 = Vector3()
 
 
 func initialize(args = {}):
+	print("initializing wandering")
 	args = .initialize(args)
 	choose_random_point()
 	var ac = actor.get_animation_controller()
@@ -14,7 +15,7 @@ func initialize(args = {}):
 
 func choose_random_point():
 	var rng = Global.world.rng
-	wanderToPoint = actor.global_transform.origin + (Vector3(rng.randf_range(-1,1),rng.randf_range(-1,1),rng.randf_range(-1,1)) * rng.randi_range(10,60))
+	wanderToPoint = actor.global_transform.origin + (Vector3(rng.randf_range(-1,1) * rng.randi_range(10,60),rng.randf_range(-1,1),rng.randf_range(-1,1)) * rng.randi_range(10,60))
 	pass
 
 func run(delta):

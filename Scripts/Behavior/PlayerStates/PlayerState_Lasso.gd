@@ -3,9 +3,11 @@ extends "res://Scripts/Behavior/BehaviorState.gd"
 class_name PlayerState_Lasso
 
 var actor
+var lassoSucceeded = false
 
 func run_state(actor, delta):
 	self.actor = actor
+	print("state lasso ", actor.lassoRef)
 	move_towards(actor.saddle, delta)
 	pass
 
@@ -19,10 +21,16 @@ func enter_giddyup(target):
 	actor.correct_scale()
 	actor.set_behavior("Giddyup")
 	actor.disable_collisions()
+	if not lassoSucceeded:
+		actor.exit_pilot(true)
 
 func enter_pilot(target):
 	enter_giddyup(target)
 	actor.set_behavior("Pilot")
+
+func initialize(args = {}):
+	.initialize(args)
+	lassoSucceeded = args["lassoSucceeded"]
 
 func move_towards(target, delta):
 	var opposite = target.global_transform.origin.x - actor.global_transform.origin.x

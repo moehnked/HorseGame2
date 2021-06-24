@@ -105,11 +105,23 @@ func initialize_personality(mom = null, dad = null):
 			i += 1
 		set_moods(moodboard, i, 2)
 
+func parse_charm(charm, charmer, spell):
+	var m = 0
+	match charm:
+		HorseMoods.greed:
+			charmer.enter_some_menu()
+			var screen = load("res://prefabs/UI/GiftScreen.tscn").instance()
+			add_child(screen)
+			screen.initialize({"source":charmer,"inv":charmer.get_inventory(),"callback":"exit_some_menu", "giftee":owner})
+			return m
+		_:
+			m = calculate_charm_effect(charm, charmer)
+	return m
 
 func recieve_charm(charm, charmer, spell):
 	if can_be_charmed():
 		print("can charm, charming...")
-		var m = calculate_charm_effect(charm, charmer)
+		var m = parse_charm(charm, charmer, spell)
 		spell.set_status(true)
 		return m
 	else:

@@ -61,8 +61,9 @@ func enter_idle():
 func enter_pilot():
 	set_state({"behaviorName":"Pilot"})
 
-func enter_giddyup():
-	set_state({"behaviorName":"Giddyup"})
+func enter_giddyup(args = {}):
+	args = Utils.check(args, {"behaviorName":"Giddyup"})
+	set_state(args)
 	pass
 
 func enter_walk_to(args = {}):
@@ -76,7 +77,11 @@ func exit_pilot():
 		set_state({"behaviorName":"Follow", "target":trainer})
 
 func exit_dialogue():
-	var resumeBehaviorArgs = get_behavior().callbackKargs.initialArgs
+	var b = get_behavior()
+	var resumeBehaviorArgs = {}
+	if "callbackKargs" in b:
+		resumeBehaviorArgs = b.callbackKargs["initialArgs"]
+		#print("printing CALLBACKKARGS ", resumeBehaviorArgs)
 	set_state(resumeBehaviorArgs)
 	#$StateMachine.currentBehavior.exit()
 
@@ -115,6 +120,9 @@ func get_state():
 func get_state_machine():
 	return $StateMachine
 
+func get_trainer():
+	return trainer
+
 func go_to_corral():
 	var corral = Global.GCR.get_corral()
 	enter_walk_to({"target":corral, "callback": "enter_walk_to", "kargs":{"target":corral.get_midpoint(), "callback":"enter_idle"}})
@@ -126,12 +134,12 @@ func highlight():
 
 func lasso(lasso):
 	print(name, ": 'I'm being lasso'd by", lasso.playerRef.name ,"!'")
-	if trainer != null:
+	if trainer == lasso.playerRef:
 		enter_pilot()
 		trainer.enter_pilot()
 		pass
 	else:
-		enter_giddyup()
+		enter_giddyup({"lasso":lasso})
 
 func move_at_speed(args = {}):
 	args = Utils.check(args, {"dir":Vector3(), "speed":stats.speed, "velocity":Vector3(), "delta":0.0, "jump":false})

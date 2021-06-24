@@ -4,6 +4,7 @@ var Utils = preload("res://Utils.gd")
 var callback = null
 var context_buttons = []
 var inventory = []
+var initArgs = {}
 var listItems = []
 var selected = null
 var sourceRef
@@ -54,7 +55,7 @@ func draw_list_items():
 func get_list_screen():
 	return $ListItemScreen
 
-func initialize(args):
+func initialize(args = {}):
 	args = Utils.check(args, {'source':null, 'inv':[], 'callback':null})
 	#print("INITIALIZING INVENTORY SCREEN")
 	inventory = args.inv
@@ -62,6 +63,7 @@ func initialize(args):
 	callback = args.callback
 	Utils.show_mouse()
 	draw_list_items()
+	initArgs = args
 	#print(uniques())
 
 func parse_input(input):

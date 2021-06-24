@@ -39,7 +39,7 @@ func calculate_value(item):
 func clear_context():
 	draw_description()
 	$Context/ItemInfo.text = ""
-	$Context/BuyButton.disable()
+	get_button().disable()
 	$tradingscreen/ItemNameTag.text = ""
 
 func clear_display():
@@ -59,7 +59,7 @@ func draw_context(item):
 	draw_description(d.get_description())
 	$Context/ItemInfo.text = "Value: " + str(item.get_value())
 	$tradingscreen/ItemNameTag.text = selected.get_name()
-	$Context/BuyButton.initialize({"item":item, "controller":vendor.get_equipment_manager()})
+	get_button().initialize({"item":item, "controller":vendor.get_equipment_manager()})
 
 func draw_description(desc = ""):
 	$Context/Description.text = desc
@@ -83,6 +83,9 @@ func draw_trading_screen():
 		if customer.has_method("get_treats"):
 			print("customer has treats")
 			$Treats/TreatCounter.text = String(customer.get_treats())
+
+func get_button():
+	return $Context/BuyButton
 
 func parse_input(input):
 	if input.engage or input.tab:

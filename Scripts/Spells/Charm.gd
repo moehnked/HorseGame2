@@ -40,8 +40,6 @@ func charm(charm):
 	if(lookingat.has_method("recieve_charm")):
 		lookingat.recieve_charm(charm, source, self)
 		if not charmStatus:
-			#print("target state: ",lookingat.get_state(), " - target pep: ", lookingat.pep)
-			print("i don't think this horse likes me")
 			Global.InteractionPrompt.show_context("I don't think it wants to talk to me...")
 			Global.AudioManager.play_sound()
 	conclude()

@@ -36,7 +36,12 @@ func _on_Timer_timeout():
 			var hb = null
 			hb = eq.get_behavior()
 			if hb != null:
-				stateMachine.set_behavior({"behaviorName":hb.stateName})
+				i = Global.world.rng.randf()
+				if i > 0.5:
+					stateMachine.set_behavior({"behaviorName":hb.stateName})
+				else:
+					stateMachine.set_behavior({"behaviorName":"Wander"})
+				return
 		#wander
 		stateMachine.set_behavior({"behaviorName":"Wander"})
 		return

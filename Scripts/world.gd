@@ -55,17 +55,14 @@ func queue_timer(_caller, time, _callback, args = {}):
 	print("queuing timer for ", _caller.name, " to call ", _callback, " with ")
 	print(args)
 	if $MiscTimer1.is_stopped():
-		#print("[world]: queing timer 1")
 		$MiscTimer1.start(time)
 		set_caller_and_callback(_caller, _callback, $MiscTimer1, args)
 	else:
 		if $MiscTimer2.is_stopped():
-			#print("[world]: queing timer 1")
 			$MiscTimer2.start(time)
 			set_caller_and_callback(_caller, _callback, $MiscTimer1, args)
 		else:
 			if $MiscTimer3.is_stopped():
-				#print("[world]: queing timer 1")
 				$MiscTimer3.start(time)
 				set_caller_and_callback(_caller, _callback, $MiscTimer1, args)
 
@@ -76,21 +73,15 @@ func set_caller_and_callback(_caller, _callback, timer, _args ):
 	
 
 func timer_timeout(timer):
-	#print("[World]: ",timer, " timeout")
-	#caller.pop_front().call(callback.pop_front())
 	if args.keys().has(timer):
-		#print("args...")
 		if args[timer] != null:
-			#print("args for ",timer,"not null")
 			if args[timer].keys().size() > 0:
-				#print("[world]: ",caller[timer], " calling ", callback[timer], " with ", args[timer])
 				caller[timer].call(callback[timer], args[timer])
 			else:
 				call_no_args(timer)
 		else:
 			call_no_args(timer)
 	else :
-		#print("[world]: ",callback)
 		call_no_args(timer)
 	caller.erase(timer)
 	callback.erase(timer)

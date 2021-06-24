@@ -15,7 +15,6 @@
 [ext_resource path="res://prefabs/Horses/TraderHorse.tscn" type="PackedScene" id=13]
 [ext_resource path="res://prefabs/System/SpecialEventManager.tscn" type="PackedScene" id=14]
 [ext_resource path="res://prefabs/Interactables/Splitter.tscn" type="PackedScene" id=15]
-[ext_resource path="res://prefabs/Sun.tscn" type="PackedScene" id=16]
 [ext_resource path="res://prefabs/Nature/Water.tscn" type="PackedScene" id=17]
 [ext_resource path="res://prefabs/Misc/TempleTile.tscn" type="PackedScene" id=18]
 [ext_resource path="res://prefabs/Items/Logs.tscn" type="PackedScene" id=19]
@@ -30,15 +29,20 @@
 [ext_resource path="res://prefabs/Items/TestItem.tscn" type="PackedScene" id=28]
 [ext_resource path="res://prefabs/Items/Handaxe.tscn" type="PackedScene" id=29]
 [ext_resource path="res://prefabs/Items/Mallet.tscn" type="PackedScene" id=30]
+[ext_resource path="res://prefabs/Objects/Cart.tscn" type="PackedScene" id=31]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 25 )
 
 [sub_resource type="Environment" id=2]
+background_mode = 1
 background_sky = SubResource( 1 )
 background_sky_orientation = Basis( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08 )
 background_sky_rotation = Vector3( 0, 1.5708, 0 )
 background_sky_rotation_degrees = Vector3( 0, 90, 0 )
+background_color = Color( 1, 1, 1, 1 )
+background_camera_feed_id = 2
+ambient_light_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="PhysicsMaterial" id=3]
 rough = true
@@ -243,12 +247,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -30.2987, 2.75685, 34.118 )
 [node name="GasCanister" parent="." instance=ExtResource( 22 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.13401, 1.83364, 28.4206 )
 
-[node name="Sun" parent="." instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -10.7995, 23.673, 0 )
-shadow_color = Color( 0.215686, 0, 0.262745, 1 )
-
 [node name="TraderHorse" parent="." instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8345, 7.81396, 52.6871 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.3083, -0.605701, 59.718 )
 stats = {
 "chaos": 1,
 "girth": 1,
@@ -258,17 +258,20 @@ stats = {
 "speed": 3
 }
 
-[node name="DeadTree" parent="." instance=ExtResource( 21 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8269, -0.193566, 36.6781 )
-
 [node name="DeadTree2" parent="." instance=ExtResource( 21 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32.4994, -0.193566, 41.5346 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8281, -0.193566, 45.2097 )
 
 [node name="DeadTree3" parent="." instance=ExtResource( 21 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32.4994, -0.193566, 36.2457 )
+transform = Transform( 0.541708, 0, -0.840567, 0, 1, 0, 0.840567, 0, 0.541708, 29.4281, -0.193566, 49.6481 )
 
 [node name="DeadTree4" parent="." instance=ExtResource( 21 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 39.6884, -0.193566, 45.2682 )
+transform = Transform( -0.335967, 0, -0.836166, 0, 0.901137, 0, 0.836166, 0, -0.335967, 31.7836, -0.193566, 49.6481 )
+
+[node name="DeadTree5" parent="." instance=ExtResource( 21 )]
+transform = Transform( -0.335967, 0, -0.836166, 0, 0.901137, 0, 0.836166, 0, -0.335967, 33.5594, -0.193566, 56.605 )
+
+[node name="Cart" parent="." instance=ExtResource( 31 )]
+transform = Transform( -2.19769, 0, -1.29863, 0, 2.5527, 0, 1.29863, 0, -2.19769, 28.4467, 2.32673, 60.3399 )
 [connection signal="timeout" from="MiscTimer1" to="." method="_on_MiscTimer1_timeout"]
 [connection signal="timeout" from="MiscTimer2" to="." method="_on_MiscTimer2_timeout"]
 [connection signal="timeout" from="MiscTimer3" to="." method="_on_MiscTimer3_timeout"]

@@ -3,12 +3,12 @@ var Utils = preload("res://Utils.gd")
 
 var speed = 40
 onready var rope_resource = preload("res://prefabs/LassoBlob.tscn")
-onready var rootRef = get_tree().get_root().get_node("World")
 var particle_list = []
 var can_spawn = true
 var power = 1.0
 var playerRef
 var begun = false
+var lassoSucceeded = false
 
 var sound_paths = [
 	"res://sounds/lasso_01.wav",
@@ -61,14 +61,11 @@ func collision_effect(collided):
 		if(collided.can_be_lassod()):
 			print("EXECUTING LASSO")
 			collided.lasso(self)
-			playerRef.lasso(collided.get_saddle())
+			playerRef.lasso(collided.get_saddle(), self)
 		else:
 			Global.AudioManager.play_sound()
 	deload()
 	
-
-func _on_TimeToLive_timeout():
-	deload()
 	
 func deload():
 	can_spawn = false
@@ -77,8 +74,9 @@ func deload():
 		p.queue_free()
 	playerRef.conclude_spell("Lasso")
 	queue_free()
-	
 
+func _on_TimeToLive_timeout():
+	deload()
 
 func _on_milisecondDelay_timeout():
 	begun = true
