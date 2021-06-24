@@ -2,7 +2,6 @@ extends Spatial
 
 
 var isOpen = false
-var promptRef = null
 
 
 # Called when the node enters the scene tree for the first time.
@@ -12,7 +11,6 @@ func _ready():
 
 func _on_Interactable_emit_prompt(_prompt):
 	_prompt.prompt = "Close" if isOpen else "Open"
-	promptRef = _prompt
 	pass # Replace with function body.
 
 
