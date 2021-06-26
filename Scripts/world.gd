@@ -100,8 +100,8 @@ func _on_MiscTimer3_timeout():
 	pass # Replace with function body.
 
 func _on_SunTick_timeout():
-	environment.background_sky.sun_latitude += 0.1
-	environment.background_sky.sky_energy = Utils.custom_function_env_light(environment.background_sky.sun_latitude)
-	print(environment.background_sky.sky_energy)
-	$SunTick.start()
+	#environment.background_sky.sun_latitude += 0.1
+	#environment.background_sky.sky_energy = Utils.custom_function_env_light(environment.background_sky.sun_latitude)
+	#print(environment.background_sky.sky_energy)
+	#$SunTick.start()
 	pass # Replace with function body.

@@ -7,7 +7,7 @@
 [ext_resource path="res://prefabs/UI/ItemContext_Equip.tscn" type="PackedScene" id=5]
 [ext_resource path="res://models/objects/axe.obj" type="ArrayMesh" id=6]
 [ext_resource path="res://Shaders/outline.shader" type="Shader" id=7]
-[ext_resource path="res://Materials/metalic.tres" type="Material" id=8]
+[ext_resource path="res://Materials/Metal_02.tres" type="Material" id=8]
 [ext_resource path="res://prefabs/UI/ItemContext_Discard.tscn" type="PackedScene" id=9]
 [ext_resource path="res://prefabs/Horses/Behaviors/HB_Woodcut.tscn" type="PackedScene" id=10]
 

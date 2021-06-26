@@ -50,8 +50,8 @@ var spellqueue = []
 var placer_observers = []
 var raycastObservers = []
 
-var lefthandSpell = "Lasso"
-var righthandSpell = "Build"
+var lefthandSpell = ""
+var righthandSpell = ""
 
 var buildList = ["Fence", "Gate", "Wall", "Doorway", "Platform", "Staircase"]
 
