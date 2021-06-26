@@ -4,10 +4,11 @@
 [ext_resource path="res://prefabs/Misc/CollisionWall.tscn" type="PackedScene" id=2]
 [ext_resource path="res://models/objects/splitter/Splitter_Wedge.obj" type="ArrayMesh" id=3]
 [ext_resource path="res://prefabs/Interactables/Lever.tscn" type="PackedScene" id=4]
-[ext_resource path="res://prefabs/Interactables/Splitter.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/Objects/Splitter.gd" type="Script" id=5]
 [ext_resource path="res://prefabs/Interactables/Engine.tscn" type="PackedScene" id=6]
 [ext_resource path="res://prefabs/Interactables/Interactable.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Materials/Metal_02.tres" type="Material" id=8]
+
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.160634, 0.311236, 0.170591 )

@@ -50,10 +50,11 @@ var spellqueue = []
 var placer_observers = []
 var raycastObservers = []
 
-var lefthandSpell = ""
-var righthandSpell = ""
+var lefthandSpell = "Null"
+var righthandSpell = "Null"
 
 var buildList = ["Fence", "Gate", "Wall", "Doorway", "Platform", "Staircase"]
+var spellList = ["Null",]
 
 var sfx_grunts = [
 	"res://sounds/grunt_01.wav",
@@ -125,13 +126,13 @@ func cast(spell, callback, hand):
 	spellqueue.append(spell)
 
 func cast_left():
-	if canCastLeft and lefthandSpell != "":
+	if canCastLeft and lefthandSpell != "Null":
 		print("casting left")
 		canCastLeft = false
 		cast(lefthandSpell, "startLeftCooldown", "left")
 
 func cast_right():
-	if canCastRight and righthandSpell != "":
+	if canCastRight and righthandSpell != "Null":
 		print("casting right")
 		canCastRight = false
 		cast(righthandSpell, "startRightCooldown", "right")
@@ -260,6 +261,9 @@ func get_palm():
 
 func get_party():
 	return $HUD.party
+
+func get_spell_list():
+	return spellList
 
 func get_treats():
 	return treats

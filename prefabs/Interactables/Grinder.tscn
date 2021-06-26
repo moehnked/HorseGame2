@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Textures/objects/grinder_Tex.jpg" type="Texture" id=1]
 [ext_resource path="res://models/objects/grinder.obj" type="ArrayMesh" id=2]
-[ext_resource path="res://prefabs/Interactables/Grinder.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Objects/Grinder.gd" type="Script" id=3]
 [ext_resource path="res://prefabs/Objects/GrinderGearPillar.tscn" type="PackedScene" id=4]
 [ext_resource path="res://prefabs/Interactables/Engine.tscn" type="PackedScene" id=5]
 [ext_resource path="res://prefabs/Interactables/UIPanel.tscn" type="PackedScene" id=6]

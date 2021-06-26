@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://prefabs/PlayerStuff/NEW_FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/Items/Fossil.tscn" type="PackedScene" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://prefabs/Items/GasCanister.tscn" type="PackedScene" id=22]
 [ext_resource path="res://prefabs/Items/PileOfPlanks.tscn" type="PackedScene" id=23]
 [ext_resource path="res://prefabs/Interactables/Grinder.tscn" type="PackedScene" id=24]
+[ext_resource path="res://prefabs/Interactables/Sign.tscn" type="PackedScene" id=25]
 [ext_resource path="res://prefabs/Items/Test_Throwable.tscn" type="PackedScene" id=26]
 [ext_resource path="res://prefabs/Items/TestEquipable.tscn" type="PackedScene" id=27]
 [ext_resource path="res://prefabs/Items/TestItem.tscn" type="PackedScene" id=28]
@@ -31,26 +32,31 @@
 [ext_resource path="res://prefabs/Items/Mallet.tscn" type="PackedScene" id=30]
 [ext_resource path="res://prefabs/Objects/Cart.tscn" type="PackedScene" id=31]
 [ext_resource path="res://prefabs/Horses/Horse.tscn" type="PackedScene" id=32]
-[ext_resource path="res://prefabs/Sun.tscn" type="PackedScene" id=33]
+[ext_resource path="res://prefabs/Interactables/SpellSign.tscn" type="PackedScene" id=34]
+[ext_resource path="res://prefabs/Patches.tscn" type="PackedScene" id=35]
 
-[sub_resource type="Environment" id=7]
+[sub_resource type="ProceduralSky" id=6]
+
+[sub_resource type="Environment" id=1]
+background_mode = 2
+background_sky = SubResource( 6 )
 ss_reflections_max_steps = 12
 
-[sub_resource type="PhysicsMaterial" id=3]
+[sub_resource type="PhysicsMaterial" id=2]
 rough = true
 bounce = 0.1
 absorbent = true
 
-[sub_resource type="CubeMesh" id=4]
+[sub_resource type="CubeMesh" id=3]
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=4]
 albedo_color = Color( 0.317647, 0.364706, 0.278431, 1 )
 uv1_scale = Vector3( 30, 30, 1 )
 
-[sub_resource type="BoxShape" id=6]
+[sub_resource type="BoxShape" id=5]
 
 [node name="World" type="WorldEnvironment"]
-environment = SubResource( 7 )
+environment = SubResource( 1 )
 script = ExtResource( 5 )
 
 [node name="SpecialEventManager" parent="." instance=ExtResource( 14 )]
@@ -68,14 +74,14 @@ transform = Transform( 23.4736, 0, 0, 0, 3.52931, 0, 0, 0, 23.3355, 29.5493, 1.3
 
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 97.1449, 0, 0, 0, 0.167856, 0, 0, 0, 97.2541, -1.53892, -0.4634, 1.90735e-06 )
-physics_material_override = SubResource( 3 )
+physics_material_override = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
-mesh = SubResource( 4 )
-material/0 = SubResource( 5 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -96,6 +102,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.1017, 3.45762, 0.370879 )
 [node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
 
 [node name="Debug" type="Control" parent="."]
+visible = false
 margin_right = 1024.0
 margin_bottom = 600.0
 __meta__ = {
@@ -103,6 +110,7 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Debug"]
+visible = false
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 56.0
@@ -267,13 +275,20 @@ transform = Transform( -2.19769, 0, -1.29863, 0, 2.5527, 0, 1.29863, 0, -2.19769
 
 [node name="LockableDoor" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.8761, 1.24378, 44.6632 )
-key = NodePath("../Handaxe2")
 
 [node name="Horse" parent="." instance=ExtResource( 32 )]
 transform = Transform( 0.586245, 0, 0.810134, 0, 1, 0, -0.810134, 0, 0.586245, 12.8989, 1.25834, 45.843 )
 
-[node name="Sun" parent="." instance=ExtResource( 33 )]
-transform = Transform( 1, 0, 0, 0, -0.998729, 0.050401, 0, -0.050401, -0.998729, -10.7995, 23.673, 0 )
+[node name="Sign" parent="." instance=ExtResource( 25 )]
+transform = Transform( 0.441631, 0, -0.897197, 0, 1, 0, 0.897197, 0, 0.441631, 22.4955, -0.185899, 40.4407 )
+message = "Read"
+
+[node name="SpellSign" parent="." instance=ExtResource( 34 )]
+transform = Transform( -0.797742, 0, 0.602999, 0, 1, 0, -0.602999, 0, -0.797742, 24.7572, -0.493948, 39.0836 )
+spell = "Lasso"
+
+[node name="Patches" parent="." instance=ExtResource( 35 )]
+transform = Transform( 1.50778, 0, 0, 0, 1.50778, 0, 0, 0, 1.50778, -10.5356, 2.66995, 36.6662 )
 [connection signal="timeout" from="MiscTimer1" to="." method="_on_MiscTimer1_timeout"]
 [connection signal="timeout" from="MiscTimer2" to="." method="_on_MiscTimer2_timeout"]
 [connection signal="timeout" from="MiscTimer3" to="." method="_on_MiscTimer3_timeout"]

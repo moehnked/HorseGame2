@@ -6,7 +6,7 @@ var state = State.fadein
 var source
 var rootRef
 var selected
-var options = ["Punch", "Lasso", "Build", "Charm"]
+var options = ["Null"]
 var option_objects = []
 var leftHand
 var rightHand
@@ -34,6 +34,7 @@ func _process(delta):
 
 func initialize(_source, left, right):
 	source = _source
+	options = source.get_spell_list()
 	leftHand = left
 	rightHand = right
 	$container/LeftHand.texture_normal =  load("res://Sprites/UI/QE_" + leftHand + ".png")
