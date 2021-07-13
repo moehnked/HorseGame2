@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://models/Item/Plank_Mesh.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/Objects/Dummy.gd" type="Script" id=2]
+[ext_resource path="res://prefabs/Interactables/Damageable.tscn" type="PackedScene" id=3]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.635883, 1.99935, 0.611118 )
+
+[node name="Dummy" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="PlankMesh" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1.25572, 0, 0, 0, -2.04583e-07, -1.25572, 0, 1.25572, -2.04583e-07, 0, 0, 0 )
+
+[node name="PlankMesh2" parent="." instance=ExtResource( 1 )]
+transform = Transform( -2.04583e-07, 1.25572, -2.04583e-07, 0, -2.04583e-07, -1.25572, -1.25572, -2.04583e-07, 3.33307e-14, 0, 0, 0 )
+
+[node name="PlankMesh3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1.66704e-14, 1.02322e-07, 0.62805, 1.25572, -2.04583e-07, 0, 2.04583e-07, 1.25572, -2.04583e-07, 0, 1.78533, 0 )
+
+[node name="PlankMesh4" parent="." instance=ExtResource( 1 )]
+transform = Transform( -2.04583e-07, -1.21293, 0.162551, 0, 0.325004, 0.60665, -1.25572, 1.97612e-07, -2.6483e-08, -0.577366, 0.654897, 0 )
+
+[node name="PlankMesh5" parent="." instance=ExtResource( 1 )]
+transform = Transform( -2.04583e-07, 1.21293, 0.162551, 0, 0.325004, -0.60665, -1.25572, -1.97612e-07, -2.6483e-08, 0.602334, 0.654897, 0 )
+
+[node name="PlankMesh6" parent="." instance=ExtResource( 1 )]
+transform = Transform( 2.83326, 0, 0, 0, 1.25572, 0, 0, 0, 1.08474, -0.00595558, -1.40752, 0 )
+
+[node name="Damageable" parent="." instance=ExtResource( 3 )]
+
+[node name="CollisionShape2" type="CollisionShape" parent="Damageable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.546082, 0 )
+shape = SubResource( 1 )
+[connection signal="destroy" from="Damageable" to="." method="_on_Damageable_destroy"]

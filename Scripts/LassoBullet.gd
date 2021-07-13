@@ -60,8 +60,9 @@ func collision_effect(collided):
 	if(collided.has_method("lasso")):
 		if(collided.can_be_lassod()):
 			print("EXECUTING LASSO")
-			collided.lasso(self)
-			playerRef.lasso(collided.get_saddle(), self)
+			var honse = collided.lasso(self)
+			if honse.get_state() != "Pilot":
+				playerRef.lasso(collided.get_saddle(), self)
 		else:
 			Global.AudioManager.play_sound()
 	deload()

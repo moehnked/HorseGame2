@@ -18,7 +18,7 @@ func _physics_process(delta):
 	rotation.x = clamp(rotation.x, deg2rad(-60), deg2rad(60))
 
 func _process(delta):
-	if(focus != null):
+	if is_focused():
 		rotation_degrees.x = interpolation(rotation_degrees.x,rad2deg(atan2(((focus.global_transform.origin.y + 2) - global_transform.origin.y), (Vector2(global_transform.origin.x, global_transform.origin.z).distance_to(Vector2(focus.global_transform.origin.x, focus.global_transform.origin.z))))), delta*speed)
 		owner.global_transform = owner.global_transform.interpolate_with(owner.global_transform.looking_at(focus.global_transform.origin, Vector3.UP), 0.1)
 		owner.correct_scale()
@@ -28,8 +28,11 @@ func _process(delta):
 func interpolation(from, to, t):
 	return from * (1 - t) + to * t
 
+func is_focused():
+	return focus != null
+
 func look_at_object(object):
-	print("looking at ", object.name, " --> ", object.global_transform.basis)
+	print("looking at ", object.name)
 	focus = object
 	unsubscribe_to()
 
@@ -46,7 +49,7 @@ func unfocus():
 	#rotation_degrees = origin
 
 func unsubscribe_to():
-	rootRef.get_node("InputObserver").unsubscribe(self)
+	Global.InputObserver.unsubscribe(self)
 	
 func parse_input(_input):
 	input = _input

@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://models/misc/plank.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://Materials/basic_wood_02.tres" type="Material" id=2]
+
+[node name="DummyHorseModel" type="Spatial"]
+
+[node name="plank" type="MeshInstance" parent="."]
+transform = Transform( 0.231448, 0.972621, -0.0209668, -0.0810151, -0.00220755, -0.99671, -0.969468, 0.232385, 0.0782861, 0.442687, 1.20743, 0.686689 )
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="plank11" type="MeshInstance" parent="."]
+transform = Transform( 4.32802, 0, 0, 0, 1.99339, 0, 0, 0, 1.99339, -0.0432677, 0.064677, -0.702632 )
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="plank10" type="MeshInstance" parent="."]
+transform = Transform( 0.231448, 0.972621, -0.0209668, -0.0810151, -0.00220755, -0.99671, -0.969468, 0.232385, 0.0782861, -0.576854, 1.20743, 0.686689 )
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="plank7" type="MeshInstance" parent="."]
+transform = Transform( 0.30538, 0.952231, 0, 0.110025, -0.0352848, -0.993302, -0.945853, 0.303334, -0.115544, 0.358199, 1.16303, -2.05988 )
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="plank6" type="MeshInstance" parent="."]
+transform = Transform( -3.72081e-07, -2.28381, 0, -0.132303, 2.15549e-08, -0.613378, 1.31379, -2.14044e-07, -0.28338, 0.333156, 1.81269, -1.37217 )
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="plank8" type="MeshInstance" parent="."]
+transform = Transform( 0.30538, 0.952231, 0, 0.110025, -0.0352848, -0.993302, -0.945853, 0.303334, -0.115544, -0.413888, 1.16303, -2.05988 )
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="plank9" type="MeshInstance" parent="."]
+transform = Transform( -3.72081e-07, -2.28381, 0, -0.132303, 2.15549e-08, -0.613378, 1.31379, -2.14044e-07, -0.28338, -0.438931, 1.81269, -1.37217 )
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="plank3" type="MeshInstance" parent="."]
+transform = Transform( 0.0812558, 0.577021, -0.0290666, 0.548448, -0.0862663, -0.179342, -0.181667, -0.00234635, -0.554429, 0, 2.98899, 1.17562 )
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="plank4" type="MeshInstance" parent="."]
+transform = Transform( -4.35279e-07, -2.4095, 0, 2.61166, -3.83733e-07, -0.24047, 0.563326, -8.27697e-08, 1.11485, 0.158553, 2.61531, -0.233832 )
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="plank5" type="MeshInstance" parent="."]
+transform = Transform( -4.35279e-07, -2.4095, 0, -2.26437, 3.32704e-07, 0.605314, -1.41801, 2.08349e-07, -0.966602, -0.258491, 2.61531, -0.233832 )
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="plank2" type="MeshInstance" parent="."]
+transform = Transform( 1.36353, 0, 0, 0, 0.774644, -0.524883, 0, 1.06601, 0.38142, 0, 3.01048, 1.91112 )
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )

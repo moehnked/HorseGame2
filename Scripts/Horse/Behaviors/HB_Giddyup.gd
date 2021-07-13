@@ -11,8 +11,9 @@ func initialize(args = {}):
 	if hat.get_level() >= actor.stats.values().max():
 		print("high enough level to LASSO !!!!!!!!!!!!!")
 		var challenge = load("res://giddyup_challenge.tscn").instance()
-		anim.set_playback_speed(1.0)
-		anim.play_animation("Idle")
+		if anim != null:
+			anim.set_playback_speed(1.0)
+			anim.play_animation("Idle")
 		#check if we can try
 		challenge.initialize({"horse_ref":actor, "callback":"tame"})
 		Global.world.call_deferred("add_child", challenge)

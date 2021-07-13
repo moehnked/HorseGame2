@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Sprites/Rugs/Rug01.png" type="Texture" id=1]
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+params_cull_mode = 2
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="QuadMesh" id=6]
+material = SubResource( 5 )
+
+[node name="Rug01" type="MeshInstance"]
+transform = Transform( -3.05228e-07, 6.49315, -4.98208e-07, 0, -3.45937e-07, -1, -1.27299, -7.188e-07, 5.51523e-14, -0.406555, 0.020669, 0 )
+mesh = SubResource( 6 )
+material/0 = null

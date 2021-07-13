@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://prefabs/PlayerStuff/NEW_FPSController.tscn" type="PackedScene" id=2]
+[ext_resource path="res://prefabs/InputObserver.tscn" type="PackedScene" id=3]
+[ext_resource path="res://prefabs/InteractionPrompt.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/world.gd" type="Script" id=5]
+[ext_resource path="res://prefabs/System/AudioManager.tscn" type="PackedScene" id=9]
+[ext_resource path="res://prefabs/System/SpecialEventManager.tscn" type="PackedScene" id=10]
+
+[sub_resource type="ProceduralSky" id=1]
+sky_top_color = Color( 0.27451, 0.54902, 0.701961, 1 )
+ground_bottom_color = Color( 0.0862745, 0.105882, 0.105882, 1 )
+ground_horizon_color = Color( 0.843137, 0.835294, 0.709804, 1 )
+sun_latitude = 45.0
+
+[sub_resource type="Environment" id=2]
+background_sky = SubResource( 1 )
+ambient_light_color = Color( 0.380392, 0.380392, 0.380392, 1 )
+fog_enabled = true
+fog_depth_end = 1000.0
+fog_depth_curve = 1.41421
+glow_strength = 1.29
+glow_bloom = 0.66
+
+[node name="World" type="WorldEnvironment"]
+environment = SubResource( 2 )
+script = ExtResource( 5 )
+
+[node name="SpecialEventManager" parent="." instance=ExtResource( 10 )]
+
+[node name="AudioManager" parent="." instance=ExtResource( 9 )]
+
+[node name="InputObserver" parent="." instance=ExtResource( 3 )]
+
+[node name="InteractionPrompt" parent="." instance=ExtResource( 4 )]
+
+[node name="MiscTimer1" type="Timer" parent="."]
+
+[node name="MiscTimer2" type="Timer" parent="."]
+
+[node name="MiscTimer3" type="Timer" parent="."]
+
+[node name="NEW_FPSController" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.206673, 0, -0.410958, 0, 0.46, 0, 0.410958, 0, 0.206673, 199.743, -86.0932, 18.6884 )
+MAX_SPEED = 7
+MAX_SLOPE_ANGLE = 70
+
+[node name="SunTick" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+[connection signal="timeout" from="SunTick" to="." method="_on_SunTick_timeout"]

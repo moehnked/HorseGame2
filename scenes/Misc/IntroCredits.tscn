@@ -165,7 +165,7 @@ margin_top = 448.0
 margin_right = 768.0
 margin_bottom = 600.0
 custom_fonts/font = ExtResource( 5 )
-text = "MUSIC BY"
+text = "GAME DESIGN"
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -11,6 +11,7 @@ func apply_rotation(delta):
 
 func initialize(args = {}):
 	args = .initialize(args)
+	Global.InputObserver.clear()
 	Global.InputObserver.subscribe(self)
 	pass
 
@@ -30,6 +31,11 @@ func parse_movement(actor, delta):
 		direction += aim.x
 	direction.y = 0
 	direction = direction.normalized()
+	if (input.engage or input.tab) and actor.trainer.can_exit_horse():
+		print("TAB PRESSED HORSE")
+		Global.InputObserver.unsubscribe(self)
+		actor.trainer.exit_pilot(true)
+		actor.set_state()
 	return direction
 
 func run(delta):
@@ -43,10 +49,11 @@ func run(delta):
 	pass
 
 func update_animation(direction):
-	if direction.z != 0:
-		actor.get_animation_controller().play_animation("Trot")
-	elif direction.x != 0:
-		actor.get_animation_controller().play_animation("Walk")
-	else:
-		actor.get_animation_controller().play_animation("Idle")
+	if actor.get_animation_controller() != null:
+		if direction.z != 0:
+			actor.get_animation_controller().play_animation("Trot")
+		elif direction.x != 0:
+			actor.get_animation_controller().play_animation("Walk")
+		else:
+			actor.get_animation_controller().play_animation("Idle")
 	pass

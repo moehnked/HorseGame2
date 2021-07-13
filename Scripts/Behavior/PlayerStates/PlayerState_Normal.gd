@@ -9,6 +9,7 @@ var has_contact:bool = false
 var input
 var movement:Vector3 = Vector3()
 var velocity:Vector3 = Vector3()
+var snapVector = Vector3(0,0,0)
 
 
 func run_state(actor, delta):
@@ -57,14 +58,17 @@ func parse_movement(actor, delta):
 		var n = actor.get_ground_check().get_collision_normal()
 		var floor_angle = rad2deg(acos(n.dot(Vector3.UP)))
 		if floor_angle > actor.MAX_SLOPE_ANGLE:
+			print("down")
 			velocity.y += gravity * delta
 	else:
 		if not actor.get_ground_check().is_colliding():
 			has_contact = false
 		velocity.y += gravity * delta
 	if has_contact and !actor.is_on_floor():
-		#print("pulling down: ", actor.global_transform.origin.y)
-		actor.move_and_collide(Vector3(0,-2,0))
+		#var dist = actor.get_ground_check().global_transform.origin.y - actor.get_ground_check().get_collision_point().y
+		#print(dist)
+		#actor.move_and_collide(Vector3(0,-2,0))
+		pass
 	
 	var h_velocity = velocity
 	h_velocity.y = 0
@@ -85,7 +89,7 @@ func parse_movement(actor, delta):
 		velocity.y = 10
 		has_contact = false
 	
-	velocity = actor.move_and_slide(velocity, Vector3.UP)
+	velocity = actor.move_and_slide_with_snap(velocity, snapVector ,Vector3.UP, true, 1, 0.785398, false)
 
 func send_raycast_data(raycastobj, actor):
 	for placer in actor.placer_observers:

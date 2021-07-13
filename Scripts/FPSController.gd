@@ -35,6 +35,7 @@ var HP = 10
 var input = InputMacro.new()
 var isBuilding = false
 var isSwimming = false
+var isRunning = true
 var jump = 10
 var jumpCoefficient = 1.0
 var knockbackDirection = Vector3()
@@ -50,11 +51,11 @@ var spellqueue = []
 var placer_observers = []
 var raycastObservers = []
 
-var lefthandSpell = "Null"
+var lefthandSpell = "Punch"
 var righthandSpell = "Null"
 
 var buildList = ["Fence", "Gate", "Wall", "Doorway", "Platform", "Staircase"]
-var spellList = ["Null",]
+var spellList = ["Null", "Lasso", "Punch"]
 
 var sfx_grunts = [
 	"res://sounds/grunt_01.wav",
@@ -76,7 +77,8 @@ func _ready():
 	pass # Replace with function body.
 
 func _physics_process(delta):
-	currentBehavior.run_state(self, delta)
+	if isRunning:
+		currentBehavior.run_state(self, delta)
 
 #func _on_ExitHorseTimer_timeout():
 #	print("times up")
@@ -114,6 +116,9 @@ func calculate_knockback_vector(hitbox, source):
 	print("type:  --- ",hitbox.get_class())
 	return (hitbox.global_transform.origin - source.global_transform.origin) * 10
 	pass
+
+func can_exit_horse():
+	return $StateContainer/Pilot.canExitHorse
 
 func cast(spell, callback, hand):
 	print("casting ", spell)
@@ -197,6 +202,7 @@ func exit_build_mode(callback):
 	call(callback)
 
 func exit_dialogue():
+	print("player exitting dialogue")
 	subscribe_to()
 	get_head().unfocus()
 	get_interaction_controller().enable_interact()
@@ -283,7 +289,11 @@ func initializeHUD(letter):
 func is_player():
 	return true
 
+func is_focused():
+	return get_head().is_focused()
+
 func lasso(saddle, lasso):
+	print("player starting lasso yatta")
 	set_behavior("Lasso", {"lassoSucceeded": lasso.lassoSucceeded})
 	self.saddle = saddle
 
@@ -364,6 +374,9 @@ func set_behavior(statename, init_args = {}):
 	currentBehavior = get_node("StateContainer/" + statename)
 	currentBehavior.initialize(Utils.check(init_args, {"actor": self}))
 
+func set_is_running(val = true):
+	isRunning = val
+
 func set_knockback_timer(time):
 	$KnockbackTimer.start(time)
 
@@ -400,8 +413,10 @@ func stop_swimming():
 
 func subscribe_to():
 	Global.InputObserver.subscribe(self)
+	get_head().subscribe_to()
 	get_interaction_controller().subscribe_to()
 	get_equipment_manager().subscribe_to()
+	set_is_running()
 	#Global.InputObserver.subscribe($InteractionController)
 
 func take_damage(dmg = 1, hitbox = null, source = null):
@@ -417,8 +432,10 @@ func take_damage(dmg = 1, hitbox = null, source = null):
 
 func unsubscribe_to():
 	Global.InputObserver.unsubscribe(self)
+	get_head().unsubscribe_to()
 	Global.InputObserver.unsubscribe(get_equipment_manager())
 	Global.InputObserver.unsubscribe(get_interaction_controller())
+	set_is_running(false)
 
 func update_spells(left, right):
 	lefthandSpell = left

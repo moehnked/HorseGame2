@@ -10,10 +10,14 @@ var mouse_prev = 0
 var mouse_sensitivity = 0.2
 var mouse_horizontal = 0.0
 var mouse_vertical = 0.0
+var input = InputMacro.new()
 
 func _ready():
 	Global.InputObserver = self
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func clear():
+	input = InputMacro.new()
 
 func subscribe(observer):
 	if(!observers.has(observer)):
@@ -33,7 +37,7 @@ func _input(event):
 			mouse -= 1
 
 func _physics_process(delta):
-	var input = InputMacro.new()
+	input = InputMacro.new()
 	
 	if(mouse > mouse_prev):
 		input.mouse_up = true

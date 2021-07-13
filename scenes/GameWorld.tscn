@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/Temple.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/PlayerStuff/NEW_FPSController.tscn" type="PackedScene" id=2]
@@ -10,6 +10,11 @@
 [ext_resource path="res://prefabs/Misc/ObjectCreationTrigger.tscn" type="PackedScene" id=8]
 [ext_resource path="res://prefabs/System/AudioManager.tscn" type="PackedScene" id=9]
 [ext_resource path="res://prefabs/System/SpecialEventManager.tscn" type="PackedScene" id=10]
+[ext_resource path="res://prefabs/Misc/WarpTrigger.tscn" type="PackedScene" id=11]
+[ext_resource path="res://prefabs/Areas/PatchesGarden.tscn" type="PackedScene" id=12]
+[ext_resource path="res://prefabs/Misc/GenericEventTrigger.tscn" type="PackedScene" id=13]
+[ext_resource path="res://prefabs/Misc/Events/LoadTargetResource.tscn" type="PackedScene" id=14]
+[ext_resource path="res://prefabs/Misc/Testing/RayCastVertical.tscn" type="PackedScene" id=15]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.27451, 0.54902, 0.701961, 1 )
@@ -18,12 +23,13 @@ ground_horizon_color = Color( 0.843137, 0.835294, 0.709804, 1 )
 sun_latitude = 45.0
 
 [sub_resource type="Environment" id=2]
-background_mode = 2
 background_sky = SubResource( 1 )
-ambient_light_color = Color( 0.933333, 0.882353, 0.835294, 1 )
+ambient_light_color = Color( 0.380392, 0.380392, 0.380392, 1 )
 fog_enabled = true
 fog_depth_end = 1000.0
 fog_depth_curve = 1.41421
+glow_strength = 1.29
+glow_bloom = 0.66
 
 [node name="World" type="WorldEnvironment"]
 environment = SubResource( 2 )
@@ -38,17 +44,16 @@ script = ExtResource( 5 )
 [node name="InteractionPrompt" parent="." instance=ExtResource( 4 )]
 
 [node name="MusicTrigger" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1.44297, 0, 0, 0, 1.44297, 0, 0, 0, 1.44297, 15.109, 0, 20.1698 )
+transform = Transform( 1.44297, 0, 0, 0, 1.44297, 0, 0, 0, 1.44297, -54.297, 12.014, 3.86236 )
 songPath = "res://Music/Illusion.wav"
 
 [node name="FadeIn" parent="." instance=ExtResource( 7 )]
 
 [node name="ObjectCreationTrigger" parent="." instance=ExtResource( 8 )]
-transform = Transform( 1.61485, 0, 0, 0, 1.349, 0, 0, 0, 1.81714, 16.755, 0, 20.17 )
+transform = Transform( 1.61485, 0, 0, 0, 1.349, 0, 0, 0, 1.81714, -53.3718, 12.4102, 4.37963 )
 objectPath = "res://scenes/Misc/IntroCredits.tscn"
-triggerName = "FPSController"
-delay = 10
-enabled = false
+triggerName = "NEW_FPSController"
+delay = 23
 
 [node name="Temple" parent="." instance=ExtResource( 1 )]
 
@@ -59,11 +64,33 @@ enabled = false
 [node name="MiscTimer3" type="Timer" parent="."]
 
 [node name="NEW_FPSController" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.348275, 0, 0.300507, 0, 0.46, 0, -0.300507, 0, 0.348275, 0, 8.29062, 26.4458 )
+transform = Transform( 0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, -96.9341, 5.54268, 9.94656 )
 MAX_SPEED = 7
 MAX_SLOPE_ANGLE = 70
+
+[node name="RayCastVertical" parent="." instance=ExtResource( 15 )]
+transform = Transform( 2.11094, 0, 0, 0, 2.11094, 0, 0, 0, 2.11094, -96.9341, 5.54268, 9.94656 )
+cast_to = Vector3( 0, -0.4, 0 )
 
 [node name="SunTick" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
+
+[node name="WarpPoint" parent="." instance=ExtResource( 11 )]
+transform = Transform( 7546.99, 0, 0, 0, 1, 0, 0, 0, 5433.2, 0, -404.305, 0 )
+target = NodePath("../NEW_FPSController")
+warpPoint = NodePath("../WarpPoint1")
+x = false
+
+[node name="WarpPoint1" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.0021, 91.9535, 20.7743 )
+
+[node name="GenericEventTrigger2" parent="." instance=ExtResource( 13 )]
+transform = Transform( 10.1015, 0, 0, 0, 7.40775, 0, 0, 0, 44.4966, 193.462, -91.9822, 18.1704 )
+eventInstance = NodePath("../LoadTargetResource")
+isInstancingEvent = false
+
+[node name="LoadTargetResource" parent="." instance=ExtResource( 14 )]
+transform = Transform( -2.11094, 0, -6.87831e-07, 0, 2.11094, 0, 6.87831e-07, 0, -2.11094, 433.445, -180.887, 18.6674 )
+res = ExtResource( 12 )
 [connection signal="timeout" from="SunTick" to="." method="_on_SunTick_timeout"]

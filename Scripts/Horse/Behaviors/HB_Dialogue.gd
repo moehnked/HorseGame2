@@ -9,14 +9,14 @@ var velocity:Vector3 = Vector3()
 
 #func create_dialogue(controller):
 func create_dialogue(args):
-	var o = load("res://Scripts/UI/DialogueScreen.tscn").instance()
+	var o = load("res://prefabs/UI/Dialogue/DialogueScreen.tscn").instance()
 	add_child(o)
 	#actor.begin_dialogue(controller)
 	talkingToController.begin_dialogue(args.actor)
 	o.initialize({'speaker':args.actor, 'text':RSG.generate_sentance(), 'listener':talkingToController.get_parent(), 'relationship':args.relationship})
 
 func exit():
-	print("exiting horse state dialogue")
+	#print("exiting horse state dialogue")
 	pass
 
 func initialize(args = {}):

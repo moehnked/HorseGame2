@@ -26,7 +26,7 @@ var startup_phrase = ""
 var state = State.fadein
 var time = 4
 
-var sfx_giddyup = "res://sounds/giddyup_01.wav"
+var sfx_giddyup = ["res://sounds/giddyup_01.wav","res://sounds/giddyup_02.wav","res://sounds/giddyup_03.wav"]
 var sfx_hurry = "res://sounds/hurry.wav"
 var sfx_scratchs = [
 	"res://sounds/scratch_00.wav",
@@ -49,7 +49,7 @@ func _ready():
 	$Control/completed.text = startup_phrase
 	$Control/completed.percent_visible = 0.0
 	completion_interval = 1.0 / startup_phrase.length()
-	Global.AudioManager.play_sound(sfx_giddyup)
+	Global.AudioManager.play_sound(sfx_giddyup[Global.world.rng.randi_range(0,2)])
 	hurry = Global.AudioManager.play_sound(sfx_hurry)
 	fadeout = Global.AudioManager.play_sound("res://sounds/slowdown.wav")
 	pass # Replace with function body.
@@ -141,6 +141,8 @@ func success():
 	state = State.fadeout
 	fadeout.stop()
 	Global.AudioManager.play_sound("res://sounds/speedup.wav")
+	Global.AudioManager.play_sound("res://sounds/speedup.wav")
+	Global.world.instantiate("res://prefabs/Effects/Success.tscn")
 	
 func stopAllTimers():
 	$Tik.stop()

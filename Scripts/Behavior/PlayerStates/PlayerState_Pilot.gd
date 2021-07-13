@@ -17,9 +17,12 @@ func initialize(args = {}):
 	Global.world.queue_timer(self, 0.2, "enable_exit_pilot")
 
 func parse_input(input):
-	if(input.engage and canExitHorse):
-		Global.InputObserver.unsubscribe(self)
-		actor.exit_pilot(true)
+	if input.engage:
+		print("exit")
+		if canExitHorse:
+			#Global.InputObserver.unsubscribe(self)
+			#actor.exit_pilot(true)
+			pass
 
 func run_state(actor, delta):
 	actor.global_transform.origin = actor.saddle.global_transform.origin

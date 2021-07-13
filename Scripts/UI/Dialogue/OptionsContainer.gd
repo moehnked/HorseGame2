@@ -10,11 +10,11 @@ extends Node2D
 func _ready():
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
+func clear_options():
+	for i in get_children():
+		remove_child(i)
+		i.queue_free()
+		
 
 func _on_DialogueScreen_tree_exiting():
 	for i in get_children():

@@ -47,7 +47,8 @@ func apply_gravity(velocity, delta):
 			has_contact = false
 		velocity.y += gravity * delta
 	if has_contact and !is_on_floor():
-		move_and_collide(Vector3(0,-2,0))
+		#move_and_collide(Vector3(0,-2,0))
+		pass
 	return velocity
 
 func can_be_lassod():
@@ -135,11 +136,12 @@ func highlight():
 func lasso(lasso):
 	print(name, ": 'I'm being lasso'd by", lasso.playerRef.name ,"!'")
 	if trainer == lasso.playerRef:
+		print(">>>>>>> LASSOED BY TRAINER")
 		enter_pilot()
 		trainer.enter_pilot()
-		pass
 	else:
 		enter_giddyup({"lasso":lasso})
+	return self
 
 func move_at_speed(args = {}):
 	args = Utils.check(args, {"dir":Vector3(), "speed":stats.speed, "velocity":Vector3(), "delta":0.0, "jump":false})
@@ -170,7 +172,7 @@ func move_at_speed(args = {}):
 		velocity.y = 10 * (min(stats.speed / 2.5, 1.0))
 		has_contact = false
 	
-	velocity = move_and_slide(velocity, Vector3.UP)
+	velocity = move_and_slide_with_snap(velocity, Vector3.ZERO ,Vector3.UP, true, 1, 0.785398, false)
 	return {"velocity":velocity, "direction":direction, "position":global_transform.origin}
 
 func recieve_charm(charm, charmer, spell):

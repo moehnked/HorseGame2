@@ -37,7 +37,7 @@ function = 0
 
 [resource]
 code = "shader_type spatial;
-render_mode specular_schlick_ggx;
+render_mode specular_schlick_ggx, unshaded;
 
 uniform sampler2D tex_frg_2;
 
@@ -98,7 +98,8 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -576.814, -17.3 )
+graph_offset = Vector2( -467, 211 )
+flags/unshaded = true
 nodes/fragment/0/position = Vector2( 580, 140 )
 nodes/fragment/2/node = SubResource( 4 )
 nodes/fragment/2/position = Vector2( 40, 160 )

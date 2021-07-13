@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/UI/Dialogue/PatchesDialogueScreen.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Bolo/Bolo_Head_03.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/UI/UI_MISC/DialogueIcon.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/UI/UI_MISC/DialogueIconShadow.gd" type="Script" id=4]
+[ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://fonts/bigt.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Scripts/UI/Dialogue/OptionsContainer.gd" type="Script" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 17
+use_filter = true
+extra_spacing_char = 2
+extra_spacing_space = 4
+font_data = ExtResource( 5 )
+
+[node name="PatchesDialogueScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+iconScale = 0.2
+
+[node name="Container" type="Node2D" parent="."]
+position = Vector2( 270.115, 610.94 )
+
+[node name="window" type="ColorRect" parent="Container"]
+margin_left = -37.0
+margin_right = 494.0
+margin_bottom = 205.0
+color = Color( 0.0941176, 0.0941176, 0.0941176, 0.760784 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="Sprite" parent="Container"]
+modulate = Color( 0, 0, 0, 0 )
+position = Vector2( 50.6019, 59.6879 )
+scale = Vector2( 0.001, 0.001 )
+texture = ExtResource( 2 )
+flip_h = true
+script = ExtResource( 4 )
+
+[node name="Icon2" type="Sprite" parent="Container"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 41.6222, 53.5143 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+flip_h = true
+script = ExtResource( 3 )
+
+[node name="Dialogue" type="Label" parent="Container"]
+visible = false
+margin_left = 142.071
+margin_top = 38.5305
+margin_right = 422.071
+margin_bottom = 52.5305
+custom_fonts/font = SubResource( 1 )
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Nametag" type="Label" parent="Container"]
+margin_left = 223.363
+margin_top = 7.46466
+margin_right = 453.363
+margin_bottom = 68.4647
+rect_scale = Vector2( 0.416803, 0.416803 )
+custom_fonts/font = ExtResource( 6 )
+text = "Patches"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Container"]
+margin_left = 97.1226
+margin_top = 33.0
+margin_right = 446.123
+margin_bottom = 34.0
+color = Color( 1, 1, 1, 0.478431 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsContainer" type="Node2D" parent="Container"]
+position = Vector2( 268.08, 58.8487 )
+script = ExtResource( 8 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.02
+one_shot = true
+[connection signal="tree_exiting" from="." to="Container/OptionsContainer" method="_on_DialogueScreen_tree_exiting"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

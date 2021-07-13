@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://prefabs/PlayerStuff/NEW_FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/Items/Fossil.tscn" type="PackedScene" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://prefabs/System/GlobalCorralRegistrar.tscn" type="PackedScene" id=10]
 [ext_resource path="res://prefabs/Items/Basketball.tscn" type="PackedScene" id=11]
 [ext_resource path="res://prefabs/Interactables/Generator.tscn" type="PackedScene" id=12]
-[ext_resource path="res://prefabs/Horses/TraderHorse.tscn" type="PackedScene" id=13]
 [ext_resource path="res://prefabs/System/SpecialEventManager.tscn" type="PackedScene" id=14]
 [ext_resource path="res://prefabs/Interactables/Splitter.tscn" type="PackedScene" id=15]
 [ext_resource path="res://prefabs/Interactables/LockableDoor.tscn" type="PackedScene" id=16]
@@ -28,35 +27,34 @@
 [ext_resource path="res://prefabs/Items/Test_Throwable.tscn" type="PackedScene" id=26]
 [ext_resource path="res://prefabs/Items/TestEquipable.tscn" type="PackedScene" id=27]
 [ext_resource path="res://prefabs/Items/TestItem.tscn" type="PackedScene" id=28]
-[ext_resource path="res://prefabs/Items/Handaxe.tscn" type="PackedScene" id=29]
+[ext_resource path="res://prefabs/Objects/Dummy.tscn" type="PackedScene" id=29]
 [ext_resource path="res://prefabs/Items/Mallet.tscn" type="PackedScene" id=30]
 [ext_resource path="res://prefabs/Objects/Cart.tscn" type="PackedScene" id=31]
-[ext_resource path="res://prefabs/Horses/Horse.tscn" type="PackedScene" id=32]
 [ext_resource path="res://prefabs/Interactables/SpellSign.tscn" type="PackedScene" id=34]
 [ext_resource path="res://prefabs/Patches.tscn" type="PackedScene" id=35]
 
-[sub_resource type="ProceduralSky" id=6]
+[sub_resource type="ProceduralSky" id=1]
 
-[sub_resource type="Environment" id=1]
+[sub_resource type="Environment" id=2]
 background_mode = 2
-background_sky = SubResource( 6 )
+background_sky = SubResource( 1 )
 ss_reflections_max_steps = 12
 
-[sub_resource type="PhysicsMaterial" id=2]
+[sub_resource type="PhysicsMaterial" id=3]
 rough = true
 bounce = 0.1
 absorbent = true
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="CubeMesh" id=4]
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=5]
 albedo_color = Color( 0.317647, 0.364706, 0.278431, 1 )
 uv1_scale = Vector3( 30, 30, 1 )
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="BoxShape" id=6]
 
 [node name="World" type="WorldEnvironment"]
-environment = SubResource( 1 )
+environment = SubResource( 2 )
 script = ExtResource( 5 )
 
 [node name="SpecialEventManager" parent="." instance=ExtResource( 14 )]
@@ -74,14 +72,14 @@ transform = Transform( 23.4736, 0, 0, 0, 3.52931, 0, 0, 0, 23.3355, 29.5493, 1.3
 
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 97.1449, 0, 0, 0, 0.167856, 0, 0, 0, 97.2541, -1.53892, -0.4634, 1.90735e-06 )
-physics_material_override = SubResource( 2 )
+physics_material_override = SubResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
-mesh = SubResource( 3 )
-material/0 = SubResource( 4 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -195,7 +193,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.87301, 0.580196, 28.2759 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.13054, 1.35132, 31.8901 )
 
 [node name="NEW_FPSController" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.456193, 0, 0, 0, 0.456193, 0, 0, 0, 0.456193, 22.4979, 4.37843, 48.5886 )
+transform = Transform( 0.456193, 0, 0, 0, 0.456193, 0, 0, 0, 0.456193, -9.98853, 4.37843, 48.5886 )
 MAX_SPEED = 7
 MAX_SLOPE_ANGLE = 70
 
@@ -216,9 +214,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34.9018, -0.0117503, 9.95465 )
 
 [node name="Item3" parent="." instance=ExtResource( 28 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.278, -0.0117503, 12.1456 )
-
-[node name="Handaxe2" parent="." instance=ExtResource( 29 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1359, 0.673849, 45.2223 )
 
 [node name="Fossil" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.8667, 1.92685, 13.7128 )
@@ -247,17 +242,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -30.2987, 2.75685, 34.118 )
 [node name="GasCanister" parent="." instance=ExtResource( 22 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.13401, 1.83364, 28.4206 )
 
-[node name="TraderHorse" parent="." instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.3083, -0.605701, 59.718 )
-stats = {
-"chaos": 1,
-"girth": 1,
-"poise": 1,
-"range": 1,
-"silly": 1,
-"speed": 3
-}
-
 [node name="DeadTree2" parent="." instance=ExtResource( 21 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8281, -0.193566, 45.2097 )
 
@@ -275,9 +259,7 @@ transform = Transform( -2.19769, 0, -1.29863, 0, 2.5527, 0, 1.29863, 0, -2.19769
 
 [node name="LockableDoor" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.8761, 1.24378, 44.6632 )
-
-[node name="Horse" parent="." instance=ExtResource( 32 )]
-transform = Transform( 0.586245, 0, 0.810134, 0, 1, 0, -0.810134, 0, 0.586245, 12.8989, 1.25834, 45.843 )
+isLocked = false
 
 [node name="Sign" parent="." instance=ExtResource( 25 )]
 transform = Transform( 0.441631, 0, -0.897197, 0, 1, 0, 0.897197, 0, 0.441631, 22.4955, -0.185899, 40.4407 )
@@ -289,6 +271,9 @@ spell = "Lasso"
 
 [node name="Patches" parent="." instance=ExtResource( 35 )]
 transform = Transform( 1.50778, 0, 0, 0, 1.50778, 0, 0, 0, 1.50778, -10.5356, 2.66995, 36.6662 )
+
+[node name="Dummy" parent="." instance=ExtResource( 29 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.65969, 1.13844, 52.7175 )
 [connection signal="timeout" from="MiscTimer1" to="." method="_on_MiscTimer1_timeout"]
 [connection signal="timeout" from="MiscTimer2" to="." method="_on_MiscTimer2_timeout"]
 [connection signal="timeout" from="MiscTimer3" to="." method="_on_MiscTimer3_timeout"]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Misc/ObjectSpawner.gd" type="Script" id=1]
+[ext_resource path="res://prefabs/Horses/GhostHorse.tscn" type="PackedScene" id=2]
+
+[node name="ObjectSpawner" type="Spatial"]
+script = ExtResource( 1 )
+spawnResource = ExtResource( 2 )
+time = 1.0
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="KillTimer" type="Timer" parent="."]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/Effects/Success.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/misc/glow_01.png" type="Texture" id=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.177778, 0.474074, 0.755556, 1 )
+colors = PoolColorArray( 0, 1, 0.132813, 1, 1, 0.9375, 0, 1, 0.888767, 0, 0.989236, 1, 1, 0.867188, 0, 1, 0, 0.976563, 1, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+lifetime_randomness = 0.61
+emission_shape = 1
+emission_sphere_radius = 128.0
+flag_disable_z = true
+spread = 155.63
+initial_velocity = 408.64
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.12
+scale_random = 1.0
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
+
+[node name="Success" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Particles2D" type="Particles2D" parent="."]
+visible = false
+position = Vector2( 512, 300 )
+scale = Vector2( 0.955806, 0.930217 )
+emitting = false
+amount = 16
+lifetime = 1.39
+one_shot = true
+explosiveness = 0.95
+randomness = 0.81
+process_material = SubResource( 5 )
+texture = ExtResource( 2 )
+
+[node name="TTL" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+[connection signal="timeout" from="TTL" to="." method="_on_TTL_timeout"]

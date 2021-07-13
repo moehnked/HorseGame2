@@ -11,6 +11,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if(scale.x < 0.99):
+	if(scale.x < owner.iconScale):
 		modulate.a += 0.01
-		scale = scale.linear_interpolate(Vector2(1,1), delta * speed)
+		scale = scale.linear_interpolate(Vector2(owner.iconScale,owner.iconScale), delta * speed)
