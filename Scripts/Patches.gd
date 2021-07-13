@@ -28,13 +28,23 @@ func _process(delta):
 		#rotate_y(deg2rad(180))
 		if global_transform.origin.distance_to(Global.Player.global_transform.origin) > 2.4:
 			point_head(delta)
-		
+			
+func check_options():
+	var check = false
+	for i in options:
+		if i.name == "Exit":
+			if check:
+				return false
+			else:
+				check = true
 
 func get_options():
+	#remove_exits_by_name("Exit")
 	return options
 
 func set_options(nextOptions):
 	options = nextOptions
+	#remove_exits_by_name("Exit")
 	options.append(load("res://prefabs/UI/Dialogue/Exit.tscn"))
 
 func point_head(delta):
@@ -42,6 +52,12 @@ func point_head(delta):
 	$Patches2/Armature/Skeleton/HeadPoint.rotation_degrees.x += 50
 	var newPoint = headPointOrigin + $Patches2/Armature/Skeleton/HeadPoint.global_transform.origin.direction_to(Global.Player.get_head().global_transform.origin).normalized() * 2
 	$Patches2/Armature/Skeleton/HeadPoint.global_transform.origin = $Patches2/Armature/Skeleton/HeadPoint.global_transform.origin.linear_interpolate(newPoint, delta)
+
+func remove_exits_by_name(nam):
+	for i in options:
+		if i.resource_name == nam:
+			options.erase(i)
+	pass
 
 func _on_Area_body_entered(body):
 	if body == Global.Player:

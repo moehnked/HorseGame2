@@ -1,7 +1,7 @@
-extends "res://Scripts/UI/Dialogue/Talk.gd"
+extends "res://Scripts/Misc/Events/GenericEvent.gd"
 
 
-export(bool) var exitPlayer = true
+export(String) var groupName = ""
 
 
 # Called when the node enters the scene tree for the first time.
@@ -14,7 +14,6 @@ func _ready():
 #	pass
 
 
-func _on_Talk_emit_end_of_lines():
-	initArgs["ds"].call("start_exit", exitPlayer)
-	$DialogueEventTrigger.trigger()
+func _on_TriggerEventByGroup_emit_event_triggered(by):
+	get_tree().call_group(groupName, "trigger", by)
 	pass # Replace with function body.

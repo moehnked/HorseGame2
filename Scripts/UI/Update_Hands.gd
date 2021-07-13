@@ -87,6 +87,7 @@ func select_spell(spell, side):
 			rightHand = spell
 
 func ready_options(side):
+	Global.world.get_tree().call_group("UI_Event", "trigger", self)
 	play_sound(2)
 	for i in range(0, options.size()):
 		var option = load("res://prefabs/UI/HandOption.tscn").instance()

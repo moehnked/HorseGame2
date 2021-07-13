@@ -1,18 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/UI/Dialogue/Patches_Dialogue_Tree/PM_05_NO_LEARNPUNCH.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/UI/liner_02.png" type="Texture" id=2]
 [ext_resource path="res://fonts/bigt.tres" type="DynamicFont" id=3]
 [ext_resource path="res://prefabs/UI/Dialogue/DialogueEventTrigger.tscn" type="PackedScene" id=4]
-[ext_resource path="res://prefabs/UI/Dialogue/PatchesDialogTree/PM_05_READ_THE_SIGN.tscn" type="PackedScene" id=5]
 
 [node name="Talk" type="Node2D"]
 script = ExtResource( 1 )
 optionText = "TALK"
 readImmediately = false
-lines = [ "I will teach you the most basic spell.", "PUNCH!" ]
-nextOptions = [ ExtResource( 5 ) ]
-exitPlayer = false
+lines = [ "Excellent! Now you can throw a punch with [Left Click]!", "Try punching this dummy..." ]
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 0, 0, 0, 0.458824 )
@@ -34,7 +31,7 @@ __meta__ = {
 }
 
 [node name="DialogueEventTrigger" parent="." instance=ExtResource( 4 )]
-groupname = "PatchesSpawn1"
+groupname = "PatchesPrompt_02"
 [connection signal="emit_end_of_lines" from="." to="." method="_on_Talk_emit_end_of_lines"]
 [connection signal="emit_selected" from="." to="." method="_on_Talk_emit_selected"]
 [connection signal="mouse_entered" from="Label" to="." method="_on_Label_mouse_entered"]

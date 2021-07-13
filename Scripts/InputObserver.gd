@@ -18,6 +18,7 @@ func _ready():
 
 func clear():
 	input = InputMacro.new()
+	pass
 
 func subscribe(observer):
 	if(!observers.has(observer)):

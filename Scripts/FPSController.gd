@@ -51,11 +51,11 @@ var spellqueue = []
 var placer_observers = []
 var raycastObservers = []
 
-var lefthandSpell = "Punch"
+var lefthandSpell = "Null"
 var righthandSpell = "Null"
 
 var buildList = ["Fence", "Gate", "Wall", "Doorway", "Platform", "Staircase"]
-var spellList = ["Null", "Lasso", "Punch"]
+var spellList = ["Null"]
 
 var sfx_grunts = [
 	"res://sounds/grunt_01.wav",
