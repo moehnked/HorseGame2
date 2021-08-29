@@ -1,0 +1,41 @@
+[gd_scene format=2]
+
+[node name="ScrollingDialogue" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 240.0
+margin_top = 291.0
+margin_right = 777.0
+margin_bottom = 601.0
+color = Color( 0, 0, 0, 0.231373 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 672.717
+margin_top = 420.448
+margin_right = 684.717
+margin_bottom = 440.448
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -584.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="ScrollContainer"]
+margin_right = 1024.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+size_flags_vertical = 3

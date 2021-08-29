@@ -15,6 +15,7 @@ func _ready():
 
 
 func _on_Talk_emit_end_of_lines():
+	print("///////endof lines")
 	initArgs["ds"].call("start_exit", exitPlayer)
 	$DialogueEventTrigger.trigger()
 	pass # Replace with function body.

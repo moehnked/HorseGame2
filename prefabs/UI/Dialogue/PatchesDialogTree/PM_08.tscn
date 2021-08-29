@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/UI/Dialogue/Talk.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/UI/liner_02.png" type="Texture" id=2]
+[ext_resource path="res://fonts/bigt.tres" type="DynamicFont" id=3]
+[ext_resource path="res://prefabs/UI/Dialogue/PatchesDialogTree/PM_09.tscn" type="PackedScene" id=4]
+
+[node name="Talk" type="Node2D"]
+script = ExtResource( 1 )
+optionText = "TALK"
+readImmediately = false
+lines = [ "Fantastic!", "Great work. But your fists will only get you so far...", "This world is obsessed with horses... Creatures that resemble this visage.", "The temple you crossed is an effigy, their motif a curse on this land.", "Ah! But beauty is in the eye of the beholder, is it not?", "Perhaps you can find peace where there is chaos.", "..." ]
+nextOptions = [ ExtResource( 4 ) ]
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0, 0, 0, 0.458824 )
+scale = Vector2( 0.578125, 0.578125 )
+texture = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -42.7525
+margin_top = -11.6629
+margin_right = 166.247
+margin_bottom = 49.3371
+rect_scale = Vector2( 0.421184, 0.421184 )
+mouse_filter = 1
+custom_fonts/font = ExtResource( 3 )
+text = "OPTION"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="emit_selected" from="." to="." method="_on_Talk_emit_selected"]
+[connection signal="mouse_entered" from="Label" to="." method="_on_Label_mouse_entered"]
+[connection signal="mouse_exited" from="Label" to="." method="_on_Label_mouse_exited"]

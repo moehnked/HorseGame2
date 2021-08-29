@@ -8,6 +8,7 @@ var canUpdateTarget = true
 var charmStatus:bool = false
 var hand
 var isCharming = false
+var hasInitialized = false
 var lookingat = null
 var palm
 var source
@@ -55,6 +56,7 @@ func conclude():
 	clear_raycast()
 	lookingat = null
 	source.raycast_unsubscribe(self)
+	Global.InputObserver.unsubscribe(self)
 	queue_free()
 
 func create_charm_wheel():
@@ -74,10 +76,16 @@ func initialize(args):
 
 func parse_input(input):
 	if input.standard:
-		if lookingat != null:
+		if lookingat != null and hasInitialized:
 			canUpdateTarget = false
 			create_charm_wheel()
 			unsubscribe_to()
+		elif hasInitialized:
+			conclude()
+		else:
+			hasInitialized = true
+	if input.mouse_down or input.tab:
+		conclude()
 
 func set_status(status = true):
 	charmStatus = status

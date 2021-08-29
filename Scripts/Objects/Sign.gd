@@ -2,6 +2,7 @@ extends StaticBody
 
 export(String)var message = ""
 export(String)var context = ""
+export(String) var groupname = ""
 signal sign_read(controller)
 
 # Called when the node enters the scene tree for the first time.

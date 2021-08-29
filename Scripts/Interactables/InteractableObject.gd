@@ -8,6 +8,7 @@ export var interactSound:String = "res://Sounds/equipment_02.wav"
 export var isHoldToInteract:bool = false
 export var playSoundOnInteract:bool = true
 export var prompt = ""
+export(bool) var showButtonPrompt = true
 
 signal interaction(controller)
 signal holding(controller)
@@ -22,7 +23,7 @@ func _input(ev):
 		pass
 
 func _process(delta):
-	if beingLookedAtBy != null:
+	if beingLookedAtBy != null and isInteractable:
 		if beingLookedAtBy.has_method("get_looking_at"):
 			if not check_if_being_looked_at(beingLookedAtBy.get_looking_at()):
 				beingLookedAtBy = null
@@ -46,15 +47,18 @@ func interact(controller):
 	pass
 
 func play_sound(path):
-	$AudioStreamPlayer3D.stream = load(path)
-	$AudioStreamPlayer3D.play()
+	print("Intractable: playing sound")
+	Global.AudioManager.play_sound(path)
+#	$AudioStreamPlayer3D.stream = load(path)
+#	$AudioStreamPlayer3D.play()
 
 func prompt():
 	emit_signal("emit_prompt", self)
 	return prompt
 
-func set_interactable(state = true):
+func set_interactable(state = true, matchPromptState = false):
 	isInteractable = state
+	showButtonPrompt = state if matchPromptState else showButtonPrompt
 	for o in get_children():
 		if o is CollisionShape:
 			o.disabled = not isInteractable

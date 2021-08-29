@@ -19,8 +19,10 @@ mass = 100.0
 script = ExtResource( 2 )
 icon = "res://Sprites/Items/Log_Icon.png"
 itemName = "Log"
+value = 2.0
 
 [node name="Interactable" parent="." instance=ExtResource( 1 )]
+prompt = "Pick Up "
 
 [node name="CollisionShape2" type="CollisionShape" parent="Interactable"]
 transform = Transform( 0.538591, 0, 0, 0, 0.538591, 0, 0, 0, 0.538591, 0.245693, 0, 0 )
@@ -29,6 +31,7 @@ shape = SubResource( 1 )
 [node name="Context" parent="." instance=ExtResource( 3 )]
 
 [node name="Description" parent="Context" instance=ExtResource( 4 )]
+description = "Large, rough cut logs from a tree. Use an axe or a splitter to split into planks."
 
 [node name="Discard" parent="Context" instance=ExtResource( 7 )]
 visible = false

@@ -55,8 +55,27 @@ func exit_talk():
 		selectedOption.deselect()
 	initialize(initArgs)
 
+func get_container():
+	return $Container/OptionsContainer
+
 func get_selected():
 	return selectedOption
+
+func get_options(removeExits = false):
+	return speaker.get_options()
+#
+#func get_options(removeExits = false):
+#	var o = $Container/OptionsContainer.get_options()
+#	if removeExits:
+#		for i in o:
+#			if i.name == "Exit":
+#				o.erase(i)
+#	var opsRes = []
+#	for i in o:
+#		var r = get_node_and_resource(i.get_path())[1]
+#		print("DS: ", r, " - ", typeof(r))
+#		opsRes.append(r)
+#	return opsRes
 
 func initialize(args = {}):
 	args = Utils.check(args, {'speaker':null, 'listener':null, 'text':["hellow", "world"], 'call_back':"", "relationship":0, "check_relationship":true})
@@ -78,6 +97,7 @@ func initialize(args = {}):
 			init_dialogue_options()
 		else:
 			$Timer.start()
+	
 	Global.InputObserver.subscribe(self)
 	state = "raising"
 	callback = args.call_back
@@ -101,9 +121,10 @@ func lower_window(delta):
 		#$Container.position = $Container.position.linear_interpolate(start_point, delta * speed)
 		$Container.position.y += 20
 	elif destroyOnLower:
-		print("exiting dialogue..........")
+		#print("exiting dialogue..........")
 		destroy()
 	else:
+		#print("dialogue screen: state nothing")
 		state = "nothing"
 
 func parse_input(input):
@@ -112,8 +133,10 @@ func parse_input(input):
 			typing_text = text
 			$Container/Dialogue.text = typing_text
 		elif isTalking:
+			#print("dialogue screen: e pressed - stop talking")
 			exit_talk()
 		elif canExit:
+			#print("dialogue screen: e pressed - exit")
 			destroyOnLower = true
 			start_exit()
 
@@ -128,10 +151,14 @@ func set_text(message):
 
 func set_can_exit():
 	#canScrub = true
+	#print("DS: setting exitability")
+	destroyOnLower = true
 	canExit = true
+	initialize(initArgs)
+	init_dialogue_options()
 
-func set_icon(path):
-	var ico = load(path)
+func set_icon(ico):
+	ico = load(ico) if ico is String else ico
 	$Container/Icon.texture = ico
 	$Container/Icon2.texture = ico
 
@@ -139,7 +166,7 @@ func set_selected(op):
 	selectedOption = op
 
 func start_exit(exitp = true):
-	#print("beginning exit")
+	#print("dialogue screen: beginning exit")
 	exitPlayerDialogueOnExit = exitp
 	state = "lowering"
 
@@ -159,15 +186,31 @@ func start_timer_exit():
 	timer.start(0.1) #to start
 	state = "raising"
 
-func start_trade():
+func start_trade(res, args = {}):
 	destroyOnLower = false
 	canExit = false
 	state = "lowering"
-	#print("starting trade with ", listener, " - ", speaker.get_trainer())
-	var ts = load("res://prefabs/UI/Dialogue/TradingScreen.tscn").instance() if speaker.get_trainer() != listener else load("res://prefabs/UI/Dialogue/ExchangeScreen.tscn").instance()
+	#print("DS: starting trade with ", listener, " - ", speaker.get_trainer())
+	#var ts = res.instance() if speaker.get_trainer() != listener else load("res://prefabs/UI/Dialogue/ExchangeScreen.tscn").instance()
+	var ts
+	if speaker.get_trainer() != listener:
+		ts = res.instance()
+	else:
+		load("res://prefabs/UI/Dialogue/ExchangeScreen.tscn").instance()
 	Global.world.add_child(ts)
-	ts.initialize({"vendor":speaker, "customer":listener, "callback":"exit_trade", "source":self})
+	#ts.initialize({"vendor":speaker, "customer":listener, "callback":"exit_trade", "source":self})
+	ts.initialize(args)
 	Global.InputObserver.unsubscribe(self)
+#
+#func start_trade():
+#	destroyOnLower = false
+#	canExit = false
+#	state = "lowering"
+#	#print("starting trade with ", listener, " - ", speaker.get_trainer())
+#	var ts = load("res://prefabs/UI/Dialogue/TradingScreen.tscn").instance() if speaker.get_trainer() != listener else load("res://prefabs/UI/Dialogue/ExchangeScreen.tscn").instance()
+#	Global.world.add_child(ts)
+#	ts.initialize({"vendor":speaker, "customer":listener, "callback":"exit_trade", "source":self})
+#	Global.InputObserver.unsubscribe(self)
 
 func write_text():
 	if not isScrubbing:
@@ -197,5 +240,5 @@ func _on_Exit_emit_selected():
 	pass # Replace with function body.
 
 func _on_Trade_emit_selected():
-	start_trade()
+	start_trade(load("res://prefabs/UI/Dialogue/TradingScreen.tscn"), {"vendor":speaker, "customer":listener, "callback":"exit_trade", "source":self})
 	pass # Replace with function body.

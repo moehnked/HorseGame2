@@ -26,7 +26,7 @@ func _on_Mallet_body_entered(body):
 		var path = "res://Sounds/axe_hit_01.wav"
 		if body.has_method("get_hit_sound"):
 			path = body.get_hit_sound()
-		if not isRetracting:
+		if not isRetracting and beingThrown:
 			Global.AudioManager.play_sound_3d(path, 0, global_transform.origin)
 		if body.has_method("deconstruct") and canChop:
 			chop(body)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://prefabs/Interactables/InteractableNoPreset.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Items/Mallet.gd" type="Script" id=2]
@@ -10,7 +10,7 @@
 [ext_resource path="res://prefabs/UI/ItemContext_Discard.tscn" type="PackedScene" id=9]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.483679, 0.881738, 0.271164 )
+extents = Vector3( 0.186684, 0.881738, 0.113092 )
 
 [sub_resource type="SpatialMaterial" id=2]
 flags_unshaded = true
@@ -23,12 +23,16 @@ albedo_color = Color( 0, 0, 0, 1 )
 next_pass = SubResource( 2 )
 albedo_color = Color( 0.447059, 0.396078, 0.368627, 1 )
 
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 0.469359, 0.317318, 0.368077 )
+
 [node name="Mallet" type="RigidBody"]
 contacts_reported = 1
 contact_monitor = true
 script = ExtResource( 2 )
 icon = "res://Sprites/Items/Mallet_Icon.png"
 itemName = "Mallet"
+value = 35.0
 canInteractWhileEquipped = true
 power = 100
 
@@ -43,7 +47,7 @@ shape = SubResource( 1 )
 [node name="Context" parent="." instance=ExtResource( 3 )]
 
 [node name="Description" parent="Context" instance=ExtResource( 4 )]
-description = "A sturdy handaxe. It can be thrown to cut down trees or chop logs."
+description = "An old, bulky mallet made of dense stone. It can be used to destroy constructs."
 
 [node name="Equip" parent="Context" instance=ExtResource( 5 )]
 visible = false
@@ -66,7 +70,11 @@ material/0 = ExtResource( 7 )
 material/1 = SubResource( 3 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="."]
-transform = Transform( 0.765666, 0, 0, 0, 0.765666, 0, 0, 0, 0.765666, 0.0110893, 0.152615, 0 )
+transform = Transform( 0.765666, 0, 0, 0, 0.765666, 0, 0, 0, 0.765666, 0.0110893, 0.54453, 0 )
+shape = SubResource( 4 )
+
+[node name="HandleCollider" type="CollisionShape" parent="."]
+transform = Transform( 0.765666, 0, 0, 0, 0.765666, 0, 0, 0, 0.765666, 0.0534457, 0.152615, 0 )
 shape = SubResource( 1 )
 [connection signal="body_entered" from="." to="." method="_on_Mallet_body_entered"]
 [connection signal="interaction" from="Interactable" to="." method="_on_Interactable_interaction"]

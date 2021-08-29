@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://prefabs/System/ProcGen/procgenUI.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/UI/InventoryListItem_button_on.png" type="Texture" id=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InventoryListItem_button_on" type="Sprite" parent="."]
+visible = false
+position = Vector2( 983.426, 411.278 )
+scale = Vector2( 0.364716, 0.364716 )
+texture = ExtResource( 2 )

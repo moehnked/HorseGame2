@@ -2,12 +2,6 @@ extends "res://Scripts/Misc/Events/GenericEvent.gd"
 
 var point
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
 func parse_input(input):
 	if input.engage or input.tab or input.forward or input.backward or input.left or input.right or input.space:
 		stop()

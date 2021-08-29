@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://prefabs/UI/Dialogue/DialogueEventTrigger.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/UI/liner_02.png" type="Texture" id=2]
+[ext_resource path="res://fonts/bigt.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Scripts/UI/Dialogue/Patches_Dialogue_Tree/PM_05_NO_LEARNPUNCH.gd" type="Script" id=4]
+
+[node name="Talk" type="Node2D"]
+script = ExtResource( 4 )
+optionText = "YES"
+readImmediately = false
+lines = [ "Great!", "Then your next lesson shall be in the woods!" ]
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0, 0, 0, 0.458824 )
+scale = Vector2( 0.578125, 0.578125 )
+texture = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -42.7525
+margin_top = -11.6629
+margin_right = 166.247
+margin_bottom = 49.3371
+rect_scale = Vector2( 0.421184, 0.421184 )
+mouse_filter = 1
+custom_fonts/font = ExtResource( 3 )
+text = "OPTION"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DialogueEventTrigger" parent="." instance=ExtResource( 1 )]
+groupname = "LoadPatchesHand01"
+[connection signal="emit_end_of_lines" from="." to="." method="_on_Talk_emit_end_of_lines"]
+[connection signal="emit_selected" from="." to="." method="_on_Talk_emit_selected"]
+[connection signal="mouse_entered" from="Label" to="." method="_on_Label_mouse_entered"]
+[connection signal="mouse_exited" from="Label" to="." method="_on_Label_mouse_exited"]

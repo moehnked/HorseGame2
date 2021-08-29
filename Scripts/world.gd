@@ -1,4 +1,5 @@
-extends WorldEnvironment
+#extends WorldEnvironment
+extends Spatial
 
 var args = {}
 var callback = {}
@@ -11,6 +12,13 @@ func _ready():
 	rng.randomize()
 	get_tree().call_group("rng_dependant", "initialize")
 	pass # Replace with function body.
+
+func add_child( node, legible_unique_name=false):
+	if node.is_in_group("UICustom"):
+		$ViewportContainer2/Viewport.add_child(node, legible_unique_name)
+	else:
+		.add_child(node, legible_unique_name)
+	pass
 
 func call_no_args(timer):
 	if callback.keys().has(timer) and caller.keys().has(timer):
@@ -55,21 +63,9 @@ func place(obj, location = Vector3()):
 	return obj
 
 func queue_timer(_caller, time, _callback, args = {}):
-	print("queuing timer for ", _caller.name, " to call ", _callback, " with ")
-	print(args)
-	if $MiscTimer1.is_stopped():
-		$MiscTimer1.start(time)
-		set_caller_and_callback(_caller, _callback, $MiscTimer1, args)
-	else:
-		if $MiscTimer2.is_stopped():
-			$MiscTimer2.start(time)
-			set_caller_and_callback(_caller, _callback, $MiscTimer1, args)
-		else:
-			if $MiscTimer3.is_stopped():
-				$MiscTimer3.start(time)
-				set_caller_and_callback(_caller, _callback, $MiscTimer1, args)
-			else:
-				print("cannot queue timer")
+	var t = get_tree().create_timer(time)
+	t.connect("timeout", self, "timer_timeout", [t])
+	set_caller_and_callback(_caller, _callback, t, args)
 
 func set_caller_and_callback(_caller, _callback, timer, _args ):
 	caller[timer] = _caller

@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://prefabs/Misc/Events/DeloadTargetGroup.tscn" type="PackedScene" id=2]
+[ext_resource path="res://prefabs/Misc/Events/GenericEvent.tscn" type="PackedScene" id=3]
+[ext_resource path="res://prefabs/Misc/Events/LoadTargetResource.tscn" type="PackedScene" id=4]
+[ext_resource path="res://prefabs/Areas/PatchesWoods.tscn" type="PackedScene" id=8]
+[ext_resource path="res://prefabs/Misc/Events/TransitionSky.tscn" type="PackedScene" id=9]
+
+[node name="PatchesGardenTransitionGroup" type="Spatial"]
+
+[node name="GenericEvent" parent="." groups=[
+"patches_snap01",
+] instance=ExtResource( 3 )]
+nextEvent = [ NodePath("../LoadTargetResource"), NodePath("../TransitionSky"), NodePath("../DeloadTargetgroup") ]
+
+[node name="LoadTargetResource" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -24.187, -56.6559, 9.05573 )
+res = ExtResource( 8 )
+deletedTriggerer = false
+
+[node name="DeloadTargetgroup" parent="." instance=ExtResource( 2 )]
+groupName = "Patches"
+
+[node name="TransitionSky" parent="." instance=ExtResource( 9 )]
+Skygroups = {
+"Dark": 0.5,
+"Space": 1.0
+}

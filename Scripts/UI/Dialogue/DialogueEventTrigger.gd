@@ -9,6 +9,7 @@ func _ready():
 	pass # Replace with function body.
 
 func trigger():
-	print("GENERIC dialogue EVENT triggered /////")
+	#print("GENERIC dialogue EVENT triggered /////")
+	print("- triggering ", groupname)
 	Global.world.get_tree().call_group(groupname, "trigger", self)
 

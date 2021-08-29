@@ -13,12 +13,10 @@ export var equipSoundPath:String = "res://Sounds/unequip_01.wav"
 export var unequipSoundPath:String = "res://Sounds/equipment_03.wav"
 export var intendedSprite = "Holding"
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
 func _process(delta):
 	if isEquipped:
+		set_interactable(false, true)
+		#print("equiped")
 		update_position_to_parent()
 		if controller.get_parent().has_method("get_x_rotation"):
 			update_rotation_to_parent()
@@ -38,12 +36,13 @@ func clear_context():
 	get_context().clear_equipment_context()
 
 func equip(_controller):
-	print("[eq]",self,":equip - ", isEquipped)
+	print("equipable:",self.name,":equip - ", isEquipped)
 	controller = _controller
 	if _controller.has_method("get_equipment_manager"):
 		controller = _controller.get_equipment_manager()
 	if controller.equip(self):
 		print("successfully equipped")
+		set_sleeping(false)
 		$Interactable.isInteractable = false
 		isEquipped = true
 		set_context("Unequip")
@@ -53,7 +52,7 @@ func equip(_controller):
 	return false
 
 func interact(_controller):
-	print("[eq]:interact")
+	print("equipable::interact")
 	if not equip(_controller):
 		pickup(controller)
 
@@ -81,6 +80,12 @@ func set_point(object, _controller):
 	#print("setting point to ", object)
 	controller = _controller
 	parentedTo = object
+
+func toggle_collisions(enabl = true):
+	for i in get_children():
+		if i is CollisionShape:
+			i.disabled = not enabl
+	
 
 func unequip(args = {}):
 	args = Utils.check(args, {"caller":null})

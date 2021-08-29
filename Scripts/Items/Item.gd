@@ -10,10 +10,6 @@ const HB = preload("res://Scripts/Horse/Behaviors/HorseBehavior.gd")
 
 var controller
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
 func add_self_to_inventory(_controller = controller):
 	_controller.add_item(self)
 	pass
@@ -34,6 +30,12 @@ func get_context():
 
 func get_icon(asTexture = false):
 	return load(icon) if asTexture else icon
+
+func get_mesh():
+	for i in get_children():
+		if i is MeshInstance:
+			return i
+	return MeshInstance.new()
 
 func get_name():
 	return itemName
@@ -61,6 +63,9 @@ func pickup(_controller):
 
 func set_pickup_sound(sound_path):
 	pickupSoundPath = sound_path
+
+func set_interactable(state = true, matchPromptState = false):
+	$Interactable.set_interactable(state, matchPromptState)
 
 func _on_Interactable_interaction(controller):
 	interact(controller)

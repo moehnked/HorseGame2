@@ -1,15 +1,17 @@
 shader_type spatial;
 render_mode unshaded;
 
-const float cloudscale = 1.1;
-const float speed = 0.03;
-const float clouddark = 0.5;
-const float cloudlight = 0.3;
-const float cloudcover = 0.2;
-const float cloudalpha = 8.0;
-const float skytint = 0.5;
-const vec3 skycolour1 = vec3(0.2, 0.4, 0.6);
-const vec3 skycolour2 = vec3(0.4, 0.7, 1.0);
+uniform float cloudscale = 3.0;
+uniform float speed = 0.03;
+uniform float clouddark = 0.1;
+uniform float cloudlight = 0.0;
+uniform float cloudcover = 0.2;
+uniform float cloudalpha = 8.0;
+uniform float skytint = 5.5;
+uniform vec3 skycolour1 = vec3(0, 0, 0);
+uniform vec3 skycolour2 = vec3(0, 0, 0);
+uniform float finalAlpha = 1.0;
+const vec2 projectResolution = vec2(1024,600);
 
 const mat2 m = mat2( vec2(1.6,  1.2), vec2(-1.2,  1.6) );
 
@@ -46,7 +48,7 @@ float fbm(vec2 n) {
 void fragment() {
 	//vec2 FRAGCOORD = UV
 	//vec4 COLOR = COLOR
-	vec2 projectResolution = vec2(1024,600);
+	
     vec2 p = FRAGCOORD.xy / projectResolution.xy;
 	vec2 uv = p*vec2(projectResolution.x/projectResolution.y,1.0);    
     float time = TIME * speed;
@@ -115,4 +117,5 @@ void fragment() {
     
 	//COLOR = vec4( result );
 	ALBEDO = vec3( result );
+	ALPHA = finalAlpha;
 }

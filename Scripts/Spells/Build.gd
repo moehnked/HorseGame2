@@ -26,6 +26,18 @@ func _on_ReadyWait_timeout():
 	canSelect = true
 	pass # Replace with function body.
 
+func check_permit():
+	return Utils.contains("Building Permit", playerRef.get_inventory())
+
+func exit():
+	playerRef.exit_build_mode(callback)
+	playerRef.placer_unsubscribe(self)
+	playerRef.isBuilding = false
+	unsubscribe_to()
+	playerRef.conclude_spell("BUILD")
+	playerRef.exit_some_menu()
+	queue_free()
+
 func get_build_list():
 	buildList = playerRef.buildList
 	var i = 0
@@ -47,6 +59,9 @@ func initialize(args):
 	rootRef = args.root
 	hand = args.hand
 	callback = args.callback
+	if not check_permit():
+		exit()
+		return
 	Utils.show_mouse()
 	get_build_list()
 	subscribe_to()
@@ -56,13 +71,7 @@ func initialize(args):
 func parse_input(input):
 	if input.mouse_down:
 		print("build mode - mouse down")
-		playerRef.exit_build_mode(callback)
-		playerRef.placer_unsubscribe(self)
-		playerRef.isBuilding = false
-		unsubscribe_to()
-		playerRef.conclude_spell("BUILD")
-		playerRef.exit_some_menu()
-		queue_free()
+		exit()
 	if input.standard:
 		if canSelect:
 			ready_placer()

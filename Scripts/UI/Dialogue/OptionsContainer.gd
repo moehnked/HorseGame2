@@ -14,7 +14,14 @@ func clear_options():
 	for i in get_children():
 		remove_child(i)
 		i.queue_free()
-		
+
+func get_options():
+	return get_children()
+
+func remove_exits():
+	for i in get_children():
+		if i.name == "Exit":
+			queue_free()
 
 func _on_DialogueScreen_tree_exiting():
 	for i in get_children():

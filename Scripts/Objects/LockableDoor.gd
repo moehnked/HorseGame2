@@ -10,9 +10,15 @@ func _ready():
 		keyName = get_node(key).get_name()
 	pass # Replace with function body.
 
+func get_prompt():
+	return "Close" if isOpen else ("Open" if not isLocked else "Locked" + ("" if keyName == "" else " (Requires Key) "))
+
 func lock():
 	isLocked = true
 	close()
+
+func unlock():
+	isLocked = false
 
 func _on_Interactable_interaction(controller):
 	var inv = controller.get_equipment_manager().get_inventory()

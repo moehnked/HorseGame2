@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/Temple.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/PlayerStuff/NEW_FPSController.tscn" type="PackedScene" id=2]
@@ -14,7 +14,11 @@
 [ext_resource path="res://prefabs/Areas/PatchesGarden.tscn" type="PackedScene" id=12]
 [ext_resource path="res://prefabs/Misc/GenericEventTrigger.tscn" type="PackedScene" id=13]
 [ext_resource path="res://prefabs/Misc/Events/LoadTargetResource.tscn" type="PackedScene" id=14]
-[ext_resource path="res://prefabs/Misc/Testing/RayCastVertical.tscn" type="PackedScene" id=15]
+[ext_resource path="res://prefabs/Misc/Events/DeloadTargetGroup.tscn" type="PackedScene" id=15]
+[ext_resource path="res://prefabs/Misc/Events/GenericEvent.tscn" type="PackedScene" id=16]
+[ext_resource path="res://prefabs/Areas/PatchesWoods.tscn" type="PackedScene" id=17]
+[ext_resource path="res://prefabs/Misc/Events/TransitionSky.tscn" type="PackedScene" id=18]
+[ext_resource path="res://prefabs/UI/Misc/DamageablePrompt.tscn" type="PackedScene" id=19]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.27451, 0.54902, 0.701961, 1 )
@@ -35,6 +39,8 @@ glow_bloom = 0.66
 environment = SubResource( 2 )
 script = ExtResource( 5 )
 
+[node name="DamageablePrompt" parent="." instance=ExtResource( 19 )]
+
 [node name="SpecialEventManager" parent="." instance=ExtResource( 10 )]
 
 [node name="AudioManager" parent="." instance=ExtResource( 9 )]
@@ -44,13 +50,13 @@ script = ExtResource( 5 )
 [node name="InteractionPrompt" parent="." instance=ExtResource( 4 )]
 
 [node name="MusicTrigger" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1.44297, 0, 0, 0, 1.44297, 0, 0, 0, 1.44297, -54.297, 12.014, 3.86236 )
+transform = Transform( 1.44297, 0, 0, 0, 1.44297, 0, 0, 0, 1.44297, -226.752, -37.1114, 41.3639 )
 songPath = "res://Music/Illusion.wav"
 
 [node name="FadeIn" parent="." instance=ExtResource( 7 )]
 
 [node name="ObjectCreationTrigger" parent="." instance=ExtResource( 8 )]
-transform = Transform( 1.61485, 0, 0, 0, 1.349, 0, 0, 0, 1.81714, -53.3718, 12.4102, 4.37963 )
+transform = Transform( 1.38591, 0, 0, 0, 1.349, 0, 0, 0, 1.81714, -226.942, -36.7152, 39.4243 )
 objectPath = "res://scenes/Misc/IntroCredits.tscn"
 triggerName = "NEW_FPSController"
 delay = 23
@@ -64,13 +70,9 @@ delay = 23
 [node name="MiscTimer3" type="Timer" parent="."]
 
 [node name="NEW_FPSController" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, -96.9341, 5.54268, 9.94656 )
+transform = Transform( 0.150717, 0, -0.434608, 0, 0.46, 0, 0.434608, 0, 0.150717, -241.448, -36.9077, 116.575 )
 MAX_SPEED = 7
 MAX_SLOPE_ANGLE = 70
-
-[node name="RayCastVertical" parent="." instance=ExtResource( 15 )]
-transform = Transform( 2.11094, 0, 0, 0, 2.11094, 0, 0, 0, 2.11094, -96.9341, 5.54268, 9.94656 )
-cast_to = Vector3( 0, -0.4, 0 )
 
 [node name="SunTick" type="Timer" parent="."]
 wait_time = 0.2
@@ -86,11 +88,35 @@ x = false
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.0021, 91.9535, 20.7743 )
 
 [node name="GenericEventTrigger2" parent="." instance=ExtResource( 13 )]
-transform = Transform( 10.1015, 0, 0, 0, 7.40775, 0, 0, 0, 44.4966, 193.462, -91.9822, 18.1704 )
-eventInstance = NodePath("../LoadTargetResource")
+transform = Transform( 10.1015, 0, 0, 0, 7.40775, 0, 0, 0, 44.4966, 196.979, -93.0034, 18.1704 )
+eventInstance = NodePath("../LoadPatchesGarden")
 isInstancingEvent = false
 
-[node name="LoadTargetResource" parent="." instance=ExtResource( 14 )]
-transform = Transform( -2.11094, 0, -6.87831e-07, 0, 2.11094, 0, 6.87831e-07, 0, -2.11094, 433.445, -180.887, 18.6674 )
+[node name="GenericEvent" parent="." groups=[
+"patches_snap01",
+] instance=ExtResource( 16 )]
+transform = Transform( -1, 0, -3.89414e-07, 0, 1, 0, 3.89414e-07, 0, -1, 431.159, -180.887, 18.6674 )
+nextEvent = [ NodePath("../LoadPatchesWoods"), NodePath("../TransitionSky"), NodePath("../DeloadTargetgroup") ]
+deleteAfterTrig = true
+
+[node name="LoadPatchesWoods" parent="." instance=ExtResource( 14 )]
+transform = Transform( -1, 0, -3.89414e-07, 0, 1, 0, 3.89414e-07, 0, -1, 455.346, -237.543, 9.61166 )
+res = ExtResource( 17 )
+deletedTriggerer = false
+
+[node name="DeloadTargetgroup" parent="." instance=ExtResource( 15 )]
+transform = Transform( -1, 0, -3.89414e-07, 0, 1, 0, 3.89414e-07, 0, -1, 431.159, -180.887, 18.6674 )
+groupName = "Patches"
+
+[node name="TransitionSky" parent="." instance=ExtResource( 18 )]
+transform = Transform( -1, 0, -3.89414e-07, 0, 1, 0, 3.89414e-07, 0, -1, 431.159, -180.887, 18.6674 )
+Skygroups = {
+"Dark": 0.5,
+"Space": 1.0
+}
+
+[node name="LoadPatchesGarden" parent="." instance=ExtResource( 14 )]
+transform = Transform( -1, 0, -3.89414e-07, 0, 1, 0, 3.89414e-07, 0, -1, 431.159, -180.887, 18.6674 )
 res = ExtResource( 12 )
+deleteSelf = false
 [connection signal="timeout" from="SunTick" to="." method="_on_SunTick_timeout"]

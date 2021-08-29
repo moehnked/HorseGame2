@@ -39,7 +39,7 @@ func move_towards(target, delta):
 	actor.rotation_degrees.y = rad2deg(angle) - 180
 	var facing = -actor.global_transform.basis.z * actor.MAX_SPEED * 200 * delta
 	actor.move_and_slide(facing)
-	if(actor.global_transform.origin.distance_to(target.global_transform.origin) < 5):
+	if(actor.global_transform.origin.distance_to(target.global_transform.origin) < 2):
 		if actor.get_party().has(target.owner):
 			enter_pilot(target)
 		else:

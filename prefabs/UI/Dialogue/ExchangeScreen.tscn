@@ -21,7 +21,9 @@ font_data = ExtResource( 6 )
 size = 116
 font_data = ExtResource( 10 )
 
-[node name="ExchangeScreen" type="Control"]
+[node name="ExchangeScreen" type="Control" groups=[
+"UICustom",
+]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 4 )

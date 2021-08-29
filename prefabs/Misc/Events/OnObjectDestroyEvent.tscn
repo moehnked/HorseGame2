@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Misc/Events/OnObjectDestroyEvent.gd" type="Script" id=1]
+
+[node name="OnObjectDestroyEvent" type="Spatial" groups=[
+"on_destroy_event",
+]]
+script = ExtResource( 1 )
+[connection signal="emit_event_triggered" from="." to="." method="_on_GenericEvent_emit_event_triggered"]

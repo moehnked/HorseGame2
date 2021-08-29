@@ -21,7 +21,9 @@ font_data = ExtResource( 6 )
 size = 116
 font_data = ExtResource( 10 )
 
-[node name="TradingScreen" type="Control"]
+[node name="TradingScreen" type="Control" groups=[
+"UICustom",
+]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 4 )
@@ -29,7 +31,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BG" type="TextureRect" parent="."]
+[node name="background" type="TextureRect" parent="."]
 material = ExtResource( 3 )
 margin_right = 1024.0
 margin_bottom = 600.0
@@ -132,5 +134,5 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="fade_in_complete" from="BG" to="." method="_on_BG_fade_in_complete"]
+[connection signal="fade_in_complete" from="background" to="." method="_on_BG_fade_in_complete"]
 [connection signal="pressed" from="Context/BuyButton" to="." method="_on_BuyButton_pressed"]

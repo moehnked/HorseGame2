@@ -291,6 +291,7 @@ script = ExtResource( 4 )
 [node name="Camera" type="Camera" parent="Head"]
 transform = Transform( 0.527006, 0, 0, 0, 0.527006, 0, 0, 0, 0.527006, 0, 0, -0.369126 )
 cull_mask = 1047551
+projection = 2
 far = 666.0
 script = ExtResource( 14 )
 

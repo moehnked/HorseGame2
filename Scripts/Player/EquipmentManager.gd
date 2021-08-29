@@ -4,7 +4,7 @@ var equipped = null
 var equipPoint:Spatial = Spatial.new()
 var input:InputMacro = InputMacro.new()
 var interactionController = null
-var inventory = []
+export(Array) var inventory
 
 signal emit_equipped(equipment)
 signal emit_unequip(equipment)
@@ -23,7 +23,9 @@ func _process(delta):
 		equipped.parse_equip({"input":input})
 
 func add_item(item):
-	owner.get_inventory().append(item)
+	inventory.append(item)
+	print("added item to horse, player's inv:")
+	print(self, " - ", Global.Player.get_equipment_manager(), " - " , Global.Player.get_inventory())
 
 func check_if_equip_is_valid(other):
 	if equipped != null:
@@ -35,7 +37,10 @@ func check_if_equip_is_valid(other):
 
 func equip(other):
 	if check_if_equip_is_valid(other):
-		print(other.name, " is valid to equip")
+		print("EqM: ", get_parent().name,get_parent(), " - ", other.name, " is valid to equip")
+		print("EqM: ", Global.Player.name,Global.Player, " - ", Global.Player.get_equipment_manager())
+		print("EqM: ", get_inventory(), " p: ", Global.Player.get_inventory())
+		print("EqM: ", self, " eqm: ", get_parent().get_equipment_manager())
 		if !get_inventory().has(other):
 			add_item(other)
 		equipped = other

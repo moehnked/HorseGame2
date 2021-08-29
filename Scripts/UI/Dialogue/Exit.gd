@@ -20,6 +20,9 @@ func _on_Exit_emit_selected():
 	print("YOU SELECTED exit MOTHERFUCKER")
 	var ds = initArgs["ds"]
 	if ds != null:
-		if ds.has_method("start_talking"):
+		print("Exit: ds not null")
+		if ds.has_method("start_exit"):
+			print("exit: ds can exit")
+			ds.set_can_exit()
 			ds.call("start_exit")
 	pass # Replace with function body.

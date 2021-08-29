@@ -11,9 +11,12 @@ func _ready():
 	$PourGasTick.start()
 
 func _process(delta):
-	if pouringGas:
+	if pouringGas and gas > 0:
 		check_raycast()
 		play_sound()
+	else:
+		$AudioStreamPlayer3D.stop()
+	$GasolinePouring/Particles.emitting = pouringGas
 	if linear_velocity <= Vector3(0.1,0.1,0.1) and not isEquipped:
 		check_tip()
 		if lowestPoint != prevLowestPoint:
@@ -47,17 +50,18 @@ func recieve_looking_at(by, obj):
 			lookingAt = obj
 		elif obj.get_parent().has_method("recieve_gas"):
 			lookingAt = obj.get_parent()
+		else:
+			lookingAt = null
 
 func parse_equip(args = {}):
 	args = Utils.check(args, {"input":InputMacro.new()})
 	input = args.input
 	if input.left_mouse_pressed and not input.standard:
-		pouringGas = true
+		pouringGas = true and gas > 0
 	if input.standard:
-		gas -= 1
+		gas -= 1 if pouringGas else 0
 		pouringGas = false
 		$AudioStreamPlayer3D.stop()
-	$GasolinePouring/Particles.emitting = pouringGas
 
 func play_sound(db = 0):
 	$AudioStreamPlayer3D.global_transform.origin = raycastPoint
@@ -74,7 +78,7 @@ func prompt():
 	return "pick up - " + String(gas) + "%"
 
 func _on_PourGasTick_timeout():
-	if pouringGas:
+	if pouringGas and gas > 0:
 		pour_gas()
 	$PourGasTick.start()
 	pass # Replace with function body.

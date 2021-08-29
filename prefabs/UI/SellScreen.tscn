@@ -1,0 +1,144 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Scripts/UI/SellScreen.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/UI/InventoryScreen.png" type="Texture" id=2]
+[ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Sprites/UI/ExitButton.png" type="Texture" id=4]
+[ext_resource path="res://prefabs/UI/Dialogue/ListItemScreen.tscn" type="PackedScene" id=5]
+[ext_resource path="res://prefabs/UI/ItemContext_Button.tscn" type="PackedScene" id=6]
+[ext_resource path="res://fonts/freewaygothic.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Sprites/UI/treat.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/UI/treat02.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/Misc/FadeInController.gd" type="Script" id=10]
+[ext_resource path="res://Sprites/UI/HUD_Party_BG_02.png" type="Texture" id=11]
+[ext_resource path="res://Shaders/noise_canvas_shader.tres" type="Material" id=12]
+
+[sub_resource type="DynamicFont" id=1]
+size = 116
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=2]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_char = 4
+font_data = ExtResource( 3 )
+
+[node name="SellScreen" type="Control" groups=[
+"UICustom",
+]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="background" type="TextureRect" parent="."]
+material = ExtResource( 12 )
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[node name="BG" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.870588 )
+position = Vector2( 514.207, 302.658 )
+scale = Vector2( 0.545527, 0.550508 )
+texture = ExtResource( 2 )
+
+[node name="Display" type="Sprite" parent="."]
+position = Vector2( 708.076, 230.766 )
+
+[node name="Treats" type="Sprite" parent="."]
+position = Vector2( 721.274, 61.625 )
+scale = Vector2( 0.168, 0.163 )
+texture = ExtResource( 9 )
+
+[node name="Treats2" type="Sprite" parent="Treats"]
+modulate = Color( 0.282353, 0.129412, 0.054902, 1 )
+position = Vector2( -5.95264, -6.13498 )
+scale = Vector2( 0.877595, 0.904515 )
+texture = ExtResource( 8 )
+
+[node name="TreatCounter" type="Label" parent="Treats"]
+margin_left = 68.0
+margin_top = -77.0
+margin_right = 454.0
+margin_bottom = 70.0
+custom_fonts/font = SubResource( 1 )
+text = "0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 229.748
+margin_top = 50.063
+margin_right = 372.748
+margin_bottom = 108.063
+custom_fonts/font = SubResource( 2 )
+text = "Selling:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExitButton" type="TextureButton" parent="."]
+margin_left = 835.021
+margin_top = 47.8775
+margin_right = 935.021
+margin_bottom = 147.878
+rect_scale = Vector2( 0.25378, 0.25378 )
+texture_normal = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ListItemScreen" parent="." instance=ExtResource( 5 )]
+position = Vector2( 219, 104 )
+
+[node name="ListItemLoader" type="Node2D" parent="."]
+position = Vector2( 219, 104 )
+
+[node name="Context" type="Node" parent="."]
+
+[node name="Description" type="Label" parent="Context"]
+margin_left = 222.0
+margin_top = 424.0
+margin_right = 850.0
+margin_bottom = 491.0
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonPoint" type="Control" parent="Context"]
+margin_left = 230.566
+margin_top = 512.788
+margin_right = 270.566
+margin_bottom = 552.788
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GiveButton" parent="Context" instance=ExtResource( 6 )]
+visible = false
+margin_left = 228.418
+margin_top = 511.58
+margin_right = 228.418
+margin_bottom = 511.58
+text = "SELL"
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="button_up" from="ExitButton" to="." method="_on_ExitButton_button_up"]
+[connection signal="pressed" from="Context/GiveButton" to="." method="_on_GiveButton_pressed"]

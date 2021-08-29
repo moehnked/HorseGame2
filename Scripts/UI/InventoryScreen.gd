@@ -57,6 +57,7 @@ func get_list_screen():
 
 func initialize(args = {}):
 	args = Utils.check(args, {'source':null, 'inv':[], 'callback':null})
+	$background.start()
 	#print("INITIALIZING INVENTORY SCREEN")
 	inventory = args.inv
 	sourceRef = args.source
@@ -64,6 +65,7 @@ func initialize(args = {}):
 	Utils.show_mouse()
 	draw_list_items()
 	initArgs = args
+	update_treats()
 	#print(uniques())
 
 func parse_input(input):
@@ -95,10 +97,15 @@ func uniques():
 	return u
 
 func unsubscribe_to():
-	Global.world.get_node("InputObserver").unsubscribe(self)
+	#Global.world.get_node("InputObserver").unsubscribe(self)
+	Global.InputObserver.unsubscribe(self)
 
 func update_display(item = null):
 	$Display.texture = item.get_icon(true) if item != null else null
+
+func update_treats():
+	if sourceRef.has_method("get_treats"):
+		$Treats/TreatCounter.text = String(sourceRef.get_treats())
 
 func _on_Timer_timeout():
 	print("inv subscribing")

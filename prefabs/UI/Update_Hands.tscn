@@ -4,7 +4,9 @@
 [ext_resource path="res://Sprites/UI/QE_Lasso.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/UI/QE_Punch.png" type="Texture" id=3]
 
-[node name="Update_Hands" type="Control"]
+[node name="Update_Hands" type="Control" groups=[
+"UICustom",
+]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )

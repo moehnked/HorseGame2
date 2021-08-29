@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://prefabs/Misc/tests/testParentProcessPause.gd" type="Script" id=1]
+[ext_resource path="res://prefabs/Misc/tests/childtest.gd" type="Script" id=2]
+
+[node name="Parent" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Node" type="Node" parent="Node"]
+script = ExtResource( 2 )

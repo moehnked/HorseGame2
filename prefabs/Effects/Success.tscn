@@ -39,7 +39,6 @@ __meta__ = {
 }
 
 [node name="Particles2D" type="Particles2D" parent="."]
-visible = false
 position = Vector2( 512, 300 )
 scale = Vector2( 0.955806, 0.930217 )
 emitting = false

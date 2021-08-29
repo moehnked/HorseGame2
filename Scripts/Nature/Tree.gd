@@ -1,6 +1,7 @@
 extends Spatial
 
-var hp:int = 25
+var maxHP:int = 25
+var hp:int = maxHP
 var nextHitSfx = preload("res://Sounds/wood_hit_01.wav")
 
 export (String) var stumpResource = "res://prefabs/Nature/Stump.tscn"
@@ -15,6 +16,7 @@ func load_next_hit():
 func take_damage(dmg = 1, hitbox = null, source = null):
 	hp -= dmg
 	print(name, " hp: ", hp)
+	Global.StatusPrompt.update_status(hp, maxHP)
 	if hp <= 0:
 		fell()
 
@@ -23,7 +25,7 @@ func fell():
 	#Global.world.instantiate("res://prefabs/Nature/Stump.tscn", global_transform.origin)
 	Global.world.instantiate(stumpResource, global_transform.origin)
 	Global.world.instantiate("res://prefabs/Effects/TreeFell.tscn", global_transform.origin + Vector3(0,1,0))
-	Global.AudioManager.play_sound_3d("res://Sounds/tree_fall_01.wav", 0, global_transform.origin, 6)
+	Global.AudioManager.play_sound_3d("res://Sounds/tree_fall_01.wav", -10, global_transform.origin, 5)
 	spawn_logs()
 	queue_free()
 

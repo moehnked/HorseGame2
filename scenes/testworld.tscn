@@ -45,7 +45,7 @@ one_shot = true
 one_shot = true
 
 [node name="NEW_FPSController" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0, 0 )
+transform = Transform( 0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 6.79956, -4.18596, -7.39053 )
 MAX_SPEED = 7
 MAX_SLOPE_ANGLE = 70
 

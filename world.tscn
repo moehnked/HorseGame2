@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://prefabs/PlayerStuff/NEW_FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/Items/Fossil.tscn" type="PackedScene" id=2]
@@ -11,10 +11,10 @@
 [ext_resource path="res://prefabs/Trophy.tscn" type="PackedScene" id=9]
 [ext_resource path="res://prefabs/System/GlobalCorralRegistrar.tscn" type="PackedScene" id=10]
 [ext_resource path="res://prefabs/Items/Basketball.tscn" type="PackedScene" id=11]
-[ext_resource path="res://prefabs/Interactables/Generator.tscn" type="PackedScene" id=12]
+[ext_resource path="res://prefabs/Items/LandClaim.tscn" type="PackedScene" id=12]
+[ext_resource path="res://prefabs/Items/ConstructionItems/Interior_Wood.tscn" type="PackedScene" id=13]
 [ext_resource path="res://prefabs/System/SpecialEventManager.tscn" type="PackedScene" id=14]
 [ext_resource path="res://prefabs/Interactables/Splitter.tscn" type="PackedScene" id=15]
-[ext_resource path="res://prefabs/Interactables/LockableDoor.tscn" type="PackedScene" id=16]
 [ext_resource path="res://prefabs/Nature/Water.tscn" type="PackedScene" id=17]
 [ext_resource path="res://prefabs/Misc/TempleTile.tscn" type="PackedScene" id=18]
 [ext_resource path="res://prefabs/Items/Logs.tscn" type="PackedScene" id=19]
@@ -31,55 +31,93 @@
 [ext_resource path="res://prefabs/Items/Mallet.tscn" type="PackedScene" id=30]
 [ext_resource path="res://prefabs/Objects/Cart.tscn" type="PackedScene" id=31]
 [ext_resource path="res://prefabs/Interactables/SpellSign.tscn" type="PackedScene" id=34]
-[ext_resource path="res://prefabs/Patches.tscn" type="PackedScene" id=35]
+[ext_resource path="res://prefabs/Items/Handaxe.tscn" type="PackedScene" id=36]
+[ext_resource path="res://Materials/RoughMetalic.tres" type="Material" id=37]
+[ext_resource path="res://prefabs/Items/Permit.tscn" type="PackedScene" id=38]
+[ext_resource path="res://icon.png" type="Texture" id=40]
+[ext_resource path="res://Shaders/cloud_2d.shader" type="Shader" id=41]
+[ext_resource path="res://prefabs/UI/Misc/DamageablePrompt.tscn" type="PackedScene" id=42]
+[ext_resource path="res://prefabs/Items/ConstructionItems/BrickSiding.tscn" type="PackedScene" id=44]
 
-[sub_resource type="ProceduralSky" id=1]
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 41 )
 
-[sub_resource type="Environment" id=2]
-background_mode = 2
-background_sky = SubResource( 1 )
-ss_reflections_max_steps = 12
-
-[sub_resource type="PhysicsMaterial" id=3]
+[sub_resource type="PhysicsMaterial" id=2]
 rough = true
 bounce = 0.1
 absorbent = true
 
-[sub_resource type="CubeMesh" id=4]
+[sub_resource type="CubeMesh" id=3]
 
-[sub_resource type="SpatialMaterial" id=5]
-albedo_color = Color( 0.317647, 0.364706, 0.278431, 1 )
-uv1_scale = Vector3( 30, 30, 1 )
+[sub_resource type="BoxShape" id=4]
 
-[sub_resource type="BoxShape" id=6]
-
-[node name="World" type="WorldEnvironment"]
-environment = SubResource( 2 )
+[node name="World" type="Spatial"]
 script = ExtResource( 5 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 1024, 600 )
+handle_input_locally = false
+usage = 0
+render_target_update_mode = 3
+
+[node name="Sprite" type="Sprite" parent="ViewportContainer/Viewport"]
+material = SubResource( 1 )
+position = Vector2( 612, 300 )
+scale = Vector2( 20, 10 )
+texture = ExtResource( 40 )
 
 [node name="SpecialEventManager" parent="." instance=ExtResource( 14 )]
 
 [node name="AudioManager" parent="." instance=ExtResource( 20 )]
 
-[node name="InputObserver" parent="." instance=ExtResource( 7 )]
-
-[node name="InteractionPrompt" parent="." instance=ExtResource( 8 )]
-
 [node name="GlobalCorralRegistrar" parent="." instance=ExtResource( 10 )]
+
+[node name="ViewportContainer2" type="ViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer2"]
+size = Vector2( 1024, 600 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+audio_listener_enable_2d = true
+audio_listener_enable_3d = true
+
+[node name="DamageablePrompt" parent="ViewportContainer2/Viewport" instance=ExtResource( 42 )]
+
+[node name="InteractionPrompt" parent="ViewportContainer2/Viewport" instance=ExtResource( 8 )]
+
+[node name="InputObserver" parent="ViewportContainer2/Viewport" instance=ExtResource( 7 )]
+
+[node name="NEW_FPSController" parent="ViewportContainer2/Viewport" instance=ExtResource( 1 )]
+transform = Transform( 0.456193, 0, 0, 0, 0.456193, 0, 0, 0, 0.456193, 26.9069, 4.37843, 38.7475 )
+MAX_SPEED = 7
+MAX_SLOPE_ANGLE = 70
 
 [node name="Water" parent="." instance=ExtResource( 17 )]
 transform = Transform( 23.4736, 0, 0, 0, 3.52931, 0, 0, 0, 23.3355, 29.5493, 1.32266, -22.2464 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 97.1449, 0, 0, 0, 0.167856, 0, 0, 0, 97.2541, -1.53892, -0.4634, 1.90735e-06 )
-physics_material_override = SubResource( 3 )
+physics_material_override = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
-mesh = SubResource( 4 )
-material/0 = SubResource( 5 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 37 )
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-shape = SubResource( 6 )
+shape = SubResource( 4 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -129,9 +167,6 @@ transform = Transform( 1.27012, 0, 0, 0, 2.7723, 0, 0, 0, 23.9423, 52.083, 2.154
 
 [node name="TempleTile4" parent="." instance=ExtResource( 18 )]
 transform = Transform( -2.06929e-07, 0, 23.9423, 0, 2.7723, 0, -1.27012, 0, -3.90069e-06, 29.1549, 2.1546, -46.5882 )
-
-[node name="Generator" parent="." instance=ExtResource( 12 )]
-transform = Transform( -0.519281, 0, -0.854604, 0, 1, 0, 0.854604, 0, -0.519281, 4.40594, 0.468706, 37.2208 )
 
 [node name="BasketballCourt" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25.7174, 1.3738, 40.1906 )
@@ -190,12 +225,7 @@ transform = Transform( 0.991723, 0, 0, 0, 0.991723, 0, 0, 0, 0.991723, -0.748491
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.87301, 0.580196, 28.2759 )
 
 [node name="PileOfPlanks" parent="." instance=ExtResource( 23 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.13054, 1.35132, 31.8901 )
-
-[node name="NEW_FPSController" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.456193, 0, 0, 0, 0.456193, 0, 0, 0, 0.456193, -9.98853, 4.37843, 48.5886 )
-MAX_SPEED = 7
-MAX_SLOPE_ANGLE = 70
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 35.09, 1.35132, 31.8901 )
 
 [node name="Equipable2" parent="." instance=ExtResource( 26 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 31.0117, 1.38449, 7.6476 )
@@ -257,10 +287,6 @@ transform = Transform( -0.335967, 0, -0.836166, 0, 0.901137, 0, 0.836166, 0, -0.
 [node name="Cart" parent="." instance=ExtResource( 31 )]
 transform = Transform( -2.19769, 0, -1.29863, 0, 2.5527, 0, 1.29863, 0, -2.19769, 28.4467, 2.32673, 60.3399 )
 
-[node name="LockableDoor" parent="." instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.8761, 1.24378, 44.6632 )
-isLocked = false
-
 [node name="Sign" parent="." instance=ExtResource( 25 )]
 transform = Transform( 0.441631, 0, -0.897197, 0, 1, 0, 0.897197, 0, 0.441631, 22.4955, -0.185899, 40.4407 )
 message = "Read"
@@ -269,11 +295,31 @@ message = "Read"
 transform = Transform( -0.797742, 0, 0.602999, 0, 1, 0, -0.602999, 0, -0.797742, 24.7572, -0.493948, 39.0836 )
 spell = "Lasso"
 
-[node name="Patches" parent="." instance=ExtResource( 35 )]
-transform = Transform( 1.50778, 0, 0, 0, 1.50778, 0, 0, 0, 1.50778, -10.5356, 2.66995, 36.6662 )
-
 [node name="Dummy" parent="." instance=ExtResource( 29 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.65969, 1.13844, 52.7175 )
+
+[node name="Fossil9" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32.153, 3.19954, 41.6012 )
+
+[node name="Handaxe" parent="." instance=ExtResource( 36 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.4324, 2.88359, 33.1902 )
+
+[node name="Permit" parent="." instance=ExtResource( 38 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28.4185, 1.88724, 30.2149 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -0.221477, 0.808667, -0.544982, -0.17017, 0.518236, 0.838137, 0.960203, 0.278368, 0.0228342, 0, 16.3563, 0 )
+visible = false
+light_color = Color( 1, 0.945098, 0.984314, 1 )
+
+[node name="BrickSiding" parent="." instance=ExtResource( 44 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.386, 6.18298, 39.8207 )
+
+[node name="LandClaim" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4937, -0.173236, 31.8222 )
+
+[node name="InteriorWood" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2358, 15.4695, 40.1445 )
 [connection signal="timeout" from="MiscTimer1" to="." method="_on_MiscTimer1_timeout"]
 [connection signal="timeout" from="MiscTimer2" to="." method="_on_MiscTimer2_timeout"]
 [connection signal="timeout" from="MiscTimer3" to="." method="_on_MiscTimer3_timeout"]

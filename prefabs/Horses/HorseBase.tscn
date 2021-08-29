@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://prefabs/Horses/Lassoable.tscn" type="PackedScene" id=1]
+[ext_resource path="res://models/misc/ramp_corner.obj" type="ArrayMesh" id=2]
+
+[node name="HorseBase" type="Spatial" groups=[
+"Horse",
+]]
+
+[node name="Lassoable" parent="." instance=ExtResource( 1 )]
+saddle = NodePath("../Saddle")
+
+[node name="ramp_corner" type="MeshInstance" parent="."]
+mesh = ExtResource( 2 )
+material/0 = null
+
+[node name="Saddle" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.43568, 0 )

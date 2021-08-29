@@ -2,6 +2,7 @@ extends Spatial
 
 
 var isOpen = false
+var canOpen = true
 
 
 # Called when the node enters the scene tree for the first time.
@@ -14,10 +15,12 @@ func close():
 	$DoorClosedMesh.visible = true
 	$DoorOpenMesh.visible = false
 	$StaticBody/CollisionShape.disabled = false
-	
+
+func get_prompt():
+	return "Close" if isOpen else "Open"
 
 func _on_Interactable_emit_prompt(_prompt):
-	_prompt.prompt = "Close" if isOpen else "Open"
+	_prompt.prompt = get_prompt()
 	pass # Replace with function body.
 
 
@@ -29,5 +32,6 @@ func toggle_open():
 
 
 func _on_Interactable_interaction(controller):
-	toggle_open()
+	if canOpen:
+		toggle_open()
 	pass # Replace with function body.

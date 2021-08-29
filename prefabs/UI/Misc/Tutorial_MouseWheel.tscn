@@ -48,35 +48,35 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="VisualShaderNodeScalarOp" id=12]
+[sub_resource type="VisualShaderNodeScalarOp" id=2]
 default_input_values = [ 0, 1.1, 1, 1.0 ]
 
-[sub_resource type="VisualShaderNodeTexture" id=2]
+[sub_resource type="VisualShaderNodeTexture" id=3]
 texture = ExtResource( 5 )
 
-[sub_resource type="VisualShaderNodeInput" id=3]
+[sub_resource type="VisualShaderNodeInput" id=4]
 input_name = "color"
 
-[sub_resource type="VisualShaderNodeVectorOp" id=4]
+[sub_resource type="VisualShaderNodeVectorOp" id=5]
 operator = 2
 
-[sub_resource type="VisualShaderNodeScalarOp" id=5]
+[sub_resource type="VisualShaderNodeScalarOp" id=6]
 default_input_values = [ 0, 2.0, 1, 1.0 ]
 
-[sub_resource type="VisualShaderNodeScalarFunc" id=6]
+[sub_resource type="VisualShaderNodeScalarFunc" id=7]
 function = 0
 
-[sub_resource type="VisualShaderNodeInput" id=7]
+[sub_resource type="VisualShaderNodeInput" id=8]
 input_name = "time"
 
-[sub_resource type="VisualShaderNodeScalarOp" id=8]
+[sub_resource type="VisualShaderNodeScalarOp" id=9]
 default_input_values = [ 0, 0.0, 1, 2.0 ]
 operator = 2
 
-[sub_resource type="VisualShaderNodeScalarOp" id=9]
+[sub_resource type="VisualShaderNodeScalarOp" id=10]
 operator = 2
 
-[sub_resource type="VisualShader" id=10]
+[sub_resource type="VisualShader" id=11]
 code = "shader_type canvas_item;
 uniform sampler2D tex_frg_2;
 
@@ -133,33 +133,35 @@ void light() {
 graph_offset = Vector2( -934, 26.25 )
 mode = 1
 flags/light_only = false
-nodes/fragment/2/node = SubResource( 2 )
+nodes/fragment/2/node = SubResource( 3 )
 nodes/fragment/2/position = Vector2( -180, 240 )
-nodes/fragment/3/node = SubResource( 3 )
+nodes/fragment/3/node = SubResource( 4 )
 nodes/fragment/3/position = Vector2( -240, -40 )
-nodes/fragment/4/node = SubResource( 4 )
+nodes/fragment/4/node = SubResource( 5 )
 nodes/fragment/4/position = Vector2( 140, 120 )
-nodes/fragment/5/node = SubResource( 5 )
+nodes/fragment/5/node = SubResource( 6 )
 nodes/fragment/5/position = Vector2( -240, 40 )
-nodes/fragment/6/node = SubResource( 6 )
+nodes/fragment/6/node = SubResource( 7 )
 nodes/fragment/6/position = Vector2( -580, 140 )
-nodes/fragment/7/node = SubResource( 7 )
+nodes/fragment/7/node = SubResource( 8 )
 nodes/fragment/7/position = Vector2( -760, 140 )
-nodes/fragment/8/node = SubResource( 8 )
+nodes/fragment/8/node = SubResource( 9 )
 nodes/fragment/8/position = Vector2( -20, -20 )
-nodes/fragment/9/node = SubResource( 9 )
+nodes/fragment/9/node = SubResource( 10 )
 nodes/fragment/9/position = Vector2( 160, 320 )
-nodes/fragment/10/node = SubResource( 12 )
+nodes/fragment/10/node = SubResource( 2 )
 nodes/fragment/10/position = Vector2( -340, 180 )
 nodes/fragment/connections = PoolIntArray( 7, 0, 6, 0, 2, 1, 9, 1, 9, 0, 0, 1, 6, 0, 5, 1, 6, 0, 10, 1, 10, 0, 9, 0, 5, 0, 8, 1, 3, 0, 8, 0, 8, 0, 4, 0, 2, 0, 4, 1, 4, 0, 0, 0 )
 
-[sub_resource type="ShaderMaterial" id=11]
-shader = SubResource( 10 )
+[sub_resource type="ShaderMaterial" id=12]
+shader = SubResource( 11 )
 
 [sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 65.0112, 72.6375 )
 
-[node name="Tutorial_MouseWheel" type="Node2D"]
+[node name="Tutorial_MouseWheel" type="Node2D" groups=[
+"UICustom",
+]]
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_lock_": true
@@ -183,7 +185,7 @@ anims/MouseUp = SubResource( 1 )
 
 [node name="Sprite2" type="Sprite" parent="."]
 visible = false
-material = SubResource( 11 )
+material = SubResource( 12 )
 position = Vector2( 321.269, 257.901 )
 scale = Vector2( 0.646667, 0.646667 )
 z_index = -3
@@ -196,7 +198,7 @@ z_as_relative = false
 
 [node name="Sprite3" type="Sprite" parent="."]
 visible = false
-material = SubResource( 11 )
+material = SubResource( 12 )
 position = Vector2( 321.269, 128.307 )
 scale = Vector2( 0.646667, 0.646667 )
 z_index = -3

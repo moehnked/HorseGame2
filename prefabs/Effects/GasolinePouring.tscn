@@ -17,15 +17,15 @@ scale = 5.0
 scale_random = 0.73
 scale_curve = SubResource( 2 )
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=4]
 flags_transparent = true
 albedo_color = Color( 0.254902, 0.0431373, 0.0784314, 0.780392 )
 metallic = 0.75
 metallic_specular = 0.89
 roughness = 0.24
 
-[sub_resource type="SphereMesh" id=4]
-material = SubResource( 5 )
+[sub_resource type="SphereMesh" id=5]
+material = SubResource( 4 )
 radius = 0.2
 height = 0.4
 
@@ -36,4 +36,4 @@ emitting = false
 amount = 32
 lifetime = 2.0
 process_material = SubResource( 3 )
-draw_pass_1 = SubResource( 4 )
+draw_pass_1 = SubResource( 5 )

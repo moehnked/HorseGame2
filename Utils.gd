@@ -24,6 +24,13 @@ static func check(args = {}, def = {}):
 static func check_dist(from, to, thresh):
 	return from.global_transform.origin.distance_to(to.global_transform.origin) > thresh
 
+static func check_options_contains(res, ops):
+	for i in ops:
+		print(i.resPath)
+		if i.resPath == res.resource_path:
+			return true
+	return false
+
 static func contains(item, list):
 	if item is String:
 		for i in list:
@@ -89,15 +96,9 @@ func uPrint(message, caller):
 	print(caller.get_name(),": " + message)
 
 func instance_item(item):
-	print("instancing ", item, ": controller: ", item.controller)
-	Global.world.call_deferred("add_child", item)
+	#print("instancing ", item, ": controller: ", item.controller)
+	Global.world.call("add_child", item)
 	return item
-#	var rig = load(item.prefabPath).instance()
-#	var undesirable = rig.get_node("Item")
-#	rig.remove_child(undesirable)
-#	undesirable.queue_free()
-#	rig.add_child(item)
-#	return rig
 
 static func logWithBase(value, base):
 	return log(value) / log(base)
@@ -114,24 +115,30 @@ static func pop_item_by_name(itemName, list):
 	var i = 0
 	while(i < list.size()):
 		if(list[i].get_name() == itemName):
-			var tmp = list[i]
-			list.remove(i)
-			return tmp
+			return pop_item(list[i], list)
 		i += 1
 
 static func pop_item(item, list):
 	var i = list.find(item)
 	var tmp = list[i]
+	if tmp != null:
+		if "isEquipped" in tmp:
+			if tmp.isEquipped:
+				tmp.controller.unequip()
 	list.remove(i)
 	return tmp
 
 static func remove_item(item, list):
-	var i = 0
-	while(i < list.size()):
-		if(list[i].itemName == item.itemName):
-			list.remove(i)
+	for i in list:
+		if i.get_name() == item.get_name():
+			list.erase(i)
 			return
-		i += 1
+#	var i = 0
+#	while(i < list.size()):
+#		if(list[i].itemName == item.itemName):
+#			list.remove(i)
+#			return
+#		i += 1
 
 static func show_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

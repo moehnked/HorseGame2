@@ -6,6 +6,7 @@ const hbRef = preload("res://Scripts/Horse/Behaviors/HorseBehavior.gd")
 signal emit_charm_recieved(charm, charmer, spell)
 signal emit_highlight(toggle)
 
+export(Array, String) var acceptedItemsToSell = []
 export var DEACCEL:int = 6
 export var MAX_ACCEL:int = 2
 export var MAX_SLOPE_ANGLE:float = 90
@@ -52,7 +53,7 @@ func apply_gravity(velocity, delta):
 	return velocity
 
 func can_be_lassod():
-	var non_lassoable_state = []
+	var non_lassoable_state = ["Dialogue"]
 	var state = $StateMachine.get_state()
 	return not non_lassoable_state.has(state)
 
@@ -86,6 +87,9 @@ func exit_dialogue():
 	set_state(resumeBehaviorArgs)
 	#$StateMachine.currentBehavior.exit()
 
+func get_accepted_sell_list():
+	return acceptedItemsToSell
+
 func get_animation_controller():
 	return $horse_animated
 
@@ -106,20 +110,23 @@ func get_icon():
 	return "res://Sprites/UI/Horse_Icon_01.png"
 
 func get_inventory():
-	#return []
+	print("Horse: ", get_equipment_manager().name, ": ", get_equipment_manager())
 	return get_equipment_manager().get_inventory()
 
 func get_relationship_manager():
 	return $RelationshipManager
 
-func get_saddle():
-	return $Saddle
+#func get_saddle():
+#	return $Saddle
 
 func get_state():
 	return $StateMachine.get_state()
 	
 func get_state_machine():
 	return $StateMachine
+
+func get_stats():
+	return stats
 
 func get_trainer():
 	return trainer
@@ -133,15 +140,15 @@ func highlight():
 	emit_signal("emit_highlight", true)
 	pass
 
-func lasso(lasso):
-	print(name, ": 'I'm being lasso'd by", lasso.playerRef.name ,"!'")
-	if trainer == lasso.playerRef:
-		print(">>>>>>> LASSOED BY TRAINER")
-		enter_pilot()
-		trainer.enter_pilot()
-	else:
-		enter_giddyup({"lasso":lasso})
-	return self
+#func lasso(lasso):
+#	print(name, ": 'I'm being lasso'd by", lasso.playerRef.name ,"!'")
+#	if trainer == lasso.playerRef:
+#		print(">>>>>>> LASSOED BY TRAINER")
+#		enter_pilot()
+#		trainer.enter_pilot()
+#	else:
+#		enter_giddyup({"lasso":lasso})
+#	return self
 
 func move_at_speed(args = {}):
 	args = Utils.check(args, {"dir":Vector3(), "speed":stats.speed, "velocity":Vector3(), "delta":0.0, "jump":false})
@@ -218,4 +225,15 @@ func _on_Interactable_emit_prompt(_prompt):
 func _on_Interactable_interaction(controller):
 	#start dialogue
 	set_state({"behaviorName":"Dialogue", "callback":"set_state", "kargs":{"behaviorName":get_state(), "initialArgs":get_behavior().initialArgs }, "talkingToController":controller, "relationship":$RelationshipManager.check_relationships(controller.get_parent())})
+	pass # Replace with function body.
+
+
+func _on_Lassoable_lassoed(by):
+	if can_be_lassod():
+		if trainer == by:
+			$Lassoable.start_pilot()
+		else:
+			$Lassoable.start_giddyup(self)
+	else:
+		$Lassoable.stop()
 	pass # Replace with function body.

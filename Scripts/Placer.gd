@@ -1,20 +1,24 @@
 extends Area
 const Utils = preload("res://Utils.gd")
 var resource_ref = null
-onready var valid = preload("res://Materials/construction_valid.tres")
-onready var invalid = preload("res://Materials/construction_invalid.tres")
+onready var valid = preload("res://Materials/Construction/build_valid.tres")
+onready var invalid = preload("res://Materials/Construction/build_invalid.tres")
 
 export var required_materials = 5   #number of planks required to build
 
 var callback
 var creation_prefab
 var hand
+var isRotating = false
 var isSnapped = false
 var previousMouseY
 var placeable = true
 var rotationOffset = 0
 var snapOffset = 0
 var touching = []
+
+func check_can_build():
+	return Global.Player.hasBuildingRights
 
 func check_materials():
 	var inv = Global.Player.get_inventory()
@@ -57,7 +61,7 @@ func initialize(args):
 	subscribe_to()
 
 func parse_input(input):
-	if(check_materials()):
+	if(check_materials() and check_can_build()):
 		enable_place()
 	else:
 		disable_place()
@@ -70,16 +74,14 @@ func parse_input(input):
 			if Input.is_action_pressed("special"):
 				update_rotation(input)
 			if input.special:
-				snapOffset += PI / 2
-				rotationOffset = 0
+				snap()
 		"right":
 			if input.special:
 				spawn_prefab()
 			if Input.is_action_pressed("standard"):
 				update_rotation(input)
 			if input.standard:
-				snapOffset += PI / 2
-				rotationOffset = 0
+				snap()
 
 func parse_raycast(raycastobj, builder_pos):
 	update_position(raycastobj.get_collision_point(), builder_pos)
@@ -87,10 +89,17 @@ func parse_raycast(raycastobj, builder_pos):
 	if col.has_method("deconstruct"):
 		rotation.y = col.rotation.y + snapOffset
 		isSnapped = true
+	else:
+		isSnapped = false
 	pass
 
+func snap():
+	if isSnapped:
+		snapOffset += PI / 2
+		rotationOffset = 0
+
 func spawn_prefab():
-	if(placeable and check_materials()):
+	if(placeable and check_materials() and check_can_build()):
 		var p = load("res://prefabs/Constructable/" + creation_prefab + ".tscn").instance()
 		p.global_transform = global_transform
 		Global.world.call_deferred("add_child", p)
@@ -120,6 +129,7 @@ func update_position(point, builder_pos):
 	rotation_degrees.y = rad2deg(atan2(x,y) + 90) + rotationOffset
 
 func update_rotation(input):
+	isRotating = true
 	if not isSnapped :
 		rotationOffset += 3
 

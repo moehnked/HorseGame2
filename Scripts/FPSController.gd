@@ -31,6 +31,7 @@ var flushing = false
 var fullContact = false
 var gravityVector = Vector3()
 var gravityCoefficient = 1.0
+var hasBuildingRights
 var HP = 10
 var input = InputMacro.new()
 var isBuilding = false
@@ -51,11 +52,11 @@ var spellqueue = []
 var placer_observers = []
 var raycastObservers = []
 
-var lefthandSpell = "Null"
-var righthandSpell = "Null"
+var lefthandSpell = "Charm"
+var righthandSpell = "Build"
 
 var buildList = ["Fence", "Gate", "Wall", "Doorway", "Platform", "Staircase"]
-var spellList = ["Null"]
+var spellList = ["Null", "Punch"]
 
 var sfx_grunts = [
 	"res://sounds/grunt_01.wav",
@@ -118,7 +119,8 @@ func calculate_knockback_vector(hitbox, source):
 	pass
 
 func can_exit_horse():
-	return $StateContainer/Pilot.canExitHorse
+	#return $StateContainer/Pilot.canExitHorse
+	return true
 
 func cast(spell, callback, hand):
 	print("casting ", spell)
@@ -213,8 +215,9 @@ func exit_inventory():
 func exit_pilot(callback = true):
 	print("exiting pilot")
 	set_behavior("Normal")
-	if(callback):
-		saddle.owner.exit_pilot()
+#	if(callback):
+#		saddle.owner.exit_pilot()
+	$StateContainer/Pilot.unsubscribe_to()
 	toggle_all_collisions(false)
 	subscribe_to()
 
@@ -240,7 +243,8 @@ func get_equipped():
 	return get_equipment_manager().equipped
 
 func get_equipment_manager():
-	return get_node("EquipmentManager")
+	return $EquipmentManager
+	#return get_node("EquipmentManager")
 
 func get_ground_check():
 	return $GroundCheck
@@ -268,17 +272,20 @@ func get_palm():
 func get_party():
 	return $HUD.party
 
-func get_spell_list():
-	return spellList
-
-func get_treats():
-	return treats
-
 func get_raycast():
 	return $Head/Camera/RayCast_Areas
 
+func get_spell_list():
+	return spellList
+
 func get_solid_raycast():
 	return $Head/Camera/RayCast_Solids
+
+func get_state():
+	return currentBehavior.name
+
+func get_treats():
+	return treats
 
 func get_x_rotation():
 	return get_head().rotation.x
@@ -292,10 +299,10 @@ func is_player():
 func is_focused():
 	return get_head().is_focused()
 
-func lasso(saddle, lasso):
-	print("player starting lasso yatta")
-	set_behavior("Lasso", {"lassoSucceeded": lasso.lassoSucceeded})
-	self.saddle = saddle
+#func lasso(saddle, lasso):
+#	print("player starting lasso yatta")
+#	set_behavior("Lasso", {"lassoSucceeded": lasso.lassoSucceeded})
+#	self.saddle = saddle
 
 func parse_input(_input):
 	input = _input
@@ -367,7 +374,7 @@ func revoke_menu_options():
 	canUpdateHands = false
 	canCheckInventory = false
 
-func setLassoLimit():
+func set_lasso_limit():
 	$LassoTimeout.start()
 
 func set_behavior(statename, init_args = {}):

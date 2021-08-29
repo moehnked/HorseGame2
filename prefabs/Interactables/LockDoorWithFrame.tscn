@@ -54,6 +54,7 @@ transform = Transform( 1, 0, 0, 0, 1.70471, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 5 )
 
 [node name="Interactable" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1.13728, 0, 0, 0, 1.56588, 0, 0, 0, 1.48988, 0, 0, 0 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="Interactable"]
 shape = SubResource( 5 )

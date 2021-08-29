@@ -29,7 +29,7 @@ func _ready():
 func initialize(args):
 	var kargs = Utils.check(args, {'player':null, 'palm':null, 'callback':null, 'hand':null})
 	playerRef = kargs['player']
-	playerRef.setLassoLimit()
+	playerRef.set_lasso_limit()
 	playerRef.call(kargs['callback'])
 	global_transform = kargs['palm'].global_transform
 	#linear_velocity = Vector3() - transform.basis.z * speed
@@ -55,17 +55,24 @@ func spawn():
 		$RopePartEffect.start()
 		particle_list.insert(0, particle)
 
+#func collision_effect(collided):
+#	$TimeToLive.stop()
+#	if(collided.has_method("lasso")):
+#		if(collided.can_be_lassod()):
+#			print("EXECUTING LASSO")
+#			var honse = collided.lasso(self)
+#			if honse.get_state() != "Pilot":
+#				playerRef.lasso(collided.get_saddle(), self)
+#		else:
+#			Global.AudioManager.play_sound()
+#	deload()
+	
 func collision_effect(collided):
 	$TimeToLive.stop()
 	if(collided.has_method("lasso")):
-		if(collided.can_be_lassod()):
-			print("EXECUTING LASSO")
-			var honse = collided.lasso(self)
-			if honse.get_state() != "Pilot":
-				playerRef.lasso(collided.get_saddle(), self)
-		else:
-			Global.AudioManager.play_sound()
-	deload()
+		collided.lasso(self)
+		speed = 0
+		deload()
 	
 	
 func deload():
@@ -85,4 +92,10 @@ func _on_milisecondDelay_timeout():
 
 func _on_LassoBullet_body_entered(body):
 	collision_effect(body)
+	deload()
+	pass # Replace with function body.
+
+
+func _on_LassoBullet_area_entered(area):
+	collision_effect(area)
 	pass # Replace with function body.

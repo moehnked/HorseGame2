@@ -5,9 +5,9 @@ var velocity:Vector3 = Vector3()
 var wanderToPoint:Vector3 = Vector3()
 
 func apply_rotation(delta):
-	#var rot = deg2rad(actor.rotation_degrees.y)
-	#actor.rotate_y(Utils.interpolation(0, input.mouse_horizontal * 10, delta))
 	actor.rotate_y(input.mouse_horizontal)
+	actor.trainer.rotation_degrees.y = rad2deg(actor.global_transform.basis.get_euler().y)
+	pass
 
 func initialize(args = {}):
 	args = .initialize(args)
@@ -17,6 +17,11 @@ func initialize(args = {}):
 
 func parse_input(_input):
 	input = _input
+	if (input.engage or input.tab) and actor.trainer.can_exit_horse():
+		print("TAB PRESSED HORSE")
+		Global.InputObserver.unsubscribe(self)
+		actor.enter_idle()
+		#actor.trainer.exit_pilot(false)
 
 func parse_movement(actor, delta):
 	var direction = Vector3()
@@ -31,11 +36,8 @@ func parse_movement(actor, delta):
 		direction += aim.x
 	direction.y = 0
 	direction = direction.normalized()
-	if (input.engage or input.tab) and actor.trainer.can_exit_horse():
-		print("TAB PRESSED HORSE")
-		Global.InputObserver.unsubscribe(self)
-		actor.trainer.exit_pilot(true)
-		actor.set_state()
+		#actor.trainer.exit_pilot()
+		#actor.set_state()
 	return direction
 
 func run(delta):

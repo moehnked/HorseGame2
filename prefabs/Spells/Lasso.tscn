@@ -29,6 +29,7 @@ autostart = true
 
 [node name="TimeToLive" type="Timer" parent="."]
 wait_time = 0.5
+one_shot = true
 autostart = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
@@ -36,6 +37,7 @@ stream = SubResource( 4 )
 
 [node name="milisecondDelay" type="Timer" parent="."]
 wait_time = 0.05
+[connection signal="area_entered" from="." to="." method="_on_LassoBullet_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_LassoBullet_body_entered"]
 [connection signal="timeout" from="RopePartEffect" to="." method="_on_RopePartEffect_timeout"]
 [connection signal="timeout" from="TimeToLive" to="." method="_on_TimeToLive_timeout"]

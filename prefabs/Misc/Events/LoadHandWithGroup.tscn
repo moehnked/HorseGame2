@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Misc/Events/LoadHandWithGroup.gd" type="Script" id=1]
+[ext_resource path="res://prefabs/Effects/HandStuff/HandWave.tscn" type="PackedScene" id=2]
+
+[node name="LoadHandWithGroup" type="Spatial"]
+script = ExtResource( 1 )
+res = ExtResource( 2 )
+deleteSelf = false
+deletedTriggerer = false
+[connection signal="emit_event_triggered" from="." to="." method="_on_LoadTargetResource_emit_event_triggered"]

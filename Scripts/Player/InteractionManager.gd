@@ -6,6 +6,7 @@ var equipmentManager = null
 var ignore = []
 var interactables = []
 var interactable = null
+var lookingAt = null
 var raycast:RayCast = RayCast.new()
 
 signal broadcast_self(controller)
@@ -22,10 +23,13 @@ func _process(delta):
 		emit_signal("emit_looking_at",self,interactable)
 	var obj = raycast.get_collider()
 	if obj != null and check_if_ignore(obj):
+		lookingAt = obj
 		if obj.has_method("interact"):
 			if obj.isInteractable:
 				interactable = obj
 				return
+	else:
+		obj = null
 	interactable = null
 	enable_can_read()
 
@@ -65,6 +69,9 @@ func get_equipped():
 func get_looking_at():
 	return interactable
 
+func get_raycast():
+	return raycast
+
 func set_raycast(_raycast):
 	raycast = _raycast
 
@@ -79,7 +86,7 @@ func parse_input(input):
 
 func read_prompt():
 	if canInteract and interactable != null and canReadPrompt:
-		Global.InteractionPrompt.show_prompt(interactable.prompt(), interactable.has_method("is_low"))
+		Global.InteractionPrompt.show_prompt(interactable.prompt(), interactable.has_method("is_low"), interactable.showButtonPrompt)
 	else:
 		clear()
 

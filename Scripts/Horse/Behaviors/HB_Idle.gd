@@ -1,6 +1,7 @@
 extends "res://Scripts/Horse/Behaviors/HorseBehavior.gd"
 
 var velocity:Vector3 = Vector3()
+export(bool) var isStaticIdle = false
 
 func exit():
 	print("exiting horse state idle")
@@ -13,7 +14,9 @@ func initialize(args = {}):
 	if anim != null:
 		anim.set_playback_speed(1.0)
 		anim.play_animation("Idle")
-	$Timer.start(Global.world.rng.randi_range(1,5))
+	if not isStaticIdle:
+		#$Timer.start(Global.world.rng.randi_range(1,5))
+		pass
 	if args.callback != "":
 		if stateMachine.has_method(args.callback):
 			stateMachine.call(args.callback)

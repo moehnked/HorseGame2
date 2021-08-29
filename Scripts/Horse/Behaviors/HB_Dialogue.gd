@@ -2,6 +2,8 @@ extends "res://Scripts/Horse/Behaviors/HorseBehavior.gd"
 
 const RSG = preload("res://Scripts/Statics/RSG.gd")
 
+export(Resource) var dialogueScreenRes
+
 var callback:String = ""
 var callbackKargs = {}
 var talkingToController = null
@@ -9,7 +11,8 @@ var velocity:Vector3 = Vector3()
 
 #func create_dialogue(controller):
 func create_dialogue(args):
-	var o = load("res://prefabs/UI/Dialogue/DialogueScreen.tscn").instance()
+	#var o = load("res://prefabs/UI/Dialogue/DialogueScreen.tscn").instance()
+	var o = dialogueScreenRes.instance()
 	add_child(o)
 	#actor.begin_dialogue(controller)
 	talkingToController.begin_dialogue(args.actor)

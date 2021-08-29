@@ -10,3 +10,5 @@ var PlayerRaycastVert
 var world
 var SEM
 var Sun
+var StatusPrompt
+var WorldViewport

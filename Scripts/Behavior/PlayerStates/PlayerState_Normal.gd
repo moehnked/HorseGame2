@@ -88,6 +88,7 @@ func parse_movement(actor, delta):
 		print("jumping")
 		velocity.y = 10
 		has_contact = false
+		actor.random_grunt()
 	
 	velocity = actor.move_and_slide_with_snap(velocity, snapVector ,Vector3.UP, true, 1, 0.785398, false)
 

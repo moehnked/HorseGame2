@@ -39,6 +39,10 @@ func collision_effect(other):
 		if other.get_parent().has_method("take_damage"):
 			other.get_parent().take_damage(5,self,self)
 
+func equip(_controller):
+	$HandleCollider.disabled = true
+	return .equip(_controller)
+
 func initialize(controller):
 	isRetracting = false
 	beingThrown = false
@@ -60,13 +64,26 @@ func throw():
 	print("axe thrown")
 	#$AnimationPlayer.play("Throw")
 	$ThrowDuration.start()
-	controller.get_parent().get_hand().update_hand_sprite("Idle", true)
+	var par = controller.get_parent()
+	var ray = par.get_solid_raycast()
+	par.get_hand().update_hand_sprite("Idle", true)
 	#controller.set_hand_playback(true)
 	canSwing = false
 	beingThrown = true
 	isEquipped = false
-	dir = -controller.get_parent().get_head().global_transform.basis.z * power
+	print("handaxe: raycast ", ray.is_colliding())
+	
+	if not ray.is_colliding():
+		dir = (-par.get_head().global_transform.basis.z) + global_transform.origin.direction_to(par.get_head().global_transform.origin - (par.get_head().global_transform.basis.z * power)) * power
+	#	dir = global_transform.origin.direction_to(ray.global_transform.origin + ray.cast_to)
+	else:
+		dir = global_transform.origin.direction_to(ray.get_collision_point()) * power
+	#dir = -par.get_head().global_transform.basis.z * power
+	#dir.x += controller.get_parent().get_head().global_transform.basis.x.x
 
+func unequip(args = {}):
+	$HandleCollider.disabled = false
+	.unequip(args)
 
 func _on_ThrowDuration_timeout():
 	isRetracting = true

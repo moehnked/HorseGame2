@@ -17,7 +17,7 @@ func _ready():
 
 func initialize(args = {}):
 	args = Utils.check(args, {"vendor":null, "customer":null, "callback":"", "source":null})
-	$BG.start()
+	$background.start()
 	customer = args.customer
 	vendor = args.vendor
 	displayInventory = vendor.get_inventory()
@@ -32,6 +32,7 @@ func initialize(args = {}):
 	add_child(timer) #to process
 	timer.start(0.1) #to start
 	draw_trading_screen()
+	print("initialized trading screen: ", customer.name," , v- ", vendor.name)
 
 func calculate_value(item):
 	return item.get_value()
@@ -70,7 +71,7 @@ func draw_trading_screen():
 	var ref = load("res://prefabs/UI/InventoryListItem.tscn")
 	var index = 0
 	var u = Utils.uniques(displayInventory)
-	print("drawing trading screen")
+	print("Trading Screen: drawing trading screen")
 	print(displayInventory)
 	for i in u:
 		print("uniques: ",i)

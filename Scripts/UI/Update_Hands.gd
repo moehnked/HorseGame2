@@ -40,6 +40,7 @@ func initialize(_source, left, right):
 	$container/LeftHand.texture_normal =  load("res://Sprites/UI/QE_" + leftHand + ".png")
 	$container/RightHand.texture_normal = load("res://Sprites/UI/QE_" + rightHand + ".png")
 	play_sound(0)
+	print("UH: ", source, ", ", source.name, " - ", source.get_parent().name)
 	
 func subscribe_to():
 	Global.InputObserver.subscribe(self)

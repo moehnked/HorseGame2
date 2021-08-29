@@ -13,9 +13,15 @@ var callback:String = ""
 var check = ""
 var completed_index = 0
 var completion_interval = 0.0
-var dict = ["CANTLE", "GIDDYUP", "DRESSAGE", "YEEHAW", "CHAMPING", "HAY", "PRANCE"]
+#var dict = ["CANTLE", "GIDDYUP", "DRESSAGE", "YEEHAW", "CHAMPING", "HAY", 
+#		"PRANCE", "BALK", "BUCK", "CANTER", "EQUINE", "EQUESTRIAN", "GIDDYUP", 
+#		"FARRIER", "FETLOCK", "GALLOP", "GELDING", "CINCH", "HACKAMORE", 
+#		"OFFSIDE", "PAINT", "REINING", "SADDLE", "SADDLEBRED", "STALLION",
+#		"STUD", "TENNESSEE", "THOROUGHBRED", "XENOPHON", "YEARLING", "ZEBRA",
+#		"GIDDYUP", "JOHDPURS", "JOCKEY", "DAPPLE", "FILLY", "BRONCO", "GIDDYUP"]
+var dict = ["a"]
 var fadeout
-var horse_ref
+var lassoable
 var hurry
 var jitter_intensity = 1
 var kargs = {}
@@ -97,6 +103,7 @@ func failed():
 	hurry.stop()
 	print("FAILURE")
 	Global.Player.exit_pilot()
+	lassoable.call("failed")
 	stopAllTimers()
 	$Control/Clock.queue_free()
 	state = State.fadeout
@@ -113,8 +120,8 @@ func increase_completion():
 
 func initialize(args = {}):
 	print("initializing giddyup challenge")
-	args = Utils.check(args, {"horse_ref":null, "callback":"", "kargs":{}})
-	horse_ref = args.horse_ref
+	args = Utils.check(args, {"lassoableRef":null, "callback":"", "kargs":{}})
+	lassoable = args.lassoableRef
 	callback = args.callback
 	kargs = args.kargs
 
@@ -133,8 +140,8 @@ func mistake():
 func success():
 	hurry.stop()
 	print("SUCCESS")
-	#horse_ref.tame(Global.Player)
-	horse_ref.call(callback, {"tamer":Global.Player})
+	#lassoable.tame(Global.Player)
+	lassoable.call(callback, kargs)
 	#Global.Player.enter_pilot()
 	stopAllTimers()
 	$Control/Clock.queue_free()

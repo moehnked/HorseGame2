@@ -2,6 +2,7 @@ extends Spatial
 
 var isLookingAtPlayer = false
 var headPointOrigin = Vector3()
+export(bool) var removeGroupOnReady = false
 
 var ds = null
 
@@ -10,6 +11,9 @@ export(Array, Resource) var options = []
 func _ready():
 	headPointOrigin = $Patches2/Armature/Skeleton/HeadPoint.global_transform.origin
 	$Patches2/Armature/Skeleton/SkeletonIK.start()
+	if removeGroupOnReady:
+		remove_from_group("Patches")
+	print("patches: ready - ", get_parent().name)
 	pass
 
 func _process(delta):
@@ -26,7 +30,7 @@ func _process(delta):
 #			global_transform = nt
 			global_transform = global_transform.interpolate_with(nt, 0.02)
 		#rotate_y(deg2rad(180))
-		if global_transform.origin.distance_to(Global.Player.global_transform.origin) > 2.4:
+		if global_transform.origin.distance_to(Global.Player.global_transform.origin) > 1.5:
 			point_head(delta)
 			
 func check_options():
@@ -38,9 +42,17 @@ func check_options():
 			else:
 				check = true
 
-func get_options():
-	#remove_exits_by_name("Exit")
-	return options
+func get_options(removeExits = false):
+	var o = options
+	if removeExits:
+		for i in o:
+			if i.resource_name == "exit":
+				o.erase(i)
+		#remove_exits_by_name("Exit")
+	return o
+
+func get_talk_sfx():
+	return "res://Sounds/guide_0" + String(Global.world.rng.randi_range(1,4)) + ".wav"
 
 func set_options(nextOptions):
 	options = nextOptions
@@ -58,6 +70,9 @@ func remove_exits_by_name(nam):
 		if i.resource_name == nam:
 			options.erase(i)
 	pass
+
+func set_can_interact(val = true):
+	$Interactable.set_interactable(val)
 
 func _on_Area_body_entered(body):
 	if body == Global.Player:
