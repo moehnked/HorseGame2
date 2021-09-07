@@ -1,12 +1,13 @@
 extends Spatial
 
 export(Array, Resource) var chunks
+export(Dictionary) var specialChunks
+export(Dictionary) var uniqueChunks
 export(int) var initWorldSize = 40
 export(int) var gridsize = 20
 export(int) var chunkDist = 3
 
-var chunks_x = []
-var chunk_map = {}
+var chunkMap = {}
 var chunksLoaded = {}
 var isLoading = false
 var playerRef
@@ -24,6 +25,7 @@ signal player_gridpos_updated(gridPos)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Global.Generator = self
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
 	playerRef = Global.Player
@@ -31,11 +33,11 @@ func _ready():
 	gridsize = o.get_size()
 	o.queue_free()
 	generate()
+	process_initial_details()
 	var pos = get_player_gridpos()
 	procedural_chunk_load(pos)
 	posChain.append(pos)
 	posChain.append(pos)
-	#initial_chunk_load()
 	pass # Replace with function body.
 
 func _process(delta):
@@ -47,19 +49,35 @@ func _process(delta):
 		emit_signal("player_gridpos_updated", g)
 		update_player_point(g)
 	load_chunk_from_queue()
-	unload_chunk_from_unqueue()
+	#unload_chunk_from_unqueue()
 	pass
 
+
+func clear_unque():
+	while unQueueChunks.size() > 0:
+		unload_chunk_from_unqueue()
 
 func generate():
+	var offset = floor(initWorldSize / 2)
 	for i in range(initWorldSize):
-		var ar = []
 		for z in range(initWorldSize):
-			var r = randi() % chunks.size()
-			ar.append(r)
-			#print(r)
-		chunks_x.append(ar)
+			var c = randi() % chunks.size()
+			var ci = Vector2(i - offset,z - offset)
+			chunkMap[ci] = c
 	pass
+
+func generate_specials(offset):
+	for i in specialChunks.keys():
+		for n in range(specialChunks[i]):
+			var x = rng.randi_range(-offset, offset)
+			var y = rng.randi_range(-offset, offset)
+			chunkMap[Vector2(x,y)] = i
+
+func generate_uniques():
+	for i in uniqueChunks.keys():
+		chunkMap[i] = uniqueChunks[i]
+	pass
+	
 
 func get_player_gridpos():
 	var v = (playerRef.global_transform.origin / gridsize)
@@ -73,7 +91,13 @@ func initial_chunk_load():
 
 func load_chunk_at(g):
 	if !chunksLoaded.has(g):
-		var o = chunks[chunks_x[g.x][g.y]].instance()
+		var ref = chunkMap[Vector2(g.x,g.y)]
+		var o
+		if ref is Resource:
+			print("loading resource")
+			o = ref.instance()
+		else:
+			o = chunks[chunkMap[Vector2(g.x,g.y)]].instance()
 		call("add_child", o)
 		o.global_transform.origin = Vector3(g.x * gridsize, global_transform.origin.y, g.y * gridsize)
 		chunksLoaded[g] = o
@@ -93,20 +117,22 @@ func procedural_chunk_load(g):
 			var v = Vector2(i,z)
 			v += g
 			v -= Vector2(floor(chunkDist / 2), floor(chunkDist / 2))
-			#load_chunk_at(v)
 			if not queueChunks.has(v):
 				queueChunks.append(v)
 			count += 1
 	pass
 
+func process_initial_details():
+	var offset = floor(initWorldSize / 2)
+	generate_specials(offset)
+	generate_uniques()
+	pass
+
 func update_player_point(g):
-#	prevPrevPoint = prevPoint
-#	prevPoint = g
 	posChain.pop_front()
 	posChain.append(g)
 
 func unload_chunk_at(i):
-	#print("chunk ", i, " unloading...")
 	var o = chunksLoaded[i]
 	if o.queue_unload():
 		chunksLoaded.erase(i)
@@ -133,3 +159,10 @@ func update_visible(g):
 		if i.y < g.y - vs or i.y > g.y + vs:
 			unQueueChunks.append(i)
 		pass
+
+
+func _on_Timer_timeout():
+	#print("unload tick")
+	unload_chunk_from_unqueue()
+	$Timer.start()
+	pass # Replace with function body.

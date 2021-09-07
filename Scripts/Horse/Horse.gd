@@ -57,6 +57,10 @@ func can_be_lassod():
 	var state = $StateMachine.get_state()
 	return not non_lassoable_state.has(state)
 
+func enable_interactability():
+	$Interactable.set_interactable(true)
+	pass
+
 func enter_idle():
 	set_state({"behaviorName":"Idle"})
 
@@ -79,12 +83,15 @@ func exit_pilot():
 		set_state({"behaviorName":"Follow", "target":trainer})
 
 func exit_dialogue():
+	print("Horse: exiting dialogue")
 	var b = get_behavior()
 	var resumeBehaviorArgs = {}
 	if "callbackKargs" in b:
 		resumeBehaviorArgs = b.callbackKargs["initialArgs"]
 		#print("printing CALLBACKKARGS ", resumeBehaviorArgs)
 	set_state(resumeBehaviorArgs)
+	$Interactable.set_interactable(false)
+	Global.world.queue_timer(self, 0.5, "enable_interactability")
 	#$StateMachine.currentBehavior.exit()
 
 func get_accepted_sell_list():

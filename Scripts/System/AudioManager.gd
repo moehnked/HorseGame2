@@ -1,7 +1,8 @@
 extends Node
 
 export var music_enabled:bool = true
-export var sfxVolume = 1.0
+export(float, 0.0, 1.0) var sfxVolume = 1.0
+export(float, 0.0, 1.0) var musicVolume = 1.0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -15,7 +16,7 @@ func is_song_playing():
 
 func play_song(song_path = "res://sounds/error_01.wav", db = 0.0):
 	if(music_enabled):
-		queue_channel($MusicPlayer, song_path, db)
+		queue_channel($MusicPlayer, song_path, db * musicVolume)
 
 func play_sound(sound_path = "res://sounds/error_01.wav", db = 0):
 	db = db * sfxVolume

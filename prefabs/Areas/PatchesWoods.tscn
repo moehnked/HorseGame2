@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://models/Areas/GrassyMound.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Textures/jungle/Tileable1f.png" type="Texture" id=2]
@@ -33,6 +33,9 @@
 [ext_resource path="res://prefabs/Misc/Events/CallMethodsInGroup.tscn" type="PackedScene" id=31]
 [ext_resource path="res://prefabs/System/ProcGen/Generator.tscn" type="PackedScene" id=32]
 [ext_resource path="res://prefabs/Misc/Events/TeleportTargetToPoint.tscn" type="PackedScene" id=33]
+[ext_resource path="res://prefabs/Misc/Events/PlaySong.tscn" type="PackedScene" id=34]
+[ext_resource path="res://prefabs/Misc/Events/Delay.tscn" type="PackedScene" id=35]
+[ext_resource path="res://Music/Bits/hay_song_02.wav" type="AudioStream" id=36]
 [ext_resource path="res://prefabs/Misc/Rock_01.tscn" type="PackedScene" id=43]
 
 [sub_resource type="SpatialMaterial" id=1]
@@ -1254,3 +1257,12 @@ deletedTriggerer = false
 [node name="TeleportTargetToPoint" parent="." instance=ExtResource( 33 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 162.471, 65.9781, 144.507 )
 point = NodePath(".")
+
+[node name="PlaySong" parent="." instance=ExtResource( 34 )]
+deleteAfterTrig = true
+song = ExtResource( 36 )
+
+[node name="Delay" parent="." instance=ExtResource( 35 )]
+triggerOnReady = true
+timeDelay = 0.2
+targetEvent = NodePath("../PlaySong")

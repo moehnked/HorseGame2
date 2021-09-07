@@ -14,6 +14,36 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Behavior/BehaviorState.gd"
 }, {
+"base": "Reference",
+"class": "DTS",
+"language": "GDScript",
+"path": "res://addons/dialogic/Localization/translation_service.gd"
+}, {
+"base": "Node",
+"class": "Dialogic",
+"language": "GDScript",
+"path": "res://addons/dialogic/Other/DialogicClass.gd"
+}, {
+"base": "Control",
+"class": "DialogicBackgroundMusic",
+"language": "GDScript",
+"path": "res://addons/dialogic/Nodes/BackgroundMusic.gd"
+}, {
+"base": "Node",
+"class": "DialogicDefinitionsUtil",
+"language": "GDScript",
+"path": "res://addons/dialogic/Other/DialogicDefinitionsUtil.gd"
+}, {
+"base": "Reference",
+"class": "DialogicResources",
+"language": "GDScript",
+"path": "res://addons/dialogic/Other/DialogicResources.gd"
+}, {
+"base": "Reference",
+"class": "DialogicUtil",
+"language": "GDScript",
+"path": "res://addons/dialogic/Other/DialogicUtil.gd"
+}, {
 "base": "Node",
 "class": "HorseState_Attack",
 "language": "GDScript",
@@ -104,6 +134,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Behavior/PlayerStates/PlayerState_Normal.gd"
 }, {
+"base": "RichTextEffect",
+"class": "RichTextPulse",
+"language": "GDScript",
+"path": "res://Scripts/Effects/RichTextEffects/Pulse.gd"
+}, {
+"base": "RichTextEffect",
+"class": "RichTextZoomin",
+"language": "GDScript",
+"path": "res://Scripts/Effects/RichTextEffects/Zoomin.gd"
+}, {
 "base": "VisualShaderNodeCustom",
 "class": "VisualShaderNodePerlinNoise3D",
 "language": "GDScript",
@@ -111,6 +151,12 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BehaviorState": "",
+"DTS": "",
+"Dialogic": "",
+"DialogicBackgroundMusic": "",
+"DialogicDefinitionsUtil": "",
+"DialogicResources": "",
+"DialogicUtil": "",
 "HorseState_Attack": "",
 "HorseState_Dialogue": "",
 "HorseState_Giddyup": "",
@@ -129,6 +175,8 @@ _global_script_class_icons={
 "PlayerState_Lasso": "",
 "PlayerState_Menu": "",
 "PlayerState_Normal": "",
+"RichTextPulse": "",
+"RichTextZoomin": "",
 "VisualShaderNodePerlinNoise3D": ""
 }
 
@@ -147,6 +195,7 @@ Utils="*res://Utils.gd"
 LineCode="*res://Scripts/System/LineCode.gd"
 InventoryParser="*res://Scripts/Statics/InventoryParser.gd"
 GlobalItemRepo="*res://Scripts/Statics/GlobalItemRepo.gd"
+DialogicSingleton="*res://addons/dialogic/Other/DialogicSingleton.gd"
 
 [debug]
 
@@ -159,6 +208,10 @@ window/size/test_width=1024
 window/size/test_height=600
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "dialogic" )
 
 [input]
 

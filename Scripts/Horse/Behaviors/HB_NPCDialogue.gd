@@ -16,5 +16,5 @@ func create_dialogue(args):
 	add_child(o)
 	#actor.begin_dialogue(controller)
 	talkingToController.begin_dialogue(args.actor)
-	#o.initialize({'speaker':args.actor, 'text':RSG.generate_sentance(), 'listener':talkingToController.get_parent(), 'relationship':args.relationship})
-	o.initialize({'speaker':args.actor, 'listener':talkingToController.get_parent(), 'text':["hellow", "world"], 'init_options':args.actor.get_options()})
+	var dialogueName = actor.get_dialogue_point() if actor.has_method("get_dialogue_point") else "emptyDialogue"
+	o.initialize({'speaker':args.actor, 'listener':talkingToController.get_parent(), 'text':["hellow", "world"], 'init_options':args.actor.get_options(), 'timelineName':dialogueName})

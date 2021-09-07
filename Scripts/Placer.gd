@@ -99,11 +99,18 @@ func snap():
 		rotationOffset = 0
 
 func spawn_prefab():
-	if(placeable and check_materials() and check_can_build()):
+	print("PLACER: spawning")
+	if(placeable and check_can_build()):
+		print("PLACER: self is placable and Player has building rights")
+		#if check_materials():
 		var p = load("res://prefabs/Constructable/" + creation_prefab + ".tscn").instance()
 		p.global_transform = global_transform
 		Global.world.call_deferred("add_child", p)
 		consume_materials()
+		#else:
+			#print("PLACER: insufficient mats")
+	elif not check_materials():
+		Global.InteractionPrompt.show_context("Insufficient Materials...")
 	terminate()
 
 func subscribe_to():

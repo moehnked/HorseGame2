@@ -11,6 +11,7 @@ func update_building_rights(body, canBuild):
 	if body == Global.Player and hasBeenPlaced:
 		print("Within Building Area")
 		body.hasBuildingRights = canBuild
+		Global.InteractionPrompt.show_context("You have obtained Building Rights!" if canBuild else "You have lost Building Rights!")
 	
 
 func _on_BoundingBox_body_entered(body):

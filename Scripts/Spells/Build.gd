@@ -8,7 +8,7 @@ var hand
 var playerRef
 var pointerRadius = 100
 var rootRef
-var selected
+var selected = null
 var state = 0
 var tempRot
 
@@ -77,14 +77,18 @@ func parse_input(input):
 			ready_placer()
 
 func ready_placer():
-	var p = load("res://prefabs/Constructable/" + selected.prefab + "_Placer.tscn").instance()
-	p.initialize({'player':playerRef, 'world':rootRef, 'prefab':selected.prefab, 'callback':callback, 'hand':hand})
-	Global.world.call_deferred("add_child", p)
-	playerRef.placer_subscribe(p)
-	playerRef.return_control()
-	unsubscribe_to()
-	Utils.capture_mouse()
-	queue_free()
+	if selected != null:
+		var p = load("res://prefabs/Constructable/" + selected.prefab + "_Placer.tscn").instance()
+		p.initialize({'player':playerRef, 'world':rootRef, 'prefab':selected.prefab, 'callback':callback, 'hand':hand})
+		Global.world.call_deferred("add_child", p)
+		playerRef.placer_subscribe(p)
+		playerRef.return_control()
+		playerRef.revoke_cast_menu()
+		unsubscribe_to()
+		Utils.capture_mouse()
+		queue_free()
+	else:
+		exit()
 
 func subscribe_to():
 	Global.InputObserver.subscribe(self)

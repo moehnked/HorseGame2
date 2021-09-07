@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/UI/Dialogue/Dialogic_NPC_DialogueScreen.gd" type="Script" id=1]
+
+[node name="Dialogic_NPC_Dialogue_Screen" type="Node"]
+script = ExtResource( 1 )

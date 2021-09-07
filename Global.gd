@@ -12,3 +12,4 @@ var SEM
 var Sun
 var StatusPrompt
 var WorldViewport
+var Generator

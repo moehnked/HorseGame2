@@ -1,0 +1,91 @@
+{
+	"events": [
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Okay, listen up."
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Scroll UP on your Mouse Wheel to open up the [tornado radius=2 freq=3][wave amp=1 freq=5]Spell Menu."
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "From there you can assign one of your known Spells."
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Right now it looks like you know two spells: [tornado radius=2 freq=3][wave amp=1 freq=5]Punch[/wave][/tornado] and [tornado radius=2 freq=3][wave amp=1 freq=5]Lasso."
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Each space in the spell menu corresponds to a button on your Mouse."
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Spells assigned to the left spell slot will be triggered by clicking the Left Mouse Button."
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "And likewise for the right spells slot and Right Mouse Button."
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "Do you need to hear this explanation again?"
+		},
+		{
+			"choice": "Yes",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"change_timeline": "timeline-1630746736.json",
+			"event_id": "dialogic_020"
+		},
+		{
+			"choice": "No",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Sweet!\nThat pretty much covers using spells"
+		},
+		{
+			"change_timeline": "timeline-1630746920.json",
+			"event_id": "dialogic_020"
+		},
+		{
+			"event_id": "dialogic_013"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1630746736.json",
+		"name": "02_SPellExplaination"
+	}
+}

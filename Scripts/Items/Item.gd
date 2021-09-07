@@ -8,6 +8,7 @@ export var value = 5.0
 
 const HB = preload("res://Scripts/Horse/Behaviors/HorseBehavior.gd")
 
+var canBePickedUp = true
 var controller
 
 func add_self_to_inventory(_controller = controller):

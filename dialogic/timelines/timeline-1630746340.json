@@ -1,0 +1,138 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "So.... Have you picked out a spot for your new home yet?"
+		},
+		{
+			"choice": "No",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"event_id": "dialogic_013"
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "Oh! Okay, well, you at least know how to build stuff, right?"
+		},
+		{
+			"choice": "Nope",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"event_id": "dialogic_013"
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "What? For real? Didn't those guys teach you ANYTHING before letting you into the park? Jeez...."
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "...."
+		},
+		{
+			"choice": "Help",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"event_id": "dialogic_013"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "Okay, okay.... You HAVE to know about SPELLS by now, right? Like, you for sure must know how to open the spell menu, change spells out, and use them and stuff?"
+		},
+		{
+			"choice": "Yes",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Okay! Good. Well, that makes this a little bit easier at least. "
+		},
+		{
+			"change_timeline": "timeline-1630746920.json",
+			"event_id": "dialogic_020"
+		},
+		{
+			"choice": "No",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "SERIOUSLY??"
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Man, okay. I'm... really sorry.\nPatches was supposed to have shown you this stuff by now."
+		},
+		{
+			"change_timeline": "timeline-1630746736.json",
+			"event_id": "dialogic_020"
+		},
+		{
+			"event_id": "dialogic_013"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1630746340.json",
+		"name": "02"
+	}
+}

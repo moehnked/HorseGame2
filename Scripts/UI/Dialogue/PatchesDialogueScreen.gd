@@ -8,6 +8,8 @@ extends "res://Scripts/UI/DialogueScreen.gd"
 func destroy():
 	if exitPlayerDialogueOnExit:
 		listener.call("exit_dialogue")
+		if speaker.has_method("exit_dialogue"):
+			speaker.call("exit_dialogue")
 	#print("patches exiting dialogue")
 	#print(listener.name)
 	#print(listener.isRunning)
@@ -91,5 +93,5 @@ func start_talking():
 	randomSFX = speaker.get_talk_sfx()
 	if "lines" in selectedOption:
 		if selectedOption.i == 0 or selectedOption.sfxOnEachLine:
-			Global.AudioManager.play_sound(randomSFX)
+			Global.AudioManager.play_sound(randomSFX, speaker.get_speaking_volume() if speaker.has_method("get_speaking_volume") else 0)
 	.start_talking()

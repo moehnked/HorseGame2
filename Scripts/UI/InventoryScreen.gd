@@ -13,6 +13,11 @@ var listItemResource = preload("res://prefabs/UI/InventoryListItem.tscn")
 func _ready():
 	add_to_group("InvScreen")
 	Global.AudioManager.play_sound("res://sounds/ui_open_01.wav")
+	#Global.Generator.clear_unque()
+
+func _process(delta):
+	if Global.Generator != null:
+		Global.Generator.unload_chunk_from_unqueue()
 
 func clear_context():
 	print("clearing context")

@@ -8,7 +8,6 @@ export(bool) var copyCurrentOptions = false
 #export(Array, Resource) var removeResources = []
 export(bool) var removeSelfFromCopy = false
 
-
 signal emit_end_of_lines()
 
 # Called when the node enters the scene tree for the first time.

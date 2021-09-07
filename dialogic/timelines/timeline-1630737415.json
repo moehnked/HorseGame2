@@ -1,0 +1,61 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "[tornado radius=2 freq=3][wave amp=1 freq=5]Hey there! Welcome to the park! My name is [color=#166b2d]Seamus[/color]. I'm one of the rangers that helps out newcomers. "
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "[tornado radius=2 freq=3][wave amp=1 freq=5]But... "
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "[tornado radius=2 freq=3][wave amp=1 freq=5]uhhh... "
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "[tornado radius=2 freq=3][wave amp=1 freq=5]Well... To tell you the truth, I'm a little bit new myself still..."
+		},
+		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "[tornado radius=2 freq=3][wave amp=1 freq=5]And well... uh... I'm kinda having a hard time finding my way back to town..."
+		},
+		{
+			"emit_signal": "test",
+			"event_id": "dialogic_040"
+		},
+		{
+			"event_id": "dialogic_022",
+			"transition_duration": 1
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1630737415.json",
+		"name": "01"
+	}
+}

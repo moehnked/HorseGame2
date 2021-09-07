@@ -1,0 +1,215 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://prefabs/System/ProcGen/Chunks/baseGround.gd" type="Script" id=1]
+[ext_resource path="res://Textures/chunks/T_Bottom_end.jpg" type="Texture" id=2]
+[ext_resource path="res://prefabs/Nature/GrassClumpB.tscn" type="PackedScene" id=3]
+[ext_resource path="res://prefabs/Nature/GrassClumpC.tscn" type="PackedScene" id=4]
+[ext_resource path="res://prefabs/Nature/GrassClump.tscn" type="PackedScene" id=5]
+[ext_resource path="res://prefabs/Nature/GrassClumpD.tscn" type="PackedScene" id=6]
+[ext_resource path="res://prefabs/Nature/DeadTreeB.tscn" type="PackedScene" id=7]
+[ext_resource path="res://prefabs/Objects/Lantern.tscn" type="PackedScene" id=8]
+[ext_resource path="res://prefabs/Objects/ChainLink.tscn" type="PackedScene" id=9]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_texture = ExtResource( 2 )
+uv1_scale = Vector3( 3, 2, 1 )
+
+[sub_resource type="ConcavePolygonShape" id=3]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
+[node name="StarterArea_0_-1" type="Spatial" groups=[
+"Ground",
+]]
+script = ExtResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 50, 0, 0, 0, 0.01, 0, 0, 0, 50, 50, 0, 50 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="GrassClump" parent="." instance=ExtResource( 5 )]
+transform = Transform( 0.0789357, 0, -1.72106, 0, 1.72287, 0, 1.72106, 0, 0.0789357, 32.0335, 0.664658, 92.8459 )
+
+[node name="GrassClump2" parent="." instance=ExtResource( 5 )]
+transform = Transform( -0.173509, 0, 1.71411, 0, 1.72287, 0, -1.71411, 0, -0.173509, 58.4966, 0.664658, 97.7155 )
+
+[node name="GrassClump3" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.52175, 0, 0, 0, 1.39651, 0, 0, 0, 2.07167, 65.6565, 0.758422, 99.914 )
+
+[node name="GrassClump4" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.52175, 0, 0, 0, 1.39651, 0, 0, 0, 2.07167, 73.218, 0.758422, 101.016 )
+
+[node name="GrassClump5" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.52175, 0, 0, 0, 1.39651, 0, 0, 0, 2.07167, 80.3469, 0.758422, 98.2286 )
+
+[node name="GrassClump6" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.52175, 0, 0, 0, 1.39651, 0, 0, 0, 2.07167, 89.9287, 0.758422, 99.4652 )
+
+[node name="GrassClump27" parent="." instance=ExtResource( 5 )]
+transform = Transform( -0.173509, 0, 1.71411, 0, 1.72287, 0, -1.71411, 0, -0.173509, -0.29443, 0.664658, 97.7155 )
+
+[node name="GrassClump28" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.52175, 0, 0, 0, 1.39651, 0, 0, 0, 2.07167, 6.86545, 0.758422, 99.914 )
+
+[node name="GrassClump29" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.52175, 0, 0, 0, 1.39651, 0, 0, 0, 2.07167, 14.427, 0.758422, 101.016 )
+
+[node name="GrassClump30" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.52175, 0, 0, 0, 1.39651, 0, 0, 0, 2.07167, 21.5558, 0.758422, 98.2286 )
+
+[node name="GrassClump31" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.52175, 0, 0, 0, 1.39651, 0, 0, 0, 2.07167, 31.1376, 0.758422, 99.4652 )
+
+[node name="GrassClump32" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.111059, 0, -3.60735, 0, 1.39651, 0, 2.32343, 0, -0.132571, 1.39826, 0.758422, 56.8056 )
+
+[node name="GrassClump33" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.111059, 0, -3.60735, 0, 1.39651, 0, 2.32343, 0, -0.132571, -1.07336, 0.758422, 68.2801 )
+
+[node name="GrassClump34" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.111059, 0, -3.60735, 0, 1.39651, 0, 2.32343, 0, -0.132571, 3.26079, 0.758422, 79.3429 )
+
+[node name="GrassClump35" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.111059, 0, -3.60735, 0, 1.39651, 0, 2.32343, 0, -0.132571, 0.408367, 0.758422, 93.8933 )
+
+[node name="GrassClump36" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.111059, 0, -3.60735, 0, 1.39651, 0, 2.32343, 0, -0.132571, 1.39826, 0.758422, 11.4848 )
+
+[node name="GrassClump37" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.111059, 0, -3.60735, 0, 1.39651, 0, 2.32343, 0, -0.132571, -1.07336, 0.758422, 22.9594 )
+
+[node name="GrassClump38" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.111059, 0, -3.60735, 0, 1.39651, 0, 2.32343, 0, -0.132571, 3.26079, 0.758422, 34.0221 )
+
+[node name="GrassClump39" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.111059, 0, -3.60735, 0, 1.39651, 0, 2.32343, 0, -0.132571, 0.408367, 0.758422, 48.5726 )
+
+[node name="GrassClump40" parent="." instance=ExtResource( 3 )]
+transform = Transform( 2.32038, 0, -0.212806, 0, 1.39651, 0, 0.162731, 0, 3.60351, 7.28343, 0.758422, -1.16689 )
+
+[node name="GrassClump41" parent="." instance=ExtResource( 3 )]
+transform = Transform( 2.32038, 0, -0.212806, 0, 1.39651, 0, 0.162731, 0, 3.60351, 18.7001, 0.758422, 1.55944 )
+
+[node name="GrassClump42" parent="." instance=ExtResource( 3 )]
+transform = Transform( 2.32038, 0, -0.212806, 0, 1.39651, 0, 0.162731, 0, 3.60351, 29.8566, 0.758422, -2.52748 )
+
+[node name="GrassClump43" parent="." instance=ExtResource( 3 )]
+transform = Transform( 2.32038, 0, -0.212806, 0, 1.39651, 0, 0.162731, 0, 3.60351, 44.34, 0.758422, 0.647997 )
+
+[node name="GrassClump44" parent="." instance=ExtResource( 3 )]
+transform = Transform( 2.32038, 0, -0.212806, 0, 1.39651, 0, 0.162731, 0, 3.60351, 55.698, 0.758422, 0.965062 )
+
+[node name="GrassClump45" parent="." instance=ExtResource( 3 )]
+transform = Transform( 2.32038, 0, -0.212806, 0, 1.39651, 0, 0.162731, 0, 3.60351, 67.1147, 0.758422, 3.69139 )
+
+[node name="GrassClump46" parent="." instance=ExtResource( 3 )]
+transform = Transform( 2.32038, 0, -0.212806, 0, 1.39651, 0, 0.162731, 0, 3.60351, 78.2712, 0.758422, -0.395532 )
+
+[node name="GrassClump47" parent="." instance=ExtResource( 3 )]
+transform = Transform( 2.32038, 0, -0.212806, 0, 1.39651, 0, 0.162731, 0, 3.60351, 92.7546, 0.758422, 2.77995 )
+
+[node name="GrassClump48" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.201261, 0, 3.59948, 0, 1.39651, 0, -2.31736, 0, 0.272648, 100.693, 0.758422, 39.9244 )
+
+[node name="GrassClump49" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.201261, 0, 3.59948, 0, 1.39651, 0, -2.31736, 0, 0.272648, 103.609, 0.758422, 28.5546 )
+
+[node name="GrassClump50" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.201261, 0, 3.59948, 0, 1.39651, 0, -2.31736, 0, 0.272648, 99.7078, 0.758422, 17.3318 )
+
+[node name="GrassClump51" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.201261, 0, 3.59948, 0, 1.39651, 0, -2.31736, 0, 0.272648, 103.123, 0.758422, 2.90313 )
+
+[node name="GrassClump52" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.201261, 0, 3.59948, 0, 1.39651, 0, -2.31736, 0, 0.272648, 97.1252, 0.758422, 92.7645 )
+
+[node name="GrassClump53" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.201261, 0, 3.59948, 0, 1.39651, 0, -2.31736, 0, 0.272648, 100.041, 0.758422, 81.3947 )
+
+[node name="GrassClump54" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.201261, 0, 3.59948, 0, 1.39651, 0, -2.31736, 0, 0.272648, 96.1398, 0.758422, 70.1718 )
+
+[node name="GrassClump55" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.201261, 0, 3.59948, 0, 1.39651, 0, -2.31736, 0, 0.272648, 99.5555, 0.758422, 55.7432 )
+
+[node name="GrassClump7" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.802443, 0, 0.596729, 0, 1.54406, 0, -0.596729, 0, 0.802443, 55.6986, 0.729115, 58.6712 )
+
+[node name="GrassClump8" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1.94459, 0, 0, 0, 1.54406, 0, 0, 0, 1.82868, 48.2698, 0.729115, 59.9971 )
+
+[node name="GrassClump9" parent="." instance=ExtResource( 4 )]
+transform = Transform( -1.56505, 0, 1.08535, 0, 1.54406, 0, -1.15415, 0, -1.47176, 36.9995, 0.729115, 56.3772 )
+
+[node name="GrassClump10" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.445073, 0, 1.78014, 0, 1.54406, 0, -1.89297, 0, -0.418544, 30.9264, 0.729115, 47.1498 )
+
+[node name="GrassClump11" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.405331, 0, 1.78851, 0, 1.54406, 0, -1.90187, 0, 0.381171, 30.9264, 0.729115, 36.3675 )
+
+[node name="GrassClump12" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1.54609, 0, 1.10912, 0, 1.54406, 0, -1.17942, 0, 1.45393, 36.2734, 0.729115, 28.0348 )
+
+[node name="GrassClump13" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1.94101, 0, -0.110905, 0, 1.54406, 0, 0.117935, 0, 1.82531, 48.3104, 0.729115, 25.207 )
+
+[node name="GrassClump14" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1.16287, 0, -1.46567, 0, 1.54406, 0, 1.55857, 0, 1.09355, 57.0175, 0.729115, 30.0785 )
+
+[node name="GrassClump15" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.169313, 0, -1.82173, 0, 1.54406, 0, 1.9372, 0, 0.159221, 61.1493, 0.729115, 42.8412 )
+
+[node name="GrassClump16" parent="." instance=ExtResource( 4 )]
+transform = Transform( -1.34083, 0, -1.32445, 0, 1.54406, 0, 1.4084, 0, -1.26091, 58.4215, 0.729115, 52.025 )
+
+[node name="GrassClump18" parent="." instance=ExtResource( 3 )]
+transform = Transform( 2.3021, 0, 0, 0, 3.60188, 0, 0, 0, 5.02993, 47.835, 1.83514, 55.2636 )
+
+[node name="GrassClump19" parent="." instance=ExtResource( 3 )]
+transform = Transform( -1.58087, 0, -3.65643, 0, 3.60188, 0, 1.67348, 0, -3.45409, 38.3269, 1.83514, 49.7907 )
+
+[node name="GrassClump20" parent="." instance=ExtResource( 3 )]
+transform = Transform( -2.17646, 0, -1.639, 0, 3.60188, 0, 0.750136, 0, -4.75541, 36.8587, 1.83514, 42.4011 )
+
+[node name="GrassClump21" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.94465, 0, -2.69199, 0, 3.60188, 0, 1.23207, 0, 4.24894, 51.6532, 1.83514, 36.926 )
+
+[node name="GrassClump22" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.302954, 0, -4.98619, 0, 3.60188, 0, 2.28208, 0, -0.661935, 58.1324, 1.83514, 43.1786 )
+
+[node name="GrassClump23" parent="." instance=ExtResource( 3 )]
+transform = Transform( -1.41053, 0, -3.97518, 0, 3.60188, 0, 1.81936, 0, -3.08191, 53.813, 1.83514, 53.1684 )
+
+[node name="GrassClump24" parent="." instance=ExtResource( 3 )]
+transform = Transform( -2.26959, 0, 0.842386, 0, 3.60188, 0, -0.385543, 0, -4.95889, 47.588, 1.83514, 50.1013 )
+
+[node name="GrassClump25" parent="." instance=ExtResource( 3 )]
+transform = Transform( -1.78059, 0, -3.18817, 0, 3.60188, 0, 1.45916, 0, -3.89047, 53.9422, 1.83514, 45.8566 )
+
+[node name="GrassClump26" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.98874, 0, -2.53357, 0, 3.60188, 0, 1.15957, 0, 4.34526, 52.0704, 1.83514, 31.4186 )
+
+[node name="GrassClump17" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1.55105, 0, 3.98167, 0, 3.04543, 0, -2.17939, 0, 2.83371, 37.4648, 1.49743, 36.2646 )
+
+[node name="DeadTree" parent="." instance=ExtResource( 7 )]
+transform = Transform( -0.431096, 0, -0.82447, 0, 0.930373, 0, 0.82447, 0, -0.431096, 47.422, 1.13806, 41.6914 )
+
+[node name="Lantern" parent="DeadTree" instance=ExtResource( 8 )]
+transform = Transform( -0.498035, 0, 0.952491, 0, 1.07484, 0, -0.952491, 0, -0.498035, -1.16505, 11.7794, -7.0421 )
+
+[node name="ChainLink" parent="DeadTree/Lantern" instance=ExtResource( 9 )]
+transform = Transform( -9.31342e-08, -0.571654, 0, 0.885103, -1.44201e-07, 0, 0, 0, 0.796709, -0.0211296, 2.43811, 0.0046463 )
+
+[node name="ChainLink2" parent="DeadTree/Lantern" instance=ExtResource( 9 )]
+transform = Transform( -1.92445e-09, -0.0118122, 0.796538, 0.885103, -1.44201e-07, 0, 9.31143e-08, 0.571532, 0.0164625, -0.0211296, 3.21339, 0.00464249 )
+
+[node name="ChainLink3" parent="DeadTree/Lantern" instance=ExtResource( 9 )]
+transform = Transform( 9.207e-08, 0.565122, 0.120098, 0.885103, -1.44201e-07, 0, 1.40393e-08, 0.0861729, -0.787605, -0.0211296, 3.90585, 0.00464249 )

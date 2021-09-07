@@ -7404,6 +7404,7 @@ shape = SubResource( 23 )
 [node name="Gondola" parent="." instance=ExtResource( 40 )]
 transform = Transform( -0.417032, 0, -1.35886e-07, 0, 0.417032, 0, 1.35886e-07, 0, -0.417032, -226.229, -39.2618, 29.529 )
 nextPointRef = NodePath("../GondolaPoint")
+stopThresh = 0.05
 speed = 4.0
 
 [node name="GondolaPoint" type="Spatial" parent="."]

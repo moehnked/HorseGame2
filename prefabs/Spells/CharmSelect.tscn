@@ -8,7 +8,9 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 184.694
 
-[node name="CharmSelect" type="Control"]
+[node name="CharmSelect" type="Control" groups=[
+"UICustom",
+]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 4 )

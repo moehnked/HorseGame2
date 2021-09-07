@@ -14,11 +14,12 @@ func _ready():
 	pass # Replace with function body.
 
 func add_child( node, legible_unique_name=false):
-	if node.is_in_group("UICustom"):
-		$ViewportContainer2/Viewport.add_child(node, legible_unique_name)
-	else:
-		.add_child(node, legible_unique_name)
-	pass
+	$ViewportContainer2/Viewport.add_child(node, legible_unique_name)
+#	if node.is_in_group("UICustom"):
+#		$ViewportContainer2/Viewport.add_child(node, legible_unique_name)
+#	else:
+#		$ViewportContainer2/Viewport.add_child(node, legible_unique_name)
+#	pass
 
 func call_no_args(timer):
 	if callback.keys().has(timer) and caller.keys().has(timer):
@@ -72,6 +73,11 @@ func set_caller_and_callback(_caller, _callback, timer, _args ):
 	callback[timer] = _callback
 	args[timer] = _args
 	
+
+func trigger_event(groupName, triggerer = add_child(Node.new())):
+	print("world: trrigering event group ", groupName, typeof(groupName))
+	get_tree().call_group(groupName, "trigger", triggerer)
+	pass
 
 func timer_timeout(timer):
 	if args.keys().has(timer):
