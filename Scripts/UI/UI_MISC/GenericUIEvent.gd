@@ -12,7 +12,7 @@ func _ready():
 
 
 func trigger(by):
-	print("generic event triggered")
+	print("generic event: ", name, " triggered")
 	if enabled:
 		emit_signal("trigger", self)
 		for i in nextEvents:

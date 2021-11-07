@@ -13,6 +13,7 @@ var vendor = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.AudioManager.play_sound("res://sounds/ui_open_01.wav")
+	Utils.show_mouse()
 	pass # Replace with function body.
 
 func initialize(args = {}):
@@ -32,6 +33,8 @@ func initialize(args = {}):
 	add_child(timer) #to process
 	timer.start(0.1) #to start
 	draw_trading_screen()
+	Utils.show_mouse()
+	Global.world.queue_timer(Utils, 0.5, "show_mouse")
 	print("initialized trading screen: ", customer.name," , v- ", vendor.name)
 
 func calculate_value(item):

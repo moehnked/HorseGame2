@@ -1,0 +1,306 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://fonts/bigt.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scripts/Casino/AlertPlayAgain.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/UI/InventoryListItem_button_on.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/UI/InventoryListItem_button_off.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/UI/UI_Cancel_active.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/UI/UI_Cancel_fade.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/UI/UI_Cancel.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/UI/InventoryListItem_button_on_confirm.png" type="Texture" id=8]
+[ext_resource path="res://fonts/Name.tres" type="DynamicFont" id=9]
+
+[sub_resource type="Animation" id=1]
+resource_name = "default"
+length = 2.0
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Label:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( -168.682, -0.25, 0, 0.25, 0, -168.682, -0.25, 0, 0.25, 0, -168.682, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.9, 1.9 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Label:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( -30.5, -0.25, 0, 0.766054, 1.49693, -30.5, -0.25, 0, 0.766054, 1.49693, -239.667, -0.751903, 2.69189, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.9, 1.9 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Label:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.9, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ColorRect:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.054902, 0.00784314, 0.352941, 0 ), Color( 0.054902, 0.00784314, 0.168627, 0.596078 ) ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ "res://Sounds/cuckoo.wav" ],
+"method": "play_sound"
+}, {
+"args": [  ],
+"method": "show_mouse"
+} ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("YES:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("No:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "exit"
+length = 2.0
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Label:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( -168.682, -0.25, 0, 0.25, 0, -168.682, -0.25, 0, 0.25, 0, -168.682, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.9 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Label:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( -239.667, -0.751903, 2.69189, 0.25, 0, -198.914, -0.25, 0, 0.25, 0, -353.831, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.9 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Label:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.992157, 1, 0, 1 ), Color( 0.639216, 0, 0.996078, 0 ), Color( 1, 0.4, 0, 1 ), Color( 0.45098, 0.458824, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ColorRect:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.054902, 0.00784314, 0.168627, 0.596078 ), Color( 0, 1, 0.156863, 0 ) ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 1.1, 1.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ "alert_game_reset" ],
+"method": "call_game_method"
+}, {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("YES:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("No:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[node name="AlertPlayAgain" type="Node2D"]
+z_index = 200
+z_as_relative = false
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -953.423
+margin_top = -569.857
+margin_right = -952.423
+margin_bottom = -568.857
+rect_scale = Vector2( 1935.8, 1229.6 )
+color = Color( 0.054902, 0.00784314, 0.168627, 0.596078 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -168.682
+margin_top = -239.667
+margin_right = 189.318
+margin_bottom = -178.667
+custom_fonts/font = ExtResource( 1 )
+text = "PLAY AGAIN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+anims/default = SubResource( 1 )
+anims/exit = SubResource( 2 )
+
+[node name="YES" type="TextureButton" parent="."]
+visible = false
+margin_left = 189.318
+margin_top = 131.0
+margin_right = 317.318
+margin_bottom = 259.0
+rect_rotation = -89.9999
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="yeslabel" type="RichTextLabel" parent="YES"]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 181.0
+margin_top = -111.0
+margin_right = 597.0
+margin_bottom = -61.0
+rect_rotation = 89.9999
+rect_clip_content = false
+custom_fonts/normal_font = ExtResource( 9 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/table_vseparation = 6
+custom_constants/shadow_offset_x = -1
+custom_constants/shadow_offset_y = 6
+bbcode_enabled = true
+bbcode_text = "[wave amp=104]YES[/wave]"
+text = "YES"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="No" type="TextureButton" parent="."]
+visible = false
+margin_left = -168.682
+margin_right = -40.682
+margin_bottom = 128.0
+rect_rotation = 89.9999
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 6 )
+texture_hover = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="nolabel" type="RichTextLabel" parent="No"]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -47.0
+margin_top = -37.0
+margin_right = 87.0
+margin_bottom = -2.0
+rect_rotation = 270.0
+rect_clip_content = false
+custom_fonts/normal_font = ExtResource( 9 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/table_vseparation = 6
+custom_constants/shadow_offset_x = -1
+custom_constants/shadow_offset_y = 6
+bbcode_enabled = true
+bbcode_text = "[wave amp=104]NO[/wave]"
+text = "NO"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="mouse_entered" from="YES" to="." method="_on_YES_mouse_entered"]
+[connection signal="mouse_exited" from="YES" to="." method="_on_YES_mouse_exited"]
+[connection signal="pressed" from="YES" to="." method="_on_YES_pressed"]
+[connection signal="mouse_entered" from="No" to="." method="_on_No_mouse_entered"]
+[connection signal="mouse_exited" from="No" to="." method="_on_No_mouse_exited"]
+[connection signal="pressed" from="No" to="." method="_on_No_pressed"]

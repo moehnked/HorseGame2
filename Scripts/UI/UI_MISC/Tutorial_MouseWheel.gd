@@ -9,8 +9,16 @@ func _ready():
 	print("MOUSE WHEEL TUTORIAL START")
 	$AnimationPlayer.play("MouseUp")
 	Global.InputObserver.subscribe(self)
+	initialize()
 	pass # Replace with function body.
 
+
+func initialize():
+	state = 0
+	$Sprite2.visible = false
+	$Sprite3.visible = false
+	$Sprite.visible = true
+	$AnimationPlayer.play("MouseUp")
 
 func parse_input(input):
 	match state:
@@ -19,29 +27,29 @@ func parse_input(input):
 				$Sprite2.visible = true
 				$Sprite.visible = false
 				state = 1
-		2:
-			$Sprite3/Clickable2.enabled = true
+		1, 2:
+			if input.mouse_down:
+				initialize()
 		3:
 			if input.mouse_down:
 				Global.InputObserver.unsubscribe(self)
-				$UpdatePatchesOptions.trigger(self)
+				$TriggerEventByGroup.trigger(self)
 				queue_free()
 
 
-func _on_Clickable_emit_click():
-	print("clicked.... tutorial")
+
+func _on_GenericUiEvent_trigger(trig):
+	print("tutorial: clicked ", trig, ", ", trig.name)
 	if state == 1:
-		$Sprite2.queue_free()
+		$Sprite2.visible = false
 		$Sprite3.visible = true
 		state = 2
 	pass # Replace with function body.
 
 
-func _on_Clickable2_trigger(trig):
-	print("second clicke.... tutorial")
-	if state == 2:
-		$Sprite3.queue_free()
-		$Sprite.visible = true
-		$AnimationPlayer.playback_speed = -1
-		state = 3
+func _on_HandOptionSelected_trigger(trig):
+	print("selected PUNCJHHHHH!")
+	initialize()
+	state = 3
+	$AnimationPlayer.playback_speed = -1
 	pass # Replace with function body.

@@ -1,0 +1,724 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://fonts/bigt.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scripts/Casino/AlertGameOver.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/UI/CH_Spade.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/UI/CH_Heart.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/UI/CH_Club.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/UI/CH_Diamond.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/misc/noiseSplatter.png" type="Texture" id=7]
+
+[sub_resource type="Curve" id=1]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0, -52.3636 ), 0.0, 0.0, 0, 0, Vector2( 1, 78.5454 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.691489, 1 )
+colors = PoolColorArray( 1, 0, 0, 1, 1, 0.690196, 0.690196, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0 ), 0.0, 3.49143, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+flag_disable_z = true
+gravity = Vector3( 0, 1, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 497.3
+angle_random = 1.0
+angle_curve = SubResource( 2 )
+scale = 5.0
+scale_random = 1.0
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 4 )
+
+[sub_resource type="Animation" id=8]
+resource_name = "Busted"
+length = 3.0
+step = 0.03
+tracks/0/type = "value"
+tracks/0/path = NodePath("Particles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles2D2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Particles2D3:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Particles2D4:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("RichTextLabel3:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("RichTextLabel2:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("RichTextLabel:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.48 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("RichTextLabel:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.48, 0.87 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0.0627451, 1, 0 ), Color( 0, 0.0627451, 1, 0 ), Color( 1, 0.666667, 0, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("RichTextLabel:rect_clip_content")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.48 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, false ]
+}
+tracks/9/type = "bezier"
+tracks/9/path = NodePath("RichTextLabel:rect_position:x")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"points": PoolRealArray( -128.694, -0.25, 0, 0.25, 0, -128.694, -0.25, 0, 0.25, 0, -236.637, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.48, 0.87 )
+}
+tracks/10/type = "bezier"
+tracks/10/path = NodePath("RichTextLabel:rect_position:y")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"points": PoolRealArray( -173.771, -0.25, 0, 0.25, 0, -173.771, -0.25, 0, 0.25, 0, -57.0965, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.48, 0.87 )
+}
+tracks/11/type = "bezier"
+tracks/11/path = NodePath("RichTextLabel:rect_size:x")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"points": PoolRealArray( 540, -0.25, 0, 0.25, 0, 540, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.48 )
+}
+tracks/12/type = "bezier"
+tracks/12/path = NodePath("RichTextLabel:rect_size:y")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"points": PoolRealArray( 80.0004, -0.25, 0, 0.25, 0, 80.0004, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.48 )
+}
+tracks/13/type = "bezier"
+tracks/13/path = NodePath("RichTextLabel:rect_scale:x")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1.9573, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.48, 0.87 )
+}
+tracks/14/type = "bezier"
+tracks/14/path = NodePath("RichTextLabel:rect_scale:y")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1.9573, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.48, 0.87 )
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Particles2D5:emitting")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 0.1, 0.87 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("Particles2D5:lifetime")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0.09 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 20.0 ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("RichTextLabel:bbcode_text")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "[wave amp=70]BUSTED![/wave]" ]
+}
+tracks/18/type = "method"
+tracks/18/path = NodePath(".")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0, 2.01 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ "res://Sounds/Busted.wav" ],
+"method": "play_sound"
+}, {
+"args": [  ],
+"method": "close_out"
+} ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 3.0
+step = 0.03
+tracks/0/type = "value"
+tracks/0/path = NodePath("RichTextLabel2:bbcode_text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "[shake rate=5 level=10]YOU[/shake]" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RichTextLabel2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RichTextLabel2:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.5, 2.94 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0.733333, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("RichTextLabel2:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.09 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -128.694, -167.161 ), Vector2( -128.694, -27.7296 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("RichTextLabel3:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.42, 0.51 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 7.37738, -218.608 ), Vector2( 7.37738, -47.8883 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("RichTextLabel3:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.42, 0.51, 1.62, 2.97 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0.0784314, 0.109804, 0 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 0.9 ), Color( 1, 0.733333, 1, 0.996078 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("RichTextLabel3:rect_scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.42, 0.51 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 1.5, 1.5 ) ]
+}
+tracks/7/type = "method"
+tracks/7/path = NodePath(".")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.09, 0.51, 2.94 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"values": [ {
+"args": [ "res://Sounds/slowdown.wav" ],
+"method": "play_sound"
+}, {
+"args": [ "res://Sounds/lights_01.wav", -2.0 ],
+"method": "play_sound"
+}, {
+"args": [ "res://Sounds/lights_01.wav", 2.0 ],
+"method": "play_sound"
+}, {
+"args": [  ],
+"method": "check_chips"
+} ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Particles2D:emitting")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Particles2D2:emitting")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Particles2D3:emitting")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Particles2D4:emitting")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("RichTextLabel3:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 5.0
+step = 0.03
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("RichTextLabel:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( -128.694, -0.25, 0, 0.25, 0, -128.694, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 4.2 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("RichTextLabel:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( -27.7296, -0.25, 0, 0.25, 0, -149.489, -0.847487, -0.415024, 0.25, 0 ),
+"times": PoolRealArray( 0, 4.2 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RichTextLabel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.66, 0.81, 0.96, 1.11, 1.2, 1.35, 1.59, 1.83, 4.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0.0627451, 1, 0 ), Color( 1, 0.376471, 0, 1 ), Color( 1, 1, 1, 0 ), Color( 0.101961, 1, 0, 1 ), Color( 1, 0.376471, 0, 1 ), Color( 0.101961, 1, 0, 1 ), Color( 1, 0.376471, 0, 1 ), Color( 1, 1, 1, 0 ), Color( 0.101961, 1, 0, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.27, 4.89 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ "res://Sounds/jrpgUI/LoadSave.wav" ],
+"method": "play_sound"
+}, {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("RichTextLabel:bbcode_text")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "[wave amp=70]YOU WON![/wave]" ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Particles2D:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.03, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Particles2D2:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.15, 0.66 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Particles2D3:emitting")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.33, 0.66 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Particles2D4:emitting")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.45, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/9/type = "method"
+tracks/9/path = NodePath(".")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 3.72 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ "res://Sounds/item_special01.wav", 15.0 ],
+"method": "play_sound"
+}, {
+"args": [ "alert_play_again" ],
+"method": "call_game_method"
+} ]
+}
+
+[sub_resource type="Gradient" id=11]
+offsets = PoolRealArray( 0, 0.574468, 1 )
+colors = PoolColorArray( 1, 1, 1, 0.0745098, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=12]
+gradient = SubResource( 11 )
+
+[sub_resource type="Curve" id=13]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=14]
+curve = SubResource( 13 )
+
+[sub_resource type="ParticlesMaterial" id=15]
+flag_disable_z = true
+direction = Vector3( 2.828, 0, 0 )
+spread = 180.0
+flatness = 0.36
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 432.99
+initial_velocity_random = 1.0
+orbit_velocity = 0.07
+orbit_velocity_random = 0.0
+scale = 1.47
+scale_random = 1.0
+scale_curve = SubResource( 14 )
+color_ramp = SubResource( 12 )
+
+[node name="AlertGameOver" type="Node2D"]
+z_index = 200
+z_as_relative = false
+script = ExtResource( 2 )
+
+[node name="Particles2D5" type="Particles2D" parent="."]
+emitting = false
+lifetime = 20.0
+speed_scale = 7.83
+explosiveness = 0.84
+process_material = SubResource( 7 )
+texture = ExtResource( 7 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+modulate = Color( 0, 0.0627451, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -128.694
+margin_top = -27.7296
+margin_right = 411.306
+margin_bottom = 52.2708
+rect_clip_content = false
+custom_fonts/normal_font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_y = 6
+bbcode_enabled = true
+bbcode_text = "[wave amp=70]YOU WON![/wave]"
+text = "YOU WON!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+visible = false
+modulate = Color( 1, 0, 0, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -128.694
+margin_top = -167.161
+margin_right = 411.306
+margin_bottom = -87.1605
+custom_fonts/normal_font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_y = 6
+bbcode_enabled = true
+bbcode_text = "[shake rate=5 level=10]YOU[/shake]"
+text = "YOU"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="."]
+visible = false
+modulate = Color( 1, 0.0784314, 0.109804, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 7.37738
+margin_top = -47.8883
+margin_right = 547.377
+margin_bottom = 32.1121
+rect_scale = Vector2( 1.5, 1.5 )
+custom_fonts/normal_font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_y = 6
+bbcode_enabled = true
+bbcode_text = "[shake rate=25 level=10]LOSE[/shake]"
+text = "LOSE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Busted = SubResource( 8 )
+anims/lose = SubResource( 9 )
+anims/victory = SubResource( 10 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+scale = Vector2( 0.399808, 0.399808 )
+emitting = false
+amount = 32
+lifetime = 8.0
+speed_scale = 4.0
+explosiveness = 1.0
+randomness = 0.5
+process_material = SubResource( 15 )
+texture = ExtResource( 3 )
+
+[node name="Particles2D2" type="Particles2D" parent="."]
+position = Vector2( 0, -17.7979 )
+scale = Vector2( 0.399808, 0.399808 )
+emitting = false
+amount = 32
+lifetime = 2.85
+explosiveness = 0.78
+randomness = 0.5
+process_material = SubResource( 15 )
+texture = ExtResource( 4 )
+
+[node name="Particles2D3" type="Particles2D" parent="."]
+position = Vector2( 0, -51.6138 )
+scale = Vector2( 0.399808, 0.399808 )
+emitting = false
+amount = 32
+lifetime = 2.85
+explosiveness = 0.78
+randomness = 0.5
+process_material = SubResource( 15 )
+texture = ExtResource( 5 )
+
+[node name="Particles2D4" type="Particles2D" parent="."]
+position = Vector2( 0, -113.906 )
+scale = Vector2( 0.399808, 0.399808 )
+emitting = false
+amount = 32
+lifetime = 2.85
+explosiveness = 0.78
+randomness = 0.5
+process_material = SubResource( 15 )
+texture = ExtResource( 6 )

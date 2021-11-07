@@ -1,0 +1,20 @@
+{
+	"color": "#ffffffff",
+	"description": "",
+	"display_name": "",
+	"display_name_bool": false,
+	"id": "character-1631059499.json",
+	"mirror_portraits": false,
+	"name": "Patches",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 20,
+	"offset_y": -90,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://Sprites/NPCs/Patches.png"
+		}
+	],
+	"scale": 100
+}

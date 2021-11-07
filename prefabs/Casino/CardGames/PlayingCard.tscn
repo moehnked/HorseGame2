@@ -1,0 +1,219 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Sprites/Casino/Cards/Clubs.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Casino/Cards/CardFaceBlank.png" type="Texture" id=2]
+[ext_resource path="res://fonts/BLKCHCRY.TTF" type="DynamicFontData" id=3]
+[ext_resource path="res://Scripts/Casino/PlayingCard.gd" type="Script" id=4]
+[ext_resource path="res://Sprites/Casino/Cards/CardBack.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/path = NodePath("CardContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CardContainer:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CardContainer:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CardContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+step = 0.03
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("CardContainer:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1e-05, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.51, 0.99 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("CardContainer:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.51, 0.99 )
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.51 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "set_back"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CardContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CardContainer:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("CardContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.533333 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.533333 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.533333 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.533333 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.533333 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("CardContainer:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("CardContainer:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( -5, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, -5, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2 )
+}
+
+[node name="PlayingCard" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="CardContainer" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Card" type="Sprite" parent="CardContainer"]
+texture = ExtResource( 2 )
+
+[node name="Frame" type="Sprite" parent="CardContainer"]
+texture = ExtResource( 1 )
+
+[node name="Container" type="Node2D" parent="CardContainer"]
+
+[node name="Label" type="Label" parent="CardContainer/Container"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = -110.034
+margin_top = -143.853
+margin_right = -70.0336
+margin_bottom = -80.8531
+custom_fonts/font = SubResource( 1 )
+text = "2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="CardContainer/Container"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 83.7503
+margin_top = -1.42488
+margin_right = 123.75
+margin_bottom = 61.5751
+custom_fonts/font = SubResource( 1 )
+text = "2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Card2" type="Sprite" parent="CardContainer"]
+texture = ExtResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/default = SubResource( 2 )
+anims/flip = SubResource( 3 )
+anims/hover = SubResource( 4 )
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color( 0, 1, 0.6, 0 )
+margin_left = -117.0
+margin_top = -167.0
+margin_right = 114.0
+margin_bottom = 170.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="mouse_entered" from="Panel" to="." method="_on_Panel_mouse_entered"]
+[connection signal="mouse_exited" from="Panel" to="." method="_on_Panel_mouse_exited"]

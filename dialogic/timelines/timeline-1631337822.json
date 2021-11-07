@@ -1,0 +1,74 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1631337512.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "character-1631337512.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Yeah!?...."
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "[tornado radius=2 freq=3][wave amp=1 freq=5]... ?"
+		},
+		{
+			"choice": "What are you talking about?",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1631337512.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "The last chumpster come through here asking for a hammer turned out to be a disaster!"
+		},
+		{
+			"character": "character-1631337512.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "A total idiot!"
+		},
+		{
+			"character": "character-1631337512.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "I’m done handing out hammers to every yeehaw dandy what comes into the guild asking for freebies!"
+		},
+		{
+			"emit_signal": "",
+			"event_id": "dialogic_040"
+		},
+		{
+			"event_id": "dialogic_022",
+			"transition_duration": 1
+		},
+		{
+			"event_id": "dialogic_013"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1631337822.json",
+		"name": "02"
+	}
+}

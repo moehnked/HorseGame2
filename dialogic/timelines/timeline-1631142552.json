@@ -1,0 +1,73 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "[tornado radius=8 freq=6][shake amp=1 freq=16]    Fantastic!!"
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Great work. But your fists will only get you so far..."
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "This world is obsessed with horses... Creatures that resemble this visage."
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "The temple you crossed is an effigy, their motif a curse on this land."
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Ah! But beauty is in the eye of the beholder, is it not?"
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Perhaps you can find peace where there is chaos."
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "..."
+		},
+		{
+			"emit_signal": "",
+			"event_id": "dialogic_040"
+		},
+		{
+			"event_id": "dialogic_022",
+			"transition_duration": 1
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1631142552.json",
+		"name": "05"
+	}
+}

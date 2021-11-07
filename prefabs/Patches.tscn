@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Shaders/crazy_shadermaterial.tres" type="Material" id=1]
 [ext_resource path="res://Sprites/Bolo/cloack_rip_02.png" type="Texture" id=2]
@@ -6,8 +6,8 @@
 [ext_resource path="res://Scripts/Patches.gd" type="Script" id=4]
 [ext_resource path="res://prefabs/Interactables/InteractableNoPreset.tscn" type="PackedScene" id=5]
 [ext_resource path="res://models/animals/Patches/Material.material" type="Material" id=6]
-[ext_resource path="res://prefabs/UI/Dialogue/PatchesDialogTree/PM_01.tscn" type="PackedScene" id=7]
-[ext_resource path="res://prefabs/UI/Dialogue/Exit.tscn" type="PackedScene" id=8]
+[ext_resource path="res://prefabs/Objects/ChainLink.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Sprites/misc/Xenophonsmall.png" type="Texture" id=8]
 
 [sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 2
@@ -108,11 +108,18 @@ bind/2/pose = Transform( 1, 1.85692e-07, 1.49539e-07, 5.68434e-14, -0.627214, 0.
 [sub_resource type="BoxShape" id=14]
 extents = Vector3( 3.70243, 1.59703, 3.4278 )
 
+[sub_resource type="QuadMesh" id=15]
+
+[sub_resource type="SpatialMaterial" id=16]
+flags_transparent = true
+albedo_color = Color( 0.721569, 0.980392, 1, 1 )
+albedo_texture = ExtResource( 8 )
+
 [node name="Patches" type="Spatial" groups=[
 "Patches",
 ]]
 script = ExtResource( 4 )
-options = [ ExtResource( 7 ), ExtResource( 8 ) ]
+speakingVolume = 0.0
 
 [node name="Particles" type="Spatial" parent="."]
 transform = Transform( 1.81134, 0, 0, 0, 1.81134, 0, 0, 0, 1.81134, 0, 0.140438, 0.362631 )
@@ -198,6 +205,63 @@ playSoundOnInteract = false
 [node name="CollisionShape2" type="CollisionShape" parent="Interactable"]
 transform = Transform( 1.16195, 0, 0, 0, 1, 0, 0, 0, 0.795554, 0, 0, 0.31342 )
 shape = SubResource( 11 )
+
+[node name="RenableInteractible" type="Timer" parent="."]
+one_shot = true
+
+[node name="Spatial" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0174784, 1.26944, 0 )
+
+[node name="ChainLink" parent="Spatial" instance=ExtResource( 7 )]
+transform = Transform( -0.0180118, -0.0576555, -0.032203, 0.0239909, -0.0254586, 0.0776618, -0.0931306, 0.00459252, 0.0262342, -0.302834, 0.363143, 0.465936 )
+
+[node name="ChainLink7" parent="Spatial" instance=ExtResource( 7 )]
+transform = Transform( -0.0180118, -0.0576555, -0.032203, 0.0451578, -0.0258257, 0.069346, -0.0849096, -0.00150461, 0.0437118, -0.311555, 0.388436, 0.381918 )
+
+[node name="ChainLink2" parent="Spatial" instance=ExtResource( 7 )]
+transform = Transform( -0.0066698, -0.0623317, -0.0131918, 0.0306636, -0.0103451, 0.0823828, -0.0926744, 0.00106311, 0.0282078, -0.293481, 0.345105, 0.553555 )
+
+[node name="ChainLink3" parent="Spatial" instance=ExtResource( 7 )]
+transform = Transform( -0.0495895, -0.0511568, -0.0260949, 0.0604828, -0.036706, 0.0466437, -0.0587878, 0.00538818, 0.0700004, -0.268495, 0.304299, 0.608627 )
+
+[node name="ChainLink4" parent="Spatial" instance=ExtResource( 7 )]
+transform = Transform( -0.0655112, -0.0435244, -0.0244901, 0.0633929, -0.0457921, 0.0206783, -0.0355377, -0.00145081, 0.0820322, -0.223087, 0.256916, 0.636238 )
+
+[node name="ChainLink5" parent="Spatial" instance=ExtResource( 7 )]
+transform = Transform( -0.0655112, -0.0435244, -0.0244901, 0.0633929, -0.0457921, 0.0206783, -0.0355377, -0.00145081, 0.0820322, -0.163208, 0.194665, 0.656809 )
+
+[node name="ChainLink6" parent="Spatial" instance=ExtResource( 7 )]
+transform = Transform( -0.0655112, -0.0435244, -0.0244901, 0.0633929, -0.0457921, 0.0206783, -0.0355377, -0.00145081, 0.0820322, -0.110927, 0.13765, 0.682482 )
+
+[node name="Spatial2" type="Spatial" parent="."]
+transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00404754, 1.26944, 0 )
+
+[node name="ChainLink" parent="Spatial2" instance=ExtResource( 7 )]
+transform = Transform( -0.0180118, -0.0576555, -0.032203, 0.0239909, -0.0254586, 0.0776618, -0.0931306, 0.00459252, 0.0262342, -0.302834, 0.363143, 0.465936 )
+
+[node name="ChainLink7" parent="Spatial2" instance=ExtResource( 7 )]
+transform = Transform( -0.0180118, -0.0576555, -0.032203, 0.0451578, -0.0258257, 0.069346, -0.0849096, -0.00150461, 0.0437118, -0.311555, 0.388436, 0.381918 )
+
+[node name="ChainLink2" parent="Spatial2" instance=ExtResource( 7 )]
+transform = Transform( -0.0066698, -0.0623317, -0.0131918, 0.0306636, -0.0103451, 0.0823828, -0.0926744, 0.00106311, 0.0282078, -0.293481, 0.345105, 0.553555 )
+
+[node name="ChainLink3" parent="Spatial2" instance=ExtResource( 7 )]
+transform = Transform( -0.0495895, -0.0511568, -0.0260949, 0.0604828, -0.036706, 0.0466437, -0.0587878, 0.00538818, 0.0700004, -0.268495, 0.304299, 0.608627 )
+
+[node name="ChainLink4" parent="Spatial2" instance=ExtResource( 7 )]
+transform = Transform( -0.0655112, -0.0435244, -0.0244901, 0.0633929, -0.0457921, 0.0206783, -0.0355377, -0.00145081, 0.0820322, -0.223087, 0.256916, 0.636238 )
+
+[node name="ChainLink5" parent="Spatial2" instance=ExtResource( 7 )]
+transform = Transform( -0.0655112, -0.0435244, -0.0244901, 0.0633929, -0.0457921, 0.0206783, -0.0355377, -0.00145081, 0.0820322, -0.163208, 0.194665, 0.656809 )
+
+[node name="ChainLink6" parent="Spatial2" instance=ExtResource( 7 )]
+transform = Transform( -0.0655112, -0.0435244, -0.0244901, 0.0633929, -0.0457921, 0.0206783, -0.0355377, -0.00145081, 0.0820322, -0.110927, 0.13765, 0.682482 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 0.224112, 0, 0, 0, 0.224112, 0, 0, 0, 0.224112, 0.00661752, 1.32263, 0.701278 )
+mesh = SubResource( 15 )
+material/0 = SubResource( 16 )
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
 [connection signal="emit_prompt" from="Interactable" to="." method="_on_Interactable_emit_prompt"]
 [connection signal="interaction" from="Interactable" to="." method="_on_Interactable_interaction"]
+[connection signal="timeout" from="RenableInteractible" to="." method="_on_RenableInteractible_timeout"]

@@ -1,0 +1,68 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Hey. What’dya need?"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "[tornado radius=2 freq=3][wave amp=1 freq=5]... ?"
+		},
+		{
+			"choice": "What do you do?",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "I work for the Bureau of Land Management."
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": " I can take your application to have land graded and validate a property deed."
+		},
+		{
+			"emit_signal": "",
+			"event_id": "dialogic_040"
+		},
+		{
+			"event_id": "dialogic_022",
+			"transition_duration": 1
+		},
+		{
+			"event_id": "dialogic_013"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1631346208.json",
+		"name": "01"
+	}
+}

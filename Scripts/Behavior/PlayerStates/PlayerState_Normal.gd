@@ -20,6 +20,7 @@ func run_state(actor, delta):
 	pass
 
 func initialize(args = {}):
+	print("PB: Normal: initializing")
 	var actor = args.actor
 	var head = actor.get_head()
 	actor.subscribe_to()
@@ -36,7 +37,6 @@ func initialize(args = {}):
 		actor.enable_casting()
 
 func apply_rotation(actor):
-	#if state != State.giddyup and not isBuilding:
 	actor.rotate_y(actor.input.mouse_horizontal)
 
 func parse_movement(actor, delta):
@@ -53,22 +53,33 @@ func parse_movement(actor, delta):
 	direction.y = 0
 	direction = direction.normalized()
 	
-	if actor.is_on_floor():
-		has_contact = true
-		var n = actor.get_ground_check().get_collision_normal()
-		var floor_angle = rad2deg(acos(n.dot(Vector3.UP)))
+	snapVector = Vector3.ZERO
+	var n = null
+	if actor.get_slide_count() >= 1:
+		n = actor.get_slide_collision(0)
+	var floor_angle = 0
+	if n != null:
+		floor_angle = rad2deg(n.normal.angle_to(Vector3.UP))
 		if floor_angle > actor.MAX_SLOPE_ANGLE:
-			print("down")
+			#print("xwa")
 			velocity.y += gravity * delta
-	else:
-		if not actor.get_ground_check().is_colliding():
-			has_contact = false
+		else:
+			#print("xwb")
+			has_contact = true
+			snapVector = -n.normal
+	elif not actor.get_ground_check().is_colliding():
+		has_contact = false
 		velocity.y += gravity * delta
-	if has_contact and !actor.is_on_floor():
-		#var dist = actor.get_ground_check().global_transform.origin.y - actor.get_ground_check().get_collision_point().y
-		#print(dist)
-		#actor.move_and_collide(Vector3(0,-2,0))
-		pass
+	elif actor.is_on_floor():
+		#print("xwD")
+		has_contact = true
+	else:
+		#print("xwE")
+		has_contact = true
+		var raynormal = actor.get_ground_check().get_collision_normal()
+		floor_angle = rad2deg(raynormal.angle_to(Vector3.UP))
+	
+	#print(("touching ground" if has_contact else "airborne")," : ", floor_angle, " " , floor_angle > actor.MAX_SLOPE_ANGLE)
 	
 	var h_velocity = velocity
 	h_velocity.y = 0
@@ -89,8 +100,9 @@ func parse_movement(actor, delta):
 		velocity.y = 10
 		has_contact = false
 		actor.random_grunt()
-	
-	velocity = actor.move_and_slide_with_snap(velocity, snapVector ,Vector3.UP, true, 1, 0.785398, false)
+
+	velocity = actor.move_and_slide_with_snap(velocity, snapVector ,Vector3.UP, true, 1, actor.MAX_SLOPE_ANGLE, false)
+
 
 func send_raycast_data(raycastobj, actor):
 	for placer in actor.placer_observers:

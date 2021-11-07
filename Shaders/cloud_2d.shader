@@ -1,16 +1,16 @@
 shader_type canvas_item;
 
-const float cloudscale = 1.1;
-const float speed = 0.03;
-const float clouddark = 0.5;
-const float cloudlight = 0.3;
-const float cloudcover = 0.2;
-const float cloudalpha = 8.0;
-const float skytint = 0.5;
-const vec3 skycolour1 = vec3(0.2, 0.4, 0.6);
-const vec3 skycolour2 = vec3(0.4, 0.7, 1.0);
+uniform float cloudscale = 1.1;
+uniform float speed = 0.03;
+uniform float clouddark = 0.5;
+uniform float cloudlight = 0.3;
+uniform float cloudcover = 0.2;
+uniform float cloudalpha = 8.0;
+uniform float skytint = 0.5;
+uniform vec3 skycolour1 = vec3(0.2, 0.4, 0.6);
+uniform vec3 skycolour2 = vec3(0.4, 0.7, 1.0);
 
-const mat2 m = mat2( vec2(1.6,  1.2), vec2(-1.2,  1.6) );
+uniform mat2 m = mat2( vec2(1.6,  1.2), vec2(-1.2,  1.6) );
 
 vec2 hash( vec2 p ) {
 	p = vec2(dot(p,vec2(127.1,311.7)), dot(p,vec2(269.5,183.3)));

@@ -1,0 +1,114 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://models/animals/Horse_base_RPS.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/Horse/StateMachine.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Horse/HorseNPC_Generic.gd" type="Script" id=3]
+[ext_resource path="res://prefabs/Horses/Behaviors/HB_Idle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://prefabs/UI/Dialogue/Dialogic_NPC_DialogueScreen.tscn" type="PackedScene" id=5]
+[ext_resource path="res://prefabs/Horses/Behaviors/HB_Giddyup.tscn" type="PackedScene" id=6]
+[ext_resource path="res://prefabs/Horses/Behaviors/HB_Pilot.tscn" type="PackedScene" id=7]
+[ext_resource path="res://prefabs/Horses/Behaviors/HB_Follow.tscn" type="PackedScene" id=8]
+[ext_resource path="res://prefabs/Horses/Behaviors/HB_WalkTo.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scripts/Horse/RelationshipManager.gd" type="Script" id=10]
+[ext_resource path="res://prefabs/Effects/HorseMoodParticles.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scripts/Horse/HorseInteractionController.gd" type="Script" id=12]
+[ext_resource path="res://prefabs/Interactables/InteractableNoPreset.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Sounds/horse_noise_02.wav" type="AudioStream" id=14]
+[ext_resource path="res://prefabs/PlayerStuff/EquipmentManager.tscn" type="PackedScene" id=15]
+[ext_resource path="res://prefabs/Horses/HoldingPoint.gd" type="Script" id=16]
+[ext_resource path="res://prefabs/Horses/Lassoable.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Sounds/horse_noise_03.wav" type="AudioStream" id=18]
+[ext_resource path="res://Sounds/horse_noise_01.wav" type="AudioStream" id=19]
+[ext_resource path="res://Sounds/horse_noise_04.wav" type="AudioStream" id=20]
+[ext_resource path="res://prefabs/Horses/Behaviors/HB_NPCDialogue.tscn" type="PackedScene" id=21]
+
+[sub_resource type="BoxShape" id=1]
+
+[sub_resource type="CapsuleShape" id=2]
+radius = 0.687674
+height = 2.4
+
+[sub_resource type="CylinderShape" id=3]
+radius = 0.695545
+height = 1.71457
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 0.860839, 1.21461, 1.93213 )
+
+[node name="HorseNPC_Generic" type="KinematicBody"]
+script = ExtResource( 3 )
+talkSounds = [ ExtResource( 19 ), ExtResource( 14 ), ExtResource( 18 ), ExtResource( 20 ) ]
+speakingVolume = -5.0
+
+[node name="EquipmentManager" parent="." instance=ExtResource( 15 )]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="HB_Idle" parent="StateMachine" instance=ExtResource( 4 )]
+
+[node name="HB_Giddyup" parent="StateMachine" instance=ExtResource( 6 )]
+
+[node name="HB_Pilot" parent="StateMachine" instance=ExtResource( 7 )]
+
+[node name="HB_Follow" parent="StateMachine" instance=ExtResource( 8 )]
+
+[node name="HB_WalkTo" parent="StateMachine" instance=ExtResource( 9 )]
+
+[node name="HB_Dialogue" parent="StateMachine" instance=ExtResource( 21 )]
+dialogueScreenRes = ExtResource( 5 )
+
+[node name="InteractionController" type="Area" parent="."]
+script = ExtResource( 12 )
+
+[node name="CollisionShape" type="CollisionShape" parent="InteractionController"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10664, -1.29656 )
+shape = SubResource( 1 )
+
+[node name="HoldingPoint" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55472, -1.33293 )
+script = ExtResource( 16 )
+
+[node name="horse_animated" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 1 )
+
+[node name="RelationshipManager" type="Spatial" parent="."]
+script = ExtResource( 10 )
+pep = 5
+
+[node name="Particles" parent="RelationshipManager" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00350106, 2.97081, -0.879644 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( -1, -8.74228e-08, 1.4243e-14, 0, -1.62921e-07, -1, 8.74228e-08, -1, 1.62921e-07, -6.3924e-08, 1.85162, 0.00358844 )
+shape = SubResource( 2 )
+
+[node name="GroundCheck" type="RayCast" parent="."]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -6.3924e-08, 0.95, 0.00358844 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="."]
+transform = Transform( -1, -8.70283e-08, 8.29557e-09, 0, -0.0948903, -0.995488, 8.74228e-08, -0.995488, 0.0948903, 6.3924e-08, 1.9231, 1.466 )
+shape = SubResource( 3 )
+
+[node name="Saddle" type="Spatial" parent="."]
+transform = Transform( -1, 0, 3.25841e-07, 0, 1, 0, -3.25841e-07, 0, -1, 1.59987e-08, 2.5867, 0.917797 )
+
+[node name="Interactable" parent="." instance=ExtResource( 13 )]
+
+[node name="CollisionShape" type="CollisionShape" parent="Interactable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.77911, 0.829752 )
+shape = SubResource( 4 )
+
+[node name="Lassoable" parent="." instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0261652, 2.5259, 0.609086 )
+saddle = NodePath("../Saddle")
+distThresh = 1.5
+[connection signal="emit_charm_recieved" from="." to="RelationshipManager" method="_on_Horse_emit_charm_recieved"]
+[connection signal="broadcast_self" from="EquipmentManager" to="InteractionController" method="_on_EquipmentManager_broadcast_self"]
+[connection signal="broadcast_self" from="EquipmentManager" to="HoldingPoint" method="_on_EquipmentManager_broadcast_self"]
+[connection signal="area_entered" from="InteractionController" to="InteractionController" method="_on_InteractionController_area_entered"]
+[connection signal="body_entered" from="InteractionController" to="InteractionController" method="_on_InteractionController_body_entered"]
+[connection signal="broadcast_self" from="InteractionController" to="EquipmentManager" method="_on_InteractionController_broadcast_self"]
+[connection signal="emit_prompt" from="Interactable" to="." method="_on_Interactable_emit_prompt"]
+[connection signal="interaction" from="Interactable" to="." method="_on_Interactable_interaction"]
+[connection signal="lassoed" from="Lassoable" to="." method="_on_Lassoable_lassoed"]

@@ -6,6 +6,7 @@ var x_window = ProjectSettings.get_setting("display/window/size/width")
 var y_window = ProjectSettings.get_setting("display/window/size/height")
 var fadeCoeff = 0
 var fadeScale = 0.03
+var isHidden = false
 
 func _ready():
 	Global.InteractionPrompt = self
@@ -24,10 +25,16 @@ func _process(delta):
 
 func clear():
 	$Label.visible = false
+	$Label2.visible = false
 	$Crosshair.visible = true
 
 func hide_context():
 	fadeCoeff = -1
+
+func hide_center_prompt():
+	$Label.visible = false
+	$Label2.visible = false
+	isHidden = true
 
 func show_prompt(prompt, low = false, showButtonPrompt = true):
 	$Crosshair.visible = false
@@ -36,7 +43,7 @@ func show_prompt(prompt, low = false, showButtonPrompt = true):
 	else:
 		$Label.rect_position.y = (y_window * 0.5) - ($Label.rect_size.y / 2)
 	$Label.text = prompt + (buttonText if showButtonPrompt else "")
-	$Label.visible = true
+	$Label.visible = (true and not isHidden)
 
 func show_context(text):
 	$Context.text = text
@@ -44,6 +51,11 @@ func show_context(text):
 	fadeCoeff = 1
 	$ContextTimer.start(3)
 
+func unhide_center_prompt():
+	$Label.visible = true
+	$Label2.visible = true
+	isHidden = false
+	
 func _on_ContextTimer_timeout():
 	hide_context()
 	pass # Replace with function body.

@@ -40,6 +40,7 @@ func initialize(_source, left, right):
 	$container/LeftHand.texture_normal =  load("res://Sprites/UI/QE_" + leftHand + ".png")
 	$container/RightHand.texture_normal = load("res://Sprites/UI/QE_" + rightHand + ".png")
 	play_sound(0)
+	Global.AudioManager.fade_music(Global.AudioManager.get_current_music_volume() - 10, 0.1)
 	print("UH: ", source, ", ", source.name, " - ", source.get_parent().name)
 	
 func subscribe_to():
@@ -55,6 +56,7 @@ func parse_input(input):
 		$container.visible = false
 		state = State.fadeout
 		unsubscribe_to()
+		Global.AudioManager.fade_music(0, 0.1)
 		source.update_spells(leftHand, rightHand)
 
 func fadein_step():

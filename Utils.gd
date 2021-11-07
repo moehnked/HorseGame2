@@ -1,5 +1,7 @@
 extends Node
 
+var Global =  preload("res://Global.gd")
+
 static func angle_to(from, to):
 	return atan2(to.y - from.y, to.x - from.x) * 180 / PI;
 
@@ -10,6 +12,7 @@ static func calculate_adjusted_speed(stat):
 	return 10 * sqrt(stat)
 
 static func capture_mouse():
+	print("Utils: capturing mouse")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 static func check(args = {}, def = {}):
@@ -46,10 +49,13 @@ static func contains(item, list):
 
 static func count(item, list):
 	var c = 0
-	for i in list:
-		if i != null:
-			if i.get_name() == item.get_name():
-				c += 1
+	if item is String:
+		item = get_item_by_name(item, list)
+	if item != null:
+		for i in list:
+			if i != null:
+				if i.get_name() == item.get_name():
+					c += 1
 	return c
 
 static func custom_function_env_light(x):
@@ -96,7 +102,7 @@ func uPrint(message, caller):
 	print(caller.get_name(),": " + message)
 
 func instance_item(item):
-	#print("instancing ", item, ": controller: ", item.controller)
+	print("instancing ", item, ": controller: ", item.controller)
 	Global.world.call("add_child", item)
 	return item
 
@@ -141,6 +147,7 @@ static func remove_item(item, list):
 #		i += 1
 
 static func show_mouse():
+	print("Utils: showing mouse")
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 static func uniques(list):
@@ -149,6 +156,15 @@ static func uniques(list):
 		if i != null:
 			if u.size() == 0:
 				u.append(i)
-			elif !Utils.contains(i,u):
+			elif !contains(i,u):
 				u.append(i)
 	return u
+
+static func wrap(x, a, b):
+	if x < a:
+		return x + abs(b - a)
+	elif x > b:
+		return x - abs(b - a)
+	else:
+		return x
+	pass

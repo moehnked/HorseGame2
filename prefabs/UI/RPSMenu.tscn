@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://prefabs/UI/RPS_Card.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/misc/RPS/RPS_Rock.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/misc/RPS/RPS_Fets.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/misc/RPS/RPS_Hooves.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/misc/RPS/RPS_Scissors.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/UI/RPSMenu.gd" type="Script" id=6]
+
+[node name="RPSMEnu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shoes" parent="." instance=ExtResource( 1 )]
+margin_left = 218.197
+margin_top = 254.117
+margin_right = 218.197
+margin_bottom = 254.117
+rect_scale = Vector2( 0.565806, 0.565806 )
+
+[node name="Fets" parent="." instance=ExtResource( 1 )]
+margin_left = 516.461
+margin_top = 254.117
+margin_right = 516.461
+margin_bottom = 254.117
+rect_scale = Vector2( 0.565806, 0.565806 )
+card_front = ExtResource( 3 )
+card_back = ExtResource( 5 )
+
+[node name="Hooves" parent="." instance=ExtResource( 1 )]
+margin_left = 810.95
+margin_top = 254.117
+margin_right = 810.95
+margin_bottom = 254.117
+rect_scale = Vector2( 0.565806, 0.565806 )
+card_front = ExtResource( 4 )
+card_back = ExtResource( 2 )
+[connection signal="emit_clicked" from="Shoes" to="." method="_on_RPSCard_emit_clicked"]
+[connection signal="emit_clicked" from="Fets" to="." method="_on_RPSCard2_emit_clicked"]
+[connection signal="emit_clicked" from="Hooves" to="." method="_on_Hooves_emit_clicked"]

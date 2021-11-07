@@ -15,11 +15,6 @@ func trigger():
 	Global.AudioManager.play_sound()
 	$TriggerEventByGroup.trigger(self)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if hasSnapped:
-		hasSnapped = false
-		trigger()
 
 func set_event_group(groupname):
 	$TriggerEventByGroup.groupName = groupname

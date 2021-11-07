@@ -1,0 +1,83 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Nice!"
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Now that you have your [tornado radius=2 freq=3][wave amp=1 freq=5]LASSO[/wave][/tornado] equipped, you can try wrangling some horses."
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "If your LASSO hits its mark, you will fly towards your target!"
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "If you are powerful enough, its [tornado radius=2 freq=3][wave amp=1 freq=5]GIDDYUP PARTNER!!"
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "You'll have to act fast. Durring GIDDYUP, you will only have a few seconds to spell out the horse's favorite word."
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "If a horse is too powerful, you will get bucked right off!"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Anyway, give it a shot on the dummy. When you're done riding, just press [i] [Tab] [/i] to dismount."
+		},
+		{
+			"emit_signal": "",
+			"event_id": "dialogic_040"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"LoadSecondDummy"
+				],
+				"method_name": "trigger_event",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"event_id": "dialogic_022",
+			"transition_duration": 1
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1631160713.json",
+		"name": "09"
+	}
+}

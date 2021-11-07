@@ -15,11 +15,6 @@ func _ready():
 
 func add_child( node, legible_unique_name=false):
 	$ViewportContainer2/Viewport.add_child(node, legible_unique_name)
-#	if node.is_in_group("UICustom"):
-#		$ViewportContainer2/Viewport.add_child(node, legible_unique_name)
-#	else:
-#		$ViewportContainer2/Viewport.add_child(node, legible_unique_name)
-#	pass
 
 func call_no_args(timer):
 	if callback.keys().has(timer) and caller.keys().has(timer):

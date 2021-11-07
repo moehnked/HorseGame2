@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://addons/dialogic/Nodes/TextBubble.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/dialogic/Example Assets/backgrounds/GlossaryBackground.tres" type="StyleBox" id=2]
@@ -7,6 +7,10 @@
 [ext_resource path="res://addons/dialogic/Nodes/glossary_info.gd" type="Script" id=5]
 [ext_resource path="res://addons/dialogic/Nodes/dialog_node.gd" type="Script" id=6]
 [ext_resource path="res://addons/dialogic/Nodes/BackgroundMusic.tscn" type="PackedScene" id=7]
+[ext_resource path="res://prefabs/Misc/Events/InputListener.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Sprites/UI/UI_Cancel_fade.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/UI/UI_Cancel.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/UI/UI_Cancel_active.png" type="Texture" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 1, 1, 1, 0 )
@@ -25,17 +29,15 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 512.0
-margin_top = 600.0
-margin_right = 512.0
-margin_bottom = 600.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TextBubble" parent="." instance=ExtResource( 1 )]
-margin_left = 57.0
-margin_right = 967.0
+margin_left = -410.0
+margin_top = -260.0
+margin_right = 410.0
+margin_bottom = -40.0
 
 [node name="Options" type="VBoxContainer" parent="."]
 margin_right = 1024.0
@@ -132,4 +134,17 @@ __meta__ = {
 
 [node name="OptionsDelayedInput" type="Timer" parent="."]
 
+[node name="InputListenerEvent" parent="." instance=ExtResource( 8 )]
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_left = 961.95
+margin_top = 538.782
+margin_right = 1089.95
+margin_bottom = 666.782
+rect_scale = Vector2( 0.357374, 0.357374 )
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 11 )
+texture_hover = ExtResource( 10 )
 [connection signal="timeout" from="DefinitionInfo/Timer" to="." method="_on_Definition_Timer_timeout"]
+[connection signal="emit_trigger" from="InputListenerEvent" to="." method="_on_InputListenerEvent_emit_trigger"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]

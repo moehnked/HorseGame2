@@ -1,4 +1,4 @@
-extends "res://Scripts/Horse/Horse.gd"
+extends "res://Scripts/Horse/HorseNPC.gd"
 
 var hasInitializedInventory:bool = false
 export(Array, String) var initialInventories = ["generic1"]
@@ -9,4 +9,8 @@ func get_inventory():
 		get_equipment_manager().inventory = InventoryParser.get_inventory_preset(initialInventories[Global.world.rng.randi_range(0, initialInventories.size() - 1)])
 		hasInitializedInventory = true
 	return get_equipment_manager().get_inventory()
+
+
+func get_dialogue_point():
+	return get_horse_name() + "/" + (("0" + String(dialoguePoint)) if dialoguePoint < 10 else String(dialoguePoint))
 

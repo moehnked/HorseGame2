@@ -17,7 +17,7 @@ func initialize(args = {}):
 
 func parse_input(_input):
 	input = _input
-	if (input.engage or input.tab) and actor.trainer.can_exit_horse():
+	if input.tab and actor.trainer.can_exit_horse():
 		print("TAB PRESSED HORSE")
 		Global.InputObserver.unsubscribe(self)
 		actor.enter_idle()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://prefabs/Objects/set_pieces/PillarWithRing.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/Objects/set_pieces/pillar.tscn" type="PackedScene" id=2]
@@ -12,14 +12,14 @@
 [ext_resource path="res://Textures/128x128/Wood/Wood 3 - 128x128.png" type="Texture" id=10]
 [ext_resource path="res://prefabs/Objects/Window_A.tscn" type="PackedScene" id=11]
 [ext_resource path="res://prefabs/Objects/Furniture/Desk_01.tscn" type="PackedScene" id=12]
-[ext_resource path="res://prefabs/Horses/HorseNPC.tscn" type="PackedScene" id=13]
-[ext_resource path="res://prefabs/UI/Dialogue/Exit.tscn" type="PackedScene" id=14]
-[ext_resource path="res://prefabs/UI/Dialogue/NPCDialogueTrees/Secretarianne/SA_01.tscn" type="PackedScene" id=15]
-[ext_resource path="res://Sprites/NPCs/Secretarianne_SMALL.png" type="Texture" id=16]
-[ext_resource path="res://Sounds/SA_01.wav" type="AudioStream" id=17]
-[ext_resource path="res://Sounds/SA_02.wav" type="AudioStream" id=18]
-[ext_resource path="res://Sounds/SA_04.wav" type="AudioStream" id=19]
-[ext_resource path="res://Sounds/SA_03.wav" type="AudioStream" id=20]
+[ext_resource path="res://Textures/objects/trapdoor.jpg" type="Texture" id=13]
+[ext_resource path="res://prefabs/Interactables/EnterArea.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Textures/128x128/Wood/Wood 5 - 128x128.png" type="Texture" id=15]
+[ext_resource path="res://prefabs/Objects/ruins_01.tscn" type="PackedScene" id=16]
+[ext_resource path="res://prefabs/Misc/Events/Focus.tscn" type="PackedScene" id=17]
+[ext_resource path="res://prefabs/Misc/Events/Delay.tscn" type="PackedScene" id=18]
+[ext_resource path="res://prefabs/Objects/PottedPlant.tscn" type="PackedScene" id=19]
+[ext_resource path="res://prefabs/Objects/Furniture/bookA.tscn" type="PackedScene" id=20]
 [ext_resource path="res://prefabs/Misc/Events/GenericEvent.tscn" type="PackedScene" id=21]
 [ext_resource path="res://prefabs/Misc/Events/LoadTargetResource.tscn" type="PackedScene" id=22]
 [ext_resource path="res://prefabs/Items/Permit.tscn" type="PackedScene" id=23]
@@ -33,22 +33,15 @@
 [ext_resource path="res://prefabs/Interactables/Doors/BigDoor.tscn" type="PackedScene" id=31]
 [ext_resource path="res://prefabs/Misc/Events/UnlockTargetDoor.tscn" type="PackedScene" id=32]
 [ext_resource path="res://Textures/128x128/Bricks/Brick 1 - 128x128.png" type="Texture" id=33]
-[ext_resource path="res://prefabs/UI/Dialogue/NPCDialogueTrees/Chesterfield/CF_01.tscn" type="PackedScene" id=34]
+[ext_resource path="res://prefabs/Objects/Furniture/bookB.tscn" type="PackedScene" id=34]
 [ext_resource path="res://prefabs/Objects/ChainLink.tscn" type="PackedScene" id=35]
-[ext_resource path="res://Sounds/SYL_03.wav" type="AudioStream" id=36]
-[ext_resource path="res://Sounds/SYL_04.wav" type="AudioStream" id=37]
+[ext_resource path="res://prefabs/Items/PileOfPlanks.tscn" type="PackedScene" id=36]
+[ext_resource path="res://Sounds/ambient_01.wav" type="AudioStream" id=37]
 [ext_resource path="res://prefabs/Misc/Paintings/Painting01.tscn" type="PackedScene" id=38]
-[ext_resource path="res://Sounds/SYL_02.wav" type="AudioStream" id=39]
-[ext_resource path="res://Sounds/SYL_01.wav" type="AudioStream" id=40]
-[ext_resource path="res://Sprites/NPCs/Chesterfield_SMALL.png" type="Texture" id=41]
-[ext_resource path="res://Sprites/NPCs/Sylvester_SMALL.png" type="Texture" id=42]
-[ext_resource path="res://Sounds/CF_01.wav" type="AudioStream" id=43]
-[ext_resource path="res://Sounds/CF_05.wav" type="AudioStream" id=44]
-[ext_resource path="res://Sounds/CF_02.wav" type="AudioStream" id=45]
-[ext_resource path="res://Sounds/CF_03.wav" type="AudioStream" id=46]
-[ext_resource path="res://Sounds/CF_04.wav" type="AudioStream" id=47]
-[ext_resource path="res://prefabs/UI/Dialogue/NPCDialogueTrees/Sylvester/SYL_01.tscn" type="PackedScene" id=48]
-[ext_resource path="res://prefabs/Misc/EventTriggerOnContact.tscn" type="PackedScene" id=49]
+[ext_resource path="res://prefabs/Misc/EventTriggerOnContact.tscn" type="PackedScene" id=39]
+[ext_resource path="res://prefabs/Misc/Events/UpdateGlobalLighting.tscn" type="PackedScene" id=40]
+[ext_resource path="res://prefabs/System/3DAudioPlayer.tscn" type="PackedScene" id=41]
+[ext_resource path="res://prefabs/Objects/SweetHandJackAd.tscn" type="PackedScene" id=42]
 [ext_resource path="res://prefabs/Misc/Events/SetNPCInventory.tscn" type="PackedScene" id=50]
 [ext_resource path="res://prefabs/Items/Mallet.tscn" type="PackedScene" id=51]
 [ext_resource path="res://prefabs/Misc/CollisionWall.tscn" type="PackedScene" id=52]
@@ -115,6 +108,22 @@ albedo_texture = ExtResource( 33 )
 uv1_scale = Vector3( 29.422, 7.523, 1 )
 
 [sub_resource type="BoxShape" id=15]
+
+[sub_resource type="CubeMesh" id=16]
+
+[sub_resource type="SpatialMaterial" id=17]
+albedo_texture = ExtResource( 15 )
+
+[sub_resource type="ConcavePolygonShape" id=18]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
+[sub_resource type="QuadMesh" id=19]
+
+[sub_resource type="SpatialMaterial" id=20]
+albedo_texture = ExtResource( 13 )
+
+[sub_resource type="ConcavePolygonShape" id=21]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
 
 [node name="RangerStation" type="Spatial"]
 
@@ -254,7 +263,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 11, 0 )
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 16, 0 )
 
 [node name="PillarWithRing10" parent="Facade" instance=ExtResource( 1 )]
-transform = Transform( 1.31134e-07, 1, 0, -1, 1.31134e-07, 0, 0, 0, 1, 0, 16, 0 )
+transform = Transform( 1.31134e-07, 1, 0, -1, 1.31134e-07, 0, 0, 0, 1, 0.008, 16.002, 0.011 )
 
 [node name="PillarWithRing11" parent="Facade" instance=ExtResource( 1 )]
 transform = Transform( -5.73206e-15, -4.37114e-08, -1, -1, 1.31134e-07, 0, 1.31134e-07, 1, -4.37114e-08, 0, 21, 0 )
@@ -314,7 +323,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 6, 0 )
 transform = Transform( 0.54, 0, -6.51683e-09, 0, -1, 0, -6.51683e-09, 0, 0.5, 2.7, 9, 0 )
 
 [node name="Pillar5" parent="Facade2" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 4.37114e-08, 1, 0, 1.4, -6.11959e-08, 0, 21, -7 )
+transform = Transform( 1, 0, 0, 0, 4.37114e-08, 1, 0, 1.4, -6.11959e-08, 0.007, 21.009, -7 )
 
 [node name="Pillar6" parent="Facade2" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 4.37114e-08, 1, 0, 1, -4.37114e-08, 5, 16, -6 )
@@ -329,7 +338,7 @@ transform = Transform( 1, 0, 0, 0, 4.37114e-08, 1, 0, 1, -4.37114e-08, -10, 11, 
 transform = Transform( 1, 0, 0, 0, 4.37114e-08, 1, 0, 1, -4.37114e-08, 10, 11, -6 )
 
 [node name="Pillar3" parent="Facade2" instance=ExtResource( 2 )]
-transform = Transform( -0.707107, -2.82843, -3.25841e-07, -0.707107, 2.82843, 0, 2.30405e-07, 9.21619e-07, -1, 11.7628, 12.6379, -1.82789 )
+transform = Transform( -0.707107, -2.82843, -3.25841e-07, -0.707107, 2.82843, 0, 2.30405e-07, 9.21619e-07, -1, 11.75, 12.638, -1.845 )
 
 [node name="Pillar4" parent="Facade2" instance=ExtResource( 2 )]
 transform = Transform( 0.707107, 2.82843, 0, -0.707107, 2.82843, 0, 0, 0, 1, -11.6923, 12.6379, -1.82789 )
@@ -471,11 +480,6 @@ transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 4.50591, 0 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
 
-[node name="StaticBody" type="StaticBody" parent="RangerStation"]
-
-[node name="CollisionShape" type="CollisionShape" parent="RangerStation/StaticBody"]
-shape = SubResource( 4 )
-
 [node name="Window_A" parent="RangerStation" instance=ExtResource( 11 )]
 transform = Transform( 0.666667, 0, 0, 0, 0.666667, 0, 0, 0, 0.666667, 7.0056, -0.490973, 3.74753 )
 
@@ -499,6 +503,11 @@ transform = Transform( 0.666667, 0, 0, 0, 0.666667, 0, 0, 0, 0.355101, -7.04279,
 
 [node name="Window_A7" parent="RangerStation" instance=ExtResource( 11 )]
 transform = Transform( 0.666667, 0, 0, 0, 0.666667, 0, 0, 0, 0.355101, -7.04279, -0.490973, -0.617193 )
+
+[node name="StaticBody" type="StaticBody" parent="RangerStation"]
+
+[node name="CollisionShape" type="CollisionShape" parent="RangerStation/StaticBody"]
+shape = SubResource( 4 )
 
 [node name="SteelDoor" parent="." instance=ExtResource( 4 )]
 transform = Transform( -2.22185e-07, 0, 1.36376, 0, 1.36376, 0, -1.85908, 0, -3.02883e-07, 10.5085, 2.19369, 0 )
@@ -608,37 +617,36 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.2446
 [node name="Desk_02" parent="." instance=ExtResource( 12 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -23.5518, 0.991719, 22.2302 )
 
-[node name="Secretarianne" parent="." instance=ExtResource( 13 )]
-transform = Transform( -0.0640795, 0, -0.997945, 0, 1, 0, 0.997945, 0, -0.0640795, -6.29148, 1.36573, 3.04178 )
-horseName = "Secretarianne"
-stats = {
-"chaos": 2,
-"girth": 2,
-"poise": 3,
-"range": 5,
-"silly": 3,
-"speed": 5
-}
-options = [ ExtResource( 15 ), ExtResource( 14 ) ]
-icon = ExtResource( 16 )
-talkSounds = [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 20 ), ExtResource( 19 ) ]
+[node name="book2" parent="." instance=ExtResource( 34 )]
+transform = Transform( -1.29404e-08, -0.0794279, 0.538861, 0.544683, -8.87401e-08, 0, 8.77916e-08, 0.538861, 0.0794279, -23.6977, 2.35403, 24.4049 )
 
-[node name="Lassoable" parent="Secretarianne" index="11"]
-saddle = NodePath("../../Secretarianne/Saddle")
+[node name="book" parent="." instance=ExtResource( 20 )]
+transform = Transform( 2.08704e-08, 0.128102, 0.688692, 0.700505, -1.14127e-07, 0, 1.12202e-07, 0.688692, -0.128102, -23.7709, 2.11798, 24.3155 )
+
+[node name="PottedPlant" parent="." instance=ExtResource( 19 )]
+transform = Transform( 0.198911, 0, 0.102305, 0, 0.223678, 0, -0.102305, 0, 0.198911, -4.2297, 2.0704, 1.87899 )
 
 [node name="GenericEvent" parent="." groups=[
 "getBuildingPermit",
 ] instance=ExtResource( 21 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.922, 3.28348, 6.07519 )
-nextEvent = [ NodePath("../LoadTargetResource") ]
+nextEvent = [ NodePath("../LoadTargetResource"), NodePath("../Delay") ]
 deleteAfterTrig = true
+
+[node name="Delay" parent="." instance=ExtResource( 18 )]
+timeDelay = 0.5
+targetEvent = NodePath("../Focus")
 
 [node name="GenericEvent2" parent="." groups=[
 "getPropertyApplication",
 ] instance=ExtResource( 21 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.922, 3.28348, 6.07519 )
-nextEvent = [ NodePath("../LoadTargetResource2") ]
+nextEvent = [ NodePath("../LoadTargetResource2"), NodePath("../Delay") ]
 deleteAfterTrig = true
+
+[node name="Focus" parent="." instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.66151, 2.69861, 5.34321 )
+deleteAfterFocus = false
 
 [node name="LoadTargetResource" parent="." instance=ExtResource( 22 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.66151, 2.69861, 5.34321 )
@@ -658,6 +666,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5659, -0.104063, -16.1661 
 
 [node name="Lantern" parent="Table" instance=ExtResource( 25 )]
 transform = Transform( 0.40841, 0, 0, 0, 0.40841, 0, 0, 0, 0.40841, -0.000496864, 1.98509, 0.0413017 )
+rang = 40
+lightEnabled = false
 
 [node name="Chair" parent="." instance=ExtResource( 27 )]
 
@@ -674,13 +684,12 @@ transform = Transform( -0.736381, 0, -2.39944e-07, 0, 0.736381, 0, 2.53772e-07, 
 transform = Transform( 1.63788, 0, 0, 0, 1.56132, 0, 0, 0, 1, -17.809, 2.28866, 15.0343 )
 
 [node name="UnlockTargetDoor" parent="." groups=[
-"parkDoorOpen",
+"openParkDoor",
 ] instance=ExtResource( 32 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.5873, 0.00590992, 18.7425 )
 targetDoor = NodePath("../LockableDoor")
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 30.454, 0, 0, 0, 6.492, 0, 0, 0, 30.008, -6.009, -6.49, 0 )
+transform = Transform( 30.454, 0, 0, 0, 6.492, 0, 0, 0, 30.008, -6.009, -6.51, 0 )
 mesh = SubResource( 13 )
 material/0 = SubResource( 14 )
 
@@ -716,8 +725,42 @@ transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 2.56
 [node name="ChainLink2" parent="Lantern3" instance=ExtResource( 35 )]
 transform = Transform( 2.65431e-14, -1.62921e-07, 1, -1, -1.62921e-07, 0, 1.62921e-07, -1, -1.62921e-07, 0, 3.23816, 0 )
 
+[node name="Lantern11" parent="." instance=ExtResource( 25 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5456, 8.2291, 22.2097 )
+rang = 20
+energy = 0.5
+lightEnabled = false
+
+[node name="ChainLink" parent="Lantern11" instance=ExtResource( 35 )]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 2.56106, 0 )
+
+[node name="ChainLink2" parent="Lantern11" instance=ExtResource( 35 )]
+transform = Transform( 2.65431e-14, 1.62921e-07, 1, 1, -1.62921e-07, 0, 1.62921e-07, 1, -1.62921e-07, 0, 3.39255, 0 )
+
+[node name="ChainLink3" parent="Lantern11" instance=ExtResource( 35 )]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 4.20468, 0 )
+
+[node name="ChainLink4" parent="Lantern11" instance=ExtResource( 35 )]
+transform = Transform( 2.65431e-14, 1.62921e-07, 1, 1, -1.62921e-07, 0, 1.62921e-07, 1, -1.62921e-07, 0, 5.03618, 0 )
+
+[node name="ChainLink5" parent="Lantern11" instance=ExtResource( 35 )]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 5.8497, 0 )
+
+[node name="ChainLink6" parent="Lantern11" instance=ExtResource( 35 )]
+transform = Transform( 2.65431e-14, 1.62921e-07, 1, 1, -1.62921e-07, 0, 1.62921e-07, 1, -1.62921e-07, 0, 6.6812, 0 )
+
+[node name="ChainLink7" parent="Lantern11" instance=ExtResource( 35 )]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 7.44119, 0 )
+
+[node name="ChainLink8" parent="Lantern11" instance=ExtResource( 35 )]
+transform = Transform( 2.65431e-14, 1.62921e-07, 1, 1, -1.62921e-07, 0, 1.62921e-07, 1, -1.62921e-07, 0, 8.27268, 0 )
+
+[node name="ChainLink9" parent="Lantern11" instance=ExtResource( 35 )]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 9.06904, 0 )
+
 [node name="Lantern4" parent="." instance=ExtResource( 25 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5718, 16.3289, 0.0133262 )
+rang = 15
 
 [node name="ChainLink" parent="Lantern4" instance=ExtResource( 35 )]
 transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 2.56106, 0 )
@@ -725,8 +768,69 @@ transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 2.56
 [node name="ChainLink2" parent="Lantern4" instance=ExtResource( 35 )]
 transform = Transform( 2.65431e-14, -1.62921e-07, 1, -1, -1.62921e-07, 0, 1.62921e-07, -1, -1.62921e-07, 0, 3.23816, 0 )
 
+[node name="Lantern9" parent="." instance=ExtResource( 25 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.645, 16.3289, 0.0133262 )
+rang = 15
+
+[node name="ChainLink" parent="Lantern9" instance=ExtResource( 35 )]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 2.56106, 0 )
+
+[node name="ChainLink2" parent="Lantern9" instance=ExtResource( 35 )]
+transform = Transform( 2.65431e-14, -1.62921e-07, 1, -1, -1.62921e-07, 0, 1.62921e-07, -1, -1.62921e-07, 0, 3.23816, 0 )
+
+[node name="Lantern8" parent="." instance=ExtResource( 25 )]
+transform = Transform( 0.610537, 0, 0, 0, 0.610537, 0, 0, 0, 0.610537, 2.19928, 6.43446, 18.7362 )
+rang = 15
+
+[node name="ChainLink" parent="Lantern8" instance=ExtResource( 35 )]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 2.56106, 0 )
+
+[node name="ChainLink2" parent="Lantern8" instance=ExtResource( 35 )]
+transform = Transform( 2.65431e-14, -1.62921e-07, 1, -1, -1.62921e-07, 0, 1.62921e-07, -1, -1.62921e-07, 0, 3.23816, 0 )
+
+[node name="PillarWithRing5" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -14.5591, 19.5213, 30.898 )
+
+[node name="Lantern10" parent="." instance=ExtResource( 25 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.6362, 9.46354, 33.3959 )
+rang = 20
+energy = 0.5
+
+[node name="ChainLink" parent="Lantern10" instance=ExtResource( 35 )]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 2.56106, 0 )
+
+[node name="ChainLink2" parent="Lantern10" instance=ExtResource( 35 )]
+transform = Transform( 2.65431e-14, -1.62921e-07, 1, -1, -1.62921e-07, 0, 1.62921e-07, -1, -1.62921e-07, 0, 3.23816, 0 )
+
+[node name="ChainLink3" parent="Lantern10" instance=ExtResource( 35 )]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 4.17632, 0 )
+
+[node name="ChainLink4" parent="Lantern10" instance=ExtResource( 35 )]
+transform = Transform( 2.65431e-14, -1.62921e-07, 1, -1, -1.62921e-07, 0, 1.62921e-07, -1, -1.62921e-07, 0, 4.85342, 0 )
+
+[node name="ChainLink5" parent="Lantern10" instance=ExtResource( 35 )]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 5.80065, 0 )
+
+[node name="ChainLink6" parent="Lantern10" instance=ExtResource( 35 )]
+transform = Transform( 2.65431e-14, -1.62921e-07, 1, -1, -1.62921e-07, 0, 1.62921e-07, -1, -1.62921e-07, 0, 6.47775, 0 )
+
+[node name="ChainLink7" parent="Lantern10" instance=ExtResource( 35 )]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 7.42494, 0 )
+
+[node name="ChainLink8" parent="Lantern10" instance=ExtResource( 35 )]
+transform = Transform( 2.65431e-14, -1.62921e-07, 1, -1, -1.62921e-07, 0, 1.62921e-07, -1, -1.62921e-07, 0, 8.10204, 0 )
+
+[node name="ChainLink9" parent="Lantern10" instance=ExtResource( 35 )]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 9.01688, 0 )
+
+[node name="ChainLink10" parent="Lantern10" instance=ExtResource( 35 )]
+transform = Transform( 2.65431e-14, -1.62921e-07, 1, -1, -1.62921e-07, 0, 1.62921e-07, -1, -1.62921e-07, 0, 9.69398, 0 )
+
 [node name="Lantern5" parent="." instance=ExtResource( 25 )]
 transform = Transform( 0.615811, 0, 0, 0, 0.615811, 0, 0, 0, 0.615811, 2.22407, 5.55047, -3.874 )
+rang = 30
+energy = 0.5
+lightEnabled = false
 
 [node name="ChainLink" parent="Lantern5" instance=ExtResource( 35 )]
 transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 2.56106, 0 )
@@ -736,6 +840,9 @@ transform = Transform( 2.65431e-14, -1.62921e-07, 1, -1, -1.62921e-07, 0, 1.6292
 
 [node name="Lantern6" parent="." instance=ExtResource( 25 )]
 transform = Transform( 0.615811, 0, 0, 0, 0.615811, 0, 0, 0, 0.615811, 2.52734, 5.7782, 4.05952 )
+rang = 30
+energy = 0.5
+lightEnabled = false
 
 [node name="ChainLink" parent="Lantern6" instance=ExtResource( 35 )]
 transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 2.56106, 0 )
@@ -743,48 +850,10 @@ transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 2.56
 [node name="ChainLink2" parent="Lantern6" instance=ExtResource( 35 )]
 transform = Transform( 2.65431e-14, -1.62921e-07, 1, -1, -1.62921e-07, 0, 1.62921e-07, -1, -1.62921e-07, 0, 3.23816, 0 )
 
-[node name="Sylvester" parent="." instance=ExtResource( 13 )]
-transform = Transform( -0.0290033, 0, 0.999579, 0, 1, 0, -0.999579, 0, -0.0290033, -17.4705, 0.407246, -23.135 )
-acceptedItemsToSell = [ "Log" ]
-horseName = "Sylvester"
-stats = {
-"chaos": 2,
-"girth": 2,
-"poise": 1,
-"range": 5,
-"silly": 2,
-"speed": 5
-}
-options = [ ExtResource( 48 ), ExtResource( 14 ) ]
-icon = ExtResource( 42 )
-talkSounds = [ ExtResource( 40 ), ExtResource( 39 ), ExtResource( 36 ), ExtResource( 37 ) ]
-
-[node name="Chesterfield" parent="." instance=ExtResource( 13 )]
-transform = Transform( -0.0065974, 0, -0.999978, 0, 1, 0, 0.999978, 0, -0.0065974, -26.2986, 0.373108, 22.7719 )
-horseName = "Chesterfield"
-stats = {
-"chaos": 2,
-"girth": 2,
-"poise": 1,
-"range": 5,
-"silly": 2,
-"speed": 5
-}
-options = [ ExtResource( 34 ), ExtResource( 14 ) ]
-icon = ExtResource( 41 )
-talkSounds = [ ExtResource( 43 ), ExtResource( 45 ), ExtResource( 46 ), ExtResource( 47 ), ExtResource( 44 ) ]
-
 [node name="SetNPCInventory" parent="." instance=ExtResource( 50 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9129, 2.00104, -23.4874 )
 deleteAfterTrig = true
 inventory = [ ExtResource( 51 ) ]
-target = NodePath("../Sylvester")
-
-[node name="EventTriggerOnContact" parent="." instance=ExtResource( 49 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9129, 2.00104, -23.4874 )
-eventInstance = NodePath("../SetNPCInventory")
-isInstancingEvent = false
-triggeringNode = NodePath("../Sylvester")
 
 [node name="CollisionWall" parent="." instance=ExtResource( 52 )]
 transform = Transform( 0.323521, 0, 0, 0, 5.87723, 0, 0, 0, 5.52088, -35.6357, 1.53869, -22.2616 )
@@ -801,4 +870,219 @@ transform = Transform( 2.11512e-10, 0, 0.0825747, 0, 5.87723, 0, 11.1478, 0, -8.
 [node name="CollisionWall5" parent="." instance=ExtResource( 52 )]
 transform = Transform( 2.11512e-10, 0, 0.0825747, 0, 5.87723, 0, 11.1478, 0, -8.31554e-06, -36.3095, 1.53869, -14.1451 )
 
-[editable path="Secretarianne"]
+[node name="MeshInstance3" type="MeshInstance" parent="."]
+transform = Transform( 2.85707, -1.02826e-08, -4.96244e-08, 4.96244e-08, 1.13527, 2.62183, 1.02826e-08, -2.62183, 1.13527, -4.19552, -4.48216, 30.3313 )
+mesh = SubResource( 16 )
+material/0 = SubResource( 17 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance3/StaticBody"]
+shape = SubResource( 18 )
+
+[node name="BasementReturnPoint" type="Spatial" parent="."]
+transform = Transform( 1.44738, 0, 0, 0, 1.44738, 0, 0, 0, 1.44738, -4.19234, -1.13401, 35.5536 )
+
+[node name="EnterArea" parent="." instance=ExtResource( 14 )]
+transform = Transform( -6.32671e-08, 0, -1.44738, -0.577582, 1.32714, 2.52469e-08, 1.32714, 0.577582, -5.80113e-08, -4.19234, -2.18191, 32.2758 )
+areaPoint = NodePath("../BasementPoint")
+locationName = "Basement"
+
+[node name="MeshInstance2" type="MeshInstance" parent="EnterArea"]
+transform = Transform( -8.62843e-08, -1.97396, -8.62843e-08, 0, -8.62843e-08, 1.97396, -1.97396, 8.62843e-08, 3.77161e-15, 0, 0, 0 )
+mesh = SubResource( 19 )
+material/0 = SubResource( 20 )
+
+[node name="MeshInstance4" type="MeshInstance" parent="."]
+transform = Transform( -2.85135, 0.0517108, 0.173152, 0.0213495, 2.81482, -0.48906, -0.179443, -0.486787, -2.80957, -4.27184, -109.144, 33.1426 )
+mesh = SubResource( 16 )
+material/0 = SubResource( 17 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance4"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance4/StaticBody"]
+shape = SubResource( 21 )
+
+[node name="MeshInstance5" type="MeshInstance" parent="."]
+transform = Transform( 2.85707, 0, 0, 0, 0.59342, 0, 0, 0, 0.972984, -4.27184, -113.07, 30.6567 )
+mesh = SubResource( 16 )
+material/0 = SubResource( 17 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance5"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance5/StaticBody"]
+shape = SubResource( 21 )
+
+[node name="MeshInstance6" type="MeshInstance" parent="."]
+transform = Transform( 2.85707, 0, 0, 0, 0.59342, 0, 0, 0, 0.972984, -4.27184, -114.29, 28.965 )
+mesh = SubResource( 16 )
+material/0 = SubResource( 17 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance6"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance6/StaticBody"]
+shape = SubResource( 21 )
+
+[node name="MeshInstance7" type="MeshInstance" parent="."]
+transform = Transform( 2.85707, 0, 0, 0, 0.59342, 0, 0, 0, 0.972984, -4.27184, -115.405, 27.329 )
+mesh = SubResource( 16 )
+material/0 = SubResource( 17 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance7"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance7/StaticBody"]
+shape = SubResource( 21 )
+
+[node name="MeshInstance8" type="MeshInstance" parent="."]
+transform = Transform( 2.85707, 0, 0, 0, 0.59342, 0, 0, 0, 0.972984, -4.27184, -116.539, 25.4036 )
+mesh = SubResource( 16 )
+material/0 = SubResource( 17 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance8"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance8/StaticBody"]
+shape = SubResource( 21 )
+
+[node name="MeshInstance9" type="MeshInstance" parent="."]
+transform = Transform( 2.85707, 0, 0, 0, 0.59342, 0, 0, 0, 0.972984, -4.27184, -117.597, 23.5037 )
+mesh = SubResource( 16 )
+material/0 = SubResource( 17 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance9"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance9/StaticBody"]
+shape = SubResource( 21 )
+
+[node name="MeshInstance10" type="MeshInstance" parent="."]
+transform = Transform( 2.85707, 0, 0, 0, 0.59342, 0, 0, 0, 0.972984, -4.27184, -118.694, 21.606 )
+mesh = SubResource( 16 )
+material/0 = SubResource( 17 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance10"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance10/StaticBody"]
+shape = SubResource( 21 )
+
+[node name="EnterArea2" parent="." instance=ExtResource( 14 )]
+transform = Transform( -0.0263587, 0.0876698, 1.44448, -1.42552, -0.250394, -0.0108155, 0.249238, -1.42286, 0.0909055, -4.11602, -110.495, 30.4552 )
+areaPoint = NodePath("../BasementReturnPoint")
+locationName = " "
+prefix = "Exit"
+
+[node name="MeshInstance2" type="MeshInstance" parent="EnterArea2"]
+transform = Transform( -8.62843e-08, -1.97396, -8.62843e-08, 0, -8.62843e-08, 1.97396, -1.97396, 8.62843e-08, 3.77161e-15, 0, 0, 0 )
+mesh = SubResource( 19 )
+material/0 = SubResource( 20 )
+
+[node name="panorama2" parent="." instance=ExtResource( 16 )]
+transform = Transform( 4.21425, 0, 0, 0, 4.21425, 0, 0, 0, 4.21425, -3.5034, -119.363, 17.9701 )
+
+[node name="panorama3" parent="." instance=ExtResource( 16 )]
+transform = Transform( 4.21425, 0, 0, 0, 4.21425, 0, 0, 0, 4.21425, -3.5034, -106.881, 17.9701 )
+
+[node name="BasementPoint" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.84415, -118.455, 17.6299 )
+
+[node name="PillarWithRing3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1.43594, 0, 0, 0, 1.43594, 0, 0, 0, 1.43594, -0.830175, -120.073, 13.5873 )
+
+[node name="PillarWithRing4" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1.52819, 0, 0, 0, 1.52819, 0, 0, 0, 1.52819, -0.830175, -113.073, 13.5873 )
+
+[node name="PileOfPlanks" parent="." instance=ExtResource( 36 )]
+transform = Transform( 1.52819, 0, 0, 0, 1.52819, 0, 0, 0, 1.52819, 2.89745, -118.723, 23.4324 )
+
+[node name="3DAudioPlayer" parent="." instance=ExtResource( 41 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.527014, -114.992, 13.4265 )
+stream = ExtResource( 37 )
+volumeDB = -10.0
+playing = true
+autoplay = true
+minDist = 20
+maxDist = 30
+
+[node name="Lantern7" parent="." instance=ExtResource( 25 )]
+transform = Transform( 0.596013, 0, 0, 0, 0.596013, 0, 0, 0, 0.596013, -6.8217, -112.092, 18.1942 )
+rang = 15
+energy = 0.3
+
+[node name="ChainLink" parent="Lantern7" instance=ExtResource( 35 )]
+transform = Transform( -1.14584e-07, -0.703312, 0, 1.08895, -1.77412e-07, 0, 0, 0, 0.139046, 0.0325518, 2.57347, -0.00565529 )
+
+[node name="ChainLink2" parent="Lantern7" instance=ExtResource( 35 )]
+transform = Transform( 2.89042e-14, 1.14584e-07, 0.139046, 1.08895, -1.14584e-07, 0, 1.77413e-07, 0.703312, -2.26535e-08, 0.0325518, 3.38962, -0.00565529 )
+
+[node name="ChainLink3" parent="Lantern7" instance=ExtResource( 35 )]
+transform = Transform( -1.14584e-07, -0.703312, 0, 1.08895, -1.77412e-07, 0, 0, 0, 0.139046, 0.0325518, 4.226, -0.00565529 )
+
+[node name="ChainLink4" parent="Lantern7" instance=ExtResource( 35 )]
+transform = Transform( 2.89042e-14, 1.14584e-07, 0.139046, 1.08895, -1.14584e-07, 0, 1.77413e-07, 0.703312, -2.26535e-08, 0.0325518, 5.13524, -0.00565529 )
+
+[node name="ChainLink5" parent="Lantern7" instance=ExtResource( 35 )]
+transform = Transform( -1.14584e-07, -0.703312, 0, 1.08895, -1.77412e-07, 0, 0, 0, 0.139046, 0.0325518, 6.03627, -0.00565529 )
+
+[node name="ChainLink6" parent="Lantern7" instance=ExtResource( 35 )]
+transform = Transform( 2.89042e-14, 1.14584e-07, 0.139046, 1.08895, -1.14584e-07, 0, 1.77413e-07, 0.703312, -2.26535e-08, 0.0325518, 6.89218, -0.00565529 )
+
+[node name="ChainLink7" parent="Lantern7" instance=ExtResource( 35 )]
+transform = Transform( -1.14584e-07, -0.703312, 0, 1.08895, -1.77412e-07, 0, 0, 0, 0.139046, 0.0325518, 7.68088, -0.00565529 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.026, -183.031, 18.928 )
+stream = ExtResource( 37 )
+unit_db = 0.105
+unit_size = 100.0
+max_distance = 101.0
+
+[node name="EventTriggerOnContact" parent="." instance=ExtResource( 39 )]
+transform = Transform( 2.35828, 0, 0, 0, 2.35828, 0, 0, 0, 2.35828, 7.79026, 2.29394, -0.171456 )
+eventInstance = NodePath("../UpdateGlobalLighting")
+isInstancingEvent = false
+killOnTrigger = false
+triggeringGroups = [ "Player" ]
+
+[node name="EventTriggerOnContact3" parent="." instance=ExtResource( 39 )]
+transform = Transform( 2.35828, 0, 0, 0, 2.35828, 0, 0, 0, 2.35828, 3.68502, 2.29394, 12.2531 )
+eventInstance = NodePath("../UpdateGlobalLighting")
+isInstancingEvent = false
+killOnTrigger = false
+triggeringGroups = [ "Player" ]
+
+[node name="EventTriggerOnContact5" parent="." instance=ExtResource( 39 )]
+transform = Transform( 2.35828, 0, 0, 0, 2.35828, 0, 0, 0, 2.35828, -17.814, 2.29394, 17.7262 )
+eventInstance = NodePath("../UpdateGlobalLighting")
+isInstancingEvent = false
+killOnTrigger = false
+triggeringGroups = [ "Player" ]
+
+[node name="EventTriggerOnContact2" parent="." instance=ExtResource( 39 )]
+transform = Transform( 2.35828, 0, 0, 0, 2.35828, 0, 0, 0, 2.35828, 13.1963, 2.29394, -0.171456 )
+eventInstance = NodePath("../UpdateGlobalLighting2")
+isInstancingEvent = false
+killOnTrigger = false
+triggeringGroups = [ "Player" ]
+
+[node name="EventTriggerOnContact4" parent="." instance=ExtResource( 39 )]
+transform = Transform( 2.35828, 0, 0, 0, 2.35828, 0, 0, 0, 2.35828, 4.43229, 2.29394, 17.583 )
+eventInstance = NodePath("../UpdateGlobalLighting2")
+isInstancingEvent = false
+killOnTrigger = false
+triggeringGroups = [ "Player" ]
+
+[node name="EventTriggerOnContact6" parent="." instance=ExtResource( 39 )]
+transform = Transform( 2.35828, 0, 0, 0, 2.35828, 0, 0, 0, 2.35828, -18.018, 2.29394, 12.209 )
+eventInstance = NodePath("../UpdateGlobalLighting2")
+isInstancingEvent = false
+killOnTrigger = false
+triggeringGroups = [ "Player" ]
+
+[node name="UpdateGlobalLighting" parent="." instance=ExtResource( 40 )]
+
+[node name="UpdateGlobalLighting2" parent="." instance=ExtResource( 40 )]
+color = Color( 0, 0, 0, 1 )
+rate = 0.03
+
+[node name="SweetHandJackAd" parent="." instance=ExtResource( 42 )]
+transform = Transform( 0.99963, 0, -0.86496, 0, 1.3219, 0, 0.86496, 0, 0.99963, 4.49479, 0.0283881, -10.8207 )
+
+[editable path="3DAudioPlayer"]

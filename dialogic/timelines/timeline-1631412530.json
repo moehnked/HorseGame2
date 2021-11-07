@@ -1,0 +1,145 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "[tornado radius=2 freq=3][wave amp=1 freq=5]... ?"
+		},
+		{
+			"choice": "Who are you?",
+			"condition": "",
+			"definition": "1631412613-353",
+			"event_id": "dialogic_011",
+			"value": "0"
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "[tornado radius=2 freq=3][wave amp=1 freq=5]Ah..."
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Well, I am [tornado radius=2 freq=3][wave amp=1 freq=5]Patches!"
+		},
+		{
+			"definition": "1631412613-353",
+			"event_id": "dialogic_014",
+			"operation": "=",
+			"random_upper_limit": 100,
+			"set_random": false,
+			"set_value": "1"
+		},
+		{
+			"choice": "What am I supposed to do?",
+			"condition": "",
+			"definition": "1631412625-525",
+			"event_id": "dialogic_011",
+			"value": "0"
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "[tornado radius=2 freq=3][wave amp=1 freq=5]Ah… I see…"
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Well, once you get into the park you will have a vast playground to explore."
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "You will also own a small bit of land."
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Learn how to build a ranch first, and work on that for a while."
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Something will come up."
+		},
+		{
+			"choice": "Can I have a hug?",
+			"condition": "",
+			"definition": "1631412634-213",
+			"event_id": "dialogic_011",
+			"value": "0"
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "You cannot."
+		},
+		{
+			"definition": "1631412634-213",
+			"event_id": "dialogic_014",
+			"operation": "=",
+			"random_upper_limit": 100,
+			"set_random": false,
+			"set_value": "1"
+		},
+		{
+			"choice": "Nevermind...",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "[tornado radius=2 freq=3][wave amp=1 freq=5]Ah… Okay then."
+		},
+		{
+			"emit_signal": "",
+			"event_id": "dialogic_040"
+		},
+		{
+			"change_timeline": "timeline-1631412935.json",
+			"event_id": "dialogic_020"
+		},
+		{
+			"event_id": "dialogic_013"
+		},
+		{
+			"change_timeline": "timeline-1631412530.json",
+			"event_id": "dialogic_020"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1631412530.json",
+		"name": "11_Bad"
+	}
+}

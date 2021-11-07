@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://Shaders/cloud_2d.shader" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/cloudscale = 1.1
+shader_param/speed = 0.03
+shader_param/clouddark = 0.5
+shader_param/cloudlight = 0.3
+shader_param/cloudcover = 0.2
+shader_param/cloudalpha = 8.0
+shader_param/skytint = 0.5
+shader_param/skycolour1 = Vector3( 0.2, 0.4, 0.6 )
+shader_param/skycolour2 = Vector3( 0.4, 0.7, 1 )
+shader_param/m = Transform2D( 1.6, -1.2, 1.2, 1.6, 0, 0 )

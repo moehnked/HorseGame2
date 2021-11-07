@@ -18,6 +18,8 @@ var current_theme: ConfigFile
 var current_timeline: String = ''
 var current_event: Dictionary
 
+
+var prevEvent
 ## The timeline to load when starting the scene
 export(String, "TimelineDropdown") var timeline: String
 ## Should we clear saved data (definitions and timeline progress) on start?
@@ -600,6 +602,7 @@ func handle_voice(event):
 
 
 func event_handler(event: Dictionary):
+	prevEvent = event
 	# Handling an event and updating the available nodes accordingly.
 	$TextBubble.reset()
 	reset_options()
@@ -1265,3 +1268,30 @@ func _on_OptionsDelayedInput_timeout():
 	for button in $Options/ButtonContainer.get_children():
 		if button.is_connected("pressed", self, "answer_question") == false:
 			button.connect("pressed", self, "answer_question", [button, button.get_meta('event_idx'), button.get_meta('question_idx')])
+
+func custom_close():
+	var event = prevEvent
+	print("BUTTTTTONONONTO PRESSED")
+	emit_signal("event_start", "close_dialog", event)
+	var transition_duration = event.get('transition_duration', 1.0)
+	transition_duration = transition_duration
+	close_dialog_event(transition_duration)
+	while_dialog_animation = true
+	var background = get_node_or_null('Background')
+	if background != null:
+		background.name = 'BackgroundFadingOut'
+		background.fade_out(transition_duration)
+
+func _on_InputListenerEvent_emit_trigger(trig):
+	custom_close()
+	pass # Replace with function body.
+
+
+func _on_Clickable_emit_clicked():
+	custom_close()
+	pass # Replace with function body.
+
+
+func _on_TextureButton_pressed():
+	custom_close()
+	pass # Replace with function body.

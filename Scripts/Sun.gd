@@ -10,6 +10,9 @@ func _ready():
 	Global.Sun = self
 	pass # Replace with function body.
 
+func _process(delta):
+	rotation_degrees.x = lerp_angle(rotation_degrees.x, rotation_degrees.x + 10, 0.1)
+
 func clamp_clock(val):
 	return int(floor(val)) % 12
 
@@ -20,7 +23,7 @@ func update_meridiem():
 		time.meridiem = "PM"
 
 func _on_SunTickTimer_timeout():
-	rotation_degrees.x += 0.01
+	#rotation_degrees.x += 0.01
 	var rot = rotation_degrees.x
 	var hour = clamp_clock(floor((rot / 15)) - 6)
 	if time.hour != hour:

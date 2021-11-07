@@ -1,0 +1,55 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1632001705.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "character-1632001705.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Hello! My name is Bilinda."
+		},
+		{
+			"character": "character-1632001705.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Bilinda the Butcher."
+		},
+		{
+			"character": "character-1632001705.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "I buy and sell meats, and currate all sorts of products."
+		},
+		{
+			"character": "character-1632001705.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "So, what would you like?"
+		},
+		{
+			"emit_signal": "",
+			"event_id": "dialogic_040"
+		},
+		{
+			"change_timeline": "timeline-1632001888.json",
+			"event_id": "dialogic_020"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1632001772.json",
+		"name": "01"
+	}
+}

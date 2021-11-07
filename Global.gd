@@ -13,3 +13,5 @@ var Sun
 var StatusPrompt
 var WorldViewport
 var Generator
+var SkyController
+var RSG = preload("res://Scripts/Statics/RSG.gd")

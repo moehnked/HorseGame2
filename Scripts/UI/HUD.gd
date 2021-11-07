@@ -8,7 +8,14 @@ var party = {}
 func add_party_member(member):
 	party[member] = member
 
+func clear_party():
+	for i in listItems:
+		listItems[i].queue_free()
+		listItems.erase(i)
+	listItems = {}
+
 func draw_party():
+	clear_party()
 	var i = 0
 	for p in party:
 		var l = listItemResource.instance()
@@ -21,10 +28,12 @@ func draw_party():
 	pass
 
 func remove_from_party(member):
+	print("HUD: erasing ", member.get_horse_name())
 	if(party.has(member)):
-		party.erase(member)
 		listItems[member].queue_free()
 		listItems.erase(member)
+		party.erase(member)
+	draw_party()
 
 func report(member):
 	if(party.has(member)):

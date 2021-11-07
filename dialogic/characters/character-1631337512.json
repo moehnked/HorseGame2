@@ -1,0 +1,20 @@
+{
+	"color": "#ff788b31",
+	"description": "",
+	"display_name": "",
+	"display_name_bool": false,
+	"id": "character-1631337512.json",
+	"mirror_portraits": false,
+	"name": "Sylvester",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 20,
+	"offset_y": -90,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://Sprites/NPCs/Sylvester.png"
+		}
+	],
+	"scale": 100
+}

@@ -1,5 +1,5 @@
 extends Control
-var Utils = preload("res://Utils.gd")
+#var Utils = preload("res://Utils.gd")
 
 var callback = null
 var context_buttons = []
@@ -11,6 +11,7 @@ var sourceRef
 var listItemResource = preload("res://prefabs/UI/InventoryListItem.tscn")
 
 func _ready():
+	print(get_path())
 	add_to_group("InvScreen")
 	Global.AudioManager.play_sound("res://sounds/ui_open_01.wav")
 	#Global.Generator.clear_unque()
@@ -71,6 +72,7 @@ func initialize(args = {}):
 	draw_list_items()
 	initArgs = args
 	update_treats()
+	Global.world.queue_timer(Utils, 0.5, "show_mouse")
 	#print(uniques())
 
 func parse_input(input):
@@ -88,7 +90,8 @@ func terminate():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	print(callback)
 	if callback != null:
-		sourceRef.call(callback)
+		if sourceRef.has_method(callback):
+			sourceRef.call(callback)
 	Global.AudioManager.play_sound("res://sounds/ui_close_01.wav")
 	for i in get_children():
 		i.call("queue_free")

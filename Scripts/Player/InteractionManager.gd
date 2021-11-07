@@ -86,7 +86,10 @@ func parse_input(input):
 
 func read_prompt():
 	if canInteract and interactable != null and canReadPrompt:
-		Global.InteractionPrompt.show_prompt(interactable.prompt(), interactable.has_method("is_low"), interactable.showButtonPrompt)
+		if interactable.isInteractable:
+			Global.InteractionPrompt.show_prompt(interactable.prompt(), interactable.has_method("is_low"), interactable.showButtonPrompt)
+		else:
+			clear()
 	else:
 		clear()
 

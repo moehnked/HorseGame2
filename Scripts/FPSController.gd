@@ -1,10 +1,10 @@
 extends KinematicBody
 
 onready var head = $Head
-onready var inputMacro = preload("res://Scripts/InputMacro.gd")
+#onready var InputMacro = preload("res://Scripts/InputMacro.gd")
 onready var ropeResource = preload("res://prefabs/LassoBullet.tscn")
-onready var inventoryScreenSource = preload("res://prefabs/UI/InventoryScreen.tscn")
-
+#onready var inventoryScreenSource = preload("res://prefabs/UI/InventoryScreen.tscn")
+export(Resource) var inventoryScreenSource
 
 export var DEACCEL = 6
 export var MAX_SPEED = 40
@@ -26,6 +26,7 @@ var canCheckInventory = true
 var canJump = true
 var canResetCasting = true
 var canUpdateHands = true
+var chips = 25
 var fall = Vector3()
 var flushing = false
 var fullContact = false
@@ -56,7 +57,7 @@ var lefthandSpell = "Null"
 var righthandSpell = "Null"
 
 var buildList = []
-var spellList = ["Null"]
+export(Array, String) var spellList = ["Null", "Punch"]
 
 var sfx_grunts = [
 	"res://sounds/grunt_01.wav",
@@ -70,7 +71,8 @@ onready var currentBehavior = get_node("StateContainer/Normal")
 
 func _ready():
 	Global.Player = self
-	call_deferred("subscribe_to")
+	#call_deferred("subscribe_to")
+	set_behavior("Normal")
 	scaleMod = scale.x
 	correct_scale()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -204,6 +206,9 @@ func exit_build_mode(callback):
 	call(callback)
 
 func exit_dialogue():
+	Global.world.queue_timer(self, 0.2, "exit_dialogue_timeout")
+
+func exit_dialogue_timeout():
 	print("player exitting dialogue")
 	subscribe_to()
 	get_head().unfocus()
@@ -438,11 +443,13 @@ func take_damage(dmg = 1, hitbox = null, source = null):
 		pass
 
 func unsubscribe_to():
+	print("Player unsubscribing")
 	Global.InputObserver.unsubscribe(self)
 	get_head().unsubscribe_to()
 	Global.InputObserver.unsubscribe(get_equipment_manager())
 	Global.InputObserver.unsubscribe(get_interaction_controller())
 	set_is_running(false)
+	print(Global.InputObserver.observers)
 
 func update_spells(left, right):
 	lefthandSpell = left

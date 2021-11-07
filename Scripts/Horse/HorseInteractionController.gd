@@ -21,7 +21,8 @@ func get_equipment_manager():
 	return equipmentManager
 
 func interact_with(other):
-	other.interact(self)
+	if get_parent().isInteractingWith:
+		other.interact(self)
 	pass
 
 func _on_InteractionController_area_entered(area):

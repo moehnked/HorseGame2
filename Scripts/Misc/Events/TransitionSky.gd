@@ -1,10 +1,9 @@
 extends "res://Scripts/Misc/Events/GenericEvent.gd"
 
-export(Dictionary) var Skygroups
+export(String) var skyname = "day"
 
 func _on_TransitionSky_emit_event_triggered(by):
-	Global.world.get_tree().call_group("Skymesh", "begin_fadeout")
-	for s in Skygroups.keys():
-		print("sky-transition: ", s, "  transitioning")
-		Global.world.get_tree().call_group(s, "begin_fadein", Skygroups[s])
+	print("TransitionSky: triggered by ", by.name, by)
+	Global.SkyController.set_sky(skyname)
 	pass # Replace with function body.
+

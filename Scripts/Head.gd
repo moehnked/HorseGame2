@@ -5,17 +5,19 @@ onready var Utils = preload("res://Utils.gd")
 
 var focus = null
 var input = InputMacro.new()
+var isRunning = false
 var origin = Vector3(0,0,0)
 export var speed = 4
 
 
 func _ready():
-	call_deferred("subscribe_to")
+	#call_deferred("subscribe_to")
 	pass # Replace with function body.
 
 func _physics_process(delta):
-	rotate_x(input.mouse_vertical)
-	rotation.x = clamp(rotation.x, deg2rad(-60), deg2rad(60))
+	if isRunning:
+		rotate_x(input.mouse_vertical)
+		rotation.x = clamp(rotation.x, deg2rad(-60), deg2rad(60))
 
 func _process(delta):
 	if is_focused():
@@ -42,6 +44,7 @@ func set_mask(color):
 func subscribe_to():
 	Global.InputObserver.subscribe(self)
 	Utils.capture_mouse()
+	isRunning = true
 
 func unfocus():
 	subscribe_to()
@@ -49,7 +52,9 @@ func unfocus():
 	#rotation_degrees = origin
 
 func unsubscribe_to():
+	input = InputMacro.new()
 	Global.InputObserver.unsubscribe(self)
+	isRunning = false
 	
 func parse_input(_input):
 	input = _input

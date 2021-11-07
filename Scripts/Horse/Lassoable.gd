@@ -105,6 +105,10 @@ func start_pilot():
 	if lassoRef != null:
 		lassoRef.deload()
 
+func stop():
+	#lassoRef.deload()
+	pass
+
 func successful_giddyup(args = {}):
 	args = Utils.check(args, {"target": null})
 	target = args.target

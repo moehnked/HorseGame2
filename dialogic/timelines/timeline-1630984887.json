@@ -1,14 +1,91 @@
 {
 	"events": [
 		{
-			"character": "",
+			"action": "join",
+			"character": "character-1631167928.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "character-1631167928.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "secretarianne"
+			"text": "Hi there...."
+		},
+		{
+			"character": "character-1631167928.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Welcome to the Park Station. My name is Secretarianne. "
+		},
+		{
+			"character": "character-1631167928.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Can I help you with anything?"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "[tornado radius=2 freq=3][wave amp=1 freq=5]... ?"
+		},
+		{
+			"choice": "Park?",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1631167928.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Yes!"
+		},
+		{
+			"character": "character-1631167928.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "The Ghymkhana International Wilderness Reserve!"
+		},
+		{
+			"character": "character-1631167928.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "It is the largest untamed stretch of wilderness in the world!"
+		},
+		{
+			"character": "character-1631167928.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "The [color=#2b8f28]Equestrian Ranger's Guild[/color] manages the park's development."
+		},
+		{
+			"event_id": "dialogic_013"
+		},
+		{
+			"emit_signal": "",
+			"event_id": "dialogic_040"
+		},
+		{
+			"event_id": "dialogic_022",
+			"transition_duration": 1
 		}
 	],
 	"metadata": {
-		"dialogic-version": "1.2.5",
+		"dialogic-version": "1.3",
 		"file": "timeline-1630984887.json",
 		"name": "01"
 	}

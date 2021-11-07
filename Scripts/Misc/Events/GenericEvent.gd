@@ -20,3 +20,8 @@ func trigger(trig):
 		o.trigger(trig)
 	if deleteAfterTrig:
 		queue_free()
+
+
+func _on_RemoteButton_interaction(controller):
+	trigger(self)
+	pass # Replace with function body.

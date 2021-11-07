@@ -5,6 +5,7 @@ var poplist = []
 var ref
 var scale_reduct_rate = 0.02
 var queuedDestroy:bool = false
+var thread = Thread.new()
 
 func _process(delta):
 	if queuedDestroy:
@@ -21,6 +22,7 @@ func interact(_controller):
 	queuedDestroy = true
 	$Interactable.isInteractable = false
 	Global.world.instantiate("res://prefabs/Effects/SimpleSpray.tscn", global_transform.origin)
+	#thread.start(self, "_thread_function", {"controller":controller, "ref":ref})
 	pass
 
 func _thread_process(args):
@@ -28,4 +30,4 @@ func _thread_process(args):
 	obj.set_pickup_sound("res://Sounds/silence.wav")
 	obj.call_deferred("interact", args.controller)
 	number -= 1
-	pass
+

@@ -1,0 +1,162 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "[tornado radius=2 freq=3][wave amp=1 freq=5]... ?"
+		},
+		{
+			"choice": "Park?",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"Building Permit",
+					"cf_item_permit"
+				],
+				"method_name": "has_item",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"condition": "",
+			"definition": "1631346488-973",
+			"event_id": "dialogic_012",
+			"value": "1"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"Property Application",
+					"cf_item_app"
+				],
+				"method_name": "has_item",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"condition": "",
+			"definition": "1631346508-921",
+			"event_id": "dialogic_012",
+			"value": "1"
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "[tornado radius=2 freq=14][wave amp=1 freq=17]AHAAaa!"
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Well look at that."
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "You've got your [color=#2b8f28]Building Permit[/color]..."
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "AND you've got a [color=#2b8f28]Property Application[/color]."
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "I hope you have a nice time in our park..."
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "The door leading to the park should be open now..."
+		},
+		{
+			"emit_signal": "",
+			"event_id": "dialogic_040"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"openParkDoor"
+				],
+				"method_name": "trigger_event",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"event_id": "dialogic_022",
+			"transition_duration": 1
+		},
+		{
+			"event_id": "dialogic_013"
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "You've got a [color=#2b8f28]Building Permit[/color]..."
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "You still need a [color=#2b8f28]Property Application[/color]."
+		},
+		{
+			"event_id": "dialogic_022",
+			"transition_duration": 1
+		},
+		{
+			"event_id": "dialogic_013"
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Can’t let you into the park without a valid permit and deed."
+		},
+		{
+			"event_id": "dialogic_022",
+			"transition_duration": 1
+		},
+		{
+			"event_id": "dialogic_013"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1631346406.json",
+		"name": "02"
+	}
+}

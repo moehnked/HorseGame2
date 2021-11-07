@@ -1,12 +1,13 @@
 extends Spatial
 
-var isLookingAtPlayer = false
-var headPointOrigin = Vector3()
+export(int) var dialoguePoint = 1
 export(bool) var removeGroupOnReady = false
+export(float, -50.0, 20.0) var speakingVolume = 1.0
 
 var ds = null
+var headPointOrigin = Vector3()
+var isLookingAtPlayer = false
 
-export(Array, Resource) var options = []
 
 func _ready():
 	headPointOrigin = $Patches2/Armature/Skeleton/HeadPoint.global_transform.origin
@@ -21,43 +22,31 @@ func _process(delta):
 		var nt = global_transform.looking_at(Vector3(Global.Player.global_transform.origin.x,global_transform.origin.y,Global.Player.global_transform.origin.z), Vector3.UP)
 		var nt_q = nt.basis.get_rotation_quat()
 		var rotAngle = rad2deg(nt_q.get_euler().y) + 180
-		#print(rotAngle, " - " , rad2deg(global_transform.basis.get_euler().y))
-#		print(abs(rotAngle - rad2deg(global_transform.basis.get_euler().y)))
 		if abs(rotAngle - rad2deg(global_transform.basis.get_euler().y)) > 15:
 			nt_q.set_axis_angle(Vector3.UP, deg2rad(rotAngle))
-##		#if abs(deg2rad(nt_q.get_euler().y) - deg2rad(nt.basis.get_euler().y)) > 45:
 			nt.basis = Basis(nt_q)
-#			global_transform = nt
 			global_transform = global_transform.interpolate_with(nt, 0.02)
-		#rotate_y(deg2rad(180))
 		if global_transform.origin.distance_to(Global.Player.global_transform.origin) > 1.5:
 			point_head(delta)
-			
-func check_options():
-	var check = false
-	for i in options:
-		if i.name == "Exit":
-			if check:
-				return false
-			else:
-				check = true
 
-func get_options(removeExits = false):
-	var o = options
-	if removeExits:
-		for i in o:
-			if i.resource_name == "exit":
-				o.erase(i)
-		#remove_exits_by_name("Exit")
-	return o
+
+func exit_dialogue():
+	$Interactable.set_interactable(false)
+	$RenableInteractible.start(1.0)
+
+func get_dialogue_point():
+	return "Patches/" + (("0" + String(dialoguePoint)) if dialoguePoint < 10 else String(dialoguePoint))
+
+func get_speaking_volume():
+	return speakingVolume
+	pass
 
 func get_talk_sfx():
 	return "res://Sounds/guide_0" + String(Global.world.rng.randi_range(1,4)) + ".wav"
 
-func set_options(nextOptions):
-	options = nextOptions
-	#remove_exits_by_name("Exit")
-	options.append(load("res://prefabs/UI/Dialogue/Exit.tscn"))
+func increment_timeline():
+	dialoguePoint += 1
+	pass
 
 func point_head(delta):
 	$Patches2/Armature/Skeleton/HeadPoint.global_transform = $Patches2/Armature/Skeleton/HeadPoint.global_transform.looking_at(Global.Player.get_head().global_transform.origin, Vector3.DOWN)
@@ -65,11 +54,11 @@ func point_head(delta):
 	var newPoint = headPointOrigin + $Patches2/Armature/Skeleton/HeadPoint.global_transform.origin.direction_to(Global.Player.get_head().global_transform.origin).normalized() * 2
 	$Patches2/Armature/Skeleton/HeadPoint.global_transform.origin = $Patches2/Armature/Skeleton/HeadPoint.global_transform.origin.linear_interpolate(newPoint, delta)
 
-func remove_exits_by_name(nam):
-	for i in options:
-		if i.resource_name == nam:
-			options.erase(i)
-	pass
+func ready_dialogue(controller):
+	ds = load("res://prefabs/UI/Dialogue/Dialogic_NPC_DialogueScreen.tscn").instance()
+	Global.world.add_child(ds)
+	ds.initialize({'speaker':self, 'listener':controller.get_parent(), 'text':["hellow", "world"], "timelineName":get_dialogue_point()})
+	controller.begin_dialogue(self)
 
 func set_can_interact(val = true):
 	$Interactable.set_interactable(val)
@@ -87,8 +76,10 @@ func _on_Interactable_emit_prompt(_prompt):
 
 
 func _on_Interactable_interaction(controller):
-	ds = load("res://prefabs/UI/Dialogue/PatchesDialogueScreen.tscn").instance()
-	add_child(ds)
-	ds.initialize({'speaker':self, 'listener':controller.get_parent(), 'text':["hellow", "world"], 'init_options':options})
-	controller.begin_dialogue(self)
+	ready_dialogue(controller)
+	pass # Replace with function body.
+
+
+func _on_RenableInteractible_timeout():
+	$Interactable.set_interactable(true)
 	pass # Replace with function body.

@@ -1,0 +1,20 @@
+{
+	"color": "#ffff3b3b",
+	"description": "",
+	"display_name": "",
+	"display_name_bool": false,
+	"id": "character-1632001705.json",
+	"mirror_portraits": false,
+	"name": "Bilinda",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 20,
+	"offset_y": -90,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://Sprites/NPCs/Bilinda.png"
+		}
+	],
+	"scale": 100
+}

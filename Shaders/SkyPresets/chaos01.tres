@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://Shaders/Space2d.shader" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/volsteps = 14
+shader_param/stepsize = 0.345
+shader_param/zoom = 49.876
+shader_param/tile = 0.157
+shader_param/speed = 0.001
+shader_param/brightness = 0.013
+shader_param/darkmatter = 3.822
+shader_param/distfading = 0.467
+shader_param/saturation = 2.446
+shader_param/projectResolution = Vector2( 1024, 600 )
+shader_param/finalAlpha = 1.0

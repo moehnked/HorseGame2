@@ -8,6 +8,84 @@
 			"name": "test",
 			"type": 0,
 			"value": "0"
+		},
+		{
+			"id": "1631316431-366",
+			"name": "sa_item_planks",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1631244986-240",
+			"name": "sa_z",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1631244962-340",
+			"name": "sa_y",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1631173224-136",
+			"name": "sa_x",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1631335337-864",
+			"name": "sa_item_mallet",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1631338754-780",
+			"name": "sy_x",
+			"type": 0,
+			"value": "1"
+		},
+		{
+			"id": "1631141192-713",
+			"name": "TimelineRead",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1631346508-921",
+			"name": "cf_item_app",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1631346488-973",
+			"name": "cf_item_permit",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1631412613-353",
+			"name": "pa_read_A",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1631412625-525",
+			"name": "pa_read_B",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1631412634-213",
+			"name": "pa_read_C",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1631423910-906",
+			"name": "randomText",
+			"type": 0,
+			"value": ""
 		}
 	]
 }

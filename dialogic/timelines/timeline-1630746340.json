@@ -35,12 +35,18 @@
 		},
 		{
 			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Oh! Okay, well, you at least know how to build stuff, right?"
+		},
+		{
+			"character": "",
 			"event_id": "dialogic_010",
 			"options": [
 
 			],
 			"portrait": "",
-			"question": "Oh! Okay, well, you at least know how to build stuff, right?"
+			"question": "[tornado radius=2 freq=3][wave amp=1 freq=5]... ?"
 		},
 		{
 			"choice": "Nope",
@@ -65,7 +71,7 @@
 
 			],
 			"portrait": "",
-			"question": "...."
+			"question": "[tornado radius=2 freq=3][wave amp=1 freq=5]... ?"
 		},
 		{
 			"choice": "Help",
@@ -78,13 +84,19 @@
 			"event_id": "dialogic_013"
 		},
 		{
+			"character": "character-1630737275.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Okay, okay.... You HAVE to know about SPELLS by now, right? Like, you for sure must know how to open the spell menu, change spells out, and use them and stuff?"
+		},
+		{
 			"character": "",
 			"event_id": "dialogic_010",
 			"options": [
 
 			],
 			"portrait": "",
-			"question": "Okay, okay.... You HAVE to know about SPELLS by now, right? Like, you for sure must know how to open the spell menu, change spells out, and use them and stuff?"
+			"question": "[tornado radius=2 freq=3][wave amp=1 freq=5]... ?"
 		},
 		{
 			"choice": "Yes",

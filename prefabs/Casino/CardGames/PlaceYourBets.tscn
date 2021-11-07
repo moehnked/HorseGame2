@@ -1,0 +1,88 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://fonts/bigt.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scripts/Casino/PlaceYourBets.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "New Anim"
+step = 0.03
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("RichTextLabel:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( -271.077, -0.25, 0, 0.25, 0, -271.077, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("RichTextLabel:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( -27.7296, -0.25, 0, 0.25, 0, -149.489, -0.847487, -0.415024, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RichTextLabel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3, 0.4, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0.0627451, 1, 0 ), Color( 1, 0.376471, 0, 1 ), Color( 1, 1, 1, 0 ), Color( 0.101961, 1, 0, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.9, 0.93 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [ "res://Sounds/jrpgUI/LoadSave.wav" ],
+"method": "play_sound"
+}, {
+"args": [ "start_betting" ],
+"method": "call_game_method"
+}, {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[node name="PlaceYourBets" type="Node2D"]
+scale = Vector2( 0.75, 0.75 )
+z_index = 20
+script = ExtResource( 2 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+modulate = Color( 0.985033, 1, 0.983333, 0.0166668 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -271.077
+margin_top = -149.489
+margin_right = 268.923
+margin_bottom = -69.4886
+custom_fonts/normal_font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_y = 6
+bbcode_enabled = true
+bbcode_text = "[wave amp=70]PLACE YOUR BETS[/wave]"
+text = "PLACE YOUR BETS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+"anims/New Anim" = SubResource( 1 )

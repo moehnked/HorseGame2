@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://models/Item/clock_mesh.obj" type="ArrayMesh" id=1]
+
+[sub_resource type="QuadMesh" id=1]
+
+[node name="clock_mesh" type="MeshInstance"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+mesh = ExtResource( 1 )
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( -1.62921e-07, 0, 1, 0, 0.541462, 0, -1, 0, -1.62921e-07, 0.854394, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = null

@@ -4,3 +4,4 @@
 
 [node name="PlaySong" type="Spatial"]
 script = ExtResource( 1 )
+[connection signal="emit_event_triggered" from="." to="." method="_on_PlaySong_emit_event_triggered"]

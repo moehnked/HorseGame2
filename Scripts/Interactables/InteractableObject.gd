@@ -18,7 +18,8 @@ signal emit_looking_at(_lookedAtBy)
 
 func _input(ev):
 	if Input.is_key_pressed(KEY_E):
-		if beingLookedAtBy != null and isHoldToInteract:
+		print("Interactable keydown - ", beingLookedAtBy)
+		if beingLookedAtBy != null and isHoldToInteract and isInteractable:
 			emit_signal("holding", beingLookedAtBy)
 		pass
 

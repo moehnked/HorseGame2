@@ -1,0 +1,20 @@
+{
+	"color": "#ffacbc71",
+	"description": "",
+	"display_name": "",
+	"display_name_bool": false,
+	"id": "character-1631346096.json",
+	"mirror_portraits": false,
+	"name": "Chesterfield",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 20,
+	"offset_y": -90,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://Sprites/NPCs/Chesterfield.png"
+		}
+	],
+	"scale": 100
+}

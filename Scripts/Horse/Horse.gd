@@ -12,6 +12,7 @@ export var MAX_ACCEL:int = 2
 export var MAX_SLOPE_ANGLE:float = 90
 export var MAX_SPEED:int= 7
 export var horseName = "Horse"
+export var isInteractingWith = false
 export var stats:Dictionary = {
 	"speed":1,
 	"chaos":1,
@@ -69,6 +70,11 @@ func enter_pilot():
 
 func enter_giddyup(args = {}):
 	args = Utils.check(args, {"behaviorName":"Giddyup"})
+	set_state(args)
+	pass
+
+func enter_RPS(args = {}):
+	args = Utils.check(args, {"behaviorName":"RPS"})
 	set_state(args)
 	pass
 
@@ -244,3 +250,12 @@ func _on_Lassoable_lassoed(by):
 	else:
 		$Lassoable.stop()
 	pass # Replace with function body.
+
+func queue_free():
+	print("Horse: ", get_horse_name(), " queue free'd")
+	.queue_free()
+
+func free():
+	print("Horse: ", get_horse_name(), " free'd")
+	.free()
+	

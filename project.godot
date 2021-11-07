@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Behavior/BehaviorState.gd"
 }, {
+"base": "Node",
+"class": "CardHandEvaluator",
+"language": "GDScript",
+"path": "res://Scripts/Casino/CardHandEvaluator.gd"
+}, {
 "base": "Reference",
 "class": "DTS",
 "language": "GDScript",
@@ -134,6 +139,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Behavior/PlayerStates/PlayerState_Normal.gd"
 }, {
+"base": "Node2D",
+"class": "PlayingCard",
+"language": "GDScript",
+"path": "res://Scripts/Casino/PlayingCard.gd"
+}, {
 "base": "RichTextEffect",
 "class": "RichTextPulse",
 "language": "GDScript",
@@ -151,6 +161,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BehaviorState": "",
+"CardHandEvaluator": "",
 "DTS": "",
 "Dialogic": "",
 "DialogicBackgroundMusic": "",
@@ -175,6 +186,7 @@ _global_script_class_icons={
 "PlayerState_Lasso": "",
 "PlayerState_Menu": "",
 "PlayerState_Normal": "",
+"PlayingCard": "",
 "RichTextPulse": "",
 "RichTextZoomin": "",
 "VisualShaderNodePerlinNoise3D": ""
@@ -183,7 +195,7 @@ _global_script_class_icons={
 [application]
 
 config/name="HorseGame2"
-run/main_scene="res://world.tscn"
+run/main_scene="res://scenes/SandboxWorld.tscn"
 boot_splash/image="res://Sprites/System/covalentbonds_splash.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
@@ -269,5 +281,6 @@ Reload={
 [rendering]
 
 quality/2d/use_pixel_snap=true
+environment/default_clear_color=Color( 0.301961, 0.301961, 0.301961, 1 )
 environment/default_environment="res://default_env.tres"
 2d/snapping/use_gpu_pixel_snap=true

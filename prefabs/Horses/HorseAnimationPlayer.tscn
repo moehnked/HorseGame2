@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Animations/HorseAnimations/Idle.tres" type="Animation" id=1]
+[ext_resource path="res://Animations/HorseAnimations/Walk.tres" type="Animation" id=2]
+[ext_resource path="res://Animations/HorseAnimations/Trot.tres" type="Animation" id=3]
+
+[node name="AnimationPlayer2" type="AnimationPlayer"]
+anims/Idle = ExtResource( 1 )
+anims/Trot = ExtResource( 3 )
+anims/Walk = ExtResource( 2 )

@@ -1,6 +1,6 @@
 extends Node
 
-onready var inputMacro = preload("res://Scripts/InputMacro.gd")
+#onready var inputMacro = preload("res://Scripts/InputMacro.gd")
 
 var observers = []
 var wheel_up = true
@@ -90,4 +90,7 @@ func _physics_process(delta):
 	#print("observers")
 	for o in observers:
 		#print(o, ", - ", o.name)
-		o.parse_input(input)
+		if o == null:
+			observers.erase(o)
+		else:
+			o.parse_input(input)

@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprites/UI/treat02.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/UI/UI_Context_Button_off.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/UI/UI_Context_Button.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/UI/ButcherOfferOption.gd" type="Script" id=4]
+
+[node name="ButcherOfferOption" type="Control"]
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_left = -30.2381
+margin_top = -11.3393
+margin_right = 225.762
+margin_bottom = 52.6607
+rect_scale = Vector2( 0.601203, 0.601203 )
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+texture_hover = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -9.76254
+margin_top = -5.6889
+margin_right = 33.2375
+margin_bottom = 8.3111
+rect_scale = Vector2( 1.69607, 1.69607 )
+text = "HORSE"
+[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]

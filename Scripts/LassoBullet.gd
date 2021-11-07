@@ -1,5 +1,4 @@
 extends Area
-var Utils = preload("res://Utils.gd")
 
 var speed = 40
 onready var rope_resource = preload("res://prefabs/LassoBlob.tscn")

@@ -1,0 +1,20 @@
+{
+	"color": "#ffff6b6b",
+	"description": "",
+	"display_name": "",
+	"display_name_bool": false,
+	"id": "character-1631167928.json",
+	"mirror_portraits": false,
+	"name": "Secretarianne",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 20,
+	"offset_y": -90,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://Sprites/NPCs/Secretarianne.png"
+		}
+	],
+	"scale": 100
+}
