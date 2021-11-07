@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://prefabs/PlayerStuff/NEW_FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/System/SkyControllerPrefab.tscn" type="PackedScene" id=2]
@@ -10,13 +10,17 @@
 [ext_resource path="res://prefabs/InteractionPrompt.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Shaders/SkyPresets/dark01.tres" type="Material" id=9]
 [ext_resource path="res://prefabs/System/GlobalCorralRegistrar.tscn" type="PackedScene" id=10]
-[ext_resource path="res://prefabs/UI/Misc/Moon.tscn" type="PackedScene" id=11]
+[ext_resource path="res://prefabs/Effects/BoulderDust.tscn" type="PackedScene" id=11]
 [ext_resource path="res://prefabs/System/Sun.tscn" type="PackedScene" id=12]
 [ext_resource path="res://prefabs/Areas/MainWorld.tscn" type="PackedScene" id=13]
 [ext_resource path="res://prefabs/System/SpecialEventManager.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Shaders/SkyPresets/fog01.tres" type="Material" id=15]
+[ext_resource path="res://prefabs/Objects/HorseStatueC.tscn" type="PackedScene" id=16]
+[ext_resource path="res://prefabs/Objects/Rug01.tscn" type="PackedScene" id=17]
+[ext_resource path="res://prefabs/Objects/Window_A.tscn" type="PackedScene" id=18]
 [ext_resource path="res://prefabs/UI/Misc/DamageablePrompt.tscn" type="PackedScene" id=19]
 [ext_resource path="res://prefabs/System/AudioManager.tscn" type="PackedScene" id=20]
+[ext_resource path="res://prefabs/Effects/Fog.tscn" type="PackedScene" id=21]
 
 [node name="World" type="Spatial"]
 script = ExtResource( 5 )
@@ -33,8 +37,6 @@ size = Vector2( 1024, 600 )
 handle_input_locally = false
 usage = 0
 render_target_update_mode = 3
-
-[node name="Moon" parent="ViewportContainer/Viewport" instance=ExtResource( 11 )]
 
 [node name="SkyController" parent="ViewportContainer/Viewport" instance=ExtResource( 2 )]
 skys = {
@@ -76,6 +78,7 @@ __meta__ = {
 size = Vector2( 1024, 600 )
 transparent_bg = true
 handle_input_locally = false
+hdr = false
 render_target_update_mode = 3
 audio_listener_enable_2d = true
 audio_listener_enable_3d = true
@@ -88,9 +91,23 @@ shadow_atlas_size = 2
 [node name="InputObserver" parent="ViewportContainer2/Viewport" instance=ExtResource( 7 )]
 
 [node name="NEW_FPSController" parent="ViewportContainer2/Viewport" instance=ExtResource( 1 )]
-transform = Transform( 0.456193, 0, 0, 0, 0.456193, 0, 0, 0, 0.456193, 0, 102.634, -553.029 )
-
-[node name="Sun" parent="ViewportContainer2/Viewport" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 224.734, 0 )
+transform = Transform( -0.437055, 0, 0.130749, 0, 0.456193, 0, -0.130749, 0, -0.437055, 0, 131.015, 0 )
 
 [node name="MainWorld" parent="ViewportContainer2/Viewport" instance=ExtResource( 13 )]
+
+[node name="Rug01" parent="ViewportContainer2/Viewport" instance=ExtResource( 17 )]
+transform = Transform( -24.9492, 269.778, -2.06996e-05, -40.2037, -96.7336, -29.8494, -34.3663, -82.6884, 34.9195, 5.77401, 136.07, 24.3558 )
+
+[node name="HorseStatueC" parent="ViewportContainer2/Viewport" instance=ExtResource( 16 )]
+transform = Transform( 0.53565, 0, 3.78498, 0, 3.8227, 0, -3.78498, 0, 0.53565, -4.69672, 130.424, 20.6417 )
+
+[node name="Window_A" parent="ViewportContainer2/Viewport" instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02678, 132.394, 22.5699 )
+
+[node name="BoulderDust" parent="ViewportContainer2/Viewport" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.65486, 134.538, 15.4513 )
+
+[node name="Sun" parent="ViewportContainer2/Viewport" instance=ExtResource( 12 )]
+
+[node name="Fog" parent="ViewportContainer2/Viewport" instance=ExtResource( 21 )]
+transform = Transform( 11.1379, 0, 0, 0, 11.1379, 0, 0, 0, 11.1379, 0, 140.548, 13.9557 )

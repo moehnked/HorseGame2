@@ -2,7 +2,7 @@ extends "res://Scripts/Misc/Events/GenericEvent.gd"
 
 export(Vector3) var axis = Vector3(0,1,0)
 export(float) var rotAmount = 360
-export(float) var weight = 0.1 
+export(float) var weight = 0.01 
 
 
 var isRotating = false
@@ -17,6 +17,6 @@ func _process(delta):
 	if isRotating:
 		rotation_degrees = rotation_degrees.linear_interpolate(axis * rotAmount, weight)
 
-func start_rotation():
+func start_rotation(by):
 	print("starting rotation")
 	isRotating = true

@@ -2,7 +2,9 @@
 extends Area
 
 var beingLookedAtBy = null
+var isHolding = false
 var isInteractable:bool = true
+var timer = Timer.new()
 
 export var interactSound:String = "res://Sounds/equipment_02.wav"
 export var isHoldToInteract:bool = false
@@ -17,19 +19,27 @@ signal emit_prompt(_prompt)
 signal emit_looking_at(_lookedAtBy)
 
 func _input(ev):
-	if Input.is_key_pressed(KEY_E):
-		print("Interactable keydown - ", beingLookedAtBy)
-		if beingLookedAtBy != null and isHoldToInteract and isInteractable:
+	if beingLookedAtBy != null and isInteractable:
+		if Input.is_key_pressed(KEY_E) and isHoldToInteract:
 			emit_signal("holding", beingLookedAtBy)
-		pass
+			beingLookedAtBy.clear()
+			isHolding = true
+		if Input.is_action_just_released("engage"):
+			beingLookedAtBy.clear()
+			isHolding = false
+			if isHoldToInteract:
+				emit_signal("release")
+			else:
+				interact(beingLookedAtBy)
 
 func _process(delta):
-	if beingLookedAtBy != null and isInteractable:
-		if beingLookedAtBy.has_method("get_looking_at"):
-			if not check_if_being_looked_at(beingLookedAtBy.get_looking_at()):
-				beingLookedAtBy = null
-				emit_signal("emit_looking_at", null)
-				emit_signal("release")
+	if beingLookedAtBy != null and isInteractable and not isHolding:
+		if beingLookedAtBy.canInteract and beingLookedAtBy.get_looking_at() == self:
+			Global.InteractionPrompt.show_prompt(prompt(), false, showButtonPrompt)
+		else:
+			beingLookedAtBy.clear()
+			beingLookedAtBy = null
+			pass
 
 func check_if_being_looked_at(compare):
 	if compare == self:
@@ -45,13 +55,17 @@ func interact(controller):
 		emit_signal("interaction", controller)
 		if playSoundOnInteract:
 			play_sound(interactSound)
+		set_interactable(false)
+		#Global.world.queue_timer(self, 1.0, "interaction_cooldown")
+		timer.one_shot = true
+		add_child(timer)
+		timer.connect("timeout", self, "interaction_cooldown")
+		timer.start(1.0)
 	pass
 
 func play_sound(path):
 	print("Intractable: playing sound")
 	Global.AudioManager.play_sound(path)
-#	$AudioStreamPlayer3D.stream = load(path)
-#	$AudioStreamPlayer3D.play()
 
 func prompt():
 	emit_signal("emit_prompt", self)
@@ -60,6 +74,12 @@ func prompt():
 func set_interactable(state = true, matchPromptState = false):
 	isInteractable = state
 	showButtonPrompt = state if matchPromptState else showButtonPrompt
-	for o in get_children():
-		if o is CollisionShape:
-			o.disabled = not isInteractable
+#	for o in get_children():
+#		if o is CollisionShape:
+#			o.disabled = not isInteractable
+
+
+func interaction_cooldown():
+	print("Interactable: cooldown complete")
+	set_interactable(true)
+	pass # Replace with function body.

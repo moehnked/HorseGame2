@@ -19,10 +19,6 @@ radial_segments = 5
 [node name="CrankWheel" type="Spatial"]
 script = ExtResource( 5 )
 
-[node name="Interactable" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.315264, 0 )
-isHoldToInteract = true
-
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.282967, 0 )
 mesh = SubResource( 1 )
@@ -38,9 +34,9 @@ transform = Transform( 0.171579, 0, 0, 0, 0.320812, 0, 0, 0, 0.171579, 0, -0.377
 mesh = SubResource( 3 )
 material/0 = ExtResource( 3 )
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
+[node name="Interactable" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.295144, 0 )
+isHoldToInteract = true
 [connection signal="emit_prompt" from="Interactable" to="." method="_on_Interactable_emit_prompt"]
 [connection signal="holding" from="Interactable" to="." method="_on_Interactable_holding"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="release" from="Interactable" to="." method="_on_Interactable_release"]

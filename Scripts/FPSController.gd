@@ -426,7 +426,8 @@ func stop_swimming():
 func subscribe_to():
 	Global.InputObserver.subscribe(self)
 	get_head().subscribe_to()
-	get_interaction_controller().subscribe_to()
+	#get_interaction_controller().subscribe_to()
+	get_interaction_controller().canInteract = true
 	get_equipment_manager().subscribe_to()
 	set_is_running()
 	#Global.InputObserver.subscribe($InteractionController)
@@ -447,7 +448,8 @@ func unsubscribe_to():
 	Global.InputObserver.unsubscribe(self)
 	get_head().unsubscribe_to()
 	Global.InputObserver.unsubscribe(get_equipment_manager())
-	Global.InputObserver.unsubscribe(get_interaction_controller())
+	#Global.InputObserver.unsubscribe(get_interaction_controller())
+	get_interaction_controller().canInteract = false
 	set_is_running(false)
 	print(Global.InputObserver.observers)
 

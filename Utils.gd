@@ -1,6 +1,6 @@
 extends Node
 
-var Global =  preload("res://Global.gd")
+
 
 static func angle_to(from, to):
 	return atan2(to.y - from.y, to.x - from.x) * 180 / PI;

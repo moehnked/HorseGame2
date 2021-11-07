@@ -11,5 +11,3 @@ prompt = "Interact "
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]

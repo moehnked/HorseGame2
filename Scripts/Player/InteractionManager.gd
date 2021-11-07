@@ -4,7 +4,6 @@ var canInteract = true
 var canReadPrompt:bool = true
 var equipmentManager = null
 var ignore = []
-var interactables = []
 var interactable = null
 var lookingAt = null
 var raycast:RayCast = RayCast.new()
@@ -16,22 +15,14 @@ func _ready():
 	emit_signal("broadcast_self", self)
 
 func _process(delta):
-	read_prompt()
-	if interactable != null:
-		if interactable.has_method("recieve_looking_at"):
-			interactable.recieve_looking_at(self)
-		emit_signal("emit_looking_at",self,interactable)
-	var obj = raycast.get_collider()
-	if obj != null and check_if_ignore(obj):
-		lookingAt = obj
-		if obj.has_method("interact"):
-			if obj.isInteractable:
-				interactable = obj
-				return
+	lookingAt = raycast.get_collider()
+	if lookingAt != null:
+		if lookingAt.has_method("recieve_looking_at"):
+			lookingAt.recieve_looking_at(self)
+		else:
+			lookingAt = null
 	else:
-		obj = null
-	interactable = null
-	enable_can_read()
+		clear()
 
 func add_to_ignore(other):
 	ignore.append(other)
@@ -67,38 +58,33 @@ func get_equipped():
 	return get_equipment_manager().equipped
 
 func get_looking_at():
-	return interactable
+	return lookingAt
 
 func get_raycast():
 	return raycast
 
 func set_raycast(_raycast):
 	raycast = _raycast
-
-func parse_input(input):
-	if input.engage and canInteract:
-		if interactable != null:
-			if interactable.isInteractable:
-				interactable.interact(self)
-				Global.world.queue_timer(self, 5.0, "enable_can_read")
-				canReadPrompt = false
-				clear()
-
-func read_prompt():
-	if canInteract and interactable != null and canReadPrompt:
-		if interactable.isInteractable:
-			Global.InteractionPrompt.show_prompt(interactable.prompt(), interactable.has_method("is_low"), interactable.showButtonPrompt)
-		else:
-			clear()
-	else:
-		clear()
+#
+#func parse_input(input):
+#	pass
+#
+#
+#func read_prompt():
+#	if canInteract and interactable != null and canReadPrompt:
+#		if interactable.isInteractable:
+#			Global.InteractionPrompt.show_prompt(interactable.prompt(), interactable.has_method("is_low"), interactable.showButtonPrompt)
+#		else:
+#			clear()
+#	else:
+#		clear()
 
 func remove_from_ignore(item):
 	ignore.erase(item)
 	return item
-
-func subscribe_to():
-	Global.InputObserver.subscribe(self)
+#
+#func subscribe_to():
+#	Global.InputObserver.subscribe(self)
 
 func toggle_interactability():
 	canInteract = !canInteract
