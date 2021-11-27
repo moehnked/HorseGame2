@@ -25,6 +25,9 @@ surfaces/0 = {
 
 [sub_resource type="SpatialMaterial" id=3]
 albedo_texture = ExtResource( 1 )
+distance_fade_mode = 2
+distance_fade_min_distance = 160.0
+distance_fade_max_distance = 70.0
 
 [sub_resource type="ConcavePolygonShape" id=4]
 data = PoolVector3Array( -1, -1, -1, -1, 4, -1, -1, -1, 1, -1, -1, 1, -1, 4, -1, -1, 4, 1, -1, 4, 1, 1, 4, 1, -1, -1, 1, -1, -1, 1, 1, 4, 1, 1, -1, 1, -1, -1, 1, 1, -1, 1, -1, -1, -1, -1, -1, -1, 1, -1, 1, 1, -1, -1, 1, 4, -1, 1, -1, -1, 1, 4, 1, 1, 4, 1, 1, -1, -1, 1, -1, 1, -1, 4, -1, 1, 4, -1, -1, 4, 1, -1, 4, 1, 1, 4, -1, 1, 4, 1, -1, -1, -1, 1, -1, -1, -1, 4, -1, -1, 4, -1, 1, -1, -1, 1, 4, -1 )

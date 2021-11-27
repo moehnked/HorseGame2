@@ -7,6 +7,7 @@ export(Dictionary) var skys = {}
 enum State{swap, normal, transitioning}
 
 var curColor = Color(1,1,1,1)
+var curSkyName = "day"
 var state = State.normal
 var lightingTransition = false
 var ltr = 0.01
@@ -26,7 +27,8 @@ func _process(delta):
 	match state:
 		State.transitioning:
 			$Sprite.modulate.a = lerp($Sprite.modulate.a, 0.0, 0.01)
-			if $Sprite.modulate.a <= 0.02:
+			print()
+			if $Sprite.modulate.a <= 0.01:
 				print("sky completed transition")
 				$Sprite.visible = false
 				state = State.swap
@@ -45,16 +47,21 @@ func lerp_color():
 	var a = lerp(envRes.ambient_light_color.a, curColor.a, ltr)
 	envRes.ambient_light_color = Color(r,g,b,a)
 
+func get_sky():
+	return curSkyName
+
 func set_sky(skyName):
 	var m = skys[skyName]
 	print("Skycontroller: ", m)
 	$Sprite2.material = skys[skyName]
 	$Sprite2.visible = true
 	state = State.transitioning
+	curSkyName = skyName
 	pass
 
-func set_global_lighting(color, lerpWeight = 0.01):
+func set_global_lighting(color, lerpWeight = 0.01, fogEnabled = true):
 	print("Sky controller: updating lighting")
 	ltr = lerpWeight
 	curColor = color
 	lightingTransition = true
+	envRes.fog_enabled = fogEnabled

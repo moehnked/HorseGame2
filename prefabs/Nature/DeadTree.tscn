@@ -10,6 +10,9 @@ data = PoolVector3Array( 2.3582, 25.0339, 3.2852, 1.7401, 22.854, 1.7164, 2.3989
 [sub_resource type="SpatialMaterial" id=2]
 albedo_texture = ExtResource( 1 )
 uv1_scale = Vector3( 1, 4.387, 1 )
+distance_fade_mode = 2
+distance_fade_min_distance = 160.0
+distance_fade_max_distance = 70.0
 
 [node name="DeadTree" type="Spatial"]
 script = ExtResource( 3 )

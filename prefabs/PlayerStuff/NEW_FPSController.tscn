@@ -371,7 +371,7 @@ albedo_color = Color( 1, 0, 0, 1 )
 collision_layer = 4
 script = ExtResource( 1 )
 inventoryScreenSource = ExtResource( 26 )
-MAX_SPEED = 7
+MAX_SPEED = 37
 MAX_SLOPE_ANGLE = 30
 
 [node name="InteractionManager" parent="." instance=ExtResource( 24 )]
@@ -409,7 +409,7 @@ script = ExtResource( 4 )
 [node name="Camera" type="Camera" parent="Head"]
 transform = Transform( 0.527006, 0, 0, 0, 0.527006, 0, 0, 0, 0.527006, 0, 0, -0.272186 )
 cull_mask = 1047551
-far = 225.0
+far = 250.0
 script = ExtResource( 14 )
 
 [node name="RayCast_Solids" type="RayCast" parent="Head/Camera"]
@@ -545,6 +545,10 @@ transform = Transform( 4.12523, 0, 0, 0, -6.72085e-07, 4.12523, 0, -4.12523, -6.
 visible = false
 mesh = SubResource( 19 )
 material/0 = SubResource( 20 )
+
+[node name="SlidingTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
 [connection signal="broadcast_self" from="InteractionManager" to="EquipmentManager" method="_on_InteractionManager_broadcast_self"]
 [connection signal="emit_looking_at" from="InteractionManager" to="EquipmentManager" method="_on_InteractionManager_emit_looking_at"]
 [connection signal="broadcast_self" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_broadcast_self"]
@@ -561,3 +565,4 @@ material/0 = SubResource( 20 )
 [connection signal="timeout" from="LeftCooldown" to="." method="_on_LeftCooldown_timeout"]
 [connection signal="timeout" from="RightCooldown" to="." method="_on_RightCooldown_timeout"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_KnockbackTimer_timeout"]
+[connection signal="timeout" from="SlidingTimer" to="StateContainer/Normal" method="_on_SlidingTimer_timeout"]

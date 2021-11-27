@@ -145,6 +145,9 @@ rect_scale = Vector2( 0.357374, 0.357374 )
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 11 )
 texture_hover = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="timeout" from="DefinitionInfo/Timer" to="." method="_on_Definition_Timer_timeout"]
 [connection signal="emit_trigger" from="InputListenerEvent" to="." method="_on_InputListenerEvent_emit_trigger"]
 [connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]

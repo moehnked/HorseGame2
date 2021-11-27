@@ -120,6 +120,8 @@ static func play_sound(player, sound_path = "", volume = 0.0):
 static func pop_item_by_name(itemName, list):
 	var i = 0
 	while(i < list.size()):
+		if list[i] == null:
+			return null
 		if(list[i].get_name() == itemName):
 			return pop_item(list[i], list)
 		i += 1

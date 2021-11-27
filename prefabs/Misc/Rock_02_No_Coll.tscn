@@ -5,6 +5,9 @@
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 1 )
+distance_fade_mode = 2
+distance_fade_min_distance = 250.0
+distance_fade_max_distance = 140.0
 
 [node name="Rock_02_No_Collision" type="Spatial"]
 

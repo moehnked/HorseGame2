@@ -1,0 +1,55 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://prefabs/Interactables/Damageable.tscn" type="PackedScene" id=1]
+[ext_resource path="res://models/objects/crate_a.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://prefabs/Misc/Events/CallMethodOnTarget.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/Misc/Events/BulkItemSpawn.gd" type="Script" id=4]
+[ext_resource path="res://prefabs/Misc/Events/Delay.tscn" type="PackedScene" id=5]
+[ext_resource path="res://prefabs/Misc/Events/LoadTargetResource.tscn" type="PackedScene" id=6]
+[ext_resource path="res://prefabs/Effects/deconstruct.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Sounds/smash_02.wav" type="AudioStream" id=8]
+[ext_resource path="res://Sounds/smash_03.wav" type="AudioStream" id=9]
+[ext_resource path="res://Sounds/smash_04.wav" type="AudioStream" id=10]
+[ext_resource path="res://Sounds/smash_01.wav" type="AudioStream" id=11]
+[ext_resource path="res://prefabs/Misc/Events/PlaySound.tscn" type="PackedScene" id=12]
+
+[sub_resource type="ConcavePolygonShape" id=1]
+data = PoolVector3Array( -1, 1, -1.8425, 1, 1, -1.8425, -1, 1, 1.8425, -1, 1, 1.8425, 1, 1, -1.8425, 1, 1, 1.8425, 1, 1, 1.8425, 1, -1, 1.8425, -1, 1, 1.8425, -1, 1, 1.8425, 1, -1, 1.8425, -1, -1, 1.8425, -1, 1, 1.8425, -1, -1, 1.8425, -1, 1, -1.8425, -1, 1, -1.8425, -1, -1, 1.8425, -1, -1, -1.8425, 1, -1, -1.8425, -1, -1, -1.8425, 1, -1, 1.8425, 1, -1, 1.8425, -1, -1, -1.8425, -1, -1, 1.8425, 1, 1, -1.8425, 1, -1, -1.8425, 1, 1, 1.8425, 1, 1, 1.8425, 1, -1, -1.8425, 1, -1, 1.8425, -1, 1, -1.8425, -1, -1, -1.8425, 1, 1, -1.8425, 1, 1, -1.8425, -1, -1, -1.8425, 1, -1, -1.8425 )
+
+[node name="Crate_A" type="Spatial"]
+script = ExtResource( 4 )
+
+[node name="crate_a" type="MeshInstance" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+mesh = ExtResource( 2 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="crate_a"]
+
+[node name="CollisionShape" type="CollisionShape" parent="crate_a/StaticBody"]
+shape = SubResource( 1 )
+
+[node name="Damageable" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1.89648, 0, 0, 0, 1.89648, 0, 0, 0, 1.89648, 0, 0, 0 )
+health = 1
+
+[node name="Delay" parent="." instance=ExtResource( 5 )]
+timeDelay = 0.1
+targetEvent = NodePath("../CallMethodsOnTarget")
+
+[node name="PlaySound" parent="." instance=ExtResource( 12 )]
+random_sounds = [ ExtResource( 11 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ]
+volume = -5.0
+
+[node name="CallMethodsOnTarget" parent="." instance=ExtResource( 3 )]
+methodName = "queue_free"
+target = NodePath("..")
+
+[node name="LoadTargetResource" parent="." instance=ExtResource( 6 )]
+res = ExtResource( 7 )
+deleteSelf = false
+deletedTriggerer = false
+[connection signal="destroy" from="Damageable" to="PlaySound" method="trigger"]
+[connection signal="destroy" from="Damageable" to="Delay" method="trigger"]
+[connection signal="destroy" from="Damageable" to="." method="spawn_objects"]
+[connection signal="destroy" from="Damageable" to="LoadTargetResource" method="trigger"]

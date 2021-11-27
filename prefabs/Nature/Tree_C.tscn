@@ -11,11 +11,14 @@ params_billboard_mode = 2
 params_billboard_keep_scale = true
 albedo_texture = ExtResource( 1 )
 uv1_scale = Vector3( 0.151, 1, 1 )
+distance_fade_mode = 2
+distance_fade_min_distance = 160.0
+distance_fade_max_distance = 70.0
 
 [sub_resource type="CylinderShape" id=3]
 height = 7.12816
 
-[node name="Tree_B" type="Spatial"]
+[node name="Tree_C" type="Spatial"]
 script = ExtResource( 3 )
 
 [node name="MeshInstance3" type="MeshInstance" parent="."]

@@ -1,6 +1,7 @@
 extends Area
 
 var isUnderwater:bool = false
+var previousSkyName = ""
 
 func get_head():
 	return owner.get_head()
@@ -21,6 +22,9 @@ func _on_Area_area_entered(area):
 		print("mask underwater")
 		isUnderwater = true
 		start_swimming()
+		Global.AudioManager.play_ambiance("res://Sounds/underwater.wav", -10, 0.7, -1)
+		previousSkyName = Global.SkyController.get_sky()
+		Global.SkyController.set_sky("underwater")
 	pass # Replace with function body.
 
 
@@ -29,4 +33,6 @@ func _on_Area_area_exited(area):
 		print("nolonger underwater")
 		isUnderwater = false
 		stop_swimming()
+		Global.AudioManager.stop_ambiance()
+		Global.SkyController.set_sky(previousSkyName)
 	pass # Replace with function body.

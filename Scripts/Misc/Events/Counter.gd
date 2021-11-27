@@ -6,11 +6,14 @@ export(bool) var testGreaterThan = true
 
 func decrement(val = 1):
 	count -= val
+	test()
 
 func increment(val = 1):
 	count += val
+	test()
 
 func test():
+	print("Counter: testing  ", count, "|",threshold)
 	if testGreaterThan:
 		if count >= threshold:
 			trigger(self)

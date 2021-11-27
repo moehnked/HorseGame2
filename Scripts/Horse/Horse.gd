@@ -1,6 +1,8 @@
 #Horse.gd
 extends KinematicBody
 
+class_name Horse
+
 const hbRef = preload("res://Scripts/Horse/Behaviors/HorseBehavior.gd")
 
 signal emit_charm_recieved(charm, charmer, spell)

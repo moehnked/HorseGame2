@@ -12,7 +12,7 @@ func _ready():
 		trigger(self)
 	pass # Replace with function body.
 
-func trigger(trig):
+func trigger(trig = self):
 	print(name, " triggered by ", trig)
 	emit_signal("emit_event_triggered", trig)
 	for i in nextEvent:

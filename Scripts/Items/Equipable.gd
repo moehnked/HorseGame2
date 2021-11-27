@@ -1,7 +1,7 @@
 #Equipable.gd
 extends "res://Scripts/Items/Item.gd"
 
-const horseRef = preload("res://Scripts/Horse/Horse.gd")
+#const horseRef = preload("res://Scripts/Horse/Horse.gd")
 
 var equipState:String = "Equip"
 var input = InputMacro.new()
@@ -27,7 +27,8 @@ func apply_behavior(HB):
 		var p = controller.get_parent()
 		if p != null:
 			print("p is ", p.name)
-			if p is horseRef:
+			#if p is horseRef:
+			if p is Horse:
 				print("applying to horse")
 				p.call("add_behavior", HB)
 				p.call("set_state", Utils.check(HB.initialArgs, {"behaviorName":HB.stateName}))
@@ -43,6 +44,7 @@ func equip(_controller):
 	if controller.equip(self):
 		print("successfully equipped")
 		set_sleeping(false)
+		toggle_collisions(false)
 		$Interactable.isInteractable = false
 		isEquipped = true
 		set_context("Unequip")
@@ -95,6 +97,7 @@ func unequip(args = {}):
 	controller = null
 	Global.AudioManager.play_sound(unequipSoundPath)
 	$Interactable.set_interactable(true)
+	toggle_collisions(true)
 	
 
 func update_position_to_parent():

@@ -42,13 +42,13 @@ var jump = 10
 var jumpCoefficient = 1.0
 var knockbackDirection = Vector3()
 var lassoRef = null
-var treats:float = 20
 var mouseSensitivity = 0.09
 var normalAcceleration = 6
 var saddle
 var scaleMod = 1.0
 var spellqueue = []
 #var state = State.normal
+var treats:float = 20
 
 var placer_observers = []
 var raycastObservers = []
@@ -405,10 +405,7 @@ func start_swimming():
 	gravityCoefficient = 0.1
 	jumpCoefficient = 0.2
 	isSwimming = true
-	#get_head().set_mask(Color(0, 0.80, 0.93, 0.32))
-
-#func start_timer_exit_horse():
-#	$ExitHorseTimer.start()
+	Global.AudioManager.play_sound("res://Sounds/splash/splash" + String(Global.world.rng.randi_range(1,3)) + ".wav",-5,Global.world.rng.randf_range(-6,3))
 
 func stop_cast_reset():
 	$LeftCooldown.stop()
@@ -422,6 +419,7 @@ func stop_swimming():
 	gravityCoefficient = 1.0
 	jumpCoefficient = 1.0
 	isSwimming = false
+	Global.AudioManager.play_sound("res://Sounds/splash/splash" + String(Global.world.rng.randi_range(1,3)) + ".wav",-5,Global.world.rng.randf_range(-6,3))
 
 func subscribe_to():
 	Global.InputObserver.subscribe(self)

@@ -7,9 +7,13 @@ var gravity = -20
 var hAcceleration = 6
 var has_contact:bool = false
 var input
+var isSliding = false
 var movement:Vector3 = Vector3()
 var velocity:Vector3 = Vector3()
 var snapVector = Vector3(0,0,0)
+
+var dustEffect = preload("res://prefabs/Effects/Sliding.tscn")
+var lasSpawnedDustParticle
 
 
 func run_state(actor, delta):
@@ -40,6 +44,7 @@ func apply_rotation(actor):
 	actor.rotate_y(actor.input.mouse_horizontal)
 
 func parse_movement(actor, delta):
+	isSliding = false
 	direction = Vector3()
 	var aim = actor.get_camera().global_transform.basis
 	if input.forward:
@@ -63,6 +68,9 @@ func parse_movement(actor, delta):
 		if floor_angle > actor.MAX_SLOPE_ANGLE:
 			#print("xwa")
 			velocity.y += gravity * delta
+			if n.collider.is_in_group("Ground"):
+				print("sliding")
+				isSliding = true
 		else:
 			#print("xwb")
 			has_contact = true
@@ -78,8 +86,6 @@ func parse_movement(actor, delta):
 		has_contact = true
 		var raynormal = actor.get_ground_check().get_collision_normal()
 		floor_angle = rad2deg(raynormal.angle_to(Vector3.UP))
-	
-	#print(("touching ground" if has_contact else "airborne")," : ", floor_angle, " " , floor_angle > actor.MAX_SLOPE_ANGLE)
 	
 	var h_velocity = velocity
 	h_velocity.y = 0
@@ -108,6 +114,11 @@ func send_raycast_data(raycastobj, actor):
 	for placer in actor.placer_observers:
 		placer.parse_raycast(raycastobj, actor.global_transform.origin)
 
+func spawn_dust():
+	lasSpawnedDustParticle = dustEffect.instance()
+	Global.world.add_child(lasSpawnedDustParticle)
+	lasSpawnedDustParticle.global_transform.origin = Global.Player.global_transform.origin
+
 func update_raycast(actor):
 	var raycastobj = actor.get_solid_raycast()
 	if raycastobj.is_colliding():
@@ -117,3 +128,16 @@ func update_raycast(actor):
 	else:
 		for o in actor.raycastObservers:
 			o.clear_raycast()
+
+
+func _on_SlidingTimer_timeout():
+	if isSliding and not Global.Player.isSwimming:
+		if lasSpawnedDustParticle != null:
+			if lasSpawnedDustParticle.global_transform.origin.distance_to(Global.Player.global_transform.origin) > 5:
+				spawn_dust()
+			else:
+				return
+		else:
+			spawn_dust()
+		pass
+	pass # Replace with function body.

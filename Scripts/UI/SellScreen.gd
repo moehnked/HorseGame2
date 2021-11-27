@@ -15,7 +15,7 @@ func check_sale(validList, i):
 		conduct_exchange(Utils.pop_item(i, inventory))
 	else:
 		print("SellScreen: INVALID ITEM")
-		Global.AudioManager.play_sound(("res://Sounds/Audio/error_00" + String(Global.world.rng.randi_range(1,6)) + ".ogg"))
+		Global.AudioManager.play_sound(("res://Sounds/Audio/error_00" + String(Global.world.rng.randi_range(1,6)) + ".ogg"), -10)
 		#initialize(initArgs)
 
 func conduct_exchange(i):
@@ -23,7 +23,7 @@ func conduct_exchange(i):
 	update_treats()
 	give(i)
 	initialize(initArgs)
-	Global.AudioManager.play_sound("res://Sounds/Audio/confirmation_00" + String(Global.world.rng.randi_range(1,4)) + ".ogg")
+	Global.AudioManager.play_sound("res://Sounds/Audio/confirmation_00" + String(Global.world.rng.randi_range(1,4)) + ".ogg", -10)
 	#i.controller.unequip({"returnToInventory": false,})
 	#i.queue_free()
 	pass

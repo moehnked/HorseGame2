@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Scripts/Misc/Events/CallMethodsInGroup.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Misc/Events/CallMethodOnTarget.gd" type="Script" id=1]
 
-[node name="CallMethodsInGroup" type="Spatial"]
+[node name="CallMethodsOnTarget" type="Spatial"]
 script = ExtResource( 1 )
-[connection signal="emit_event_triggered" from="." to="." method="_on_GenericEvent_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="." to="." method="_on_CallMethodsOnTarget_emit_event_triggered"]

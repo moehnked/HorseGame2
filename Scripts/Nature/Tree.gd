@@ -2,7 +2,8 @@ extends Spatial
 
 var maxHP:int = 25
 var hp:int = maxHP
-var nextHitSfx = preload("res://Sounds/wood_hit_01.wav")
+#var nextHitSfx = preload("res://Sounds/wood_hit_01.wav")
+var nextHitSfx
 
 export (String) var stumpResource = "res://prefabs/Nature/Stump.tscn"
 

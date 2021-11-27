@@ -1,7 +1,7 @@
 extends Area
 
 var speed = 40
-onready var rope_resource = preload("res://prefabs/LassoBlob.tscn")
+#onready var rope_resource = preload("res://prefabs/LassoBlob.tscn")
 var particle_list = []
 var can_spawn = true
 var power = 1.0
@@ -48,7 +48,8 @@ func _on_RopePartEffect_timeout():
 	
 func spawn():
 	if(can_spawn):
-		var particle = rope_resource.instance()
+		#var particle = rope_resource.instance()
+		var particle = load("res://prefabs/LassoBlob.tscn").instance()
 		particle.global_transform = global_transform
 		Global.world.call_deferred("add_child", particle)
 		$RopePartEffect.start()

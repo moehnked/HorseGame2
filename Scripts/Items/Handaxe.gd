@@ -52,6 +52,7 @@ func initialize(controller):
 	linear_velocity = Vector3(0,0,0)
 	angular_velocity = Vector3(0,0,0)
 	dir = Vector3()
+	toggle_collisions(false)
 	var h = controller.get_parent().get_hand()
 	h.update_hand_sprite("Holding")
 	h.set_animation_playback(false)
@@ -62,6 +63,7 @@ func parse_input():
 
 func throw():
 	print("axe thrown")
+	toggle_collisions(true)
 	#$AnimationPlayer.play("Throw")
 	$ThrowDuration.start()
 	var par = controller.get_parent()

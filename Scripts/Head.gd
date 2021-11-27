@@ -34,7 +34,7 @@ func is_focused():
 	return focus != null
 
 func look_at_object(object):
-	print("looking at ", object.name)
+	#print("looking at ", object.name)
 	focus = object
 	unsubscribe_to()
 

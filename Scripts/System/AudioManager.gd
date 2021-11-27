@@ -1,13 +1,16 @@
 extends Node
 
 export var music_enabled:bool = true
-export(float, 0.0, 1.0) var sfxVolume = 1.0
+export(float, 0.0, 5.0) var sfxVolume = 1.0
 export(float, 0.0, 1.0) var musicVolume = 1.0
 
+var ambiFadeRate = 0.1
+var isFadingAmbiance = false
 var isFadingMusic = false
 var curDB = 0.0
 var dbFadeRate = 0.1
 var prevDB = 0.0
+var targetDB = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,6 +20,8 @@ func _ready():
 func _process(delta):
 	if isFadingMusic:
 		lerp_music()
+	if isFadingAmbiance:
+		lerp_amb()
 
 func db_lerp(val):
 	return 10 * log(val)
@@ -33,10 +38,27 @@ func get_current_music_volume():
 func is_song_playing():
 	return $MusicPlayer.playing
 
+func lerp_amb():
+	$AmbiancePlayer.volume_db = lerp($AmbiancePlayer.volume_db, targetDB, ambiFadeRate)
+	if abs(targetDB - $AmbiancePlayer.volume_db) < 0.2:
+		isFadingMusic = false
+
 func lerp_music():
 	$MusicPlayer.volume_db = lerp($MusicPlayer.volume_db, curDB, dbFadeRate)
 	if abs(curDB - $MusicPlayer.volume_db) < 0.2:
 		isFadingMusic = false
+
+func play_ambiance(ambi, tdb = 0.0, fadeRate = 0.1, from = -1):
+	if ambi is String:
+		ambi = load(ambi)
+	$AmbiancePlayer.stream = ambi
+	if not $AmbiancePlayer.playing:
+		$AmbiancePlayer.volume_db = -100
+	targetDB = tdb
+	isFadingAmbiance = true
+	ambiFadeRate = fadeRate
+	$AmbiancePlayer.play((Global.world.rng.randf_range(0,ambi.get_length())) if from < 0 else from)
+	pass
 
 func play_song(song_path = "res://sounds/error_01.wav", db = 0.0):
 	if(music_enabled):
@@ -68,8 +90,10 @@ func play_sound_3d(sound_path = "res://sounds/error_01.wav", db = 0, pos = Vecto
 
 func queue_channel(channel = $AudioStreamPlayer, sound_path = "res://sounds/error_01.wav", db = 0, pitch = 1.0):
 	#print("queing channel ", channel.name, " with VOLUME = ", db)
+	if sound_path is String:
+		sound_path = load(sound_path)
 	channel.volume_db = db
-	channel.stream = load(sound_path)
+	channel.stream = sound_path
 	channel.pitch_scale = pitch
 	channel.play()
 	return channel
@@ -82,3 +106,7 @@ func queue_3d_channel(channel = $AudioStreamPlayer3D, sound_path = "res://sounds
 	channel.unit_size = size
 	channel.play()
 	return channel
+
+func stop_ambiance():
+	isFadingAmbiance = true
+	targetDB = -100

@@ -1,0 +1,100 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Textures/objects/luckytreat.jpg" type="Texture" id=1]
+[ext_resource path="res://prefabs/Interactables/Interactable.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Objects/LuckyTreat.gd" type="Script" id=3]
+[ext_resource path="res://prefabs/Misc/Events/PlaySound.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Sounds/Item2A.wav" type="AudioStream" id=5]
+
+[sub_resource type="SpatialMaterial" id=1]
+resource_name = "Material"
+flags_unshaded = true
+albedo_color = Color( 0.8, 0.8, 0.8, 1 )
+albedo_texture = ExtResource( 1 )
+distance_fade_mode = 2
+distance_fade_min_distance = 0.0
+distance_fade_max_distance = 1.5
+
+[sub_resource type="ArrayMesh" id=2]
+surfaces/0 = {
+"aabb": AABB( -0.030814, -0.096429, -0.075203, 0.061628, 0.192868, 0.150406 ),
+"array_data": PoolByteArray( 164, 109, 252, 188, 145, 124, 197, 61, 8, 4, 154, 189, 0, 127, 0, 0, 0, 0, 129, 127, 71, 59, 40, 172, 164, 109, 252, 60, 145, 124, 197, 61, 8, 4, 154, 189, 0, 127, 0, 0, 0, 0, 129, 127, 71, 59, 247, 43, 164, 109, 252, 188, 145, 124, 197, 61, 8, 4, 154, 61, 0, 127, 0, 0, 0, 0, 129, 127, 121, 47, 40, 172, 164, 109, 252, 60, 145, 124, 197, 61, 8, 4, 154, 61, 0, 127, 0, 0, 0, 0, 129, 127, 121, 47, 247, 43, 164, 109, 252, 60, 145, 124, 197, 61, 8, 4, 154, 61, 0, 0, 127, 0, 127, 0, 0, 127, 64, 47, 6, 43, 164, 109, 252, 60, 145, 124, 197, 189, 8, 4, 154, 61, 0, 0, 127, 0, 127, 0, 0, 127, 64, 47, 1, 60, 164, 109, 252, 188, 145, 124, 197, 61, 8, 4, 154, 61, 0, 0, 127, 0, 127, 0, 0, 127, 52, 26, 6, 43, 164, 109, 252, 188, 145, 124, 197, 189, 8, 4, 154, 61, 0, 0, 127, 0, 127, 0, 0, 127, 52, 26, 1, 60, 164, 109, 252, 188, 145, 124, 197, 61, 8, 4, 154, 61, 129, 0, 0, 0, 0, 0, 127, 127, 69, 47, 219, 42, 164, 109, 252, 188, 145, 124, 197, 189, 8, 4, 154, 61, 129, 0, 0, 0, 0, 0, 127, 127, 69, 47, 255, 59, 164, 109, 252, 188, 145, 124, 197, 61, 8, 4, 154, 189, 129, 0, 0, 0, 0, 0, 127, 127, 218, 26, 219, 42, 164, 109, 252, 188, 145, 124, 197, 189, 8, 4, 154, 189, 129, 0, 0, 0, 0, 0, 127, 127, 218, 26, 255, 59, 164, 109, 252, 60, 145, 124, 197, 189, 8, 4, 154, 189, 0, 129, 0, 0, 127, 0, 0, 127, 116, 57, 147, 51, 164, 109, 252, 188, 145, 124, 197, 189, 8, 4, 154, 189, 0, 129, 0, 0, 127, 0, 0, 127, 150, 53, 147, 51, 164, 109, 252, 60, 145, 124, 197, 189, 8, 4, 154, 61, 0, 129, 0, 0, 127, 0, 0, 127, 116, 57, 39, 174, 164, 109, 252, 188, 145, 124, 197, 189, 8, 4, 154, 61, 0, 129, 0, 0, 127, 0, 0, 127, 150, 53, 39, 174, 164, 109, 252, 60, 145, 124, 197, 61, 8, 4, 154, 189, 127, 0, 0, 0, 0, 0, 129, 127, 63, 59, 219, 42, 164, 109, 252, 60, 145, 124, 197, 189, 8, 4, 154, 189, 127, 0, 0, 0, 0, 0, 129, 127, 63, 59, 0, 60, 164, 109, 252, 60, 145, 124, 197, 61, 8, 4, 154, 61, 127, 0, 0, 0, 0, 0, 129, 127, 109, 47, 219, 42, 164, 109, 252, 60, 145, 124, 197, 189, 8, 4, 154, 61, 127, 0, 0, 0, 0, 0, 129, 127, 109, 47, 0, 60, 164, 109, 252, 188, 145, 124, 197, 61, 8, 4, 154, 189, 0, 0, 129, 0, 129, 0, 0, 127, 0, 60, 230, 42, 164, 109, 252, 188, 145, 124, 197, 189, 8, 4, 154, 189, 0, 0, 129, 0, 129, 0, 0, 127, 0, 60, 0, 60, 164, 109, 252, 60, 145, 124, 197, 61, 8, 4, 154, 189, 0, 0, 129, 0, 129, 0, 0, 127, 70, 59, 230, 42, 164, 109, 252, 60, 145, 124, 197, 189, 8, 4, 154, 189, 0, 0, 129, 0, 129, 0, 0, 127, 70, 59, 0, 60 ),
+"array_index_data": PoolByteArray( 0, 0, 1, 0, 2, 0, 2, 0, 1, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 7, 0, 8, 0, 9, 0, 10, 0, 10, 0, 9, 0, 11, 0, 12, 0, 13, 0, 14, 0, 14, 0, 13, 0, 15, 0, 16, 0, 17, 0, 18, 0, 18, 0, 17, 0, 19, 0, 20, 0, 21, 0, 22, 0, 22, 0, 21, 0, 23, 0 ),
+"blend_shape_data": [  ],
+"format": 97559,
+"index_count": 36,
+"material": SubResource( 1 ),
+"name": "Material",
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 24
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "default"
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("LuckyTreat:translation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("LuckyTreat:translation:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( -0.0606182, -0.25, 0, 0.25, 0, 0.0529549, -0.25, 0, 0.25, 0, -0.0606182, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("LuckyTreat:translation:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("LuckyTreat:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 360, 0 ) ]
+}
+
+[node name="LuckyTreat" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="Interactable" parent="." instance=ExtResource( 2 )]
+playSoundOnInteract = false
+prompt = "+Treats"
+
+[node name="LuckyTreat" type="MeshInstance" parent="."]
+transform = Transform( 1.66852, 0, 0, 0, 1.66852, 0, 0, 0, 1.66852, 0, -0.0606182, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+playback_speed = 0.5
+anims/default = SubResource( 3 )
+
+[node name="PlaySound" parent="." instance=ExtResource( 4 )]
+sfx = ExtResource( 5 )
+volume = -10.0
+[connection signal="interaction" from="Interactable" to="." method="acquire_treat"]
+[connection signal="interaction" from="Interactable" to="PlaySound" method="trigger"]

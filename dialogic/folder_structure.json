@@ -90,7 +90,7 @@
 					},
 					"metadata": {
 						"color": null,
-						"folded": true
+						"folded": false
 					}
 				}
 			},
@@ -146,14 +146,15 @@
 					"files": [
 						"timeline-1631576466.json",
 						"timeline-1631576624.json",
-						"timeline-1631576635.json"
+						"timeline-1631576635.json",
+						"timeline-1638003372.json"
 					],
 					"folders": {
 
 					},
 					"metadata": {
 						"color": null,
-						"folded": true
+						"folded": false
 					}
 				},
 				"Patches": {
@@ -178,7 +179,7 @@
 					},
 					"metadata": {
 						"color": null,
-						"folded": false
+						"folded": true
 					}
 				},
 				"Seamus": {

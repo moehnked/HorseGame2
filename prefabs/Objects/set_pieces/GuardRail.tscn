@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprites/misc/guardrail.png" type="Texture" id=1]
+
+[sub_resource type="QuadMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+params_cull_mode = 2
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 5.33, 1, 1 )
+uv1_offset = Vector3( 0.478, -0.551, 0 )
+uv1_triplanar = true
+
+[sub_resource type="ConcavePolygonShape" id=3]
+data = PoolVector3Array( -0.5, -0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, -0.5, 0 )
+
+[node name="GuardRail" type="MeshInstance"]
+transform = Transform( -1.80985, 0, -5.89725e-07, 0, 0.775854, 0, 3.25841e-07, 0, -1, 0, 4.14105, -0.986465 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 3 )

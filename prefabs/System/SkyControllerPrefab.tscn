@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/System/SkyController.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Shaders/SkyPresets/space01.tres" type="Material" id=4]
 [ext_resource path="res://Shaders/SkyPresets/dark01.tres" type="Material" id=5]
 [ext_resource path="res://Shaders/SkyPresets/fog01.tres" type="Material" id=6]
+[ext_resource path="res://Shaders/SkyPresets/underwater.tres" type="Material" id=7]
 
 [node name="SkyController" type="Node2D"]
 script = ExtResource( 1 )
@@ -13,13 +14,15 @@ skys = {
 "day": ExtResource( 3 ),
 "fog": ExtResource( 6 ),
 "late": ExtResource( 5 ),
-"night": ExtResource( 4 )
+"night": ExtResource( 4 ),
+"underwater": ExtResource( 7 )
 }
 
 [node name="Sprite2" type="Sprite" parent="."]
 material = ExtResource( 6 )
 position = Vector2( 612, 300 )
 scale = Vector2( 20, 10 )
+z_index = -1
 texture = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
