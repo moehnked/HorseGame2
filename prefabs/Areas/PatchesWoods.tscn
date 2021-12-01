@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=2]
+[gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://models/Areas/GrassyMound.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Textures/jungle/Tileable1f.png" type="Texture" id=2]
@@ -31,7 +31,7 @@
 [ext_resource path="res://prefabs/Misc/Events/AddGroupToTarget.tscn" type="PackedScene" id=29]
 [ext_resource path="res://prefabs/Misc/Events/DeloadTargetGroup.tscn" type="PackedScene" id=30]
 [ext_resource path="res://prefabs/Misc/Events/CallMethodsInGroup.tscn" type="PackedScene" id=31]
-[ext_resource path="res://prefabs/Objects/Bottle.tscn" type="PackedScene" id=32]
+[ext_resource path="res://prefabs/Areas/MainWorld.tscn" type="PackedScene" id=32]
 [ext_resource path="res://prefabs/Misc/Events/TeleportTargetToPoint.tscn" type="PackedScene" id=33]
 [ext_resource path="res://prefabs/Misc/Events/PlaySong.tscn" type="PackedScene" id=34]
 [ext_resource path="res://prefabs/Misc/Events/Delay.tscn" type="PackedScene" id=35]
@@ -66,6 +66,7 @@
 [ext_resource path="res://models/objects/setpieces/beam.obj" type="ArrayMesh" id=64]
 [ext_resource path="res://prefabs/Objects/set_pieces/beam.tscn" type="PackedScene" id=65]
 [ext_resource path="res://prefabs/Horses/HorseNPC_Generic.tscn" type="PackedScene" id=66]
+[ext_resource path="res://scenes/Loading.tscn" type="PackedScene" id=67]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 2 )
@@ -1252,9 +1253,16 @@ groupName = "Patches"
 dialoguePoint = 11
 targetNPC = NodePath("../Patches")
 
-[node name="EndTutorial" parent="." groups=[
+[node name="SpawnLoading" parent="." groups=[
 "EndTutorial",
-] instance=ExtResource( 7 )]
+] instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 89.4467, -1.48444, 150.636 )
+nextEvent = [ NodePath("../EndTutorial") ]
+res = ExtResource( 67 )
+deleteSelf = false
+deletedTriggerer = false
+
+[node name="EndTutorial" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 89.4467, -1.48444, 150.636 )
 nextEvent = [ NodePath("../LoadHandWithGroup"), NodePath("../CallMethodsInGroup") ]
 deleteAfterTrig = true
@@ -1286,7 +1294,7 @@ res = ExtResource( 32 )
 deletedTriggerer = false
 
 [node name="TeleportTargetToPoint" parent="." instance=ExtResource( 33 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 46, 147.541, 46 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 434.058, 138.674, -297.71 )
 point = NodePath(".")
 
 [node name="PlaySong" parent="." instance=ExtResource( 34 )]

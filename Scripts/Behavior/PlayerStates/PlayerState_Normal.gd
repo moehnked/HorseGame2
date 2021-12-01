@@ -63,9 +63,12 @@ func parse_movement(actor, delta):
 	if actor.get_slide_count() >= 1:
 		n = actor.get_slide_collision(0)
 	var floor_angle = 0
-	if n != null:
+	if n != null and n.collider != null:
 		floor_angle = rad2deg(n.normal.angle_to(Vector3.UP))
-		if floor_angle > actor.MAX_SLOPE_ANGLE:
+		if floor_angle < 75 and n.collider.is_in_group("Stairs"):
+			print("FPS: Normal: walking on stairs")
+			pass
+		elif floor_angle > actor.MAX_SLOPE_ANGLE:
 			#print("xwa")
 			velocity.y += gravity * delta
 			if n.collider.is_in_group("Ground"):

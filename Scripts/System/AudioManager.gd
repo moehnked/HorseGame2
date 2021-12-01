@@ -3,12 +3,14 @@ extends Node
 export var music_enabled:bool = true
 export(float, 0.0, 5.0) var sfxVolume = 1.0
 export(float, 0.0, 1.0) var musicVolume = 1.0
+export(Array, AudioStream) var normal_tracks
 
 var ambiFadeRate = 0.1
-var isFadingAmbiance = false
-var isFadingMusic = false
 var curDB = 0.0
 var dbFadeRate = 0.1
+var isFadingAmbiance = false
+var isFadingMusic = false
+var noMusicTicks = 0
 var prevDB = 0.0
 var targetDB = 0.0
 
@@ -34,6 +36,16 @@ func fade_music(dbTo, rate = 0.1, restore = false):
 
 func get_current_music_volume():
 	return $MusicPlayer.volume_db
+
+func hour_alert():
+	if not is_song_playing():
+		noMusicTicks -= 1
+		if noMusicTicks <= 0:
+			$MusicPlayer.stream = Utils.get_random(normal_tracks)
+			$MusicPlayer.play()
+			noMusicTicks = Global.world.rng.randi_range(2,10)
+		pass
+		
 
 func is_song_playing():
 	return $MusicPlayer.playing

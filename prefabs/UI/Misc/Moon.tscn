@@ -296,23 +296,22 @@ script = ExtResource( 2 )
 
 [node name="origin" type="Node2D" parent="."]
 position = Vector2( 517.918, 1292.45 )
-rotation = 6.11435
+rotation = 3.14159
 
 [node name="Node2D" type="Node2D" parent="origin"]
 position = Vector2( 0, -1178.38 )
-rotation = -2.97276
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="origin/Node2D"]
 frames = SubResource( 51 )
 animation = "spin"
-frame = 36
+frame = 35
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="origin/Node2D"]
 modulate = Color( 1, 1, 1, 0.121569 )
 frames = SubResource( 51 )
 animation = "spin"
-frame = 2
+frame = 26
 speed_scale = 0.75
 playing = true
 
@@ -320,7 +319,7 @@ playing = true
 modulate = Color( 1, 1, 1, 0.0862745 )
 frames = SubResource( 51 )
 animation = "spin"
-frame = 49
+frame = 48
 speed_scale = 0.5
 playing = true
 

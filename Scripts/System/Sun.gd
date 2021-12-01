@@ -1,5 +1,6 @@
 extends Spatial
 
+var hr = 0
 var minute = 720
 var MaxMinutes = 1440
 var rotPerc = 0.25
@@ -23,24 +24,28 @@ func _process(delta):
 
 func check_sky():
 	#print_time_of_day(minute)
-	var hr = get_hour(minute)
+	var h = get_hour(minute)
+	if h > hr:
+		print("Hour Tick")
+		Global.world.get_tree().call_group("HourAlert", "hour_alert")
+	hr = h
 	if hr > 3 and skyMode == "night":
 		print("day starting")
 		skyMode = "day"
 		Global.SkyController.set_sky(skyMode)
-		Global.SkyController.set_global_lighting(Color(1,1,1,1), 0.001)
+		Global.SkyController.set_global_lighting(Color(1,1,1,1), 0.001, false)
 		lightLevel = 1.0
 	if minute >= 900 and skyMode == "day":
 		print("evening starting")
 		skyMode = "late"
 		Global.SkyController.set_sky(skyMode)
-		Global.SkyController.set_global_lighting(Color(0,0,0,1), 0.001)
+		Global.SkyController.set_global_lighting(Color(0.1,0,0,1), 0.001, false)
 		lightLevel - 0.5
 	if minute >= 1100 and skyMode == "late":
 		print("night starting")
 		skyMode = "night"
 		Global.SkyController.set_sky(skyMode)
-		Global.SkyController.set_global_lighting(Color(0,0,0,1), 0.001)
+		Global.SkyController.set_global_lighting(Color(0,0,0.15,1), 0.001, false)
 		lightLevel = 0.1
 	$DirectionalLight.light_energy = lerp($DirectionalLight.light_energy, lightLevel, 0.1)
 	pass

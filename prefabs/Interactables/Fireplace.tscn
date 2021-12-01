@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Textures/128x128/Bricks/Brick 23 - 128x128.png" type="Texture" id=1]
+[ext_resource path="res://models/objects/fireplace.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://prefabs/Interactables/InteractableNoPreset.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/Interactables/Door_Generic.gd" type="Script" id=4]
+[ext_resource path="res://Sprites/Objects/fireplaceDoor.png" type="Texture" id=5]
+
+[sub_resource type="PlaneMesh" id=3]
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_transparent = true
+params_cull_mode = 2
+albedo_texture = ExtResource( 5 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 1, 1, 0.121462 )
+
+[sub_resource type="SpatialMaterial" id=1]
+params_diffuse_mode = 4
+params_cull_mode = 2
+albedo_color = Color( 0.682353, 0.682353, 0.682353, 1 )
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 0.1, 0.1, 0.1 )
+uv1_triplanar = true
+
+[sub_resource type="ConcavePolygonShape" id=2]
+data = PoolVector3Array( 0.8546, -1.6378, 0.9047, 0.9388, -1.0129, 0.9407, 0.9693, -1.0037, 0.3904, 0.854, -1.0146, -0.8941, 1, 1, -1, 0.3905, -1.0042, -0.9702, -0.8552, -1.011, 0.966, -0.7807, 0.7807, 1, -0.7807, -0.7807, 1, 1, 1, 1, 0.7807, -0.7807, 1, 0.7807, 0.7807, 1, 0.7807, -0.7807, -0.588, 0.7807, 0.7807, 1, 0.7807, -0.7807, 1, -0.7807, 0.7807, -0.588, -0.7807, -0.7807, 1, -0.7807, 0.7807, 1, 0.9693, -1.0037, 0.3904, 0.854, -1.0146, -0.8941, 0.6126, -1.0036, -0.3905, 0.7807, 0.7807, -0.588, -0.7807, 0.7807, 1, 0.7807, 0.7807, 1, -0.8552, -1.011, 0.966, 0.7807, -0.7807, 1, 0.9388, -1.0129, 0.9407, 0.3905, -1.0042, -0.9702, -1, 1, -1, -0.938, -1.0112, -0.9298, -0.9697, -1.0037, 0.3903, -0.7757, -1, -0.3879, -0.938, -1.0112, -0.9298, -0.7807, -0.7807, -0.588, -0.7807, 0.7807, -0.588, 0.7807, -0.7807, -0.588, 0.3892, -1.0023, 0.6117, 0.6126, -1.0036, -0.3905, -0.3893, -1.0022, -0.6178, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 0.7807, 0.7807, 1, -0.7807, 0.7807, 1, 0.7807, -0.7807, -0.588, 0.7807, -0.7807, 1, -0.7807, -0.7807, 1, 0.8517, -1.6342, -0.9124, 0.854, -1.0146, -0.8941, 0.3905, -1.0042, -0.9702, -0.8545, -1.6329, -0.9111, -0.7757, -1, -0.3879, -0.3893, -1.0022, -0.6178, 0.9693, -1.0037, 0.3904, 1, 1, -1, 0.854, -1.0146, -0.8941, -0.938, -1.0112, -0.9298, -1, 1, -1, -0.9697, -1.0037, 0.3903, -0.9697, -1.0037, 0.3903, -1, 1, 1, -0.8552, -1.011, 0.966, -0.3913, -1.0058, 0.6104, 0.3892, -1.0023, 0.6117, -0.3893, -1.0022, -0.6178, 0.9388, -1.0129, 0.9407, 1, 1, 1, 0.9693, -1.0037, 0.3904, 0.8546, -1.6378, 0.9047, 0.9693, -1.0037, 0.3904, 0.3892, -1.0023, 0.6117, 0.8517, -1.6342, -0.9124, 0.3905, -1.0042, -0.9702, 0.6126, -1.0036, -0.3905, -0.8545, -1.6329, -0.9111, -0.938, -1.0112, -0.9298, -0.7757, -1, -0.3879, -0.8598, -1.6392, 0.9061, -0.8552, -1.011, 0.966, -0.3913, -1.0058, 0.6104, -1, 1, 1, -0.7807, 0.7807, 1, -0.8552, -1.011, 0.966, 0.9388, -1.0129, 0.9407, 0.7807, -0.7807, 1, 1, 1, 1, 0.7807, 0.7807, -0.588, 0.7807, 0.7807, 1, 0.7807, -0.7807, -0.588, -0.7807, -0.7807, -0.588, -0.7807, -0.7807, 1, -0.7807, 0.7807, -0.588, 0.3892, -1.0023, 0.6117, -0.3913, -1.0058, 0.6104, -0.8552, -1.011, 0.966, -0.7807, 0.7807, -0.588, -0.7807, 0.7807, 1, 0.7807, 0.7807, -0.588, -0.7807, 0.7807, -0.588, 0.7807, 0.7807, -0.588, 0.7807, -0.7807, -0.588, -0.7807, -0.7807, 1, 0.7807, -0.7807, 1, -0.8552, -1.011, 0.966, 0.7807, -0.7807, -0.588, -0.7807, -0.7807, 1, -0.7807, -0.7807, -0.588, -1, 1, 1, -1, 1, -1, 1, 1, 1, -0.3893, -1.0022, -0.6178, -0.7757, -1, -0.3879, -0.9697, -1.0037, 0.3903, 1, 1, 1, 1, 1, -1, 0.9693, -1.0037, 0.3904, -1, 1, -1, -1, 1, 1, -0.9697, -1.0037, 0.3903, 0.6126, -1.0036, -0.3905, 0.854, -1.0146, -0.8941, 0.8517, -1.6342, -0.9124, -0.938, -1.0112, -0.9298, -0.3893, -1.0022, -0.6178, 0.3905, -1.0042, -0.9702, 0.9388, -1.0129, 0.9407, 0.3892, -1.0023, 0.6117, -0.8552, -1.011, 0.966, 1, 1, 1, 0.7807, 0.7807, 1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 0.3905, -1.0042, -0.9702, 0.6126, -1.0036, -0.3905, 0.3905, -1.0042, -0.9702, -0.3893, -1.0022, -0.6178, -0.3913, -1.0058, 0.6104, -0.3893, -1.0022, -0.6178, -0.9697, -1.0037, 0.3903, 0.9693, -1.0037, 0.3904, 0.6126, -1.0036, -0.3905, 0.3892, -1.0023, 0.6117, -0.3913, -1.0058, 0.6104, -0.9697, -1.0037, 0.3903, -0.8598, -1.6392, 0.9061, -0.9697, -1.0037, 0.3903, -0.8552, -1.011, 0.966, -0.8598, -1.6392, 0.9061, -0.3893, -1.0022, -0.6178, -0.938, -1.0112, -0.9298, -0.8545, -1.6329, -0.9111, 0.3892, -1.0023, 0.6117, 0.9388, -1.0129, 0.9407, 0.8546, -1.6378, 0.9047 )
+
+[node name="FirePlace" type="StaticBody"]
+
+[node name="Door_Generic" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.53629 )
+script = ExtResource( 4 )
+
+[node name="DoorOpenMesh" type="Spatial" parent="Door_Generic"]
+visible = false
+
+[node name="MeshInstance3" type="MeshInstance" parent="Door_Generic/DoorOpenMesh"]
+transform = Transform( -0.172391, 1.07697, -1.19762e-07, 0, -1.78168e-07, -0.746433, -0.977677, -0.1899, 2.11173e-08, 0.943238, -0.0376759, 0.374644 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="DoorClosedMesh" type="Spatial" parent="Door_Generic"]
+transform = Transform( 1.09359, 0, 0, 0, 1.09359, 0, 0, 0, 1.09359, -0.155896, -0.0376759, -0.536529 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Door_Generic/DoorClosedMesh"]
+transform = Transform( 0.9078, 0, 0, 0, -1.11202e-07, -0.682554, 0, 1, -1.62921e-07, 0, 0, 0 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="StaticBody" type="StaticBody" parent="Door_Generic"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.413999 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Door_Generic/StaticBody"]
+shape = SubResource( 5 )
+
+[node name="Interactable" parent="Door_Generic" instance=ExtResource( 3 )]
+transform = Transform( 0.780268, 0, 0, 0, 0.780268, 0, 0, 0, 1.87226, 0, 0, -0.128155 )
+interactSound = "res://Sounds/creak.wav"
+
+[node name="CollisionShape2" type="CollisionShape" parent="Door_Generic/Interactable"]
+shape = SubResource( 5 )
+
+[node name="fireplace" type="MeshInstance" parent="."]
+mesh = ExtResource( 2 )
+material/0 = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 2 )
+[connection signal="emit_prompt" from="Door_Generic/Interactable" to="Door_Generic" method="_on_Interactable_emit_prompt"]
+[connection signal="interaction" from="Door_Generic/Interactable" to="Door_Generic" method="_on_Interactable_interaction"]

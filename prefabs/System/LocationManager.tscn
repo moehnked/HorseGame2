@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/System/LocationManager.gd" type="Script" id=1]
+[ext_resource path="res://Sounds/Special_6Slow.wav" type="AudioStream" id=2]
+
+[node name="LocationManager" type="Node" groups=[
+"LocationManager",
+]]
+script = ExtResource( 1 )
+discoverySound = ExtResource( 2 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://models/Areas/miniTemple.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://prefabs/Misc/Rock_01.tscn" type="PackedScene" id=2]
@@ -33,6 +33,7 @@
 [ext_resource path="res://prefabs/UI/Misc/Tutorial_MouseWheel.tscn" type="PackedScene" id=31]
 [ext_resource path="res://prefabs/Misc/Events/UpdateGlobalLighting.tscn" type="PackedScene" id=32]
 [ext_resource path="res://prefabs/Interactables/SpellSign_Lasso.tscn" type="PackedScene" id=33]
+[ext_resource path="res://scenes/Loading.tscn" type="PackedScene" id=34]
 [ext_resource path="res://prefabs/Effects/HandStuff/HandWave.tscn" type="PackedScene" id=36]
 [ext_resource path="res://prefabs/Misc/Events/Delay.tscn" type="PackedScene" id=37]
 [ext_resource path="res://prefabs/Misc/Events/UpdateNPCDialoguePoint.tscn" type="PackedScene" id=38]
@@ -479,9 +480,7 @@ res = ExtResource( 26 )
 deleteSelf = false
 deletedTriggerer = false
 
-[node name="LoadFirstHandwave" parent="." groups=[
-"LoadPatchesHand01",
-] instance=ExtResource( 17 )]
+[node name="LoadFirstHandwave" parent="." instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -36.6798, 2.32337, 0.466926 )
 res = ExtResource( 36 )
 deleteSelf = false
@@ -505,6 +504,15 @@ eventToTrigger = NodePath("../UpdateNPCDialoguePoint")
 ] instance=ExtResource( 30 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21.8251, 10.4737, -1.48708 )
 nextEvent = [ NodePath("../UpdateNPCDialoguePoint") ]
+
+[node name="SpawnLoadingScreen" parent="." groups=[
+"LoadPatchesHand01",
+] instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21.8251, 10.4737, -1.48708 )
+nextEvent = [ NodePath("../LoadFirstHandwave") ]
+res = ExtResource( 34 )
+deleteSelf = false
+deletedTriggerer = false
 
 [node name="SnapEventChain" parent="." groups=[
 "patches_snap01",

@@ -39,7 +39,7 @@ targetEvent = NodePath("../CallMethodsOnTarget")
 
 [node name="PlaySound" parent="." instance=ExtResource( 12 )]
 random_sounds = [ ExtResource( 11 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ]
-volume = -5.0
+volume = -7.0
 
 [node name="CallMethodsOnTarget" parent="." instance=ExtResource( 3 )]
 methodName = "queue_free"
@@ -49,7 +49,7 @@ target = NodePath("..")
 res = ExtResource( 7 )
 deleteSelf = false
 deletedTriggerer = false
-[connection signal="destroy" from="Damageable" to="PlaySound" method="trigger"]
 [connection signal="destroy" from="Damageable" to="Delay" method="trigger"]
 [connection signal="destroy" from="Damageable" to="." method="spawn_objects"]
+[connection signal="destroy" from="Damageable" to="PlaySound" method="trigger"]
 [connection signal="destroy" from="Damageable" to="LoadTargetResource" method="trigger"]

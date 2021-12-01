@@ -86,7 +86,7 @@ shadow_atlas_size = 2
 [node name="InputObserver" parent="ViewportContainer2/Viewport" instance=ExtResource( 7 )]
 
 [node name="NEW_FPSController" parent="ViewportContainer2/Viewport" instance=ExtResource( 1 )]
-transform = Transform( 0.283525, 0, -0.357387, 0, 0.456193, 0, 0.357387, 0, 0.283525, -56.2921, 0, 54.5301 )
+transform = Transform( -0.263328, 0, 0.372519, 0, 0.456193, 0, -0.372519, 0, -0.263328, 91.2538, 0, 127.803 )
 spellList = [ "Null", "Punch", "Lasso" ]
 
 [node name="PatchesWoods" parent="ViewportContainer2/Viewport" instance=ExtResource( 2 )]

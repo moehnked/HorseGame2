@@ -276,8 +276,8 @@ nextEvent = [ NodePath("../LoadTargetResource3") ]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 38.6985, 2.1635, 39.462 )
 items = {
 Resource( "res://prefabs/Items/Permit.tscn" ): 1,
-Resource( "res://prefabs/Items/Handaxe.tscn" ): 1,
 Resource( "res://prefabs/Items/Mallet.tscn" ): 1,
+Resource( "res://prefabs/Items/Handaxe.tscn" ): 1,
 ExtResource( 24 ): 1
 }
 

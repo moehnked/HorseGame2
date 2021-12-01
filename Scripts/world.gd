@@ -16,6 +16,9 @@ func _ready():
 func add_child( node, legible_unique_name=false):
 	$ViewportContainer2/Viewport.add_child(node, legible_unique_name)
 
+func add_child_ui(node, legible_unique_name=false):
+	$ViewportContainer/Viewport.add_child(node, legible_unique_name)
+
 func call_no_args(timer):
 	if callback.keys().has(timer) and caller.keys().has(timer):
 		print("[world]: ",caller[timer], " calling ", callback[timer])

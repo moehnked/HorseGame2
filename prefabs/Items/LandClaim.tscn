@@ -1,11 +1,10 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://prefabs/Interactables/InteractableNoPreset.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Items/LandClaim.gd" type="Script" id=2]
 [ext_resource path="res://prefabs/UI/Context.tscn" type="PackedScene" id=3]
 [ext_resource path="res://prefabs/UI/ItemContext_Description.tscn" type="PackedScene" id=4]
 [ext_resource path="res://prefabs/UI/ItemContext_Equip.tscn" type="PackedScene" id=5]
-[ext_resource path="res://prefabs/UI/ItemContext_Discard.tscn" type="PackedScene" id=6]
 [ext_resource path="res://models/objects/Sign.obj" type="ArrayMesh" id=7]
 [ext_resource path="res://Materials/basic_wood_02.tres" type="Material" id=8]
 [ext_resource path="res://Sprites/misc/flyer_01.png" type="Texture" id=9]
@@ -28,6 +27,8 @@ points = PoolVector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1,
 [node name="LandClaim" type="RigidBody"]
 mode = 1
 script = ExtResource( 2 )
+icon = "res://Sprites/Items/Misc.png"
+itemName = "Land Claim"
 
 [node name="Interactable" parent="." instance=ExtResource( 1 )]
 playSoundOnInteract = false
@@ -43,9 +44,6 @@ shape = SubResource( 1 )
 description = "A stakable claim to some land. Equip to place."
 
 [node name="Equip" parent="Context" instance=ExtResource( 5 )]
-visible = false
-
-[node name="Discard" parent="Context" instance=ExtResource( 6 )]
 visible = false
 
 [node name="MeshInstance" type="MeshInstance" parent="."]

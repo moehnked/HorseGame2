@@ -47,6 +47,14 @@ func lerp_color():
 	var a = lerp(envRes.ambient_light_color.a, curColor.a, ltr)
 	envRes.ambient_light_color = Color(r,g,b,a)
 
+func get_environment():
+	var e = {}
+	e['anvcolor'] = envRes.ambient_light_color
+	e['curcolor'] = curColor
+	e['ltr'] = ltr
+	e['fog'] = envRes.fog_enabled
+	return e
+
 func get_sky():
 	return curSkyName
 

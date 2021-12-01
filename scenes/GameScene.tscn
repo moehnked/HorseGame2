@@ -88,6 +88,7 @@ shadow_atlas_size = 2
 
 [node name="NEW_FPSController" parent="ViewportContainer2/Viewport" instance=ExtResource( 1 )]
 transform = Transform( 0.456, 0, 0, 0, 0.456, 0, 0, 0, 0.456, -4.05131, -1.12614, -0.659756 )
+MAX_SPEED = 7
 
 [node name="Temple" parent="ViewportContainer2/Viewport" instance=ExtResource( 16 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -118.181, 37.782, -239.236 )

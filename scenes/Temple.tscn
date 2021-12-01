@@ -8129,7 +8129,7 @@ lockTime = 3.0
 deleteAfterFocus = false
 hardLock = true
 
-[node name="MeshInstance5" type="MeshInstance" parent="." groups=[
+[node name="HorseWall" type="MeshInstance" parent="." groups=[
 "HorseRelief",
 ]]
 transform = Transform( -3.47479e-06, 0, -21.3281, 0, 21.3281, 0, 21.3281, 0, -3.47479e-06, 277.968, -88.0704, 19.2988 )
@@ -8140,9 +8140,9 @@ nextEvent = [ NodePath("../Play3DSound"), NodePath("../loadDust2") ]
 offset = Vector3( 0, -60, 0 )
 weight = 0.002
 
-[node name="StaticBody" type="StaticBody" parent="MeshInstance5"]
+[node name="StaticBody" type="StaticBody" parent="HorseWall"]
 
-[node name="CollisionShape" type="CollisionShape" parent="MeshInstance5/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="HorseWall/StaticBody"]
 shape = SubResource( 32 )
 
 [node name="Play3DSound" parent="." instance=ExtResource( 59 )]
@@ -8156,16 +8156,16 @@ res = ExtResource( 49 )
 deleteSelf = false
 deletedTriggerer = false
 
-[node name="Spatial" type="Spatial" parent="."]
+[node name="LastWheelContainer" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 250.526, -98.371, 17.858 )
 script = ExtResource( 58 )
 offset = Vector3( 0, 5, 0 )
 weight = 0.01
 
-[node name="CrankWheel" parent="Spatial" instance=ExtResource( 47 )]
-targetNode = NodePath("DelayCenter")
+[node name="CrankWheel" parent="LastWheelContainer" instance=ExtResource( 47 )]
+targetNode = NodePath("../../LastWheelContainer/CrankWheel/DelayCenter")
 
-[node name="DelayCenter" parent="Spatial/CrankWheel" instance=ExtResource( 50 )]
+[node name="DelayCenter" parent="LastWheelContainer/CrankWheel" instance=ExtResource( 50 )]
 timeDelay = 0.2
 targetEvent = NodePath("../../../HorsePillar1/FocusHorse")
 
@@ -8328,5 +8328,7 @@ deleteAfterTrig = true
 sfx = ExtResource( 64 )
 [connection signal="emit_event_triggered" from="HorsePillar1" to="HorsePillar1" method="_on_HorsePillar1_emit_event_triggered"]
 [connection signal="rotation_complete" from="HorsePillar1" to="HorsePillar1" method="_on_HorsePillar1_rotation_complete"]
+[connection signal="emit_event_triggered" from="HorseWall" to="HorseWall" method="begin_moving"]
+[connection signal="emit_event_triggered" from="LastWheelContainer" to="LastWheelContainer" method="begin_moving"]
 
 [editable path="TempleTile70"]

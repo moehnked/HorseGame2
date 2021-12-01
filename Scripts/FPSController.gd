@@ -56,7 +56,7 @@ var raycastObservers = []
 var lefthandSpell = "Null"
 var righthandSpell = "Null"
 
-var buildList = []
+var buildList = ["Gate"]
 export(Array, String) var spellList = ["Null", "Punch"]
 
 var sfx_grunts = [

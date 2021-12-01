@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://Scripts/FPSController.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/Hand_Idle.png" type="Texture" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://Scripts/Player/Palm_telegrapher.gd" type="Script" id=25]
 [ext_resource path="res://prefabs/UI/InventoryScreen.tscn" type="PackedScene" id=26]
 [ext_resource path="res://prefabs/Effects/WaterSheet.tscn" type="PackedScene" id=27]
+[ext_resource path="res://prefabs/System/LocationManager.tscn" type="PackedScene" id=28]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 3.0
@@ -549,10 +550,12 @@ material/0 = SubResource( 20 )
 [node name="SlidingTimer" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
+
+[node name="LocationManager" parent="." instance=ExtResource( 28 )]
 [connection signal="broadcast_self" from="InteractionManager" to="EquipmentManager" method="_on_InteractionManager_broadcast_self"]
 [connection signal="emit_looking_at" from="InteractionManager" to="EquipmentManager" method="_on_InteractionManager_emit_looking_at"]
-[connection signal="broadcast_self" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="broadcast_self" from="EquipmentManager" to="Head/Palm" method="_on_EquipmentManager_broadcast_self"]
+[connection signal="broadcast_self" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="emit_equipped" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_emit_equipped"]
 [connection signal="emit_unequip" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_emit_unequip"]
 [connection signal="broadcast_self" from="Head/Camera/RayCast_Areas" to="InteractionManager" method="_on_RayCast_Areas_broadcast_self"]

@@ -82,6 +82,7 @@ audio_listener_enable_3d = true
 
 [node name="NEW_FPSController" parent="ViewportContainer2/Viewport" instance=ExtResource( 1 )]
 transform = Transform( 0.456193, 0, 0, 0, 0.456193, 0, 0, 0, 0.456193, -15.4195, 9.56531, 0 )
+MAX_SPEED = 7
 spellList = [ "Null", "Punch", "Lasso" ]
 
 [node name="PatchesGarden" parent="ViewportContainer2/Viewport" instance=ExtResource( 2 )]

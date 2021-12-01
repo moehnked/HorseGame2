@@ -7,16 +7,15 @@ var isMoving = false
 var goalPos
 
 func _ready():
+	print(self, self.name)
 	goalPos = global_transform.origin + offset
 
 func _process(delta):
 	if isMoving:
 		global_transform.origin = global_transform.origin.linear_interpolate(goalPos, weight)
-	
-	
-func trigger(by):
+
+func begin_moving(triggerer = null):
 	isMoving = true
-	.trigger(by)
-	pass
+
 
 

@@ -6,6 +6,7 @@ var x_window = ProjectSettings.get_setting("display/window/size/width")
 var y_window = ProjectSettings.get_setting("display/window/size/height")
 var fadeCoeff = 0
 var fadeScale = 0.03
+var isFadingMusic = false
 var isHidden = false
 
 func _ready():
@@ -30,6 +31,9 @@ func clear():
 
 func hide_context():
 	fadeCoeff = -1
+	if isFadingMusic:
+		isFadingMusic = false
+		Global.AudioManager.fade_music(0, 0.1, true)
 
 func hide_center_prompt():
 	$Label.visible = false
@@ -45,11 +49,15 @@ func show_prompt(prompt, low = false, showButtonPrompt = true):
 	$Label.text = prompt + (buttonText if showButtonPrompt else "")
 	$Label.visible = (true and not isHidden)
 
-func show_context(text):
+func show_context(text, dimMusicWhile = false):
 	$Context.text = text
 	$Context.percent_visible = 0.0
 	fadeCoeff = 1
 	$ContextTimer.start(3)
+	isFadingMusic = dimMusicWhile
+	if isFadingMusic:
+		Global.AudioManager.fade_music(Global.AudioManager.get_current_music_volume() - 10, 0.1)
+	
 
 func unhide_center_prompt():
 	$Label.visible = true

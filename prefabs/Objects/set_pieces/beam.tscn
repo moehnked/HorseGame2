@@ -1,18 +1,28 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://models/objects/setpieces/beam.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://Textures/128x128/Wood/Wood 17 - 128x128.png" type="Texture" id=2]
 
-[sub_resource type="ConcavePolygonShape" id=1]
+[sub_resource type="SpatialMaterial" id=1]
+resource_name = "Material"
+albedo_color = Color( 0.8, 0.8, 0.8, 1 )
+albedo_texture = ExtResource( 2 )
+metallic = 0.5
+distance_fade_mode = 2
+distance_fade_min_distance = 160.0
+distance_fade_max_distance = 70.0
+
+[sub_resource type="ConcavePolygonShape" id=2]
 data = PoolVector3Array( -6.3207, 0.0894, -0.335, 6.3207, 0.0894, -0.335, -6.3207, 0.0894, 0.335, -6.3207, 0.0894, 0.335, 6.3207, 0.0894, -0.335, 6.3207, 0.0894, 0.335, 6.3207, 0.0894, 0.335, 6.3207, -0.0894, 0.335, -6.3207, 0.0894, 0.335, -6.3207, 0.0894, 0.335, 6.3207, -0.0894, 0.335, -6.3207, -0.0894, 0.335, -6.3207, 0.0894, 0.335, -6.3207, -0.0894, 0.335, -6.3207, 0.0894, -0.335, -6.3207, 0.0894, -0.335, -6.3207, -0.0894, 0.335, -6.3207, -0.0894, -0.335, 6.3207, -0.0894, -0.335, -6.3207, -0.0894, -0.335, 6.3207, -0.0894, 0.335, 6.3207, -0.0894, 0.335, -6.3207, -0.0894, -0.335, -6.3207, -0.0894, 0.335, 6.3207, 0.0894, -0.335, 6.3207, -0.0894, -0.335, 6.3207, 0.0894, 0.335, 6.3207, 0.0894, 0.335, 6.3207, -0.0894, -0.335, 6.3207, -0.0894, 0.335, -6.3207, 0.0894, -0.335, -6.3207, -0.0894, -0.335, 6.3207, 0.0894, -0.335, 6.3207, 0.0894, -0.335, -6.3207, -0.0894, -0.335, 6.3207, -0.0894, -0.335 )
 
 [node name="beam" type="MeshInstance"]
 transform = Transform( 1.63397, 0, 0, 0, 1, 0, 0, 0, 2.13169, 214.949, 65.8144, -288.325 )
 mesh = ExtResource( 1 )
-material/0 = null
+material/0 = SubResource( 1 )
 
 [node name="StaticBody" type="StaticBody" parent="." groups=[
 "Wood",
 ]]
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )

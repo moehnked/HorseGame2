@@ -2,7 +2,7 @@ extends "res://Scripts/Interactables/Door_Generic.gd"
 
 export(bool) var isLocked = true
 export(NodePath) var key = null
-var keyName = ""
+export var keyName = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

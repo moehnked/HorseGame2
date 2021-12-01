@@ -119,6 +119,7 @@ albedo_texture = ExtResource( 8 )
 "Patches",
 ]]
 script = ExtResource( 4 )
+dialoguePoint = 10
 speakingVolume = 0.0
 
 [node name="Particles" type="Spatial" parent="."]

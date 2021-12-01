@@ -3,10 +3,14 @@ extends "res://Scripts/Misc/Events/GenericEvent.gd"
 export(Resource) var res
 export(bool) var deleteSelf = true
 export(bool) var deletedTriggerer = true
+export(bool) var isBackground = false
 
 func load_target_resource(by):
 	var o = res.instance()
-	Global.world.add_child(o)
+	if isBackground:
+		Global.world.add_child_ui(o)
+	else:
+		Global.world.add_child(o)
 	if o is Spatial:
 		o.global_transform = global_transform
 	if deletedTriggerer:

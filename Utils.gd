@@ -92,6 +92,9 @@ func get_inventory(controller):
 		return controller.get_inventory()
 	return null
 
+static func get_random(list):
+	return list[Global.world.rng.randi() % list.size()]
+
 static func get_world(node):
 	return node.get_tree().get_root().get_node("World")
 

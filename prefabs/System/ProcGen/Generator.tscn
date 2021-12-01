@@ -33,5 +33,5 @@ wait_time = 0.1
 [node name="Sun" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 215.824, 0 )
 thresh = 0.1
-weight = 0.1
+weight = 0.3
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

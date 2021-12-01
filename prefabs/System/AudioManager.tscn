@@ -1,10 +1,16 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/System/AudioManager.gd" type="Script" id=1]
+[ext_resource path="res://Music/finite_attention.wav" type="AudioStream" id=2]
+[ext_resource path="res://Music/FirstOfItsKind.wav" type="AudioStream" id=3]
+[ext_resource path="res://Music/cycle_of_the_damned.wav" type="AudioStream" id=4]
+[ext_resource path="res://Music/trottings_and_canters.wav" type="AudioStream" id=5]
 
-[node name="AudioManager" type="Node"]
+[node name="AudioManager" type="Node" groups=[
+"HourAlert",
+]]
 script = ExtResource( 1 )
-sfxVolume = 2.0
+normal_tracks = [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 5 ) ]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
