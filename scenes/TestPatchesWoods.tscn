@@ -96,8 +96,8 @@ spellList = [ "Null", "Punch", "Lasso", "Build" ]
 [node name="StarterPack" parent="ViewportContainer2/Viewport" instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 91.3909, 0, 74.7506 )
 items = {
-Resource( "res://prefabs/Items/Handaxe.tscn" ): 1,
 Resource( "res://prefabs/Items/Permit.tscn" ): 1,
+Resource( "res://prefabs/Items/Handaxe.tscn" ): 1,
 Resource( "res://prefabs/Items/LandClaim.tscn" ): 1,
 Resource( "res://prefabs/Items/Mallet.tscn" ): 1
 }
