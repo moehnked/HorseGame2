@@ -1,5 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://Sounds/offer.wav" type="AudioStream" id=1]
+[ext_resource path="res://prefabs/Misc/Events/PlaySound.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/UI/ButcherOffer.gd" type="Script" id=4]
 
 [node name="ButcherOffer" type="Control" groups=[
@@ -20,3 +22,7 @@ margin_bottom = 283.165
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="PlaySound" parent="." instance=ExtResource( 2 )]
+sfx = ExtResource( 1 )
+volume = -3.0

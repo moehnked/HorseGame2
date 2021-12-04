@@ -6,6 +6,8 @@ var callback = {}
 var caller = {}
 var rng = RandomNumberGenerator.new()
 
+var testPointRef = preload("res://prefabs/Misc/TestPoint.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.world = self
@@ -14,6 +16,8 @@ func _ready():
 	pass # Replace with function body.
 
 func add_child( node, legible_unique_name=false):
+	if node.is_in_group("UI_Special"):
+		.add_child(node,legible_unique_name)
 	$ViewportContainer2/Viewport.add_child(node, legible_unique_name)
 
 func add_child_ui(node, legible_unique_name=false):
@@ -25,7 +29,7 @@ func call_no_args(timer):
 		caller[timer].call(callback[timer])
 
 func create_point(point):
-	var obj = load("res://prefabs/Misc/TestPoint.tscn").instance()
+	var obj = testPointRef.instance()
 	obj.global_transform.origin = point
 	add_child(obj)
 	return obj
@@ -40,7 +44,9 @@ func ignore_unique():
 	return true
 
 func instantiate(ref, location = Vector3()):
-	var obj = load(ref).instance()
+	if ref is String:
+		ref = load(ref)
+	var obj = ref.instance() if ref is Resource else ref
 	print("creating object ", obj.name, " at ", location)
 	call_deferred("add_child", obj)
 	if obj is Spatial:

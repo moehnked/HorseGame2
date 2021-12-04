@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://Scripts/FPSController.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/Hand_Idle.png" type="Texture" id=2]
@@ -28,6 +28,12 @@
 [ext_resource path="res://prefabs/UI/InventoryScreen.tscn" type="PackedScene" id=26]
 [ext_resource path="res://prefabs/Effects/WaterSheet.tscn" type="PackedScene" id=27]
 [ext_resource path="res://prefabs/System/LocationManager.tscn" type="PackedScene" id=28]
+[ext_resource path="res://Sprites/Player/Hand_Build.png" type="Texture" id=29]
+[ext_resource path="res://Sprites/Player/Hand_Charm.png" type="Texture" id=30]
+[ext_resource path="res://Sprites/Player/Hand_Holding.png" type="Texture" id=31]
+[ext_resource path="res://Sprites/Player/Hand_Lasso.png" type="Texture" id=32]
+[ext_resource path="res://Sprites/Player/Hand_Punch.png" type="Texture" id=33]
+[ext_resource path="res://Sprites/Player/Hand_RPS.png" type="Texture" id=34]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 3.0
@@ -453,6 +459,15 @@ shape = SubResource( 6 )
 [node name="Hand" type="Spatial" parent="Head"]
 transform = Transform( 0.471813, 0, 0, 0, 0.16249, -0.489356, 0, 0.656209, 0.121174, 0.960909, -0.579476, -1.66123 )
 script = ExtResource( 6 )
+handSprites = {
+"Build": ExtResource( 29 ),
+"Charm": ExtResource( 30 ),
+"Holding": ExtResource( 31 ),
+"Idle": ExtResource( 2 ),
+"Lasso": ExtResource( 32 ),
+"Punch": ExtResource( 33 ),
+"RPS": ExtResource( 34 )
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Hand"]
 anims/Idle = SubResource( 7 )
@@ -474,7 +489,7 @@ mesh = SubResource( 13 )
 material/0 = SubResource( 14 )
 
 [node name="Palm" type="Spatial" parent="Head"]
-transform = Transform( 0.999998, 0, 0, 0, 0.999998, 0, 0, 0, 0.999998, 0.483979, -0.268011, -1.77099 )
+transform = Transform( 0.999998, 0, 0, 0, 0.999998, 0, 0, 0, 0.999998, 0.410738, -0.30399, -1.77099 )
 script = ExtResource( 25 )
 
 [node name="Skull" type="MeshInstance" parent="Head"]
@@ -554,8 +569,8 @@ autostart = true
 [node name="LocationManager" parent="." instance=ExtResource( 28 )]
 [connection signal="broadcast_self" from="InteractionManager" to="EquipmentManager" method="_on_InteractionManager_broadcast_self"]
 [connection signal="emit_looking_at" from="InteractionManager" to="EquipmentManager" method="_on_InteractionManager_emit_looking_at"]
-[connection signal="broadcast_self" from="EquipmentManager" to="Head/Palm" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="broadcast_self" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_broadcast_self"]
+[connection signal="broadcast_self" from="EquipmentManager" to="Head/Palm" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="emit_equipped" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_emit_equipped"]
 [connection signal="emit_unequip" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_emit_unequip"]
 [connection signal="broadcast_self" from="Head/Camera/RayCast_Areas" to="InteractionManager" method="_on_RayCast_Areas_broadcast_self"]

@@ -7157,21 +7157,21 @@ transform = Transform( -2.70198, -6.77818e-07, -2.08021, -3.27826e-07, -3.40997,
 [node name="Rock_09" parent="." instance=ExtResource( 31 )]
 transform = Transform( -2.6703, -6.69871e-07, -2.05582, 1.49034, -5.36442e-07, -1.9358, 1.07288e-06, -4.3583, 1.10269e-06, 267.158, -74.5903, 19.2693 )
 
-[node name="Rock_05" parent="." instance=ExtResource( 31 )]
+[node name="HorseRockA" parent="." instance=ExtResource( 31 )]
 transform = Transform( -3.6273, -6.72846e-07, -1.24996e-07, 0, 0.38361, -2.06495, 1.18192e-06, -2.06495, -0.38361, 259.898, -99.0183, 72.9405 )
 script = ExtResource( 48 )
 completionEventGroupTarget = "updatecrankcounter"
 targetRotation = Vector3( 79.476, 0, 0 )
 
-[node name="Play3DSound" parent="Rock_05" instance=ExtResource( 59 )]
+[node name="Play3DSound" parent="HorseRockA" instance=ExtResource( 59 )]
 soundPath = "res://Sounds/rock_01.wav"
 db = 5.0
 size = 20.0
 
-[node name="HorseStatueB" parent="Rock_05" instance=ExtResource( 30 )]
+[node name="HorseStatueB" parent="HorseRockA" instance=ExtResource( 30 )]
 transform = Transform( -0.780196, 0, -2.63203e-07, 4.31666e-07, 0.246106, -1.37159, 8.01915e-08, -1.32478, -0.254802, 0.090416, 0.92989, -1.21125 )
 
-[node name="Focus" parent="Rock_05" instance=ExtResource( 51 )]
+[node name="Focus" parent="HorseRockA" instance=ExtResource( 51 )]
 transform = Transform( 1, 0, 0, -1.13687e-13, 1, 1.49012e-08, -7.10543e-15, -1.49012e-08, 1, 0, 0.286678, -1.54314 )
 nextEvent = [ NodePath(".."), NodePath("../Play3DSound") ]
 lockTime = 4.0
@@ -7185,15 +7185,15 @@ targetNode = NodePath("Delay")
 [node name="Delay" parent="CrankWheel2" instance=ExtResource( 50 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -262.05, 97.2844, -59.1677 )
 timeDelay = 0.1
-targetEvent = NodePath("../../Rock_05/Focus")
+targetEvent = NodePath("../../HorseRockA/Focus")
 
 [node name="CrankCounter" parent="." instance=ExtResource( 62 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 250.418, -92.8327, 17.9019 )
-nextEvent = [ NodePath("Focus") ]
+nextEvent = [ NodePath("CenterCrankFocus") ]
 threshold = 2
 
-[node name="Focus" parent="CrankCounter" instance=ExtResource( 51 )]
-nextEvent = [ NodePath("../../Spatial") ]
+[node name="CenterCrankFocus" parent="CrankCounter" instance=ExtResource( 51 )]
+nextEvent = [ NodePath("../../LastWheelContainer") ]
 hardLock = true
 
 [node name="UpdateCrankCounter" parent="." groups=[
@@ -7202,23 +7202,23 @@ hardLock = true
 methodName = "increment"
 target = NodePath("../CrankCounter")
 
-[node name="Rock_06" parent="." instance=ExtResource( 31 )]
+[node name="HorseRockB" parent="." instance=ExtResource( 31 )]
 transform = Transform( -3.6273, -6.72846e-07, -1.24996e-07, 0, 0.38361, -2.06495, 1.18192e-06, -2.06495, -0.38361, 259.898, -99.0183, -38.1102 )
 script = ExtResource( 48 )
 completionEventGroupTarget = "updatecrankcounter"
 targetRotation = Vector3( 79.476, 0, 0 )
 
-[node name="horse_statue_01" parent="Rock_06" instance=ExtResource( 29 )]
+[node name="horse_statue_01" parent="HorseRockB" instance=ExtResource( 29 )]
 transform = Transform( 0.78075, 0, 0, 0, 0.246281, 1.32571, 0, -1.32571, 0.246281, 0.017662, 2.64389, -0.8125 )
 
-[node name="Focus" parent="Rock_06" instance=ExtResource( 51 )]
+[node name="Focus" parent="HorseRockB" instance=ExtResource( 51 )]
 transform = Transform( 1, 0, 0, -1.13687e-13, 1, 1.49012e-08, -7.10543e-15, -1.49012e-08, 1, 0, 0.308516, -1.66071 )
-nextEvent = [ NodePath(".."), NodePath("../Play3DSound2") ]
+nextEvent = [ NodePath("../Play3DSound2"), NodePath("..") ]
 lockTime = 4.0
 deleteAfterFocus = false
 hardLock = true
 
-[node name="Play3DSound2" parent="Rock_06" instance=ExtResource( 59 )]
+[node name="Play3DSound2" parent="HorseRockB" instance=ExtResource( 59 )]
 transform = Transform( 1, 0, 0, -5.68434e-14, 1, 0, 0, 0, 1, 0, 0, 0 )
 soundPath = "res://Sounds/rock_01.wav"
 db = 5.0
@@ -7230,7 +7230,7 @@ targetNode = NodePath("Delay")
 
 [node name="Delay" parent="CrankWheel3" instance=ExtResource( 50 )]
 timeDelay = 0.1
-targetEvent = NodePath("../../Rock_06/Focus")
+targetEvent = NodePath("../../HorseRockB/Focus")
 
 [node name="Fern_02" parent="." instance=ExtResource( 21 )]
 transform = Transform( 1.24521, 0, 0, 0, 1.24521, 0, 0, 0, 1.24521, 262.184, -97.9766, 27.3888 )
@@ -8160,7 +8160,7 @@ deletedTriggerer = false
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 250.526, -98.371, 17.858 )
 script = ExtResource( 58 )
 offset = Vector3( 0, 5, 0 )
-weight = 0.01
+weight = 0.1
 
 [node name="CrankWheel" parent="LastWheelContainer" instance=ExtResource( 47 )]
 targetNode = NodePath("../../LastWheelContainer/CrankWheel/DelayCenter")
@@ -8328,7 +8328,5 @@ deleteAfterTrig = true
 sfx = ExtResource( 64 )
 [connection signal="emit_event_triggered" from="HorsePillar1" to="HorsePillar1" method="_on_HorsePillar1_emit_event_triggered"]
 [connection signal="rotation_complete" from="HorsePillar1" to="HorsePillar1" method="_on_HorsePillar1_rotation_complete"]
-[connection signal="emit_event_triggered" from="HorseWall" to="HorseWall" method="begin_moving"]
-[connection signal="emit_event_triggered" from="LastWheelContainer" to="LastWheelContainer" method="begin_moving"]
 
 [editable path="TempleTile70"]

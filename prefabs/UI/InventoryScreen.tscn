@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scripts/UI/InventoryScreen.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/UI/InventoryScreen.png" type="Texture" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://Scripts/Misc/FadeInController.gd" type="Script" id=9]
 [ext_resource path="res://Sprites/UI/HUD_Party_BG_02.png" type="Texture" id=10]
 [ext_resource path="res://Shaders/noise_canvas_shader.tres" type="Material" id=11]
+[ext_resource path="res://Sounds/UI_Close_01.wav" type="AudioStream" id=12]
+[ext_resource path="res://Sounds/UI_Open_01.wav" type="AudioStream" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 outline_size = 1
@@ -30,6 +32,10 @@ anchor_bottom = 1.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
+}
+sfx = {
+"Exit": ExtResource( 12 ),
+"Open": ExtResource( 13 )
 }
 
 [node name="background" type="TextureRect" parent="."]

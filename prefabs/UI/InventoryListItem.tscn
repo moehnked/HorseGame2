@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Sprites/UI/InventoryListItem.png" type="Texture" id=1]
 [ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Sprites/UI/InventoryListItem_unselected.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/UI/InventoryListItem.gd" type="Script" id=4]
-[ext_resource path="res://sounds/ui_select_02.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/UI_Select_A.wav" type="AudioStream" id=5]
 [ext_resource path="res://Sprites/UI/InventoryListItem_button_on.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/UI/InventoryListItem_button_off.png" type="Texture" id=7]
+[ext_resource path="res://Sounds/UI_Select_B.wav" type="AudioStream" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 28
@@ -17,6 +18,10 @@ font_data = ExtResource( 2 )
 
 [node name="InventoryListItem" type="Node2D"]
 script = ExtResource( 4 )
+sfx = {
+"select1": ExtResource( 5 ),
+"select2": ExtResource( 8 )
+}
 
 [node name="Container" type="Node2D" parent="."]
 scale = Vector2( 0.562376, 0.562376 )
@@ -64,9 +69,6 @@ visible = false
 position = Vector2( 555.946, 17.8863 )
 scale = Vector2( 0.293508, 0.293508 )
 texture = ExtResource( 6 )
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
 [connection signal="button_up" from="Container/TextureButton" to="." method="_on_TextureButton_button_up"]
 [connection signal="mouse_entered" from="Container/TextureButton" to="." method="_on_TextureButton_mouse_entered"]
 [connection signal="mouse_exited" from="Container/TextureButton" to="." method="_on_TextureButton_mouse_exited"]

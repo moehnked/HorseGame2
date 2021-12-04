@@ -1,9 +1,7 @@
 extends KinematicBody
 
 onready var head = $Head
-#onready var InputMacro = preload("res://Scripts/InputMacro.gd")
-onready var ropeResource = preload("res://prefabs/LassoBullet.tscn")
-#onready var inventoryScreenSource = preload("res://prefabs/UI/InventoryScreen.tscn")
+
 export(Resource) var inventoryScreenSource
 
 export var DEACCEL = 6
@@ -56,7 +54,7 @@ var raycastObservers = []
 var lefthandSpell = "Null"
 var righthandSpell = "Null"
 
-var buildList = ["Gate"]
+var buildList = ["Fence"]
 export(Array, String) var spellList = ["Null", "Punch"]
 
 var sfx_grunts = [

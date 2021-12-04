@@ -1013,7 +1013,6 @@ maxDist = 30
 [node name="Lantern7" parent="." instance=ExtResource( 25 )]
 transform = Transform( 0.596013, 0, 0, 0, 0.596013, 0, 0, 0, 0.596013, -6.8217, -112.092, 18.1942 )
 rang = 15
-energy = 0.3
 
 [node name="ChainLink" parent="Lantern7" instance=ExtResource( 35 )]
 transform = Transform( -1.14584e-07, -0.703312, 0, 1.08895, -1.77412e-07, 0, 0, 0, 0.139046, 0.0325518, 2.57347, -0.00565529 )

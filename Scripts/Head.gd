@@ -9,14 +9,17 @@ var isRunning = false
 var origin = Vector3(0,0,0)
 export var speed = 4
 
+var rotAmount = 0
+
 
 func _ready():
 	#call_deferred("subscribe_to")
 	pass # Replace with function body.
 
 func _physics_process(delta):
+	rotAmount = lerp(rotAmount, input.mouse_vertical, 0.1)
 	if isRunning:
-		rotate_x(input.mouse_vertical)
+		rotate_x(rotAmount)
 		rotation.x = clamp(rotation.x, deg2rad(-60), deg2rad(60))
 
 func _process(delta):

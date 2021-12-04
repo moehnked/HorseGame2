@@ -868,7 +868,6 @@ transform = Transform( 0.298589, 0, 0, 0, 0.298589, 0, 0, 0, 0.298589, -2.56308,
 [node name="Lantern" parent="." instance=ExtResource( 25 )]
 transform = Transform( -6.95557e-09, 0, 0.159125, 0, 0.159125, 0, -0.159125, 0, -6.95557e-09, 0.945549, -0.165459, -3.85559 )
 rang = 10
-lightEnabled = false
 
 [node name="ChainLink" parent="Lantern" instance=ExtResource( 15 )]
 transform = Transform( -5.99596e-09, -0.0368029, -0.648121, 0.649165, -1.05762e-07, 0, -1.05592e-07, -0.648121, 0.0368029, 0, 2.39379, 0 )
@@ -885,7 +884,6 @@ transform = Transform( 2.49129, 0, 0, 0, 2.49129, 0, 0, 0, 2.43756, 1.17786, 2.4
 [node name="Lantern3" parent="." instance=ExtResource( 25 )]
 transform = Transform( 0, 0, 0.159125, 0, 0.159125, 0, -0.159125, 0, 0, -0.921952, -0.165459, -3.81295 )
 rang = 10
-lightEnabled = false
 
 [node name="ChainLink" parent="Lantern3" instance=ExtResource( 15 )]
 transform = Transform( -5.99596e-09, -0.0368029, -0.648121, 0.649165, -1.05762e-07, 0, -1.05592e-07, -0.648121, 0.0368029, 0, 2.39379, 0 )

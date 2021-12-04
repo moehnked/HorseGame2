@@ -14,8 +14,7 @@ func conclude():
 	var hv = horseRef.get_animation_controller().RPSThrown
 	print("player: ", playerSelected, " ", stringifySelection(playerSelected), " / ", hv, " ", stringifySelection(hv))
 	if playerSelected > hv or (playerSelected == 0 and hv == 2):
-		var r = Global.world.rng.randi_range(1, 5)
-		Global.AudioManager.play_sound("res://Sounds/scratch_trans_0" + String(r) + ".wav")
+		$PlaySound.trigger()
 		Global.InteractionPrompt.show_context("You won!")
 		pass
 	elif playerSelected == hv:
@@ -24,7 +23,7 @@ func conclude():
 		pass
 	else:
 		var gamePrompt = "Sorry, " + stringifySelection(hv) + " beats " + stringifySelection(playerSelected)
-		Global.AudioManager.play_sound("res://Sounds/slowdown.wav")
+		$PlaySound2.trigger()
 		Global.InteractionPrompt.show_context(gamePrompt)
 		pass
 	spellRef.conclude()

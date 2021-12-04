@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Shaders/crazy_shadermaterial.tres" type="Material" id=1]
 [ext_resource path="res://Sprites/Bolo/cloack_rip_02.png" type="Texture" id=2]
@@ -8,6 +8,10 @@
 [ext_resource path="res://models/animals/Patches/Material.material" type="Material" id=6]
 [ext_resource path="res://prefabs/Objects/ChainLink.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Sprites/misc/Xenophonsmall.png" type="Texture" id=8]
+[ext_resource path="res://Sounds/guide_02.wav" type="AudioStream" id=9]
+[ext_resource path="res://Sounds/guide_04.wav" type="AudioStream" id=10]
+[ext_resource path="res://Sounds/guide_01.wav" type="AudioStream" id=11]
+[ext_resource path="res://Sounds/guide_03.wav" type="AudioStream" id=12]
 
 [sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 2
@@ -121,6 +125,7 @@ albedo_texture = ExtResource( 8 )
 script = ExtResource( 4 )
 dialoguePoint = 10
 speakingVolume = 0.0
+sfx = [ ExtResource( 11 ), ExtResource( 9 ), ExtResource( 12 ), ExtResource( 10 ) ]
 
 [node name="Particles" type="Spatial" parent="."]
 transform = Transform( 1.81134, 0, 0, 0, 1.81134, 0, 0, 0, 1.81134, 0, 0.140438, 0.362631 )

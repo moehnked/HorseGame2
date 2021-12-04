@@ -11,6 +11,7 @@ var isSliding = false
 var movement:Vector3 = Vector3()
 var velocity:Vector3 = Vector3()
 var snapVector = Vector3(0,0,0)
+var rotAmount = 0.0
 
 var dustEffect = preload("res://prefabs/Effects/Sliding.tscn")
 var lasSpawnedDustParticle
@@ -41,7 +42,8 @@ func initialize(args = {}):
 		actor.enable_casting()
 
 func apply_rotation(actor):
-	actor.rotate_y(actor.input.mouse_horizontal)
+	rotAmount = lerp(rotAmount, actor.input.mouse_horizontal, 0.1)
+	actor.rotate_y(rotAmount)
 
 func parse_movement(actor, delta):
 	isSliding = false

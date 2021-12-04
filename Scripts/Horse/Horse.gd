@@ -28,8 +28,18 @@ var has_contact:bool = false
 var gravity = -20
 var trainer = null
 
+export(String) var breed = "test"
+
+var breeds = {
+	"test":preload("res://Materials/BreedMaterials/test.tres"),
+	"Paint":preload("res://Materials/BreedMaterials/Paint.tres")
+}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_animation_controller().set_material(breeds[breed])
+	get_animation_controller().set_material(get_animation_controller().get_model().get_surface_material(0).duplicate())
+	get_animation_controller().get_model().get_surface_material(0).uv1_offset = Vector3(randf(),randf(),randf())
 	pass # Replace with function body.
 
 func add_behavior(HB):

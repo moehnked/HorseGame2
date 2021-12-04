@@ -1,8 +1,9 @@
 extends Area
-const Utils = preload("res://Utils.gd")
-var resource_ref = null
-onready var valid = preload("res://Materials/Construction/build_valid.tres")
-onready var invalid = preload("res://Materials/Construction/build_invalid.tres")
+
+export(Resource) var resource_ref
+
+export(Material) var valid
+export(Material) var invalid
 
 export var required_materials = 5   #number of planks required to build
 
@@ -57,7 +58,7 @@ func initialize(args):
 	creation_prefab = args.prefab
 	callback = args.callback
 	hand = args.hand
-	resource_ref = load("res://prefabs/Items/Plank.tscn")
+	#resource_ref = load("res://prefabs/Items/Plank.tscn")
 	subscribe_to()
 
 func parse_input(input):

@@ -1,8 +1,17 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/UI/Update_Hands.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/UI/QE_Lasso.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/UI/QE_Punch.png" type="Texture" id=3]
+[ext_resource path="res://Sounds/quick_equip_select_02.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/quick_equip_exit.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/quick_equip.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sounds/quick_equip_select_01.wav" type="AudioStream" id=7]
+[ext_resource path="res://Sprites/UI/QE_RPS.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/UI/QE_Build.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/UI/QE_Charm.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/UI/QE_Guard.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/UI/QE_Null.png" type="Texture" id=12]
 
 [node name="Update_Hands" type="Control" groups=[
 "UICustom",
@@ -13,6 +22,16 @@ mouse_filter = 1
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
+}
+sfx = [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 4 ) ]
+spellIcons = {
+"Build": ExtResource( 9 ),
+"Charm": ExtResource( 10 ),
+"Guard": ExtResource( 11 ),
+"Lasso": ExtResource( 2 ),
+"Null": ExtResource( 12 ),
+"Punch": ExtResource( 3 ),
+"RPS": ExtResource( 8 )
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -51,7 +70,5 @@ texture_normal = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-[connection signal="button_up" from="container/LeftHand" to="." method="_on_LeftHand_button_up"]
-[connection signal="pressed" from="container/RightHand" to="." method="_on_RightHand_pressed"]
+[connection signal="pressed" from="container/LeftHand" to="." method="select_left_hand"]
+[connection signal="pressed" from="container/RightHand" to="." method="select_right_hand"]

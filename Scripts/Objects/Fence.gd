@@ -21,10 +21,10 @@ func check_area_link(area):
 func check_has_links():
 	if links.size() > 0:
 		print(self,self.name," has links")
-		get_mesh().set_surface_material(0, load("res://Materials/basic_wood_02.tres"))
+		#get_mesh().set_surface_material(0, load("res://Materials/basic_wood_02.tres"))
 		return true
 	else:
-		get_mesh().set_surface_material(0, load("res://Materials/basic_wood.tres"))
+		#get_mesh().set_surface_material(0, load("res://Materials/basic_wood.tres"))
 		return false
 
 func get_mesh():

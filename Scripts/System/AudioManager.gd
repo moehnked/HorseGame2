@@ -38,11 +38,12 @@ func get_current_music_volume():
 	return $MusicPlayer.volume_db
 
 func hour_alert():
-	if not is_song_playing():
+	if not is_song_playing() and music_enabled:
 		noMusicTicks -= 1
 		if noMusicTicks <= 0:
-			$MusicPlayer.stream = Utils.get_random(normal_tracks)
-			$MusicPlayer.play()
+			#$MusicPlayer.stream = Utils.get_random(normal_tracks)
+			#$MusicPlayer.play()
+			play_song(Utils.get_random(normal_tracks))
 			noMusicTicks = Global.world.rng.randi_range(2,10)
 		pass
 		
@@ -118,6 +119,14 @@ func queue_3d_channel(channel = $AudioStreamPlayer3D, sound_path = "res://sounds
 	channel.unit_size = size
 	channel.play()
 	return channel
+
+func set_music_volume(val):
+	print("AudioManage: Updating music volume: ", val)
+	musicVolume = val
+	$MusicPlayer.volume_db = db_lerp(val)
+
+func set_sfx_volume(val):
+	sfxVolume = val
 
 func stop_ambiance():
 	isFadingAmbiance = true

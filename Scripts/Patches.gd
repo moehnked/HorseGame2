@@ -3,8 +3,9 @@ extends Spatial
 export(int) var dialoguePoint = 1
 export(bool) var removeGroupOnReady = false
 export(float, -50.0, 20.0) var speakingVolume = 1.0
+export(Array, AudioStream) var sfx = []
 
-var ds = null
+var dsRef = preload("res://prefabs/UI/Dialogue/Dialogic_NPC_DialogueScreen.tscn")
 var headPointOrigin = Vector3()
 var isLookingAtPlayer = false
 
@@ -42,7 +43,8 @@ func get_speaking_volume():
 	pass
 
 func get_talk_sfx():
-	return "res://Sounds/guide_0" + String(Global.world.rng.randi_range(1,4)) + ".wav"
+	#return "res://Sounds/guide_0" + String(Global.world.rng.randi_range(1,4)) + ".wav"
+	return Utils.get_random(sfx)
 
 func increment_timeline():
 	dialoguePoint += 1
@@ -55,7 +57,7 @@ func point_head(delta):
 	$Patches2/Armature/Skeleton/HeadPoint.global_transform.origin = $Patches2/Armature/Skeleton/HeadPoint.global_transform.origin.linear_interpolate(newPoint, delta)
 
 func ready_dialogue(controller):
-	ds = load("res://prefabs/UI/Dialogue/Dialogic_NPC_DialogueScreen.tscn").instance()
+	var ds = dsRef.instance()
 	Global.world.add_child(ds)
 	ds.initialize({'speaker':self, 'listener':controller.get_parent(), 'text':["hellow", "world"], "timelineName":get_dialogue_point()})
 	controller.begin_dialogue(self)

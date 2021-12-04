@@ -141,15 +141,10 @@ static func pop_item(item, list):
 
 static func remove_item(item, list):
 	for i in list:
-		if i.get_name() == item.get_name():
-			list.erase(i)
-			return
-#	var i = 0
-#	while(i < list.size()):
-#		if(list[i].itemName == item.itemName):
-#			list.remove(i)
-#			return
-#		i += 1
+		if i != null:
+			if i.get_name() == item.get_name():
+				list.erase(i)
+				return
 
 static func show_mouse():
 	print("Utils: showing mouse")

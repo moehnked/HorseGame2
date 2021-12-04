@@ -6,24 +6,19 @@ var state = State.fadein
 var source
 var rootRef
 var selected
+var optionSelection = 0
 var options = ["Null"]
 var option_objects = []
 var leftHand
 var rightHand
-var sfx = [
-	"res://sounds/quick_equip.wav",
-	"res://sounds/quick_equip_exit.wav",
-	"res://sounds/quick_equip_select_01.wav",
-	"res://sounds/quick_equip_select_02.wav"
-]
-
+export(Array, AudioStream) var sfx
+export(Dictionary) var spellIcons
 
 enum State {fadein, test, fadeout}
 
 func play_sound(index):
-	var sound = load(sfx[index])
-	$AudioStreamPlayer.stream = sound
-	$AudioStreamPlayer.play()
+
+	Global.AudioManager.play_sound(sfx[index])
 
 func _process(delta):
 	match state:
@@ -37,8 +32,8 @@ func initialize(_source, left, right):
 	options = source.get_spell_list()
 	leftHand = left
 	rightHand = right
-	$container/LeftHand.texture_normal =  load("res://Sprites/UI/QE_" + leftHand + ".png")
-	$container/RightHand.texture_normal = load("res://Sprites/UI/QE_" + rightHand + ".png")
+	$container/LeftHand.texture_normal =  spellIcons[leftHand]
+	$container/RightHand.texture_normal = spellIcons[rightHand]
 	play_sound(0)
 	Global.AudioManager.fade_music(Global.AudioManager.get_current_music_volume() - 10, 0.1)
 	print("UH: ", source, ", ", source.name, " - ", source.get_parent().name)
@@ -58,6 +53,17 @@ func parse_input(input):
 		unsubscribe_to()
 		Global.AudioManager.fade_music(0, 0.1)
 		source.update_spells(leftHand, rightHand)
+	if Input.is_action_just_released("PadLeft"):
+		select_left_hand()
+	if Input.is_action_just_released("PadRight"):
+		select_right_hand()
+	if Input.is_action_just_released("ui_right"):
+		optionSelection = (optionSelection + 1) % option_objects.size()
+		option_objects[optionSelection].engage()
+	if Input.is_action_just_released("ui_left"):
+		optionSelection = (optionSelection - 1) % option_objects.size()
+		option_objects[optionSelection].engage()
+		
 
 func fadein_step():
 	a += fade_rate
@@ -90,6 +96,7 @@ func select_spell(spell, side):
 			rightHand = spell
 
 func ready_options(side):
+	clear_options()
 	Global.world.get_tree().call_group("UI_Event", "trigger", self)
 	play_sound(2)
 	for i in range(0, options.size()):
@@ -102,16 +109,16 @@ func ready_options(side):
 
 func clear_options():
 	if(option_objects.size() != 0):
-		for i in range(0, options.size()):
-			option_objects[i].queue_free()
+		for i in option_objects:
+			i.queue_free()
 
-func _on_LeftHand_button_up():
+func select_left_hand():
 	print("clicked left")
 	selected = $container/LeftHand
 	ready_options("left")
 
 
-func _on_RightHand_pressed():
+func select_right_hand():
 	print("clicked right")
 	selected = $container/RightHand
 	ready_options("right")

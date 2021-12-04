@@ -89,7 +89,7 @@ shadow_atlas_size = 2
 
 [node name="NEW_FPSController" parent="ViewportContainer2/Viewport" instance=ExtResource( 1 )]
 transform = Transform( -0.437055, 0, 0.130749, 0, 0.456193, 0, -0.130749, 0, -0.437055, 434.058, 138.674, -297.71 )
-MAX_SPEED = 7
+MAX_SPEED = 27
 spellList = [ "Null", "Build" ]
 
 [node name="MainWorld" parent="ViewportContainer2/Viewport" instance=ExtResource( 13 )]

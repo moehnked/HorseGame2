@@ -5,6 +5,8 @@ var item
 var title
 onready var sound
 
+export(Dictionary) var sfx
+
 func initialize(i, screen, count = 1):
 	print(self, ":initializing ", i)
 	inventoryScreen = screen
@@ -24,11 +26,8 @@ func get_height():
 	return $Container/TextureButton.rect_size.y * $Container.scale.y
 	pass
 
-func play_sound(sfx = "res://sounds/ui_select_01.wav", vol = 0.0):
-	$AudioStreamPlayer.volume_db = vol
-	$AudioStreamPlayer.stream = load(sfx)
-	$AudioStreamPlayer.play()
-	
+func play_sound(s = "select1", vol = 0.0):
+	Global.AudioManager.play_sound(sfx[s], vol)
 
 func toggle():
 	$Container/off.visible = !$Container/off.visible
@@ -36,7 +35,7 @@ func toggle():
 
 func _on_TextureButton_mouse_entered():
 	inventoryScreen.update_display(item)
-	play_sound("res://sounds/ui_select_02.wav", -8)
+	play_sound("select2", -8)
 	toggle()
 	pass # Replace with function body.
 
@@ -48,6 +47,6 @@ func _on_TextureButton_mouse_exited():
 
 
 func _on_TextureButton_button_up():
-	play_sound("res://sounds/ui_select_01.wav", -2)
+	play_sound("select1", -2)
 	inventoryScreen.draw_context(item)
 	pass # Replace with function body.

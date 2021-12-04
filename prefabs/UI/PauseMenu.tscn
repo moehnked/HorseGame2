@@ -1,0 +1,318 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Sprites/UI/PauseFrame.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/UI/PauseBG.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/UI/PauseCircle.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/UI/PauseMenu.gd" type="Script" id=4]
+[ext_resource path="res://Sprites/UI/UI_Listitem_unselected.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/UI/UI_Listitem_Selected.png" type="Texture" id=6]
+[ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Scripts/UI/OptionsContainer.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/UI/UIListItem.gd" type="Script" id=9]
+[ext_resource path="res://Materials/2DBlurLayer.tres" type="Material" id=10]
+[ext_resource path="res://Sprites/UI/UI_Listitem_clickmask.png" type="BitMap" id=11]
+[ext_resource path="res://Sprites/UI/UI_Display_Data2.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/UI/UI_Display_Settings2.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/UI/UI_Display_Exit.png" type="Texture" id=14]
+
+[sub_resource type="Animation" id=1]
+resource_name = "startup"
+step = 0.03
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("BG:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.36 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("BG:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.36 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("BG:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.36 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("BG:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.36 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("Blur:modulate:r")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("Blur:modulate:g")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("Blur:modulate:b")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("Blur:modulate:a")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/8/type = "bezier"
+tracks/8/path = NodePath("Frame:modulate:r")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.75 )
+}
+tracks/9/type = "bezier"
+tracks/9/path = NodePath("Frame:modulate:g")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.75 )
+}
+tracks/10/type = "bezier"
+tracks/10/path = NodePath("Frame:modulate:b")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.75 )
+}
+tracks/11/type = "bezier"
+tracks/11/path = NodePath("Frame:modulate:a")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.75 )
+}
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+extra_spacing_char = 2
+font_data = ExtResource( 7 )
+
+[node name="PauseMenu" type="Control" groups=[
+"UI_Special",
+]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 608.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="Sprite" parent="."]
+position = Vector2( 512, 304 )
+texture = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="BG"]
+margin_left = -512.0
+margin_top = -304.0
+margin_right = 512.0
+margin_bottom = -224.0
+color = Color( 0, 0.0156863, 0.160784, 0.560784 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="BG"]
+margin_left = -512.0
+margin_top = 120.0
+margin_right = 512.0
+margin_bottom = 296.0
+color = Color( 0, 0.0156863, 0.160784, 0.560784 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blur" type="Sprite" parent="."]
+material = ExtResource( 10 )
+position = Vector2( 512, 304 )
+texture = ExtResource( 2 )
+
+[node name="Frame" type="Sprite" parent="."]
+position = Vector2( 512, 304 )
+texture = ExtResource( 1 )
+
+[node name="Circle" type="Sprite" parent="Frame"]
+position = Vector2( 287, -55 )
+texture = ExtResource( 3 )
+
+[node name="UIDisplay" type="Sprite" parent="Frame/Circle"]
+modulate = Color( 1, 1, 1, 0.521569 )
+scale = Vector2( 0.244917, 0.244917 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "startup"
+anims/startup = SubResource( 1 )
+
+[node name="OptionsContainer" type="Node2D" parent="."]
+position = Vector2( 0, 224 )
+script = ExtResource( 8 )
+display = NodePath("../Frame/Circle/UIDisplay")
+
+[node name="Data" type="TextureButton" parent="OptionsContainer"]
+margin_left = 24.0
+margin_top = -8.0
+margin_right = 280.0
+margin_bottom = 24.0
+rect_scale = Vector2( 2.24784, 2.24784 )
+focus_next = NodePath("../Settings")
+texture_normal = ExtResource( 5 )
+texture_hover = ExtResource( 6 )
+texture_focused = ExtResource( 6 )
+texture_click_mask = ExtResource( 11 )
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+icon = ExtResource( 12 )
+
+[node name="Label" type="Label" parent="OptionsContainer/Data"]
+margin_left = 21.3538
+margin_top = 3.55898
+margin_right = 140.354
+margin_bottom = 42.559
+rect_scale = Vector2( 0.587031, 0.587031 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+text = "Data"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings" type="TextureButton" parent="OptionsContainer"]
+margin_left = 24.0
+margin_top = 48.0
+margin_right = 280.0
+margin_bottom = 80.0
+rect_scale = Vector2( 2.24784, 2.24784 )
+focus_next = NodePath("../ExitGame")
+focus_previous = NodePath("../Data")
+texture_normal = ExtResource( 5 )
+texture_hover = ExtResource( 6 )
+texture_focused = ExtResource( 6 )
+texture_click_mask = ExtResource( 11 )
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+icon = ExtResource( 13 )
+
+[node name="Label2" type="Label" parent="OptionsContainer/Settings"]
+margin_left = 21.3538
+margin_top = 5.09935
+margin_right = 140.354
+margin_bottom = 44.0993
+rect_scale = Vector2( 0.587031, 0.587031 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+text = "Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExitGame" type="TextureButton" parent="OptionsContainer"]
+margin_left = 24.0
+margin_top = 104.0
+margin_right = 280.0
+margin_bottom = 136.0
+rect_scale = Vector2( 2.24784, 2.24784 )
+focus_previous = NodePath("../Settings")
+texture_normal = ExtResource( 5 )
+texture_hover = ExtResource( 6 )
+texture_focused = ExtResource( 6 )
+texture_click_mask = ExtResource( 11 )
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+icon = ExtResource( 14 )
+
+[node name="Label3" type="Label" parent="OptionsContainer/ExitGame"]
+margin_left = 21.3538
+margin_top = 3.55896
+margin_right = 140.354
+margin_bottom = 42.559
+rect_scale = Vector2( 0.587031, 0.587031 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+text = "Exit Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="focus_entered" from="OptionsContainer/Data" to="OptionsContainer/Data" method="gain_focus"]
+[connection signal="mouse_entered" from="OptionsContainer/Data" to="OptionsContainer/Data" method="gain_focus"]
+[connection signal="focus_entered" from="OptionsContainer/Settings" to="OptionsContainer/Settings" method="gain_focus"]
+[connection signal="mouse_entered" from="OptionsContainer/Settings" to="OptionsContainer/Settings" method="gain_focus"]
+[connection signal="pressed" from="OptionsContainer/Settings" to="." method="enter_settings"]
+[connection signal="focus_entered" from="OptionsContainer/ExitGame" to="OptionsContainer/ExitGame" method="gain_focus"]
+[connection signal="mouse_entered" from="OptionsContainer/ExitGame" to="OptionsContainer/ExitGame" method="gain_focus"]
+[connection signal="pressed" from="OptionsContainer/ExitGame" to="." method="exit_game"]

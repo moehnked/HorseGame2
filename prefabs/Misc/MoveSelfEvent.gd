@@ -14,8 +14,9 @@ func _process(delta):
 	if isMoving:
 		global_transform.origin = global_transform.origin.linear_interpolate(goalPos, weight)
 
-func begin_moving(triggerer = null):
+func begin_moving():
 	isMoving = true
 
-
+func trigger(by = null):
+	begin_moving()
 

@@ -17,7 +17,7 @@ func enable():
 	visible = true
 
 func initialize(args = {}):
-	args = Utils.check(args, {"item":load("res://prefabs/Items/Equipable.tscn").instance(), "controller":null, "text":""})
+	args = Utils.check(args, {"item":null, "controller":null, "text":""})
 	item = args.item
 	controller = args.controller
 	set_text(args.text if args.text != "" else text)

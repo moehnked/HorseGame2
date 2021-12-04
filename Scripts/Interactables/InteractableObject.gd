@@ -6,7 +6,7 @@ var isHolding = false
 var isInteractable:bool = true
 var timer = Timer.new()
 
-export var interactSound:String = "res://Sounds/equipment_02.wav"
+export(AudioStream) var interactSound
 export var isHoldToInteract:bool = false
 export var playSoundOnInteract:bool = true
 export var prompt = ""

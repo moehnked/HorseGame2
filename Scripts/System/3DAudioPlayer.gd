@@ -37,7 +37,7 @@ func _process(delta):
 		playerDist = global_transform.origin.distance_squared_to(Global.Player.global_transform.origin)
 		proximity = 1.0 - (minSqr / playerDist)
 		curDBLevel = volumeDB - (100 * clamp(proximity,0.0,1.0))
-		print("3dAduio: ", proximity, "% , ", curDBLevel)
+		#print("3dAduio: ", proximity, "% , ", curDBLevel)
 		$AudioStreamPlayer.volume_db = lerp($AudioStreamPlayer.volume_db, curDBLevel, 0.1)
 		#if playerDist < maxSqr:
 	pass

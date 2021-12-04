@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://prefabs/PlayerStuff/NEW_FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/System/SkyControllerPrefab.tscn" type="PackedScene" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://prefabs/Items/Rock.tscn" type="PackedScene" id=21]
 [ext_resource path="res://prefabs/Items/LandClaim.tscn" type="PackedScene" id=22]
 [ext_resource path="res://prefabs/Items/Permit.tscn" type="PackedScene" id=23]
+[ext_resource path="res://prefabs/Patches.tscn" type="PackedScene" id=24]
 
 [node name="World" type="Spatial"]
 script = ExtResource( 5 )
@@ -56,7 +57,7 @@ skys = {
 [node name="AudioManager" parent="." instance=ExtResource( 20 )]
 music_enabled = false
 sfxVolume = 0.8
-musicVolume = 0.5
+musicVolume = 0.0
 
 [node name="GlobalCorralRegistrar" parent="." instance=ExtResource( 10 )]
 
@@ -99,7 +100,7 @@ shadow_atlas_size = 2
 
 [node name="NEW_FPSController" parent="ViewportContainer2/Viewport" instance=ExtResource( 1 )]
 transform = Transform( 0.456, 0, 0, 0, 0.456, 0, 0, 0, 0.456, 0, 0, 0 )
-spellList = [ "Null", "Build" ]
+spellList = [ "Null", "Build", "Punch", "Lasso" ]
 
 [node name="Sun" parent="ViewportContainer2/Viewport" instance=ExtResource( 13 )]
 
@@ -149,3 +150,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.22032, 0, 0 )
 
 [node name="LandClaim" parent="." instance=ExtResource( 22 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.96138, -8.06614, 10.3117 )
+
+[node name="Patches" parent="." instance=ExtResource( 24 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0601, -3.06136, 0.589933 )
+dialoguePoint = 1

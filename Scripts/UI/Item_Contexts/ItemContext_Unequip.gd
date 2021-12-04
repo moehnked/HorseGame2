@@ -3,11 +3,12 @@ extends Control
 var item
 var controller
 
+
 func is_unequip():
 	return true
 
 func initialize(args = {}):
-	args = Utils.check(args, {"item":load("res://prefabs/Items/Equipable.tscn").instance(), "controller":null})
+	args = Utils.check(args, {"item":null, "controller":null})
 	item = args.item
 	controller = args.controller
 

@@ -6,6 +6,9 @@ func _ready():
 	#$RM_White_Horse_Rig/Skeleton/RM_White_Horse
 	pass
 
+func get_model():
+	return $RM_White_Horse_Rig/Skeleton/RM_White_Horse
+
 func play_animation(anim):
 	$AnimationPlayer2.play(anim)
 
@@ -15,6 +18,9 @@ func set_playback_speed(spd = 1.0):
 func higlight(toggle):
 	var outline = $RM_White_Horse_Rig/Skeleton/RM_White_Horse.get_surface_material(0)
 	outline.next_pass = load("res://Materials/outline_material_Green.tres") if toggle else load("res://Materials/outline_material.tres")
+
+func set_material(mat):
+	get_model().set_surface_material(0, mat)
 
 func shoot_rps():
 	RPSThrown = Global.world.rng.randi() % 3

@@ -10,10 +10,12 @@ var selected = null
 var sourceRef
 var listItemResource = preload("res://prefabs/UI/InventoryListItem.tscn")
 
+export(Dictionary) var sfx
+
 func _ready():
 	print(get_path())
 	add_to_group("InvScreen")
-	Global.AudioManager.play_sound("res://sounds/ui_open_01.wav")
+	Global.AudioManager.play_sound(sfx["Open"])
 	#Global.Generator.clear_unque()
 
 func _process(delta):
@@ -92,7 +94,7 @@ func terminate():
 	if callback != null:
 		if sourceRef.has_method(callback):
 			sourceRef.call(callback)
-	Global.AudioManager.play_sound("res://sounds/ui_close_01.wav")
+	Global.AudioManager.play_sound(sfx["Exit"])
 	for i in get_children():
 		i.call("queue_free")
 	queue_free()

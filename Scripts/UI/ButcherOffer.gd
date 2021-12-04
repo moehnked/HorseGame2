@@ -1,5 +1,7 @@
 extends Control
 
+var glueRef = preload("res://prefabs/Items/Glue.tscn")
+var offerOptionRef = preload("res://prefabs/UI/ButcherOfferOption.tscn")
 var party = {}
 
 
@@ -19,7 +21,7 @@ func exit_menu():
 	Global.Player.restore_menu_options()
 	Utils.capture_mouse()
 	Global.InteractionPrompt.unhide_center_prompt()
-	Global.AudioManager.play_sound("res://Sounds/offer.wav")
+	$PlaySound.trigger()
 	Global.world.queue_timer(Global.Player, 0.1, "subscribe_to")
 	queue_free()
 
@@ -29,7 +31,7 @@ func initialize(args = {}):
 	var index = 0
 	for i in party:
 		print("butcherOffer: ", i.get_horse_name())
-		var o = load("res://prefabs/UI/ButcherOfferOption.tscn").instance()
+		var o = offerOptionRef.instance()
 		o.set_name_label(i.get_horse_name())
 		o.set_ref(i)
 		$Container.add_child(o)
@@ -46,7 +48,7 @@ func process_horse(selected):
 	selected.queue_free()
 	var num = Global.world.rng.randi_range(1,6)
 	for x in num:
-		var o = load("res://prefabs/Items/Glue.tscn").instance()
+		var o = glueRef.instance()
 		Global.world.add_child(o)
 		o.interact(Global.Player.get_interaction_controller())
 	#Global.Player.get_equipment_manager().unequip()

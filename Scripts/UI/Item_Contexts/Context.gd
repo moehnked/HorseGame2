@@ -1,5 +1,7 @@
 extends Node
 
+var descriptionRef = preload("res://prefabs/UI/ItemContext_Description.tscn")
+
 func add(context):
 	var c = load("res://prefabs/UI/ItemContext_" + context + ".tscn").instance()
 	add_child(c)
@@ -7,7 +9,7 @@ func add(context):
 
 func get_description():
 	var d = get_node("Description")
-	return d if d != null else load("res://prefabs/UI/ItemContext_Description.tscn").instance()
+	return d if d != null else descriptionRef.instance()
 
 func get_equip():
 	var e = get_node("Equip")

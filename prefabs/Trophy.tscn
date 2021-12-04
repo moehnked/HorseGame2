@@ -1,7 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://models/pegasus3.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Scripts/Trophy.gd" type="Script" id=2]
+[ext_resource path="res://prefabs/Misc/Events/PlaySound.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Sounds/glass_break_04.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/glass_break_05.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/glass_break_02.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sounds/glass_break_03.wav" type="AudioStream" id=7]
+[ext_resource path="res://Sounds/glass_break_01.wav" type="AudioStream" id=8]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.207843, 0.164706, 0.184314, 1 )
@@ -29,3 +35,7 @@ material/8 = null
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.439981, 0 )
 shape = SubResource( 2 )
+
+[node name="PlaySound" parent="." instance=ExtResource( 3 )]
+random_sounds = [ ExtResource( 8 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 5 ) ]
+volume = -3.0

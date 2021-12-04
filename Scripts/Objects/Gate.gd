@@ -77,10 +77,11 @@ func uncomplete():
 	print("NOT COMPLETED")
 
 func update_solid():
-	var mat = load("res://Materials/invisible.tres") if isOpen else load("res://Materials/basic_wood.tres")
+	#var mat = load("res://Materials/invisible.tres") if isOpen else load("res://Materials/basic_wood.tres")
 	$Solid/CollisionShape2.disabled = isOpen
-	for i in [1,2,3,4,5]:
-		get_mesh().set_surface_material(i, mat)
+	#for i in [1,2,3,4,5]:
+	#	get_mesh().set_surface_material(i, mat)
+	$GateMeshContainer.rotation_degrees.y = 90 if isOpen else 0
 	pass
 	
 func update_status():
