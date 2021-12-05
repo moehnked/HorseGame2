@@ -50,5 +50,8 @@ func _process(delta):
 	if (Input.is_action_just_released("Start") or Input.is_action_just_released("ui_cancel")) and canExit:
 		deload()
 	canExit = true
+	if Input.is_action_just_pressed("ui_focus_next") or Input.is_action_just_pressed("ui_focus_prev"):
+		if get_focus_owner() == null:
+			$OptionsContainer/Data.grab_focus()
 #	pass
 

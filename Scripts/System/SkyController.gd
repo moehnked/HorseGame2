@@ -27,7 +27,6 @@ func _process(delta):
 	match state:
 		State.transitioning:
 			$Sprite.modulate.a = lerp($Sprite.modulate.a, 0.0, 0.01)
-			print()
 			if $Sprite.modulate.a <= 0.01:
 				print("sky completed transition")
 				$Sprite.visible = false

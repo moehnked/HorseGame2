@@ -49,7 +49,7 @@ operator = 2
 
 [sub_resource type="VisualShader" id=17]
 code = "shader_type spatial;
-render_mode specular_schlick_ggx;
+render_mode specular_schlick_ggx, depth_test_disable;
 
 uniform sampler2D tex_frg_18;
 
@@ -126,7 +126,8 @@ void light() {
 
 }
 "
-graph_offset = Vector2( 201, -88 )
+graph_offset = Vector2( 373, 69 )
+flags/depth_test_disable = true
 nodes/fragment/0/position = Vector2( 1160, 100 )
 nodes/fragment/5/node = SubResource( 12 )
 nodes/fragment/5/position = Vector2( -720, 360 )

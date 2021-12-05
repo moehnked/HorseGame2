@@ -17,6 +17,12 @@ func gain_focus():
 	emit_signal("emit_focus_entered", self)
 	#Global.AudioManager.play_sound("res://Sounds/UI_Select_A.wav",1)
 
+func mouse_enter():
+	gain_focus()
+	
+func mouse_exit():
+	release_focus()
+
 func selection_sound():
 	Global.AudioManager.play_sound("res://Sounds/Audio/select_005.ogg", -5)
 

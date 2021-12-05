@@ -18,7 +18,10 @@ func _ready():
 func add_child( node, legible_unique_name=false):
 	if node.is_in_group("UI_Special"):
 		.add_child(node,legible_unique_name)
-	$ViewportContainer2/Viewport.add_child(node, legible_unique_name)
+		node.owner = self
+	else:
+		$ViewportContainer2/Viewport.add_child(node, legible_unique_name)
+		node.owner = $ViewportContainer2/Viewport
 
 func add_child_ui(node, legible_unique_name=false):
 	$ViewportContainer/Viewport.add_child(node, legible_unique_name)

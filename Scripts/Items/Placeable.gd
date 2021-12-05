@@ -20,7 +20,9 @@ func _process(delta):
 		else:
 			if raycast.is_colliding():
 				placedCursor.global_transform.origin = raycast.get_collision_point()
-				placedCursor.global_transform.basis = Basis(raycast.get_collision_normal() * -1)
+				placedCursor.global_transform.basis = Utils.align_up(placedCursor.global_transform.basis, raycast.get_collision_normal() )
+				#placedCursor.global_transform.basis = Basis(raycast.get_collision_normal() * -1)
+				#placedCursor.global_transform.origin += raycast.get_collision_normal() * 0.1
 			if input.standard:
 				hasBeenPlaced = true
 				controller.unequip({"returnToInventory": false})

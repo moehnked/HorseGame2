@@ -75,13 +75,19 @@ func parse_input(_input):
 	input = _input
 
 func return_equipped_to_inventory():
-	var inv = get_inventory()
-	inv.erase(equipped)
-	var n = equipped.duplicate(7)
-	#n.set_context("Equip")
-	inv.append(n)
-	equipped.queue_free()
-	return n
+	print("FPS: EQManager: ", equipped.get_name(), " - ", equipped.owner, " - ", equipped.get_parent() )
+	equipped.owner.remove_child(equipped)
+	return equipped
+#
+#func return_equipped_to_inventory():
+#	print("FPS: EQManager: ", equipped.get_name(), " - ", equipped.owner, " - ", equipped.get_parent() )
+#	var inv = get_inventory()
+#	inv.erase(equipped)
+#	var n = equipped.duplicate(7)
+#	#n.set_context("Equip")
+#	inv.append(n)
+#	equipped.queue_free()
+#	return n
 
 func set_equip_point(other):
 	equipPoint = other
@@ -99,7 +105,7 @@ func unequip(args = {}):
 	equipped.unequip({"caller":self})
 	if args.returnToInventory:
 		i = return_equipped_to_inventory()
-		equipped.queue_free()
+		#equipped.queue_free()
 	else:
 		inventory.erase(equipped)
 		equipped.unequip({"caller":self})
