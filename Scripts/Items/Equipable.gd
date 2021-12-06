@@ -47,7 +47,7 @@ func equip(_controller):
 		toggle_collisions(false)
 		$Interactable.isInteractable = false
 		isEquipped = true
-		set_context("Unequip")
+		set_context(Context.Context.Equip)
 		Global.AudioManager.play_sound(equipSoundPath)
 		apply_behavior(get_behavior())
 		return true
@@ -66,17 +66,21 @@ func recieve_looking_at(by, obj):
 	pass
 
 func set_context(_equipState):
-	var prev = null
-	var newContext = null
-	clear_context()
-	equipState = _equipState
-	match equipState:
-		"Equip":
-			newContext = get_context().add("Equip")
-		"Unequip":
-			newContext = get_context().add("Unequip")
-	newContext.initialize({"item": self, "controller": controller})
-	newContext.visible = false
+	var i = ContextOptions.find(_equipState)
+	ContextOptions[i] = Context.Context.Equip if _equipState == Context.Context.Unequip else Context.Context.Unequip
+#
+#func set_context(_equipState):
+#	var prev = null
+#	var newContext = null
+#	#clear_context()
+#	equipState = _equipState
+#	match equipState:
+#		"Equip":
+#			newContext = get_context().add("Equip")
+#		"Unequip":
+#			newContext = get_context().add("Unequip")
+#	newContext.initialize({"item": self, "controller": controller})
+#	newContext.visible = false
 
 func set_point(object, _controller):
 	#print("setting point to ", object)
@@ -91,7 +95,7 @@ func toggle_collisions(enabl = true):
 
 func unequip(args = {}):
 	args = Utils.check(args, {"caller":null})
-	set_context("Equip")
+	set_context(Context.Context.Unequip)
 	isEquipped = false
 	parentedTo = Spatial.new()
 	controller = null

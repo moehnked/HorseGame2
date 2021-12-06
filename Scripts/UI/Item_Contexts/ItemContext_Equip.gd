@@ -1,4 +1,4 @@
-extends Control
+extends TextureButton
 
 var item
 var controller
@@ -20,9 +20,10 @@ func equip():
 	item.interact(controller)
 	var tree = get_tree()
 	tree.call_group("InvScreen", "draw_list_items")
-	tree.call_group("InvScreen", "draw_context", item)
+#	tree.call_group("InvScreen", "draw_list_items")
+#	tree.call_group("InvScreen", "draw_context", item)
 
-func _on_TextureButton_button_up():
+func press_context():
 	if controller.equipped != item:
 		equip()
 	pass # Replace with function body.

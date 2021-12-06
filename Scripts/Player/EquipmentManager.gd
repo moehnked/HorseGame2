@@ -75,7 +75,7 @@ func parse_input(_input):
 	input = _input
 
 func return_equipped_to_inventory():
-	print("FPS: EQManager: ", equipped.get_name(), " - ", equipped.owner, " - ", equipped.get_parent() )
+	print("FPS: EQManager: ", equipped.get_name(), " - ", equipped.owner, " - ", equipped.get_parent().name )
 	equipped.owner.remove_child(equipped)
 	return equipped
 #

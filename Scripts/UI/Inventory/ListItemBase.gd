@@ -32,4 +32,5 @@ func _on_ListItem_mouse_entered():
 
 func _on_ListItem_mouse_exited():
 	release_focus()
+	Global.world.get_tree().call_group("InvScreen", "draw_selected_icon")
 	pass # Replace with function body.

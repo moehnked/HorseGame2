@@ -1,10 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://prefabs/Interactables/InteractableNoPreset.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Items/PileOfPLanks.gd" type="Script" id=2]
-[ext_resource path="res://prefabs/UI/Context.tscn" type="PackedScene" id=3]
 [ext_resource path="res://prefabs/UI/ItemContext_Description.tscn" type="PackedScene" id=4]
-[ext_resource path="res://prefabs/UI/ItemContext_Discard.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Materials/basic_wood.tres" type="Material" id=6]
 [ext_resource path="res://models/misc/plank.obj" type="ArrayMesh" id=7]
 
@@ -19,13 +17,6 @@ script = ExtResource( 2 )
 [node name="CollisionShape2" type="CollisionShape" parent="Interactable"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.349323, 0 )
 shape = SubResource( 1 )
-
-[node name="Context" parent="." instance=ExtResource( 3 )]
-
-[node name="Description" parent="Context" instance=ExtResource( 4 )]
-
-[node name="Discard" parent="Context" instance=ExtResource( 5 )]
-visible = false
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.349323, 0 )
@@ -67,6 +58,8 @@ material/0 = ExtResource( 6 )
 transform = Transform( 0.931072, 0, 0.0546632, 0, 0.932675, 0, -0.0546632, 0, 0.931072, 1.24321, 0, 0 )
 mesh = ExtResource( 7 )
 material/0 = ExtResource( 6 )
+
+[node name="Description" parent="." instance=ExtResource( 4 )]
 [connection signal="interaction" from="Interactable" to="." method="_on_Interactable_interaction"]
 
 [editable path="Interactable"]

@@ -213,6 +213,7 @@ Utils="*res://Utils.gd"
 LineCode="res://Scripts/System/LineCode.gd"
 InventoryParser="*res://Scripts/Statics/InventoryParser.gd"
 GlobalItemRepo="*res://Scripts/Statics/GlobalItemRepo.gd"
+Context="*res://Scripts/Statics/Context.gd"
 
 [debug]
 

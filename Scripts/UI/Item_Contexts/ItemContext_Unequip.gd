@@ -21,8 +21,9 @@ func unequip():
 	item = controller.unequip({"caller":self})
 	var tree = get_tree()
 	tree.call_group("InvScreen", "draw_list_items")
-	tree.call_group("InvScreen", "draw_context", item)
+	#tree.call_group("InvScreen", "draw_context")
 
-func _on_TextureButton_button_up():
-	unequip()
+func press_context():
+	if controller.get_equipped() != null:
+		unequip()
 	pass # Replace with function body.

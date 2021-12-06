@@ -1,6 +1,9 @@
 #Item.gd
 extends RigidBody
 
+
+
+export(Array, Context.Context) var ContextOptions
 export var icon = "res://icon.png"
 export var itemName = "Item"
 export var pickupSoundPath = "res://Sounds/pop_01.wav"
@@ -28,6 +31,9 @@ func get_behavior():
 
 func get_context():
 	return get_node("Context")
+
+func get_description(asString = true):
+	return get_node("Description").get_description() if asString else get_node("Description")
 
 func get_icon(asTexture = false):
 	return load(icon) if asTexture else icon

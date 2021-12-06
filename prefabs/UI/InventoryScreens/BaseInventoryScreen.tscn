@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://Scripts/UI/Inventory/BaseInventoryScreen.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/UI/INVScreen_BG.png" type="Texture" id=2]
@@ -9,11 +9,13 @@
 [ext_resource path="res://Sprites/UI/INVScreen_Decor.png" type="Texture" id=7]
 [ext_resource path="res://fonts/OpyimusTitle.tres" type="DynamicFont" id=8]
 [ext_resource path="res://Sprites/UI/PauseCircle.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/UI/Inventory/ContextOptionsContainer.gd" type="Script" id=10]
 [ext_resource path="res://Scripts/UI/Inventory/ListItemContainer.gd" type="Script" id=11]
 [ext_resource path="res://Sprites/UI/cancel_button.png" type="Texture" id=12]
 [ext_resource path="res://Sprites/UI/cancel_button2.png" type="Texture" id=13]
 [ext_resource path="res://fonts/OptimusPrinceps.ttf" type="DynamicFontData" id=14]
 [ext_resource path="res://Sprites/misc/Laurels2.png" type="Texture" id=15]
+[ext_resource path="res://Sprites/UI/treat02.png" type="Texture" id=16]
 [ext_resource path="res://Sprites/UI/treat.png" type="Texture" id=17]
 
 [sub_resource type="VisualShaderNodeTexture" id=1]
@@ -211,6 +213,11 @@ nodes/fragment/connections = PoolIntArray( 2, 1, 0, 1, 2, 0, 4, 1, 4, 0, 0, 0, 6
 
 [sub_resource type="ShaderMaterial" id=19]
 shader = SubResource( 18 )
+
+[sub_resource type="DynamicFont" id=22]
+size = 101
+extra_spacing_char = 13
+font_data = ExtResource( 14 )
 
 [sub_resource type="Animation" id=20]
 step = 0.03
@@ -481,6 +488,7 @@ extra_spacing_char = 2
 font_data = ExtResource( 14 )
 
 [node name="BaseInventoryScreen" type="Control" groups=[
+"InvScreen",
 "UI_Special",
 ]]
 pause_mode = 2
@@ -500,28 +508,33 @@ __meta__ = {
 }
 
 [node name="BG" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 512, 300 )
 texture = ExtResource( 2 )
 
 [node name="BLUR" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 material = ExtResource( 5 )
 position = Vector2( 512, 301 )
 texture = ExtResource( 2 )
 
 [node name="Decor" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 512, 304 )
 texture = ExtResource( 7 )
 
 [node name="Frame" type="Sprite" parent="."]
-position = Vector2( 512, 304 )
+position = Vector2( 1376, 304 )
 z_index = 1
 texture = ExtResource( 6 )
 
 [node name="BG2" type="Sprite" parent="Frame"]
+modulate = Color( 1, 1, 1, 0 )
 z_index = -1
 texture = ExtResource( 3 )
 
 [node name="BG3" type="Sprite" parent="Frame"]
+modulate = Color( 1, 1, 1, 0 )
 z_index = -1
 texture = ExtResource( 4 )
 
@@ -542,6 +555,7 @@ z_index = -1
 texture = ExtResource( 4 )
 
 [node name="Circle" type="Sprite" parent="Frame"]
+modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 288, -56 )
 scale = Vector2( 0.957857, 0.957857 )
 z_index = -1
@@ -608,9 +622,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ItemTreatsLabel" type="Sprite" parent="Frame"]
+visible = false
+position = Vector2( 42.7149, 106.787 )
+scale = Vector2( 0.162919, 0.162919 )
+texture = ExtResource( 16 )
+
+[node name="Label" type="Label" parent="Frame/ItemTreatsLabel"]
+margin_left = 102.0
+margin_top = -60.0
+margin_right = 761.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 22 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 6
+custom_constants/shadow_offset_y = 6
+text = "69420"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "default"
 anims/default = SubResource( 20 )
+
+[node name="ContextOptionsContainer" type="Node2D" parent="."]
+position = Vector2( 896, 447 )
+script = ExtResource( 10 )
 
 [node name="ListItemContainer" type="Node2D" parent="."]
 position = Vector2( 171, 128 )

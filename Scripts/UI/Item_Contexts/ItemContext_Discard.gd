@@ -1,4 +1,4 @@
-extends Control
+extends TextureButton
 
 var item
 var controller
@@ -20,14 +20,18 @@ func discard():
 	#controller.get_inventory().erase(item)
 	var tree = Global.world.get_tree()
 	tree.call_group("InvScreen", "draw_list_items")
+	tree.call_group("InvScreen", "draw_selected_icon")
 	#print("calling clear context from discard button")
-	tree.call_group("InvScreen", "clear_context")
+	#tree.call_group("InvScreen", "clear_context")
 	#print("end of discard")
 	pass
 
-func _on_TextureButton_button_up():
-	discard()
-	var tree = get_tree()
-	tree.call_group("InvScreen", "draw_list_items")
-	tree.call_group("InvScreen", "draw_context", null)
+
+func _on_Discard_focus_entered():
+	print("Discard: gained focus")
+	pass # Replace with function body.
+
+
+func _on_Discard_focus_exited():
+	print("Discard: release focus")
 	pass # Replace with function body.
