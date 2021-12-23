@@ -14,6 +14,7 @@
 
 [node name="Placeable" type="RigidBody"]
 script = ExtResource( 2 )
+ContextOptions = [ 0, 1 ]
 itemName = "Placeable"
 coolMat = ExtResource( 9 )
 

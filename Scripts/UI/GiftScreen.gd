@@ -20,20 +20,11 @@ func clear_context():
 func draw_context(item):
 	selected = item
 	clear_context()
-	var c = item.get_context()
-	#var buttons = c.get_buttons()
-	var d = c.get_description()
-	draw_description(d.get_description())
-	#var i = 0
-	#print("[inv]:drawing context ",buttons)
-	#for b in buttons:
-	#	print(b.name)
+	draw_description(item.get_description())
 	var o = $Context/GiveButton
 	o.initialize({"item":item, "controller":sourceRef.get_equipment_manager()})
 	$Context.add_child(o)
 	o.visible = true
-	#	o.rect_position = $Context/ButtonPoint.rect_position + Vector2((256 * i),0)
-	#	i += 1
 	context_buttons.append(o)
 
 func get_title():
@@ -42,7 +33,8 @@ func get_title():
 func give(i):
 	print("getting inventory from ", initArgs["giftee"], initArgs["giftee"].name)
 	var inv = initArgs["giftee"].call("get_inventory")
-	inv.append(i.duplicate(7))
+	inv.append(i)
+	#inv.append(i.duplicate(7))
 	draw_list_items()
 	clear_context()
 

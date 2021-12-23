@@ -1,13 +1,13 @@
 {
 	"events": [
 		{
-			"character": "",
+			"character": "character-1639693038.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "This is awful!"
 		},
 		{
-			"character": "",
+			"character": "character-1639693038.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "Someone destroyed the gazebo we were building!"

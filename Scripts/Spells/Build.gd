@@ -16,10 +16,15 @@ func _ready():
 	$Container/Ring/Pointer.initialize(self)
 
 func _process(delta):
-	#print(get_global_mouse_position())
-	var offset = get_global_mouse_position() - $Container/Ring.global_position
-	var point = offset.normalized() * pointerRadius
-	$Container/Ring/Pointer.global_position = $Container/Ring.global_position + point
+	var joypointr = Vector2(Input.get_joy_axis(0, JOY_ANALOG_RX), Input.get_joy_axis(0, JOY_ANALOG_RY))
+	var joypointl = Vector2(Input.get_joy_axis(0, JOY_ANALOG_LX), Input.get_joy_axis(0, JOY_ANALOG_LY))
+	var joypoint = joypointr if joypointr.length() > joypointl.length() else joypointl
+	if joypoint.length() > 0.2:
+		$Container/Ring/Pointer.global_position = $Container/Ring.global_position + (joypoint * pointerRadius)
+	else:
+		var offset = get_global_mouse_position() - $Container/Ring.global_position
+		var point = offset.normalized() * pointerRadius
+		$Container/Ring/Pointer.global_position = $Container/Ring.global_position + point
 	pass
 
 func _on_ReadyWait_timeout():
@@ -69,12 +74,14 @@ func initialize(args):
 	playerRef.enter_some_menu()
 
 func parse_input(input):
-	if input.mouse_down:
+	if input.mouse_down or Input.is_action_just_released("ui_cancel"):
 		print("build mode - mouse down")
 		exit()
-	if input.standard:
+	if input.standard or input.special or Input.is_action_just_released("ui_accept"):
 		if canSelect:
 			ready_placer()
+		else:
+			exit()
 
 func ready_placer():
 	if selected != null:

@@ -24,6 +24,7 @@ surfaces/0 = {
 }
 
 [sub_resource type="SpatialMaterial" id=3]
+flags_vertex_lighting = true
 albedo_texture = ExtResource( 1 )
 distance_fade_mode = 2
 distance_fade_min_distance = 160.0

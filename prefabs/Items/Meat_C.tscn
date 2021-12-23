@@ -10,6 +10,7 @@ points = PoolVector3Array( 0.394465, -0.829642, 0, -0.394465, -0.829642, 0, 0.47
 
 [node name="Meat" type="RigidBody"]
 script = ExtResource( 2 )
+ContextOptions = [ 0 ]
 icon = "res://Sprites/Items/Meat_Icon.png"
 itemName = "Meat"
 value = 4.0

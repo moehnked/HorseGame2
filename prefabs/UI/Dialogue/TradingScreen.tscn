@@ -135,4 +135,3 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="fade_in_complete" from="background" to="." method="_on_BG_fade_in_complete"]
-[connection signal="pressed" from="Context/BuyButton" to="." method="_on_BuyButton_pressed"]

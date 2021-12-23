@@ -46,12 +46,12 @@ var saddle
 var scaleMod = 1.0
 var spellqueue = []
 #var state = State.normal
-var treats:float = 20
+var treats:float = 200
 
 var placer_observers = []
 var raycastObservers = []
 
-var lefthandSpell = "Null"
+var lefthandSpell = "Lasso"
 var righthandSpell = "Null"
 
 var buildList = ["Fence"]
@@ -105,6 +105,7 @@ func add_to_party(member):
 		print("adding to party - ", member.name)
 		$HUD.add_party_member(member)
 		$HUD.draw_party()
+		Utils.reparent(member, Global.world)
 		return true
 	else:
 		print("party_full")
@@ -272,8 +273,8 @@ func get_head():
 func get_palm():
 	return $Head/Palm
 
-func get_party():
-	return $HUD.party
+func get_party(asKeys = true):
+	return $HUD.get_party(asKeys)
 
 func get_raycast():
 	return $Head/Camera/RayCast_Areas
@@ -293,6 +294,9 @@ func get_treats():
 func get_x_rotation():
 	return get_head().rotation.x
 
+func hide_hud():
+	$HUD.visible = false
+
 func initializeHUD(letter):
 	$Head/Camera/GuiLoadArea/H.initialize(letter)
 
@@ -309,6 +313,10 @@ func is_focused():
 
 func parse_input(_input):
 	input = _input
+	
+	if Input.is_key_pressed(KEY_P):
+		for h in get_party():
+			print("party: ", h, h.get_name(), h.global_transform.origin)
 	
 	if input.standard:
 		if canCastLeft:
@@ -392,6 +400,9 @@ func set_knockback_timer(time):
 
 func set_treats(val):
 	treats = val
+
+func show_hud():
+	$HUD.visible = true
 
 func startLeftCooldown():
 	$LeftCooldown.start()

@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://Shaders/WaveWiggle3d.shader" type="Shader" id=1]
+[ext_resource path="res://Sprites/Nature/Billboard_grass/n_grass_atlas.png" type="Texture" id=2]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/pivotRotAmount = 80.5
+shader_param/time_scale = 1.0
+shader_param/colorMask = Vector3( 1, 1, 1 )
+shader_param/uvOffset = Vector2( 0.25, 0 )
+shader_param/uvScale = Vector2( 0.125, 0.125 )
+shader_param/overlay = ExtResource( 2 )

@@ -4822,6 +4822,7 @@ rotation = 0.0666433
 scale = Vector2( 0.793187, 0.593187 )
 z_index = 4
 frames = SubResource( 14 )
+frame = 1
 playing = true
 
 [node name="CardsInHand" type="Node2D" parent="Container"]

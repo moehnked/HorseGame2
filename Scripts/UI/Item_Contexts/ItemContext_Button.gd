@@ -1,19 +1,19 @@
 #ItemContext_Button
-extends Control
+extends TextureButton
 
 export var text = "BUTTON"
-
-signal pressed()
 
 var item
 var controller
 
+signal emit_pressed(item)
+
 func disable():
-	$TextureButton.disabled = true
+	disabled = true
 	visible = false
 
 func enable():
-	$TextureButton.disabled = false
+	disabled = false
 	visible = true
 
 func initialize(args = {}):
@@ -23,14 +23,20 @@ func initialize(args = {}):
 	set_text(args.text if args.text != "" else text)
 	enable()
 
-func press():
-	emit_signal("pressed")
-
 func set_text(t = text):
-	text = t
 	$Label.text = text
-	$Label2.text = text
+
+func press():
+	print("press context button: ", text)
+	emit_signal("emit_pressed", item)
+
+
+func _on_TextureButton_button_down():
+	#release_focus()
+	pass # Replace with function body.
+
 
 func _on_TextureButton_button_up():
 	press()
+	#grab_focus()
 	pass # Replace with function body.

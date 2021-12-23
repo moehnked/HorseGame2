@@ -1,8 +1,18 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://models/objects/book.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://Textures/objects/books/Book_01.png" type="Texture" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+resource_name = "Material"
+albedo_color = Color( 0.8, 0.8, 0.8, 1 )
+albedo_texture = ExtResource( 2 )
+metallic = 0.5
+distance_fade_mode = 2
+distance_fade_min_distance = 160.0
+distance_fade_max_distance = 70.0
 
 [node name="book" type="MeshInstance"]
 transform = Transform( -1.14127e-07, 0, 0.700505, 0, 0.700505, 0, -0.700505, 0, -1.14127e-07, 0.297173, 3.94232, 2.01664 )
 mesh = ExtResource( 1 )
-material/0 = null
+material/0 = SubResource( 1 )

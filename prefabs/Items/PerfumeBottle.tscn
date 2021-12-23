@@ -12,6 +12,7 @@ radius = 0.313503
 
 [sub_resource type="SpatialMaterial" id=3]
 flags_transparent = true
+flags_unshaded = true
 params_billboard_mode = 2
 params_billboard_keep_scale = true
 albedo_texture = ExtResource( 7 )
@@ -21,6 +22,7 @@ extents = Vector3( 1, 2.23459, 1 )
 
 [node name="PerfumeBottle" type="RigidBody"]
 script = ExtResource( 2 )
+ContextOptions = [ 0 ]
 icon = "res://Sprites/Items/PerfumeBottle.png"
 itemName = "Perfume Bottle"
 
@@ -33,7 +35,7 @@ transform = Transform( 0.381075, 0, 0, 0, 0.381075, 0, 0, 0, 0.381075, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 0.381075, 0, 0, 0, 0.381075, 0, 0, 0, 0.381075, 0, 0, 0 )
+transform = Transform( 0.489626, 0, 0, 0, 0.489626, 0, 0, 0, 0.489626, 0, 0, 0 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
 
@@ -42,7 +44,7 @@ transform = Transform( 0.0810087, 0, 0, 0, 0.0810087, 0, 0, 0, 0.0810087, 0, 0, 
 shape = SubResource( 4 )
 
 [node name="Description" parent="." instance=ExtResource( 4 )]
-description = "Test Useable"
+description = "A bottle of perfume. It smells like it's not very expensive."
 [connection signal="interaction" from="Interactable" to="." method="_on_Interactable_interaction"]
 
 [editable path="Interactable"]

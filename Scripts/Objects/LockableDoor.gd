@@ -11,7 +11,8 @@ func _ready():
 	pass # Replace with function body.
 
 func get_prompt():
-	return "Close" if isOpen else ("Open" if not isLocked else "Locked" + ("" if keyName == "" else " (Requires Key) "))
+	var inv = Global.Player.get_inventory()
+	return "Close" if isOpen else ("Open" if not isLocked else "Locked" + ("" if keyName == "" else ("(Unlock)" if Utils.contains(keyName, inv) else "(Requires Key)")))
 
 func lock():
 	isLocked = true

@@ -1,0 +1,775 @@
+[gd_scene load_steps=56 format=2]
+
+[ext_resource path="res://Scripts/UI/Inventory/SellScreen.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/UI/INVScreen_BG.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/UI/INVScreen_BG2.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/UI/INVScreen_BG3.png" type="Texture" id=4]
+[ext_resource path="res://Materials/2DBlurLayer.tres" type="Material" id=5]
+[ext_resource path="res://Sprites/UI/INVScreen_Frame.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/UI/INVScreen_Decor.png" type="Texture" id=7]
+[ext_resource path="res://fonts/OpyimusTitle.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Sprites/UI/PauseCircle.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/UI/Inventory/TradeContextContainer.gd" type="Script" id=10]
+[ext_resource path="res://Scripts/UI/Inventory/ListItemContainer.gd" type="Script" id=11]
+[ext_resource path="res://Sprites/UI/cancel_button.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/UI/cancel_button2.png" type="Texture" id=13]
+[ext_resource path="res://fonts/OptimusPrinceps.ttf" type="DynamicFontData" id=14]
+[ext_resource path="res://Sprites/misc/Laurels2.png" type="Texture" id=15]
+[ext_resource path="res://Sprites/UI/treat02.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/UI/treat.png" type="Texture" id=17]
+[ext_resource path="res://Scripts/UI/Inventory/TreatsCount.gd" type="Script" id=18]
+[ext_resource path="res://Themes/new_theme.tres" type="Theme" id=19]
+[ext_resource path="res://prefabs/UI/ItemContext_Button.tscn" type="PackedScene" id=20]
+[ext_resource path="res://prefabs/Misc/Events/PlaySound.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Sounds/Audio/error_004.ogg" type="AudioStream" id=22]
+[ext_resource path="res://Sounds/Audio/error_006.ogg" type="AudioStream" id=23]
+[ext_resource path="res://Sounds/Audio/error_003.ogg" type="AudioStream" id=24]
+[ext_resource path="res://Sounds/Audio/error_005.ogg" type="AudioStream" id=25]
+[ext_resource path="res://Sounds/Audio/error_007.ogg" type="AudioStream" id=26]
+[ext_resource path="res://Sounds/Audio/confirmation_004.ogg" type="AudioStream" id=27]
+[ext_resource path="res://Sounds/Audio/error_001.ogg" type="AudioStream" id=28]
+[ext_resource path="res://Sounds/Audio/error_002.ogg" type="AudioStream" id=29]
+[ext_resource path="res://Sounds/Audio/confirmation_002.ogg" type="AudioStream" id=30]
+[ext_resource path="res://Sounds/Audio/confirmation_001.ogg" type="AudioStream" id=31]
+[ext_resource path="res://Sounds/Audio/confirmation_003.ogg" type="AudioStream" id=32]
+
+[sub_resource type="VisualShaderNodeTexture" id=1]
+texture = ExtResource( 15 )
+
+[sub_resource type="VisualShaderNodeInput" id=2]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id=3]
+
+[sub_resource type="VisualShaderNodeVectorCompose" id=4]
+
+[sub_resource type="VisualShaderNodeInput" id=5]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeScalarOp" id=6]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=7]
+default_input_values = [ 0, 0.0, 1, 0.01 ]
+operator = 2
+
+[sub_resource type="VisualShader" id=8]
+code = "shader_type canvas_item;
+uniform sampler2D tex_frg_2;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Input:6
+	float n_out6p0 = TIME;
+
+// ScalarOp:9
+	float n_in9p1 = 0.01000;
+	float n_out9p0 = n_out6p0 * n_in9p1;
+
+// Input:3
+	vec3 n_out3p0 = vec3(UV, 0.0);
+
+// VectorDecompose:4
+	float n_out4p0 = n_out3p0.x;
+	float n_out4p1 = n_out3p0.y;
+	float n_out4p2 = n_out3p0.z;
+
+// ScalarOp:8
+	float n_out8p0 = n_out9p0 + n_out4p0;
+
+// VectorCompose:5
+	float n_in5p2 = 0.00000;
+	vec3 n_out5p0 = vec3(n_out8p0, n_out4p1, n_in5p2);
+
+// Texture:2
+	vec4 tex_frg_2_read = texture(tex_frg_2, n_out5p0.xy);
+	vec3 n_out2p0 = tex_frg_2_read.rgb;
+	float n_out2p1 = tex_frg_2_read.a;
+
+// Output:0
+	COLOR.rgb = n_out2p0;
+	COLOR.a = n_out2p1;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -534, -141.5 )
+mode = 1
+flags/light_only = false
+nodes/vertex/0/position = Vector2( 440, 0 )
+nodes/fragment/0/position = Vector2( 840, 240 )
+nodes/fragment/2/node = SubResource( 1 )
+nodes/fragment/2/position = Vector2( 520, 200 )
+nodes/fragment/3/node = SubResource( 2 )
+nodes/fragment/3/position = Vector2( -260, 240 )
+nodes/fragment/4/node = SubResource( 3 )
+nodes/fragment/4/position = Vector2( -80, 260 )
+nodes/fragment/5/node = SubResource( 4 )
+nodes/fragment/5/position = Vector2( 320, 300 )
+nodes/fragment/6/node = SubResource( 5 )
+nodes/fragment/6/position = Vector2( -260, 100 )
+nodes/fragment/8/node = SubResource( 6 )
+nodes/fragment/8/position = Vector2( 140, 180 )
+nodes/fragment/9/node = SubResource( 7 )
+nodes/fragment/9/position = Vector2( -60, 80 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 0, 0, 2, 1, 0, 1, 3, 0, 4, 0, 5, 0, 2, 0, 4, 1, 5, 1, 4, 0, 8, 1, 8, 0, 5, 0, 6, 0, 9, 0, 9, 0, 8, 0 )
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 34
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.756863 )
+extra_spacing_char = 3
+font_data = ExtResource( 14 )
+
+[sub_resource type="VisualShaderNodeScalarOp" id=11]
+default_input_values = [ 0, 0.0, 1, 0.2 ]
+operator = 2
+
+[sub_resource type="VisualShaderNodeTexture" id=12]
+output_port_for_preview = 0
+texture = ExtResource( 17 )
+
+[sub_resource type="VisualShaderNodeVectorOp" id=13]
+output_port_for_preview = 0
+
+[sub_resource type="VisualShaderNodeColorConstant" id=14]
+constant = Color( 1, 0.761719, 0, 1 )
+
+[sub_resource type="VisualShaderNodeInput" id=15]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=16]
+function = 0
+
+[sub_resource type="VisualShaderNodeVectorOp" id=17]
+output_port_for_preview = 0
+operator = 2
+
+[sub_resource type="VisualShaderNodeScalarOp" id=18]
+default_input_values = [ 0, 1.0, 1, 0.0 ]
+
+[sub_resource type="VisualShader" id=19]
+code = "shader_type canvas_item;
+uniform sampler2D tex_frg_2;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Color:5
+	vec3 n_out5p0 = vec3(1.000000, 0.761719, 0.000000);
+	float n_out5p1 = 1.000000;
+
+// Input:6
+	float n_out6p0 = TIME;
+
+// ScalarFunc:7
+	float n_out7p0 = sin(n_out6p0);
+
+// ScalarOp:9
+	float n_in9p0 = 1.00000;
+	float n_out9p0 = n_in9p0 + n_out7p0;
+
+// ScalarOp:10
+	float n_in10p1 = 0.20000;
+	float n_out10p0 = n_out9p0 * n_in10p1;
+
+// VectorOp:8
+	vec3 n_out8p0 = n_out5p0 * vec3(n_out10p0);
+
+// Texture:2
+	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
+	vec3 n_out2p0 = tex_frg_2_read.rgb;
+	float n_out2p1 = tex_frg_2_read.a;
+
+// VectorOp:4
+	vec3 n_out4p0 = n_out8p0 + n_out2p0;
+
+// Output:0
+	COLOR.rgb = n_out4p0;
+	COLOR.a = n_out2p1;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -1018, -113 )
+mode = 1
+flags/light_only = false
+nodes/fragment/2/node = SubResource( 12 )
+nodes/fragment/2/position = Vector2( -460, 200 )
+nodes/fragment/4/node = SubResource( 13 )
+nodes/fragment/4/position = Vector2( 13, 49.5 )
+nodes/fragment/5/node = SubResource( 14 )
+nodes/fragment/5/position = Vector2( -460, -140 )
+nodes/fragment/6/node = SubResource( 15 )
+nodes/fragment/6/position = Vector2( -1000, 40 )
+nodes/fragment/7/node = SubResource( 16 )
+nodes/fragment/7/position = Vector2( -840, 40 )
+nodes/fragment/8/node = SubResource( 17 )
+nodes/fragment/8/position = Vector2( -218, -126.5 )
+nodes/fragment/9/node = SubResource( 18 )
+nodes/fragment/9/position = Vector2( -660, 0 )
+nodes/fragment/10/node = SubResource( 11 )
+nodes/fragment/10/position = Vector2( -460, 0 )
+nodes/fragment/connections = PoolIntArray( 2, 1, 0, 1, 2, 0, 4, 1, 4, 0, 0, 0, 6, 0, 7, 0, 5, 0, 8, 0, 8, 0, 4, 0, 7, 0, 9, 1, 9, 0, 10, 0, 10, 0, 8, 1 )
+
+[sub_resource type="ShaderMaterial" id=20]
+shader = SubResource( 19 )
+
+[sub_resource type="DynamicFont" id=21]
+size = 101
+extra_spacing_char = 13
+font_data = ExtResource( 14 )
+
+[sub_resource type="Animation" id=22]
+step = 0.03
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("BG:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("BG:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("BG:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("BG:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("BLUR:modulate:r")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("BLUR:modulate:g")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("BLUR:modulate:b")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("BLUR:modulate:a")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/8/type = "bezier"
+tracks/8/path = NodePath("Decor:modulate:r")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.75 )
+}
+tracks/9/type = "bezier"
+tracks/9/path = NodePath("Decor:modulate:g")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.75 )
+}
+tracks/10/type = "bezier"
+tracks/10/path = NodePath("Decor:modulate:b")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.75 )
+}
+tracks/11/type = "bezier"
+tracks/11/path = NodePath("Decor:modulate:a")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0.18, 0.63 )
+}
+tracks/12/type = "bezier"
+tracks/12/path = NodePath("Frame:position:x")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"points": PoolRealArray( 1376, -0.25, 0, 0.25, 0, 512, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.39 )
+}
+tracks/13/type = "bezier"
+tracks/13/path = NodePath("Frame:position:y")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"points": PoolRealArray( 304, -0.25, 0, 0.25, 0, 304, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.39 )
+}
+tracks/14/type = "bezier"
+tracks/14/path = NodePath("Frame/BG2:modulate:r")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/15/type = "bezier"
+tracks/15/path = NodePath("Frame/BG2:modulate:g")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/16/type = "bezier"
+tracks/16/path = NodePath("Frame/BG2:modulate:b")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/17/type = "bezier"
+tracks/17/path = NodePath("Frame/BG2:modulate:a")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.75 )
+}
+tracks/18/type = "bezier"
+tracks/18/path = NodePath("Frame/BG3:modulate:r")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/19/type = "bezier"
+tracks/19/path = NodePath("Frame/BG3:modulate:g")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/20/type = "bezier"
+tracks/20/path = NodePath("Frame/BG3:modulate:b")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/21/type = "bezier"
+tracks/21/path = NodePath("Frame/BG3:modulate:a")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.93 )
+}
+tracks/22/type = "bezier"
+tracks/22/path = NodePath("Frame/Circle:modulate:r")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/23/type = "bezier"
+tracks/23/path = NodePath("Frame/Circle:modulate:g")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/24/type = "bezier"
+tracks/24/path = NodePath("Frame/Circle:modulate:b")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/25/type = "bezier"
+tracks/25/path = NodePath("Frame/Circle:modulate:a")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0.27, 0.99 )
+}
+tracks/26/type = "bezier"
+tracks/26/path = NodePath("Frame/ListItemContainer:modulate:r")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/27/type = "bezier"
+tracks/27/path = NodePath("Frame/ListItemContainer:modulate:g")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/28/type = "bezier"
+tracks/28/path = NodePath("Frame/ListItemContainer:modulate:b")
+tracks/28/interp = 1
+tracks/28/loop_wrap = true
+tracks/28/imported = false
+tracks/28/enabled = true
+tracks/28/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/29/type = "bezier"
+tracks/29/path = NodePath("Frame/ListItemContainer:modulate:a")
+tracks/29/interp = 1
+tracks/29/loop_wrap = true
+tracks/29/imported = false
+tracks/29/enabled = true
+tracks/29/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+
+[sub_resource type="DynamicFont" id=23]
+size = 21
+extra_spacing_char = 2
+font_data = ExtResource( 14 )
+
+[node name="TradingScreen" type="Control" groups=[
+"InvScreen",
+"UI_Special",
+]]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="Sprite" parent="."]
+position = Vector2( 512, 300 )
+texture = ExtResource( 2 )
+
+[node name="BLUR" type="Sprite" parent="."]
+material = ExtResource( 5 )
+position = Vector2( 512, 301 )
+texture = ExtResource( 2 )
+
+[node name="Decor" type="Sprite" parent="."]
+position = Vector2( 512, 304 )
+texture = ExtResource( 7 )
+
+[node name="Frame" type="Sprite" parent="."]
+position = Vector2( 512, 304 )
+z_index = 1
+texture = ExtResource( 6 )
+
+[node name="BG2" type="Sprite" parent="Frame"]
+z_index = -1
+texture = ExtResource( 3 )
+
+[node name="BG3" type="Sprite" parent="Frame"]
+z_index = -1
+texture = ExtResource( 4 )
+
+[node name="BG4" type="Sprite" parent="Frame"]
+modulate = Color( 0.105882, 0.431373, 0.486275, 0.172549 )
+material = SubResource( 9 )
+position = Vector2( 84, -205.5 )
+scale = Vector2( 0.835938, 0.0616667 )
+z_index = -1
+texture = ExtResource( 4 )
+
+[node name="BG5" type="Sprite" parent="Frame"]
+modulate = Color( 0.105882, 0.431373, 0.486275, 0.172549 )
+material = SubResource( 9 )
+position = Vector2( 84, 109.25 )
+scale = Vector2( -0.836, 0.044 )
+z_index = -1
+texture = ExtResource( 4 )
+
+[node name="Circle" type="Sprite" parent="Frame"]
+position = Vector2( 288, -56 )
+scale = Vector2( 0.957857, 0.957857 )
+z_index = -1
+texture = ExtResource( 9 )
+
+[node name="INVDisplay" type="Sprite" parent="Frame"]
+position = Vector2( 288, -56 )
+scale = Vector2( 0.5, 0.5 )
+z_index = -1
+
+[node name="MainLabel" type="Label" parent="Frame"]
+margin_left = -328.0
+margin_top = -224.0
+margin_right = -165.0
+margin_bottom = -187.0
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 2
+text = "Selling to:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelectionLabel" type="Label" parent="Frame"]
+margin_left = -328.0
+margin_top = 89.0
+margin_right = -141.0
+margin_bottom = 126.0
+rect_scale = Vector2( 0.865804, 0.865804 )
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TreatsIcon2" type="Sprite" parent="Frame"]
+modulate = Color( 0.294118, 0.152941, 0.027451, 0.498039 )
+material = SubResource( 20 )
+position = Vector2( 405.583, 107.375 )
+rotation = 0.700387
+scale = Vector2( 0.186926, 0.186926 )
+texture = ExtResource( 17 )
+
+[node name="TreatsIcon3" type="Sprite" parent="Frame"]
+material = SubResource( 20 )
+position = Vector2( 408, 104.92 )
+rotation = 1.0472
+scale = Vector2( 0.186926, 0.186926 )
+texture = ExtResource( 17 )
+
+[node name="TreatsCount" type="Label" parent="Frame"]
+margin_left = 423.932
+margin_top = 90.764
+margin_right = 533.932
+margin_bottom = 127.764
+rect_scale = Vector2( 0.811384, 0.811384 )
+custom_fonts/font = ExtResource( 8 )
+text = "0"
+clip_text = true
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemTreatsLabel" type="Sprite" parent="Frame"]
+visible = false
+position = Vector2( 256.76, 88.1537 )
+scale = Vector2( 0.162919, 0.162919 )
+texture = ExtResource( 16 )
+
+[node name="Label" type="Label" parent="Frame/ItemTreatsLabel"]
+margin_left = 102.0
+margin_top = -60.0
+margin_right = 761.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 21 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 6
+custom_constants/shadow_offset_y = 6
+text = "69420"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ListItemContainer" type="ScrollContainer" parent="Frame"]
+margin_left = -340.0
+margin_top = -183.0
+margin_right = 100.0
+margin_bottom = 89.0
+theme = ExtResource( 19 )
+follow_focus = true
+scroll_horizontal_enabled = false
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Frame/ListItemContainer"]
+margin_right = 440.0
+margin_bottom = 272.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = -13
+
+[node name="ContextOptionsContainer" type="Node2D" parent="."]
+position = Vector2( 896, 447 )
+script = ExtResource( 10 )
+
+[node name="TextureButton" parent="ContextOptionsContainer" instance=ExtResource( 20 )]
+margin_left = 13.3239
+margin_top = 9.58252
+margin_right = 269.324
+margin_bottom = 73.5825
+text = "SELL"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+anims/default = SubResource( 22 )
+
+[node name="Description" type="Label" parent="."]
+margin_left = 171.0
+margin_top = 448.0
+margin_right = 672.0
+margin_bottom = 592.0
+custom_fonts/font = SubResource( 23 )
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExitButton" type="TextureButton" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 484.0
+margin_top = -215.0
+margin_right = 996.0
+margin_bottom = 297.0
+rect_scale = Vector2( 0.0465961, 0.0465961 )
+texture_normal = ExtResource( 13 )
+texture_hover = ExtResource( 12 )
+texture_focused = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Confirm" parent="." instance=ExtResource( 21 )]
+random_sounds = [ ExtResource( 31 ), ExtResource( 30 ), ExtResource( 32 ), ExtResource( 27 ) ]
+volume = -20.0
+
+[node name="Error" parent="." instance=ExtResource( 21 )]
+random_sounds = [ ExtResource( 28 ), ExtResource( 29 ), ExtResource( 24 ), ExtResource( 22 ), ExtResource( 25 ), ExtResource( 23 ), ExtResource( 26 ) ]
+volume = -10.0
+[connection signal="emit_pressed" from="ContextOptionsContainer/TextureButton" to="." method="trade"]
+[connection signal="pressed" from="ExitButton" to="." method="deload"]

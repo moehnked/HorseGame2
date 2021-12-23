@@ -3,15 +3,24 @@ extends "res://Scripts/Items/Item.gd"
 
 #const horseRef = preload("res://Scripts/Horse/Horse.gd")
 
+var canUnequip = true
 var equipState:String = "Equip"
 var input = InputMacro.new()
 var isEquipped:bool = false
 var parentedTo:Spatial = Spatial.new()
+#var hasReparented
 
 export var canInteractWhileEquipped:bool = false
 export var equipSoundPath:String = "res://Sounds/unequip_01.wav"
 export var unequipSoundPath:String = "res://Sounds/equipment_03.wav"
 export var intendedSprite = "Holding"
+
+signal emit_held()
+signal emit_use()
+
+func _ready():
+	#Utils.reparent(self, Global.world)
+	pass
 
 func _process(delta):
 	if isEquipped:
@@ -20,6 +29,10 @@ func _process(delta):
 		update_position_to_parent()
 		if controller.get_parent().has_method("get_x_rotation"):
 			update_rotation_to_parent()
+		if input.left_mouse_pressed or input.left_mouse_pressed:
+			emit_signal("emit_held")
+		if input.standard or input.special:
+			emit_signal("emit_use")
 		pass
 
 func apply_behavior(HB):
@@ -44,12 +57,14 @@ func equip(_controller):
 	if controller.equip(self):
 		print("successfully equipped")
 		set_sleeping(false)
+		Utils.reparent(self, Global.world)
 		toggle_collisions(false)
 		$Interactable.isInteractable = false
 		isEquipped = true
-		set_context(Context.Context.Equip)
+		set_context(Context.context.Unequip)
 		Global.AudioManager.play_sound(equipSoundPath)
 		apply_behavior(get_behavior())
+		update_depth_test(self)
 		return true
 	return false
 
@@ -66,21 +81,10 @@ func recieve_looking_at(by, obj):
 	pass
 
 func set_context(_equipState):
-	var i = ContextOptions.find(_equipState)
-	ContextOptions[i] = Context.Context.Equip if _equipState == Context.Context.Unequip else Context.Context.Unequip
-#
-#func set_context(_equipState):
-#	var prev = null
-#	var newContext = null
-#	#clear_context()
-#	equipState = _equipState
-#	match equipState:
-#		"Equip":
-#			newContext = get_context().add("Equip")
-#		"Unequip":
-#			newContext = get_context().add("Unequip")
-#	newContext.initialize({"item": self, "controller": controller})
-#	newContext.visible = false
+	#var i = ContextOptions.find(_equipState)
+	ContextOptions.erase(Context.context.Equip)
+	ContextOptions.erase(Context.context.Unequip)
+	ContextOptions.append(_equipState)
 
 func set_point(object, _controller):
 	#print("setting point to ", object)
@@ -94,15 +98,36 @@ func toggle_collisions(enabl = true):
 	
 
 func unequip(args = {}):
-	args = Utils.check(args, {"caller":null})
-	set_context(Context.Context.Unequip)
-	isEquipped = false
-	parentedTo = Spatial.new()
-	controller = null
-	Global.AudioManager.play_sound(unequipSoundPath)
-	$Interactable.set_interactable(true)
-	toggle_collisions(true)
+	if canUnequip:
+		args = Utils.check(args, {"caller":null})
+		set_context(Context.context.Equip)
+		isEquipped = false
+		parentedTo = Spatial.new()
+		controller = null
+		toggle_collisions(true)
+		Global.AudioManager.play_sound(unequipSoundPath)
+		$Interactable.set_interactable(true)
+		update_depth_test(self, false)
 	
+
+func update_depth_test(node, val = true):
+	print("UPDATE depth test ", node," ", get_child_count())
+	if node is MeshInstance:
+		var smCount = node.get_surface_material_count()
+		if smCount > 0:
+			print("found ", smCount, "materials")
+			var m = 0
+			while m < smCount:
+				var mat = node.get_surface_material(m)
+				print("Material ",m, " - ", mat)
+				if mat is SpatialMaterial:
+					print("setting depth test to false")
+					mat.flags_no_depth_test = val
+				m += 1
+	var num = node.get_child_count()
+	if num > 0:
+		for n in node.get_children():
+			update_depth_test(n, val)
 
 func update_position_to_parent():
 	global_transform.origin = parentedTo.global_transform.origin

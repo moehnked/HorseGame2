@@ -42,7 +42,7 @@ albedo_texture = ExtResource( 5 )
 [sub_resource type="QuadMesh" id=4]
 material = SubResource( 3 )
 
-[node name="EmptyPainting" type="Spatial"]
+[node name="Painting05" type="Spatial"]
 script = ExtResource( 3 )
 title = "Untitled"
 description = "Welcome to Horse Game"

@@ -22,7 +22,7 @@ func collision_effect(other):
 	other.call_deferred("deconstruct")
 
 func _on_Mallet_body_entered(body):
-	if check_if_body_valid(body):
+	if check_if_body_valid(body) and controller != null:
 		var path = "res://Sounds/axe_hit_01.wav"
 		if body.has_method("get_hit_sound"):
 			path = body.get_hit_sound()

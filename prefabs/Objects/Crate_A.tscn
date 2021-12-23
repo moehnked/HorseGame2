@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://prefabs/Interactables/Damageable.tscn" type="PackedScene" id=1]
 [ext_resource path="res://models/objects/crate_a.obj" type="ArrayMesh" id=2]
@@ -12,8 +12,18 @@
 [ext_resource path="res://Sounds/smash_04.wav" type="AudioStream" id=10]
 [ext_resource path="res://Sounds/smash_01.wav" type="AudioStream" id=11]
 [ext_resource path="res://prefabs/Misc/Events/PlaySound.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Textures/128x128/Wood/old.jpg" type="Texture" id=13]
 
-[sub_resource type="ConcavePolygonShape" id=1]
+[sub_resource type="SpatialMaterial" id=1]
+resource_name = "Material"
+albedo_color = Color( 0.8, 0.8, 0.8, 1 )
+albedo_texture = ExtResource( 13 )
+metallic = 0.5
+distance_fade_mode = 2
+distance_fade_min_distance = 160.0
+distance_fade_max_distance = 70.0
+
+[sub_resource type="ConcavePolygonShape" id=2]
 data = PoolVector3Array( -1, 1, -1.8425, 1, 1, -1.8425, -1, 1, 1.8425, -1, 1, 1.8425, 1, 1, -1.8425, 1, 1, 1.8425, 1, 1, 1.8425, 1, -1, 1.8425, -1, 1, 1.8425, -1, 1, 1.8425, 1, -1, 1.8425, -1, -1, 1.8425, -1, 1, 1.8425, -1, -1, 1.8425, -1, 1, -1.8425, -1, 1, -1.8425, -1, -1, 1.8425, -1, -1, -1.8425, 1, -1, -1.8425, -1, -1, -1.8425, 1, -1, 1.8425, 1, -1, 1.8425, -1, -1, -1.8425, -1, -1, 1.8425, 1, 1, -1.8425, 1, -1, -1.8425, 1, 1, 1.8425, 1, 1, 1.8425, 1, -1, -1.8425, 1, -1, 1.8425, -1, 1, -1.8425, -1, -1, -1.8425, 1, 1, -1.8425, 1, 1, -1.8425, -1, -1, -1.8425, 1, -1, -1.8425 )
 
 [node name="Crate_A" type="Spatial"]
@@ -22,12 +32,12 @@ script = ExtResource( 4 )
 [node name="crate_a" type="MeshInstance" parent="."]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 mesh = ExtResource( 2 )
-material/0 = null
+material/0 = SubResource( 1 )
 
 [node name="StaticBody" type="StaticBody" parent="crate_a"]
 
 [node name="CollisionShape" type="CollisionShape" parent="crate_a/StaticBody"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Damageable" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1.89648, 0, 0, 0, 1.89648, 0, 0, 0, 1.89648, 0, 0, 0 )
@@ -49,7 +59,7 @@ target = NodePath("..")
 res = ExtResource( 7 )
 deleteSelf = false
 deletedTriggerer = false
-[connection signal="destroy" from="Damageable" to="Delay" method="trigger"]
 [connection signal="destroy" from="Damageable" to="." method="spawn_objects"]
+[connection signal="destroy" from="Damageable" to="Delay" method="trigger"]
 [connection signal="destroy" from="Damageable" to="PlaySound" method="trigger"]
 [connection signal="destroy" from="Damageable" to="LoadTargetResource" method="trigger"]

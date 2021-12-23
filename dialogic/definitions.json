@@ -4,12 +4,6 @@
 	],
 	"variables": [
 		{
-			"id": "1630746130-507",
-			"name": "test",
-			"type": 0,
-			"value": "0"
-		},
-		{
 			"id": "1631316431-366",
 			"name": "sa_item_planks",
 			"type": 0,
@@ -36,12 +30,6 @@
 		{
 			"id": "1631335337-864",
 			"name": "sa_item_mallet",
-			"type": 0,
-			"value": "0"
-		},
-		{
-			"id": "1631141192-713",
-			"name": "TimelineRead",
 			"type": 0,
 			"value": "0"
 		},
@@ -76,16 +64,28 @@
 			"value": "0"
 		},
 		{
-			"id": "1631423910-906",
-			"name": "randomText",
+			"id": "1631141192-713",
+			"name": "TimelineRead",
 			"type": 0,
-			"value": ""
+			"value": "0"
+		},
+		{
+			"id": "1630746130-507",
+			"name": "test",
+			"type": 0,
+			"value": "0"
 		},
 		{
 			"id": "1631338754-780",
 			"name": "sy_x",
 			"type": 0,
-			"value": "0"
+			"value": "1"
+		},
+		{
+			"id": "1631423910-906",
+			"name": "randomText",
+			"type": 0,
+			"value": ""
 		}
 	]
 }

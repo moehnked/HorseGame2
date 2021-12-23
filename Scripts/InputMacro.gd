@@ -15,4 +15,5 @@ var mouse_horizontal = 0.0
 var mouse_vertical = 0.0
 var direction_detected = false
 var left_mouse_pressed = false
+var right_mouse_pressed = false
 

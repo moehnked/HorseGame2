@@ -12,6 +12,7 @@ var isFadingAmbiance = false
 var isFadingMusic = false
 var noMusicTicks = 0
 var prevDB = 0.0
+var prevSong
 var targetDB = 0.0
 
 # Called when the node enters the scene tree for the first time.
@@ -41,10 +42,13 @@ func hour_alert():
 	if not is_song_playing() and music_enabled:
 		noMusicTicks -= 1
 		if noMusicTicks <= 0:
-			#$MusicPlayer.stream = Utils.get_random(normal_tracks)
-			#$MusicPlayer.play()
-			play_song(Utils.get_random(normal_tracks))
-			noMusicTicks = Global.world.rng.randi_range(2,10)
+			$MusicPlayer.stream = Utils.get_random(normal_tracks)
+			$MusicPlayer.play()
+#			var s = Utils.get_random(normal_tracks)
+#			if s != prevSong:
+#				prevSong = s
+#				play_song()
+			noMusicTicks = Global.world.rng.randi_range(2,20)
 		pass
 		
 
@@ -113,7 +117,9 @@ func queue_channel(channel = $AudioStreamPlayer, sound_path = "res://sounds/erro
 
 func queue_3d_channel(channel = $AudioStreamPlayer3D, sound_path = "res://sounds/error_01.wav", db = 0, pos = Vector3(), size = 3):
 	#print("executing sounds at vol - " , db)
-	channel.stream = load(sound_path)
+	if sound_path is String:
+		sound_path = load(sound_path)
+	channel.stream = sound_path
 	channel.unit_db = db
 	channel.global_transform.origin = pos
 	channel.unit_size = size

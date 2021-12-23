@@ -25,5 +25,8 @@ func unequip():
 
 func press_context():
 	if controller.get_equipped() != null:
-		unequip()
+		if item.canUnequip:
+			unequip()
+		else:
+			Global.world.get_tree().call_group("InvScreen", "play_error")
 	pass # Replace with function body.

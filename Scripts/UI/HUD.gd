@@ -27,6 +27,9 @@ func draw_party():
 		i += 1
 	pass
 
+func get_party(asKeys = true):
+	return party.keys() if asKeys else party
+
 func remove_from_party(member):
 	print("HUD: erasing ", member.get_horse_name())
 	if(party.has(member)):

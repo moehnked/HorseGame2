@@ -48,6 +48,9 @@ static func check_options_contains(res, ops):
 			return true
 	return false
 
+static func compare_floats(a, b, epsilon = 0.02):
+	return abs(a - b) <= epsilon
+
 static func contains(item, list):
 	if item is String:
 		for i in list:
@@ -81,6 +84,12 @@ static func custom_function_env_light(x):
 	y = y + 0.5
 	return y
 
+static func freeze_rigidbody(r, st = true):
+	r.set_axis_lock ( 1, st )
+	r.set_axis_lock ( 2, st )
+	r.set_axis_lock ( 4, st )
+	
+
 static func get_item_by_name(itemName, list):
 	for i in list:
 		if i.get_name() == itemName:
@@ -108,6 +117,9 @@ func get_inventory(controller):
 
 static func get_random(list):
 	return list[Global.world.rng.randi() % list.size()]
+
+static func get_rng():
+	return Global.world.rng
 
 static func get_world(node):
 	return node.get_tree().get_root().get_node("World")
@@ -159,9 +171,19 @@ static func remove_item(item, list):
 			if i.get_name() == item.get_name():
 				list.erase(i)
 				return
+static func rand_float_range(from = 0.0, to = 1.0):
+	return get_rng().randf_range(from, to)
+	
+static func reparent(child: Node, new_parent: Node):
+	var old_parent = child.get_parent()
+	#if old_parent == null:
+	#	old_parent = child.owner
+	if old_parent != null:
+		old_parent.remove_child(child)
+	new_parent.add_child(child)
 
 static func show_mouse():
-	print("Utils: showing mouse")
+	#print("Utils: showing mouse")
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 static func uniques(list):

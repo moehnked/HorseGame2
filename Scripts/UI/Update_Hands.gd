@@ -3,6 +3,10 @@ extends Control
 var a = 0.0
 export var fade_rate = 0.04
 var state = State.fadein
+
+var rightIsBeingSelected = false
+var leftIsBeingSelected = false
+
 var source
 var rootRef
 var selected
@@ -11,13 +15,17 @@ var options = ["Null"]
 var option_objects = []
 var leftHand
 var rightHand
+
+
 export(Array, AudioStream) var sfx
 export(Dictionary) var spellIcons
 
 enum State {fadein, test, fadeout}
 
-func play_sound(index):
+func _ready():
+	print("UPDATE HANDS: READY")
 
+func play_sound(index):
 	Global.AudioManager.play_sound(sfx[index])
 
 func _process(delta):
@@ -53,14 +61,16 @@ func parse_input(input):
 		unsubscribe_to()
 		Global.AudioManager.fade_music(0, 0.1)
 		source.update_spells(leftHand, rightHand)
-	if Input.is_action_just_released("PadLeft"):
+	if Input.is_action_just_released("PadLeft") and not leftIsBeingSelected:
+		leftIsBeingSelected = true
 		select_left_hand()
-	if Input.is_action_just_released("PadRight"):
+	if Input.is_action_just_released("PadRight") and not rightIsBeingSelected:
+		rightIsBeingSelected = true
 		select_right_hand()
-	if Input.is_action_just_released("ui_right"):
+	if Input.is_action_just_released("ui_right") and option_objects.size() > 0:
 		optionSelection = (optionSelection + 1) % option_objects.size()
 		option_objects[optionSelection].engage()
-	if Input.is_action_just_released("ui_left"):
+	if Input.is_action_just_released("ui_left") and option_objects.size() > 0:
 		optionSelection = (optionSelection - 1) % option_objects.size()
 		option_objects[optionSelection].engage()
 		

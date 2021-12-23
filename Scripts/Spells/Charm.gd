@@ -57,12 +57,14 @@ func conclude():
 	lookingat = null
 	source.raycast_unsubscribe(self)
 	Global.InputObserver.unsubscribe(self)
+	source.exit_some_menu()
 	queue_free()
 
 func create_charm_wheel():
 	var prefab = load("res://prefabs/Spells/CharmSelect.tscn").instance()
 	Global.world.call_deferred("add_child", prefab)
 	prefab.initialize({'source':source, 'palm':palm, 'callback':"charm", 'charm_origin':self})
+	source.enter_some_menu()
 
 func initialize(args):
 	args = Utils.check(args, {'player':null, 'palm':null, 'callback':null, 'hand':null})
@@ -75,7 +77,7 @@ func initialize(args):
 	source.revoke_casting()
 
 func parse_input(input):
-	if input.standard:
+	if input.standard or input.special:
 		if lookingat != null and hasInitialized:
 			canUpdateTarget = false
 			create_charm_wheel()

@@ -12,12 +12,13 @@ var mood = {
 	HorseMoods.greed : 0,
 	HorseMoods.bloodlust : 0,
 }
-export var pep:int = 0
+
 var personality
 var relationships = {}
 
 func _ready():
 	add_to_group("rng_dependant")
+	add_to_group("HourAlert")
 
 func calculate_charm_effect(charm, charmer):
 	print(name, " RECIEVED CHARM ", charm)
@@ -27,12 +28,12 @@ func calculate_charm_effect(charm, charmer):
 		relationships[charmer] = mood[charm]
 	
 	if(mood[charm] > 0):
-		pep += 1
+		get_parent().set_pep(get_parent().get_pep() + 1)
 	elif(mood[charm] < 0):
-		pep -= 1
+		get_parent().set_pep(get_parent().get_pep() - 1)
 	
 	print(name, "'s Relationship with ", charmer.name, " increased by ", mood[charm], " to ", relationships[charmer])
-	print("Pep: ", pep)
+	print("Pep: ", get_parent().get_pep())
 	match(mood[charm]):
 		2:
 			$Particles.loved()
@@ -63,9 +64,18 @@ func calculate_random_weights():
 
 func can_be_charmed():
 	var state = get_parent().get_state()
-	var val = ((pep > -5) and (state != "Attack" and state != "HorsDeCombat"))
-	print("horse pep:", pep, ", canBeCharmed: ",val)
+	var val = ((get_parent().get_pep() > -5) and (state != "Attack" and state != "HorsDeCombat"))
+	print("horse Pep:", get_parent().get_pep(), ", canBeCharmed: ",val)
 	return val
+
+func check_if_conversable(args):
+	var rel = check_relationships(args.talkingToController.get_parent())
+	print("checking if conversable: ", get_parent().get_pep(), " - rel: ", rel)
+	#can talk
+	if rel > -5:
+		return get_parent().get_pep() >= 5 or rel >= 10
+	else:
+		return false
 
 func check_relationships(person):
 	if relationships.has(person):
@@ -73,14 +83,16 @@ func check_relationships(person):
 	else:
 		return 0
 
+func hour_alert():
+	get_parent().set_pep(max(get_parent().get_pep() - 1, -10))
+	pass
+
 func initialize():
 	initialize_personality()
 
 func initialize_personality(mom = null, dad = null):
 	if(isAggroAtStart):
-		pep = Global.world.rng.randi_range(-10,5)
-	else:
-		pep = pep
+		get_parent().set_pep(Global.world.rng.randi_range(-10,5))
 	var moodboard = [HorseMoods.heart, HorseMoods.diamond, HorseMoods.club, HorseMoods.spade, HorseMoods.greed, HorseMoods.bloodlust]
 	personality = calculate_random_weights()
 	var mood_vals = [2,1,0,0,-1,-2]
@@ -110,9 +122,9 @@ func parse_charm(charm, charmer, spell):
 	match charm:
 		HorseMoods.greed:
 			charmer.enter_some_menu()
-			var screen = load("res://prefabs/UI/GiftScreen.tscn").instance()
-			add_child(screen)
-			screen.initialize({"source":charmer,"inv":charmer.get_inventory(),"callback":"exit_some_menu", "giftee":owner})
+			var screen = load("res://prefabs/UI/InventoryScreens/GiveScreen.tscn").instance()
+			screen.initialize({"vendor":charmer, "customer":owner, "inv":charmer.get_inventory(), 'source':charmer, 'callback':'exit_some_menu', 'displayName':owner.get_horse_name()})
+			Global.world.add_child(screen)
 			return m
 		_:
 			m = calculate_charm_effect(charm, charmer)

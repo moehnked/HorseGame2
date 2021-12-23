@@ -8,6 +8,9 @@
 flags_transparent = true
 params_cull_mode = 2
 albedo_texture = ExtResource( 1 )
+distance_fade_mode = 2
+distance_fade_min_distance = 160.0
+distance_fade_max_distance = 70.0
 
 [node name="ChainLink" type="MeshInstance"]
 transform = Transform( -1.62543e-08, -0.0997683, 0, 0.154473, -2.51668e-08, 0, 0, 0, 0.139046, 2.89437, 0.468623, 1.38705 )

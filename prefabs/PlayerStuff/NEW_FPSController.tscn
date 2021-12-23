@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://Scripts/FPSController.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/Hand_Idle.png" type="Texture" id=2]
@@ -34,6 +34,13 @@
 [ext_resource path="res://Sprites/Player/Hand_Lasso.png" type="Texture" id=32]
 [ext_resource path="res://Sprites/Player/Hand_Punch.png" type="Texture" id=33]
 [ext_resource path="res://Sprites/Player/Hand_RPS.png" type="Texture" id=34]
+[ext_resource path="res://prefabs/Misc/Events/PlaySound.tscn" type="PackedScene" id=35]
+[ext_resource path="res://Sounds/gurgle1.wav" type="AudioStream" id=36]
+[ext_resource path="res://Sounds/gurgle2.wav" type="AudioStream" id=37]
+[ext_resource path="res://Sounds/gurgle3.wav" type="AudioStream" id=38]
+[ext_resource path="res://Sounds/gurgle4.wav" type="AudioStream" id=39]
+[ext_resource path="res://Sprites/Player/Hand_Fishing.png" type="Texture" id=40]
+[ext_resource path="res://Sprites/Player/Hand_Charge.png" type="Texture" id=41]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 3.0
@@ -55,20 +62,267 @@ albedo_color = Color( 1, 1, 1, 0 )
 extents = Vector3( 0.729209, 0.291349, 0.145031 )
 
 [sub_resource type="Animation" id=7]
-length = 2.5
+resource_name = "Fishing"
+length = 3.0
 loop = true
-step = 0.033
-tracks/0/type = "value"
-tracks/0/path = NodePath("Container/MeshInstance:translation")
-tracks/0/interp = 2
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Container/MeshInstance:translation:x")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.089, 2.508 ),
-"transitions": PoolRealArray( 2, 1, 0.329877 ),
+"points": PoolRealArray( 1.9675, -0.25, 0, 0.25, 0, 1.8753, -0.25, 0, 0.25, 0, 1.9675, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Container/MeshInstance:translation:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( -1.29705, -0.25, 0, 0.25, 0, -1.42834, -0.25, 0, 0.25, 0, -1.29705, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Container/MeshInstance:translation:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( -2.577, -0.25, 0, 0.25, 0, -2.577, -0.25, 0, 0.25, 0, -2.577, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Container/MeshInstance:rotation_degrees:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("Container/MeshInstance:rotation_degrees:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("Container/MeshInstance:rotation_degrees:z")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 11.525, -0.25, 0, 0.25, 0, 28.254, -0.25, 0, 0.25, 0, 11.525, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3 )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("Container/MeshInstance2:translation:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray( 2.55292, -0.25, 0, 0.25, 0, 2.5174, -0.25, 0, 0.25, 0, 2.55292, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3 )
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("Container/MeshInstance2:translation:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray( -1.90629, -0.25, 0, 0.25, 0, -1.97753, -0.25, 0, 0.25, 0, -1.90629, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3 )
+}
+tracks/8/type = "bezier"
+tracks/8/path = NodePath("Container/MeshInstance2:translation:z")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"points": PoolRealArray( -2.90899, -0.25, 0, 0.25, 0, -2.90899, -0.25, 0, 0.25, 0, -2.90899, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3 )
+}
+tracks/9/type = "bezier"
+tracks/9/path = NodePath("Container/MeshInstance2:rotation_degrees:x")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3 )
+}
+tracks/10/type = "bezier"
+tracks/10/path = NodePath("Container/MeshInstance2:rotation_degrees:y")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3 )
+}
+tracks/11/type = "bezier"
+tracks/11/path = NodePath("Container/MeshInstance2:rotation_degrees:z")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"points": PoolRealArray( -9.249, -0.25, 0, 0.25, 0, -3.647, -0.25, 0, 0.25, 0, -9.249, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3 )
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "Fishing_Cast"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Container/MeshInstance:translation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 2.54134, -0.25, 0, 0.25, 0, 1.81419, -0.25, 0, 0.25, 0, 1.9675, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Container/MeshInstance:translation:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( -0.830715, -0.25, 0, 0.25, 0, -1.33964, -0.25, 0, 0.25, 0, -1.29705, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 1 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Container/MeshInstance:translation:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( -2.577, -0.25, 0, 0.25, 0, -2.577, -0.25, 0, 0.25, 0, -2.577, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 1 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Container/MeshInstance:rotation_degrees:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 1 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("Container/MeshInstance:rotation_degrees:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 1 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("Container/MeshInstance:rotation_degrees:z")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( -24.66, -0.25, 0, 0.25, 0, 32.843, -0.25, 0, 0.25, 0, 11.525, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 1 )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("Container/MeshInstance2:translation:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray( 2.94966, -0.25, 0, 0.25, 0, 2.46279, -0.25, 0, 0.25, 0, 2.55292, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 1 )
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("Container/MeshInstance2:translation:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray( -1.61853, -0.25, 0, 0.25, 0, -1.79415, -0.25, 0, 0.25, 0, -1.90629, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 1 )
+}
+tracks/8/type = "bezier"
+tracks/8/path = NodePath("Container/MeshInstance2:translation:z")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"points": PoolRealArray( -2.90899, -0.25, 0, 0.25, 0, -2.90899, -0.25, 0, 0.25, 0, -2.90899, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 1 )
+}
+tracks/9/type = "bezier"
+tracks/9/path = NodePath("Container/MeshInstance2:rotation_degrees:x")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 1 )
+}
+tracks/10/type = "bezier"
+tracks/10/path = NodePath("Container/MeshInstance2:rotation_degrees:y")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 1 )
+}
+tracks/11/type = "bezier"
+tracks/11/path = NodePath("Container/MeshInstance2:rotation_degrees:z")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"points": PoolRealArray( -31.921, -0.25, 0, 0.25, 0, 9.788, -0.25, 0, 0.25, 0, -9.249, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 1 )
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "Fishing_Charge"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Container/MeshInstance:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.15, 0.25, 0.3, 0.4, 0.5, 0.55, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0.0155097, -0.0390208, -0.0133159 ), Vector3( -0.0302308, -0.0498043, 0.0425646 ), Vector3( 0.0155097, -0.0390208, -0.0133159 ) ]
+"values": [ Vector3( 2.08784, -0.880454, -2.577 ), Vector3( 2.22547, -0.967159, -2.577 ), Vector3( 2.056, -0.810725, -2.577 ), Vector3( 2.05975, -0.992328, -2.577 ), Vector3( 2.22547, -0.967159, -2.577 ), Vector3( 2.056, -0.810725, -2.577 ), Vector3( 2.05975, -0.992328, -2.577 ), Vector3( 2.22547, -0.967159, -2.577 ), Vector3( 2.056, -0.810725, -2.577 ), Vector3( 2.22547, -0.967159, -2.577 ), Vector3( 2.05975, -0.992328, -2.577 ), Vector3( 2.056, -0.810725, -2.577 ), Vector3( 2.22547, -0.967159, -2.577 ), Vector3( 2.05975, -0.992328, -2.577 ), Vector3( 2.056, -0.810725, -2.577 ), Vector3( 2.08784, -0.880454, -2.577 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Container/MeshInstance:rotation_degrees")
@@ -77,10 +331,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.254, 2.508 ),
-"transitions": PoolRealArray( 2, 1, 0.482968 ),
+"times": PoolRealArray( 0, 0.05, 0.15, 0.25, 0.3, 0.4, 0.5, 0.55, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( -8.53774e-06, -1.33402e-08, 3.33505e-08 ), Vector3( -0.224436, 7.93188, 1.52419 ), Vector3( -8.53774e-06, -1.33402e-08, 3.33505e-08 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -15.438 ), Vector3( 0, 0, 0.679054 ), Vector3( 0, 0, -18.8928 ), Vector3( 0, 0, -15.438 ), Vector3( 0, 0, 0.679054 ), Vector3( 0, 0, -18.8928 ), Vector3( 0, 0, -15.438 ), Vector3( 0, 0, 0.679054 ), Vector3( 0, 0, -15.438 ), Vector3( 0, 0, -18.8928 ), Vector3( 0, 0, 0.679054 ), Vector3( 0, 0, -15.438 ), Vector3( 0, 0, -18.8928 ), Vector3( 0, 0, 0.679054 ), Vector3( 0, 0, 0 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Container/MeshInstance2:translation")
@@ -89,10 +343,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1.155, 2.508 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.25, 0.4, 0.65, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0.681267, 0.130899, 0.946457 ), Vector3( 0.665344, 0.128687, 0.957906 ), Vector3( 0.681267, 0.130899, 0.946457 ) ]
+"values": [ Vector3( 2.31215, -1.90629, -2.90899 ), Vector3( 2.19655, -1.90629, -2.90899 ), Vector3( 2.31215, -1.90629, -2.90899 ), Vector3( 2.19655, -1.90629, -2.90899 ), Vector3( 2.31215, -1.90629, -2.90899 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Container/MeshInstance2:rotation_degrees")
@@ -101,13 +355,312 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 1.353, 2.508 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.25, 0.4, 0.65, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0.508645, -3.7734, 8.41263 ), Vector3( 0.536728, -2.32226, 8.69627 ), Vector3( 0.508645, -3.7734, 8.41263 ) ]
+"values": [ Vector3( 0, 0, -9.249 ), Vector3( 0, 0, -0.657001 ), Vector3( 0, 0, -9.249 ), Vector3( 0, 0, -0.657001 ), Vector3( 0, 0, -9.249 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Container:translation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = false
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3, 0.45, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.1, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, 0.1, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, 0.1, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, 0.1, 0 ), Vector3( 0, -0.1, 0 ), Vector3( 0, 0.1, 0 ), Vector3( 0, 0.1, 0 ), Vector3( 0, -0.1, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Container:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = false
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=10]
+length = 2.5
+loop = true
+step = 0.033
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Container:translation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2.508 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Container:translation:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2.508 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Container:translation:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2.508 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Container:rotation_degrees:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2.508 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("Container:rotation_degrees:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2.508 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("Container:rotation_degrees:z")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2.508 )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("Container:scale:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2.508 )
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("Container:scale:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2.508 )
+}
+tracks/8/type = "bezier"
+tracks/8/path = NodePath("Container:scale:z")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2.508 )
+}
+tracks/9/type = "bezier"
+tracks/9/path = NodePath("Container/MeshInstance:translation:x")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"points": PoolRealArray( 1.80369, -0.25, 0, 0.25, 0, 1.63518, -0.25, 0, 0.25, 0, 1.80369, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.221, 2.508 )
+}
+tracks/10/type = "bezier"
+tracks/10/path = NodePath("Container/MeshInstance:translation:y")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"points": PoolRealArray( -1.24492, -0.25, 0, 0.25, 0, -1.3855, -0.25, 0, 0.25, 0, -1.24492, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.221, 2.508 )
+}
+tracks/11/type = "bezier"
+tracks/11/path = NodePath("Container/MeshInstance:translation:z")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"points": PoolRealArray( -2.577, -0.25, 0, 0.25, 0, -2.577, -0.25, 0, 0.25, 0, -2.577, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.221, 2.508 )
+}
+tracks/12/type = "bezier"
+tracks/12/path = NodePath("Container/MeshInstance:rotation_degrees:x")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.584, 2.508 )
+}
+tracks/13/type = "bezier"
+tracks/13/path = NodePath("Container/MeshInstance:rotation_degrees:y")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.584, 2.508 )
+}
+tracks/14/type = "bezier"
+tracks/14/path = NodePath("Container/MeshInstance:rotation_degrees:z")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 21.9756, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.584, 2.508 )
+}
+tracks/15/type = "bezier"
+tracks/15/path = NodePath("Container/MeshInstance:scale:x")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"points": PoolRealArray( 0.999998, -0.25, 0, 0.25, 0, 0.999998, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2.508 )
+}
+tracks/16/type = "bezier"
+tracks/16/path = NodePath("Container/MeshInstance:scale:y")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"points": PoolRealArray( 0.999998, -0.25, 0, 0.25, 0, 0.999998, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2.508 )
+}
+tracks/17/type = "bezier"
+tracks/17/path = NodePath("Container/MeshInstance:scale:z")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"points": PoolRealArray( 0.999998, -0.25, 0, 0.25, 0, 0.999998, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2.508 )
+}
+tracks/18/type = "bezier"
+tracks/18/path = NodePath("Container/MeshInstance2:translation:x")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"points": PoolRealArray( 2.55292, -0.25, 0, 0.25, 0, 2.46617, -0.25, 0, 0.25, 0, 2.55292, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.221, 2.508 )
+}
+tracks/19/type = "bezier"
+tracks/19/path = NodePath("Container/MeshInstance2:translation:y")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"points": PoolRealArray( -1.90629, -0.25, 0, 0.25, 0, -1.97082, -0.25, 0, 0.25, 0, -1.90629, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.221, 2.508 )
+}
+tracks/20/type = "bezier"
+tracks/20/path = NodePath("Container/MeshInstance2:translation:z")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"points": PoolRealArray( -2.90899, -0.25, 0, 0.25, 0, -2.90899, -0.25, 0, 0.25, 0, -2.90899, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.221, 2.508 )
+}
+tracks/21/type = "bezier"
+tracks/21/path = NodePath("Container/MeshInstance2:rotation_degrees:x")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.221, 2.508 )
+}
+tracks/22/type = "bezier"
+tracks/22/path = NodePath("Container/MeshInstance2:rotation_degrees:y")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.221, 2.508 )
+}
+tracks/23/type = "bezier"
+tracks/23/path = NodePath("Container/MeshInstance2:rotation_degrees:z")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"points": PoolRealArray( -9.249, -0.25, 0, 0.25, 0, -0.648997, -0.25, 0, 0.25, 0, -9.249, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.221, 2.508 )
+}
+tracks/24/type = "bezier"
+tracks/24/path = NodePath("Container/MeshInstance2:scale:x")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"points": PoolRealArray( 1.12579, -0.25, 0, 0.25, 0, 1.12579, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2.508 )
+}
+tracks/25/type = "bezier"
+tracks/25/path = NodePath("Container/MeshInstance2:scale:y")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/keys = {
+"points": PoolRealArray( 1.12579, -0.25, 0, 0.25, 0, 1.12579, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2.508 )
+}
+tracks/26/type = "bezier"
+tracks/26/path = NodePath("Container/MeshInstance2:scale:z")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/keys = {
+"points": PoolRealArray( 1.12579, -0.25, 0, 0.25, 0, 1.12579, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2.508 )
+}
+
+[sub_resource type="Animation" id=11]
 length = 0.5
 step = 0.023
 tracks/0/type = "value"
@@ -117,10 +670,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.069, 0.138, 0.207, 0.276, 0.3, 0.363, 0.396, 0.462 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.276, 0.46 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0.0169438, 0.0153453, -0.295437 ), Vector3( 0.27877, -0.0223458, -0.272568 ), Vector3( 0.080117, -0.0221441, -0.44713 ), Vector3( -0.12052, -0.0971507, -0.231418 ), Vector3( 0.110883, -0.0695106, -0.547627 ), Vector3( 0.189049, -0.147925, -0.20081 ), Vector3( 0.247981, -0.143061, -0.476926 ), Vector3( 0.0676643, -0.164438, -0.426761 ), Vector3( 0.0353904, -0.186414, -0.433685 ) ]
+"values": [ Vector3( 2.00245, -1.16091, -2.75612 ), Vector3( 1.94616, -1.34385, -2.75612 ), Vector3( 2.00245, -1.16091, -2.75612 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Container/MeshInstance:rotation_degrees")
@@ -129,10 +682,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.069, 0.207, 0.276 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.276, 0.46 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( -1.04394, 17.3916, 3.30708 ), Vector3( -0.149489, 6.43667, 1.23804 ), Vector3( -13.3048, 17.3877, -7.50666 ), Vector3( -12.2034, 2.94588, -10.4192 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 21.804 ), Vector3( 0, 0, 0 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Container/MeshInstance2:translation")
@@ -141,10 +694,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.092, 0.138, 0.207, 0.276, 0.483 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector3( 0.681267, 0.130899, 0.946457 ), Vector3( 0.718306, 0.130876, 0.946641 ), Vector3( 0.786933, 0.130833, 0.946982 ), Vector3( 0.515277, 0.131003, 0.945632 ), Vector3( 0.761385, 0.130849, 0.946855 ), Vector3( 0.681267, 0.130899, 0.946457 ) ]
+"values": [ Vector3( 2.55292, -1.90629, -2.90899 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Container/MeshInstance2:rotation_degrees")
@@ -153,134 +706,343 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.092, 0.138, 0.207, 0.276, 0.483 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector3( 0.508645, -3.7734, 8.41263 ), Vector3( 0.446, -3.84483, 8.40356 ), Vector3( 0.376557, -5.01429, 8.17899 ), Vector3( 0.469183, 4.75495, 10.0977 ), Vector3( 4.53687, -4.23025, 8.18011 ), Vector3( 0.508645, -3.7734, 8.41263 ) ]
+"values": [ Vector3( 0, 0, -9.249 ) ]
 }
-
-[sub_resource type="Animation" id=9]
-step = 0.033
-tracks/0/type = "value"
-tracks/0/path = NodePath("Container/MeshInstance:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.066, 0.99 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0.0138932, -0.100297, 0.304661 ), Vector3( -0.492798, -1.66518, -0.0203378 ), Vector3( 0.0138932, -0.100297, 0.304661 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Container/MeshInstance2:translation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.066, 0.99 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0.681267, 0.130899, 0.946457 ), Vector3( 0.374502, -1.11022, 0.115689 ), Vector3( 0.681267, 0.130899, 0.946457 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Container/MeshInstance:rotation_degrees")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.066, 0.99 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( -0.116174, -6.03587, -1.1614 ), Vector3( -16.9841, 41.5528, 20.5317 ), Vector3( -0.116174, -6.03587, -1.1614 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Container/MeshInstance2:rotation_degrees")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.066, 0.99 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0.508645, -3.7734, 8.41263 ), Vector3( -12.5238, 26.1539, 15.222 ), Vector3( 0.508643, -3.7734, 8.41263 ) ]
-}
-
-[sub_resource type="Animation" id=10]
-resource_name = "RPS_Shoot"
-length = 2.0
-step = 0.03
-tracks/0/type = "bezier"
-tracks/0/path = NodePath("Container:rotation_degrees:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( -0.496044, -0.25, 0, 0.25, 0, -1.27128, -0.25, 0, 0.25, 0, -0.660866, -0.25, 0, 0.25, 0, -1.27128, -0.25, 0, 0.25, 0, -0.660866, -0.25, 0, 0.25, 0, -1.27128, -0.25, 0, 0.25, 0, -0.660866, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.33, 0.57, 0.78, 0.99, 1.2, 1.41 )
-}
-tracks/1/type = "bezier"
-tracks/1/path = NodePath("Container:rotation_degrees:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"points": PoolRealArray( 0.284601, -0.25, 0, 0.25, 0, -15.3309, -0.25, 0, 0.25, 0, 7.0528, -0.25, 0, 0.25, 0, -15.3309, -0.25, 0, 0.25, 0, 7.0528, -0.25, 0, 0.25, 0, -15.3309, -0.25, 0, 0.25, 0, 7.0528, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.33, 0.57, 0.78, 0.99, 1.2, 1.41 )
-}
-tracks/2/type = "bezier"
-tracks/2/path = NodePath("Container:rotation_degrees:z")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"points": PoolRealArray( 0.0335163, -0.25, 0, 0.25, 0, -2.82612, -0.25, 0, 0.25, 0, 1.28253, -0.25, 0, 0.25, 0, -2.82612, -0.25, 0, 0.25, 0, 1.28253, -0.25, 0, 0.25, 0, -2.82612, -0.25, 0, 0.25, 0, 1.28253, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.33, 0.57, 0.78, 0.99, 1.2, 1.41 )
-}
-tracks/3/type = "bezier"
-tracks/3/path = NodePath("Container:translation:x")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"points": PoolRealArray( -1.20239, -0.25, 0, 0.25, 0, -1.04854, -0.25, 0, 0.25, 0, -1.3579, -0.25, 0, 0.25, 0, -1.04854, -0.25, 0, 0.25, 0, -1.3579, -0.25, 0, 0.25, 0, -1.04854, -0.25, 0, 0.25, 0, -1.3579, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.33, 0.57, 0.78, 0.99, 1.2, 1.41 )
-}
-tracks/4/type = "bezier"
-tracks/4/path = NodePath("Container:translation:y")
+tracks/4/type = "value"
+tracks/4/path = NodePath("Container/MeshInstance2:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"points": PoolRealArray( 1.28372, -0.25, 0, 0.25, 0, 1.28372, -0.25, 0, 0.25, 0, 1.24525, -0.25, 0, 0.25, 0, 1.28372, -0.25, 0, 0.25, 0, 1.24525, -0.25, 0, 0.25, 0, 1.28372, -0.25, 0, 0.25, 0, 1.24525, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.33, 0.57, 0.78, 0.99, 1.2, 1.41 )
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1.12579, 1.12579, 1.12579 ) ]
 }
-tracks/5/type = "bezier"
-tracks/5/path = NodePath("Container:translation:z")
+tracks/5/type = "value"
+tracks/5/path = NodePath("Container:translation")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"points": PoolRealArray( -0.320797, -0.25, 0, 0.25, 0, -0.320797, -0.25, 0, 0.25, 0, -0.112442, -0.25, 0, 0.25, 0, -0.320797, -0.25, 0, 0.25, 0, -0.112442, -0.25, 0, 0.25, 0, -0.320797, -0.25, 0, 0.25, 0, -0.112442, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.33, 0.57, 0.78, 0.99, 1.2, 1.41 )
+"times": PoolRealArray( 0, 0.069, 0.115, 0.161, 0.207, 0.23, 0.276, 0.322, 0.368, 0.414, 0.483 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0.053, -0.034, -0.063 ), Vector3( 0.07, 0.013, 0.001 ), Vector3( -0.049, 0.06, 0.066 ), Vector3( -0.049, 0.06, 0.066 ), Vector3( -0.111, -0.074, 0.066 ), Vector3( -0.153, -0.02, 0.066 ), Vector3( -0.153, -0.02, 0.066 ), Vector3( -0.153, 0.062, -0.138 ), Vector3( -0.153, 0.062, -0.138 ), Vector3( 0, 0, 0 ) ]
 }
-tracks/6/type = "method"
-tracks/6/path = NodePath("../..")
+tracks/6/type = "value"
+tracks/6/path = NodePath("Container:rotation_degrees")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Container:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.483 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=12]
+step = 0.033
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Container/MeshInstance:translation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1.80369, -0.25, 0, 0.25, 0, 1.33252, -0.25, 0, 0.25, 0, 1.80369, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.165, 0.99 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Container/MeshInstance:translation:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( -1.24492, -0.25, 0, 0.25, 0, -1.45392, -0.25, 0, 0.25, 0, -1.24492, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.165, 0.99 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Container/MeshInstance:translation:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( -2.577, -0.25, 0, 0.25, 0, -3.83465, -0.25, 0, 0.25, 0, -2.577, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.165, 0.99 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Container/MeshInstance:rotation_degrees:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.165, 0.99 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("Container/MeshInstance:rotation_degrees:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.165, 0.99 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("Container/MeshInstance:rotation_degrees:z")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 46.613, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.165, 0.99 )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("Container/MeshInstance:scale:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray( 0.999998, -0.25, 0, 0.25, 0, 0.999998, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("Container/MeshInstance:scale:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray( 0.999998, -0.25, 0, 0.25, 0, 0.999998, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/8/type = "bezier"
+tracks/8/path = NodePath("Container/MeshInstance:scale:z")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"points": PoolRealArray( 0.999998, -0.25, 0, 0.25, 0, 0.999998, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/9/type = "bezier"
+tracks/9/path = NodePath("Container/MeshInstance2:translation:x")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"points": PoolRealArray( 2.55292, -0.25, 0, 0.25, 0, 2.30181, -0.25, 0, 0.25, 0, 2.55292, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.165, 0.99 )
+}
+tracks/10/type = "bezier"
+tracks/10/path = NodePath("Container/MeshInstance2:translation:y")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"points": PoolRealArray( -1.90629, -0.25, 0, 0.25, 0, -1.69728, -0.25, 0, 0.25, 0, -1.90629, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.165, 0.99 )
+}
+tracks/11/type = "bezier"
+tracks/11/path = NodePath("Container/MeshInstance2:translation:z")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"points": PoolRealArray( -2.90899, -0.25, 0, 0.25, 0, -4.16664, -0.25, 0, 0.25, 0, -2.90899, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.165, 0.99 )
+}
+tracks/12/type = "bezier"
+tracks/12/path = NodePath("Container/MeshInstance2:rotation_degrees:x")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.165, 0.99 )
+}
+tracks/13/type = "bezier"
+tracks/13/path = NodePath("Container/MeshInstance2:rotation_degrees:y")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.165, 0.99 )
+}
+tracks/14/type = "bezier"
+tracks/14/path = NodePath("Container/MeshInstance2:rotation_degrees:z")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"points": PoolRealArray( -9.249, -0.25, 0, 0.25, 0, 18.093, -0.25, 0, 0.25, 0, -9.249, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.165, 0.99 )
+}
+tracks/15/type = "bezier"
+tracks/15/path = NodePath("Container/MeshInstance2:scale:x")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"points": PoolRealArray( 1.12579, -0.25, 0, 0.25, 0, 1.12579, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/16/type = "bezier"
+tracks/16/path = NodePath("Container/MeshInstance2:scale:y")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"points": PoolRealArray( 1.12579, -0.25, 0, 0.25, 0, 1.12579, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/17/type = "bezier"
+tracks/17/path = NodePath("Container/MeshInstance2:scale:z")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"points": PoolRealArray( 1.12579, -0.25, 0, 0.25, 0, 1.12579, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.99 )
+}
+tracks/18/type = "bezier"
+tracks/18/path = NodePath("Container:rotation_degrees:x")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/19/type = "bezier"
+tracks/19/path = NodePath("Container:rotation_degrees:y")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/20/type = "bezier"
+tracks/20/path = NodePath("Container:rotation_degrees:z")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/21/type = "bezier"
+tracks/21/path = NodePath("Container:scale:x")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/22/type = "bezier"
+tracks/22/path = NodePath("Container:scale:y")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/23/type = "bezier"
+tracks/23/path = NodePath("Container:scale:z")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/24/type = "bezier"
+tracks/24/path = NodePath("Container:translation:x")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/25/type = "bezier"
+tracks/25/path = NodePath("Container:translation:y")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/26/type = "bezier"
+tracks/26/path = NodePath("Container:translation:z")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=13]
+length = 2.0
+step = 0.03
+tracks/0/type = "method"
+tracks/0/path = NodePath("../..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
 "times": PoolRealArray( 0.39, 0.84, 1.29 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "values": [ {
@@ -294,13 +1056,13 @@ tracks/6/keys = {
 "method": "play_sound"
 } ]
 }
-tracks/7/type = "method"
-tracks/7/path = NodePath(".")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 1.32, 1.95 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
@@ -311,40 +1073,90 @@ tracks/7/keys = {
 "method": "conclude_rps"
 } ]
 }
-
-[sub_resource type="PlaneMesh" id=11]
-
-[sub_resource type="SpatialMaterial" id=12]
-flags_transparent = true
-flags_unshaded = true
-params_use_alpha_scissor = true
-params_alpha_scissor_threshold = 0.98
-albedo_texture = ExtResource( 2 )
-uv1_scale = Vector3( 0.999, 1, 1 )
-
-[sub_resource type="PlaneMesh" id=13]
+tracks/2/type = "value"
+tracks/2/path = NodePath("Container/MeshInstance:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3, 0.39, 0.51, 0.84, 0.96 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1.80369, -1.24492, -2.577 ), Vector3( 1.8455, -1.06834, -2.577 ), Vector3( 1.8455, -1.06834, -2.577 ), Vector3( 1.79068, -1.29493, -2.577 ), Vector3( 1.8455, -1.06834, -2.577 ), Vector3( 1.79068, -1.29493, -2.577 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Container/MeshInstance:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3, 0.39, 0.51, 0.84, 0.96 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -6.803 ), Vector3( 0, 0, -6.803 ), Vector3( 0, 0, 12.974 ), Vector3( 0, 0, -6.803 ), Vector3( 0, 0, 12.974 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Container/MeshInstance2:translation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3, 0.39, 0.51, 0.84, 0.96 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 2.55292, -1.90629, -2.90899 ), Vector3( 2.51111, -1.81381, -2.90899 ), Vector3( 2.51111, -1.81381, -2.90899 ), Vector3( 2.6176, -1.7712, -2.90899 ), Vector3( 2.51111, -1.81381, -2.90899 ), Vector3( 2.6176, -1.7712, -2.90899 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Container/MeshInstance2:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.3, 0.39, 0.51, 0.84, 0.96 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, -9.249 ), Vector3( 0, 0, -16.052 ), Vector3( 0, 0, -16.052 ), Vector3( 0, 0, 3.725 ), Vector3( 0, 0, -16.052 ), Vector3( 0, 0, 3.725 ) ]
+}
 
 [sub_resource type="SpatialMaterial" id=14]
 flags_transparent = true
 flags_unshaded = true
+params_use_alpha_scissor = true
+params_alpha_scissor_threshold = 0.99
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="QuadMesh" id=15]
+material = SubResource( 14 )
+
+[sub_resource type="QuadMesh" id=16]
+
+[sub_resource type="SpatialMaterial" id=17]
+render_priority = 6
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
 albedo_texture = ExtResource( 9 )
 
-[sub_resource type="SpatialMaterial" id=15]
+[sub_resource type="SpatialMaterial" id=18]
 flags_unshaded = true
 albedo_color = Color( 0.890196, 0.815686, 0.780392, 1 )
 
-[sub_resource type="SphereMesh" id=16]
-material = SubResource( 15 )
+[sub_resource type="SphereMesh" id=19]
+material = SubResource( 18 )
 
-[sub_resource type="SpatialMaterial" id=17]
+[sub_resource type="SpatialMaterial" id=20]
 flags_unshaded = true
 params_cull_mode = 1
 params_grow = true
 params_grow_amount = 0.02
 albedo_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="ShaderMaterial" id=18]
-next_pass = SubResource( 17 )
+[sub_resource type="ShaderMaterial" id=21]
+next_pass = SubResource( 20 )
 shader = ExtResource( 11 )
 shader_param/use_shade = true
 shader_param/use_specular = false
@@ -366,9 +1178,9 @@ shader_param/rim_spread = 0.5
 shader_param/shadow_threshold = 0.7
 shader_param/shadow_softness = 0.1
 
-[sub_resource type="QuadMesh" id=19]
+[sub_resource type="QuadMesh" id=22]
 
-[sub_resource type="SpatialMaterial" id=20]
+[sub_resource type="SpatialMaterial" id=23]
 albedo_color = Color( 1, 0, 0, 1 )
 
 [node name="NEW_FPSController" type="KinematicBody" groups=[
@@ -427,7 +1239,7 @@ cast_to = Vector3( 0, 0, -10 )
 [node name="RayCast_Areas" type="RayCast" parent="Head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0973678 )
 enabled = true
-cast_to = Vector3( 0, 0, -5 )
+cast_to = Vector3( 0, 0, -3 )
 collide_with_areas = true
 collide_with_bodies = false
 script = ExtResource( 23 )
@@ -445,23 +1257,28 @@ script = ExtResource( 16 )
 
 [node name="Mask" type="MeshInstance" parent="Head/Camera/Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.238554 )
-visible = false
 mesh = SubResource( 4 )
 material/0 = SubResource( 5 )
 
 [node name="WaterSheet" parent="Head/Camera/Area/Mask" instance=ExtResource( 27 )]
 visible = false
+z_index = 10
 
 [node name="CollisionShape" type="CollisionShape" parent="Head/Camera/Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.212168, -0.19155 )
 shape = SubResource( 6 )
 
+[node name="PlaySound" parent="Head/Camera/Area" instance=ExtResource( 35 )]
+random_sounds = [ ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ) ]
+volume = -10.0
+
 [node name="Hand" type="Spatial" parent="Head"]
-transform = Transform( 0.471813, 0, 0, 0, 0.16249, -0.489356, 0, 0.656209, 0.121174, 0.960909, -0.579476, -1.66123 )
 script = ExtResource( 6 )
 handSprites = {
 "Build": ExtResource( 29 ),
 "Charm": ExtResource( 30 ),
+"Fishing": ExtResource( 40 ),
+"Fishing_Charge": ExtResource( 41 ),
 "Holding": ExtResource( 31 ),
 "Idle": ExtResource( 2 ),
 "Lasso": ExtResource( 32 ),
@@ -470,38 +1287,41 @@ handSprites = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Hand"]
-anims/Idle = SubResource( 7 )
-anims/Lasso = SubResource( 8 )
-anims/Punch = SubResource( 9 )
-anims/RPS_Shoot = SubResource( 10 )
+anims/Fishing = SubResource( 7 )
+anims/Fishing_Cast = SubResource( 8 )
+anims/Fishing_Charge = SubResource( 9 )
+anims/Idle = SubResource( 10 )
+anims/Lasso = SubResource( 11 )
+anims/Punch = SubResource( 12 )
+anims/RPS_Shoot = SubResource( 13 )
 
 [node name="Container" type="Spatial" parent="Head/Hand"]
-transform = Transform( 0.373491, -0.00948102, 0.049706, 0.00842522, 0.401118, 0.00466958, -0.0463063, -0.0034891, 0.401762, -1.3579, 1.24525, -0.112442 )
+visible = false
 
 [node name="MeshInstance" type="MeshInstance" parent="Head/Hand/Container"]
-transform = Transform( 0.829419, -0.0334111, 0.135161, 0.021081, 1.31192, 0.00383545, -0.109447, -0.000503335, 1.02503, -0.0269544, -0.0490319, 0.0385618 )
-mesh = SubResource( 11 )
-material/0 = SubResource( 12 )
-
-[node name="MeshInstance2" type="MeshInstance" parent="Head/Hand/Container"]
-transform = Transform( 0.769816, -0.171537, -0.053448, 0.117753, 1.12047, -0.0121559, 0.0327975, 0.00342947, 1.29816, 0.667297, 0.128958, 0.956501 )
-mesh = SubResource( 13 )
+transform = Transform( 0.999998, 0, 0, 0, 0.999998, 0, 0, 0, 0.999998, 1.80369, -1.24492, -2.577 )
+mesh = SubResource( 15 )
 material/0 = SubResource( 14 )
 
+[node name="MeshInstance2" type="MeshInstance" parent="Head/Hand/Container"]
+transform = Transform( 1.11115, 0.180943, 0, -0.180943, 1.11115, 0, 0, 0, 1.12579, 2.55292, -1.90629, -2.90899 )
+mesh = SubResource( 16 )
+material/0 = SubResource( 17 )
+
 [node name="Palm" type="Spatial" parent="Head"]
-transform = Transform( 0.999998, 0, 0, 0, 0.999998, 0, 0, 0, 0.999998, 0.410738, -0.30399, -1.77099 )
+transform = Transform( 0.999997, 0, 0, 0, 0.999997, 0, 0, 0, 0.999997, 0.410738, -0.30399, -1.77099 )
 script = ExtResource( 25 )
 
 [node name="Skull" type="MeshInstance" parent="Head"]
-transform = Transform( 0.409861, 0, 0, 0, 0.409861, 0, 0, 0, 0.409861, 0, 0, 0 )
-mesh = SubResource( 16 )
+transform = Transform( 0.409861, 0, 0, 0, 0.409861, 0, 0, 0, 0.409861, 0.0011673, -0.00104415, -2.83759e-05 )
+mesh = SubResource( 19 )
 material/0 = null
 
 [node name="Hat" type="MeshInstance" parent="Head/Skull"]
 transform = Transform( 1.96741, 0, 0, 0, 1.57227, 0, 0, 0, 1.80181, 0, 2.14431, -0.166266 )
 layers = 1024
 mesh = ExtResource( 12 )
-material/0 = SubResource( 18 )
+material/0 = SubResource( 21 )
 script = ExtResource( 13 )
 level = 10
 
@@ -553,14 +1373,14 @@ script = ExtResource( 22 )
 [node name="MeshInstance2" type="MeshInstance" parent="."]
 transform = Transform( 2.8788, 0, 0, 0, -4.69016e-07, 2.8788, 0, -2.8788, -4.69016e-07, 0, -2.5, 0 )
 visible = false
-mesh = SubResource( 19 )
+mesh = SubResource( 22 )
 material/0 = null
 
 [node name="MeshInstance3" type="MeshInstance" parent="."]
 transform = Transform( 4.12523, 0, 0, 0, -6.72085e-07, 4.12523, 0, -4.12523, -6.72085e-07, 0, -3, 0 )
 visible = false
-mesh = SubResource( 19 )
-material/0 = SubResource( 20 )
+mesh = SubResource( 22 )
+material/0 = SubResource( 23 )
 
 [node name="SlidingTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -569,8 +1389,8 @@ autostart = true
 [node name="LocationManager" parent="." instance=ExtResource( 28 )]
 [connection signal="broadcast_self" from="InteractionManager" to="EquipmentManager" method="_on_InteractionManager_broadcast_self"]
 [connection signal="emit_looking_at" from="InteractionManager" to="EquipmentManager" method="_on_InteractionManager_emit_looking_at"]
-[connection signal="broadcast_self" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="broadcast_self" from="EquipmentManager" to="Head/Palm" method="_on_EquipmentManager_broadcast_self"]
+[connection signal="broadcast_self" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="emit_equipped" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_emit_equipped"]
 [connection signal="emit_unequip" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_emit_unequip"]
 [connection signal="broadcast_self" from="Head/Camera/RayCast_Areas" to="InteractionManager" method="_on_RayCast_Areas_broadcast_self"]

@@ -1,15 +1,20 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Sprites/UI/UI_Listitem_clickmask.png" type="BitMap" id=1]
-[ext_resource path="res://Sprites/UI/UI_Listitem_Selected.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/UI/UI_Listitem_unselected.png" type="Texture" id=3]
-[ext_resource path="res://fonts/OpyimusTitle.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Sprites/UI/UI_Listitem_clickmask_Big.png" type="BitMap" id=1]
+[ext_resource path="res://Sprites/UI/UI_Listitem_Selected_Big.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/UI/UI_Listitem_unselected_Big.png" type="Texture" id=3]
+[ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://Scripts/UI/Inventory/ListItemBase.gd" type="Script" id=5]
 
+[sub_resource type="DynamicFont" id=1]
+size = 49
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_char = 8
+font_data = ExtResource( 4 )
+
 [node name="ListItem" type="TextureButton"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_scale = Vector2( 1.46252, 1.46252 )
+rect_min_size = Vector2( 1, 1 )
 texture_normal = ExtResource( 3 )
 texture_hover = ExtResource( 2 )
 texture_focused = ExtResource( 2 )
@@ -20,16 +25,19 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
-margin_left = 10.94
-margin_top = 7.52126
-margin_right = 182.94
-margin_bottom = 44.5213
+margin_left = 18.0
+margin_top = 13.0
+margin_right = 273.0
+margin_bottom = 72.0
 rect_scale = Vector2( 0.40029, 0.40029 )
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 2
-custom_constants/shadow_offset_y = 2
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
 text = "ItemName"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="focus_entered" from="." to="." method="gain_focus"]
 [connection signal="mouse_entered" from="." to="." method="_on_ListItem_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_ListItem_mouse_exited"]

@@ -11,6 +11,7 @@ points = PoolVector3Array( 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,
 
 [node name="Glue" type="RigidBody"]
 script = ExtResource( 2 )
+ContextOptions = [ 0 ]
 icon = "res://Sprites/Items/Glue_Icon.png"
 itemName = "Glue"
 

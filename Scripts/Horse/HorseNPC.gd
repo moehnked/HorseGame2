@@ -16,6 +16,9 @@ func get_icon():
 func get_dialogue_point():
 	return get_horse_name() + "/" + (("0" + String(dialoguePoint)) if dialoguePoint < 10 else String(dialoguePoint))
 
+func set_dialogue_point(val = 1):
+	dialoguePoint = val
+
 func get_speaking_volume():
 	return speakingVolume
 	pass
@@ -25,5 +28,5 @@ func get_talk_sfx():
 
 func increment_timeline():
 	print("-=-=-=-= INCREMENTING dialogue point")
-	dialoguePoint += 1
+	set_dialogue_point(dialoguePoint + 1)
 	pass

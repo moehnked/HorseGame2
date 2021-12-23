@@ -7,9 +7,9 @@ export(bool) var lightEnabled = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$OmniLight.visible = lightEnabled
-	$OmniLight.light_energy = energy
-	$OmniLight.omni_range = rang
+	$LanternLight.visible = lightEnabled
+	$LanternLight.light_energy = energy
+	$LanternLight.omni_range = rang
 	pass # Replace with function body.
 
 

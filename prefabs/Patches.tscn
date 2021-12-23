@@ -123,7 +123,6 @@ albedo_texture = ExtResource( 8 )
 "Patches",
 ]]
 script = ExtResource( 4 )
-dialoguePoint = 10
 speakingVolume = 0.0
 sfx = [ ExtResource( 11 ), ExtResource( 9 ), ExtResource( 12 ), ExtResource( 10 ) ]
 

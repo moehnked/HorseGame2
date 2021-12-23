@@ -58,5 +58,6 @@ func update_sprite(spell):
 	apply_texture(handMesh, spell)
 
 func _ready():
-	$AnimationPlayer.play("Idle")
 	handMesh = $Container/MeshInstance
+	$AnimationPlayer.play("Idle")
+	

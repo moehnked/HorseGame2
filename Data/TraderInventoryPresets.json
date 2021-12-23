@@ -3,5 +3,8 @@
     "Plank": 30,
     "Mallet": 2,
     "Handaxe": 1
+  },
+  "generic2": {
+    "Lamp": 3
   }
 }

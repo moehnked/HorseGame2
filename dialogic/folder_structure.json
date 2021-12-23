@@ -10,7 +10,11 @@
 				"character-1631167928.json",
 				"character-1631337512.json",
 				"character-1631346096.json",
-				"character-1632001705.json"
+				"character-1632001705.json",
+				"character-1639693038.json",
+				"character-1639706276.json",
+				"character-1639780517.json",
+				"character-1639782545.json"
 			],
 			"folders": {
 
@@ -90,13 +94,13 @@
 					},
 					"metadata": {
 						"color": null,
-						"folded": false
+						"folded": true
 					}
 				}
 			},
 			"metadata": {
 				"color": null,
-				"folded": false
+				"folded": true
 			}
 		},
 		"Themes": {
@@ -139,7 +143,35 @@
 					},
 					"metadata": {
 						"color": null,
-						"folded": true
+						"folded": false
+					}
+				},
+				"Fergus": {
+					"files": [
+						"timeline-1639782590.json",
+						"timeline-1640053451.json",
+						"timeline-1640053712.json"
+					],
+					"folders": {
+
+					},
+					"metadata": {
+						"color": null,
+						"folded": false
+					}
+				},
+				"Gayle": {
+					"files": [
+						"timeline-1639780537.json",
+						"timeline-1639782215.json",
+						"timeline-1639782277.json"
+					],
+					"folders": {
+
+					},
+					"metadata": {
+						"color": null,
+						"folded": false
 					}
 				},
 				"Generic": {
@@ -148,6 +180,20 @@
 						"timeline-1631576624.json",
 						"timeline-1631576635.json",
 						"timeline-1638003372.json"
+					],
+					"folders": {
+
+					},
+					"metadata": {
+						"color": null,
+						"folded": false
+					}
+				},
+				"Horace": {
+					"files": [
+						"timeline-1639706313.json",
+						"timeline-1639708298.json",
+						"timeline-1639709839.json"
 					],
 					"folders": {
 
@@ -179,7 +225,7 @@
 					},
 					"metadata": {
 						"color": null,
-						"folded": false
+						"folded": true
 					}
 				},
 				"Seamus": {
@@ -197,7 +243,7 @@
 					},
 					"metadata": {
 						"color": null,
-						"folded": true
+						"folded": false
 					}
 				},
 				"Secretarianne": {
@@ -210,7 +256,7 @@
 					},
 					"metadata": {
 						"color": null,
-						"folded": true
+						"folded": false
 					}
 				},
 				"Sylvester": {

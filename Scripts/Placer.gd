@@ -2,8 +2,8 @@ extends Area
 
 export(Resource) var resource_ref
 
-export(Material) var valid
-export(Material) var invalid
+var valid = preload("res://Materials/construction_valid.tres")
+var invalid = preload("res://Materials/construction_invalid.tres")
 
 export var required_materials = 5   #number of planks required to build
 
@@ -19,13 +19,20 @@ var snapOffset = 0
 var touching = []
 
 func check_can_build():
-	return Global.Player.hasBuildingRights
+	if Global.Player.hasBuildingRights:
+		return true
+	else:
+		Global.InteractionPrompt.show_context("Cannot Build: You do not have Building Rights...")
 
 func check_materials():
 	var inv = Global.Player.get_inventory()
 	var mat = resource_ref.instance()
 	var count = Utils.count(mat, inv)
-	return count >= required_materials
+	if count >= required_materials:
+		return true
+	else:
+		Global.InteractionPrompt.show_context("Cannot Build: Insufficient Materials")
+		return false
 
 func consume_materials():
 	var inv = Global.Player.get_inventory()
@@ -110,8 +117,6 @@ func spawn_prefab():
 		consume_materials()
 		#else:
 			#print("PLACER: insufficient mats")
-	elif not check_materials():
-		Global.InteractionPrompt.show_context("Insufficient Materials...")
 	terminate()
 
 func subscribe_to():

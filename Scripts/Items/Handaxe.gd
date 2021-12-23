@@ -49,6 +49,7 @@ func initialize(controller):
 	canSwing = true
 	isEquipped = true
 	canChop = true
+	canUnequip = true
 	linear_velocity = Vector3(0,0,0)
 	angular_velocity = Vector3(0,0,0)
 	dir = Vector3()
@@ -73,6 +74,7 @@ func throw():
 	canSwing = false
 	beingThrown = true
 	isEquipped = false
+	canUnequip = false
 	print("handaxe: raycast ", ray.is_colliding())
 	
 	if not ray.is_colliding():

@@ -11,6 +11,7 @@ points = PoolVector3Array( 0, 0, 1.5, 0, 0, 1.5, 0, 0, 1.5, 0, 0, 1.5, 0, 0, 1.5
 
 [node name="TestEquipable" type="RigidBody"]
 script = ExtResource( 2 )
+ContextOptions = [ 0, 1 ]
 itemName = "Test Equipable"
 equipSoundPath = "res://Sounds/equipment_02.wav"
 

@@ -22,9 +22,11 @@ func _on_Area_area_entered(area):
 		print("mask underwater")
 		isUnderwater = true
 		start_swimming()
-		Global.AudioManager.play_ambiance("res://Sounds/underwater.wav", -10, 0.7, -1)
+		Global.AudioManager.play_ambiance("res://Sounds/underwater.wav", 0, 0.7, -4)
+		get_tree().call_group("3DViewport", "set_material", "waterDither")
 		previousSkyName = Global.SkyController.get_sky()
 		Global.SkyController.set_sky("underwater")
+		$PlaySound.trigger()
 	pass # Replace with function body.
 
 
@@ -33,6 +35,7 @@ func _on_Area_area_exited(area):
 		print("nolonger underwater")
 		isUnderwater = false
 		stop_swimming()
+		get_tree().call_group("3DViewport", "set_material", "default")
 		Global.AudioManager.stop_ambiance()
 		Global.SkyController.set_sky(previousSkyName)
 	pass # Replace with function body.

@@ -62,6 +62,9 @@ func _physics_process(delta):
 	if Input.is_action_just_released("engage"):
 		input.engage = true
 	
+	if Input.is_action_pressed("special"):
+		input.right_mouse_pressed = true
+	
 	if Input.is_action_just_released("special"):
 		input.special = true
 		

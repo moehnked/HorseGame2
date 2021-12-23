@@ -15,6 +15,7 @@ albedo_texture = ExtResource( 5 )
 [node name="Log" type="RigidBody"]
 mass = 100.0
 script = ExtResource( 2 )
+ContextOptions = [ 0 ]
 icon = "res://Sprites/Items/Log_Icon.png"
 itemName = "Log"
 value = 2.0

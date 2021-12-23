@@ -1,0 +1,83 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scripts/UI/ButtonHintContainer.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/UI/ybutton.png" type="Texture" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 37
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_char = 4
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[node name="Control" type="Control"]
+light_mask = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -92.5
+margin_top = -164.803
+margin_right = 92.5
+margin_bottom = -120.803
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "Inventory:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+light_mask = 2
+margin_left = 422.443
+margin_top = 493.649
+margin_right = 586.443
+margin_bottom = 537.649
+rect_scale = Vector2( 0.699963, 0.699963 )
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "press"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonHintContainer" type="Node2D" parent="."]
+modulate = Color( 1, 1, 1, 0.752941 )
+position = Vector2( 550.12, 494.057 )
+script = ExtResource( 2 )
+
+[node name="ButtonHintKeys" type="Label" parent="ButtonHintContainer"]
+margin_left = -10.8995
+margin_right = 40.1005
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "[TAB]"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonHintCont" type="Sprite" parent="ButtonHintContainer"]
+position = Vector2( 14.059, 16.2861 )
+scale = Vector2( 0.208437, 0.208437 )
+texture = ExtResource( 3 )

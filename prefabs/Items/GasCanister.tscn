@@ -31,6 +31,7 @@ albedo_color = Color( 0.85098, 0.647059, 0.333333, 1 )
 [node name="GasCanister" type="RigidBody"]
 mass = 100.0
 script = ExtResource( 5 )
+ContextOptions = [ 0, 1 ]
 icon = "res://Sprites/Items/GasCanister_Icon.png"
 itemName = "Gas Can"
 pickupSoundPath = "res://Sounds/gas_can_01.wav"

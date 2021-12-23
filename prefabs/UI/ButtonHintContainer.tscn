@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Sprites/UI/xbutton.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/UI/ButtonHintContainer.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[node name="ButtonHintContainer" type="Node2D"]
+modulate = Color( 1, 1, 1, 0.752941 )
+script = ExtResource( 3 )
+
+[node name="ButtonHintKeys" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "[E]"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonHintCont" type="Sprite" parent="."]
+position = Vector2( 14.059, 16.2861 )
+scale = Vector2( 0.208437, 0.208437 )
+texture = ExtResource( 2 )

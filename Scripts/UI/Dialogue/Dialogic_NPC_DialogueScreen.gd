@@ -58,24 +58,36 @@ func make_sound(eventName, other = {}):
 		print("~~ NPCDialogic: ", eventName)
 		Global.AudioManager.play_sound(speaker.get_talk_sfx(), speaker.get_speaking_volume())
 
+func set_dialogue_point(args = [-1, 1]):
+	var point = int(args[0])
+	print("Dialogic: updating dialogue for ", speaker.get_horse_name(), " to ", point, " ",typeof(point))
+	if point < 0:
+		var limit = int(args[1])
+		var rng = Utils.get_rng()
+		point = rng.randi_range(1,limit)
+	speaker.set_dialogue_point(point)
+
 func start_sell():
 	canExit = false
-	var gs = load("res://prefabs/UI/SellScreen.tscn").instance()
+	var gs = load("res://prefabs/UI/InventoryScreens/SellScreen.tscn").instance()
+	gs.initialize({"vendor":listener, "customer":speaker, "callback":"exit_trade", "source":self, "inv":listener.get_inventory(), 'displayName':speaker.get_horse_name()})
 	Global.world.add_child(gs)
-	gs.initialize( {
-			"vendor":speaker, 
-			"customer":listener,
-			"source":listener,
-			"inv":listener.get_inventory(),
-			"giftee":speaker,
-			"ds":self})
+#	gs.initialize( {
+#			"vendor":speaker, 
+#			"customer":listener,
+#			"source":listener,
+#			"inv":listener.get_inventory(),
+#			"giftee":speaker,
+#			"ds":self})
+	
 
 func start_trade():
 	canExit = false
-	var ts = load("res://prefabs/UI/Dialogue/TradingScreen.tscn").instance()
+	var ts = load("res://prefabs/UI/InventoryScreens/TradingScreen.tscn").instance()
+	ts.initialize({"vendor":speaker, "customer":listener, "callback":"exit_trade", "source":self, "inv":speaker.get_inventory(), 'displayName':speaker.get_horse_name()})
+	#ts.initialize({"source":self,"inv":speaker.get_inventory(), "customer":listener})
 	Global.world.add_child(ts)
-	ts.initialize({"vendor":speaker, "customer":listener, "callback":"exit_trade", "source":self})
-
+	
 
 func trigger_event(eventGroup):
 	print("___________ NPC DIALOGUE SCREEN TRIGGERING EVENT ", eventGroup)

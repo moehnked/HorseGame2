@@ -140,7 +140,6 @@ __meta__ = {
 }
 
 [node name="BG" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 512, 304 )
 texture = ExtResource( 1 )
 flip_h = true
@@ -157,14 +156,13 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 1376, 312 )
+position = Vector2( 808, 312 )
 texture = ExtResource( 3 )
 region_enabled = true
 region_rect = Rect2( 311, -9.99724, 730.979, 616.482 )
 region_filter_clip = true
 
 [node name="Blur" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 material = SubResource( 2 )
 position = Vector2( 512, 304 )
 texture = ExtResource( 1 )
@@ -248,5 +246,16 @@ text = "100%"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="FullscreenToggle" type="CheckButton" parent="."]
+margin_left = 480.0
+margin_top = 128.0
+margin_right = 626.0
+margin_bottom = 168.0
+text = "Fullscreen    "
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="value_changed" from="VolumeSlider" to="." method="update_sfx_volume"]
 [connection signal="value_changed" from="MusicSlider" to="." method="update_music_volume"]
+[connection signal="pressed" from="FullscreenToggle" to="." method="_on_CheckButton_pressed"]

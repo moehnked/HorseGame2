@@ -13,13 +13,13 @@ var callback:String = ""
 var check = ""
 var completed_index = 0
 var completion_interval = 0.0
-#var dict = ["CANTLE", "GIDDYUP", "DRESSAGE", "YEEHAW", "CHAMPING", "HAY", 
-#		"PRANCE", "BALK", "BUCK", "CANTER", "EQUINE", "EQUESTRIAN", "GIDDYUP", 
-#		"FARRIER", "FETLOCK", "GALLOP", "GELDING", "CINCH", "HACKAMORE", 
-#		"OFFSIDE", "PAINT", "REINING", "SADDLE", "SADDLEBRED", "STALLION",
-#		"STUD", "TENNESSEE", "THOROUGHBRED", "XENOPHON", "YEARLING", "ZEBRA",
-#		"GIDDYUP", "JOHDPURS", "JOCKEY", "DAPPLE", "FILLY", "BRONCO", "GIDDYUP"]
-var dict = ["a"]
+var dict = ["CANTLE", "GIDDYUP", "DRESSAGE", "YEEHAW", "CHAMPING", "HAY", 
+		"PRANCE", "BALK", "BUCK", "CANTER", "EQUINE", "EQUESTRIAN", "GIDDYUP", 
+		"FARRIER", "FETLOCK", "GALLOP", "GELDING", "CINCH", "HACKAMORE", 
+		"OFFSIDE", "PAINT", "REINING", "SADDLE", "SADDLEBRED", "STALLION",
+		"STUD", "TENNESSEE", "THOROUGHBRED", "XENOPHON", "YEARLING", "ZEBRA",
+		"GIDDYUP", "JOHDPURS", "JOCKEY", "DAPPLE", "FILLY", "BRONCO", "GIDDYUP"]
+#var dict = ["a"]
 var fadeout
 var lassoable
 var hurry
@@ -45,6 +45,9 @@ var sfx_scratchs = [
 	"res://sounds/scratch_07.wav",
 ]
 
+func queue_free():
+	Global.Player.exit_some_menu()
+	.queue_free()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -121,6 +124,7 @@ func increase_completion():
 func initialize(args = {}):
 	print("initializing giddyup challenge")
 	args = Utils.check(args, {"lassoableRef":null, "callback":"", "kargs":{}})
+	Global.Player.enter_some_menu()
 	lassoable = args.lassoableRef
 	callback = args.callback
 	kargs = args.kargs

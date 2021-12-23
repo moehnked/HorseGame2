@@ -1,0 +1,149 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Sprites/Objects/stand.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/misc/bowl.png" type="Texture" id=2]
+[ext_resource path="res://Shaders/fire/FireMask.png" type="Texture" id=3]
+[ext_resource path="res://prefabs/Effects/BlueFire.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Shaders/fire/WispyNoise.png" type="Texture" id=5]
+
+[sub_resource type="QuadMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+params_cull_mode = 2
+params_depth_draw_mode = 3
+albedo_color = Color( 0.52549, 0.52549, 0.52549, 1 )
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.16, 0.902, 0.16 )
+
+[sub_resource type="QuadMesh" id=4]
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+params_billboard_mode = 2
+params_billboard_keep_scale = true
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="Shader" id=10]
+code = "// This shader is based on Minionsart's stylized fire
+// https://twitter.com/minionsart/status/1132593681452683264?s=20
+shader_type spatial;
+render_mode blend_mix;
+
+uniform sampler2D noise_texture;
+
+uniform sampler2D texture_mask;
+uniform float emission_intensity = 2.0;
+uniform float time_scale = 3.0;
+uniform vec2 texture_scale = vec2(1.0);
+uniform float edge_softness = 0.1;
+
+varying vec3 world_coord;
+varying float world_x_dot;
+
+
+void vertex() {
+	mat4 mat_world = mat4(normalize(CAMERA_MATRIX[0])*length(WORLD_MATRIX[0]),normalize(CAMERA_MATRIX[1])*length(WORLD_MATRIX[0]),normalize(CAMERA_MATRIX[2])*length(WORLD_MATRIX[2]),WORLD_MATRIX[3]);
+	mat_world = mat_world * mat4( vec4(cos(INSTANCE_CUSTOM.x),-sin(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(sin(INSTANCE_CUSTOM.x), cos(INSTANCE_CUSTOM.x), 0.0, 0.0),vec4(0.0, 0.0, 1.0, 0.0),vec4(0.0, 0.0, 0.0, 1.0));
+	MODELVIEW_MATRIX = INV_CAMERA_MATRIX * mat_world;
+	
+	world_coord = (mat_world * vec4(VERTEX, 1.0)).rgb;
+	vec4 world_normal = (mat_world * vec4(NORMAL, 0.0));
+	world_x_dot =  abs(dot(normalize(world_normal.rgb), vec3(1.0,0.0,0.0)));
+}
+
+
+void fragment() {
+	float mask = texture(texture_mask, UV).r;
+	
+	vec2 time_based_pan = vec2(0.2, 1.0) * (- TIME * time_scale);
+	float noise_xy = texture(noise_texture, world_coord.xy * texture_scale + time_based_pan).r;
+	float noise_zy = texture(noise_texture, world_coord.zy * texture_scale + time_based_pan + vec2(0.7, 0.3)).r;
+	
+	float noise = mix(noise_xy, noise_zy, clamp(world_x_dot, 0.0, 1.0));
+	
+	ALBEDO = COLOR.rgb;
+	EMISSION = ALBEDO * emission_intensity;
+	
+	float erosion_amount = (1.0 - COLOR.a);
+	float alpha = (noise * mask) - erosion_amount;
+	
+	alpha = clamp(alpha, 0.0, 1.0);
+	ALPHA = smoothstep(0.0, edge_softness, alpha);
+}"
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = SubResource( 10 )
+shader_param/emission_intensity = 2.0
+shader_param/time_scale = 0.524
+shader_param/texture_scale = Vector2( 1.334, 0.684 )
+shader_param/edge_softness = 0.831
+shader_param/noise_texture = ExtResource( 5 )
+shader_param/texture_mask = ExtResource( 3 )
+
+[sub_resource type="QuadMesh" id=9]
+material = SubResource( 11 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+
+[sub_resource type="SpatialMaterial" id=7]
+flags_unshaded = true
+
+[sub_resource type="QuadMesh" id=8]
+material = SubResource( 7 )
+
+[node name="Spatial" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1.55978, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Stand" type="MeshInstance" parent="."]
+transform = Transform( 0.372508, 0, 0, 0, 1.82792, 0, 0, 0, 1.82792, -0.158, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="Stand4" type="MeshInstance" parent="."]
+transform = Transform( -0.372508, 0, -5.95612e-07, 0, 1.82792, 0, 1.21379e-07, 0, -1.82792, 0.155241, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="Stand2" type="MeshInstance" parent="."]
+transform = Transform( -6.06893e-08, 0, 1.82792, 0, 1.82792, 0, -0.372508, 0, -2.97806e-07, 0, 0, 0.156 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="Stand3" type="MeshInstance" parent="."]
+transform = Transform( -6.06893e-08, 0, -1.82792, 0, 1.82792, 0, 0.372508, 0, -2.97806e-07, 0, 0, -0.158 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 3 )
+
+[node name="bowl" type="MeshInstance" parent="."]
+transform = Transform( 0.656294, 0, 0, 0, 0.353709, 0, 0, 0, 0.656294, 0, 0.860403, 0 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
+
+[node name="flame" type="MeshInstance" parent="."]
+transform = Transform( 0.656294, 0, 0, 0, 0.353709, 0, 0, 0, 0.656294, 0, 0.978491, 0 )
+visible = false
+mesh = SubResource( 9 )
+material/0 = null
+
+[node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.641117, 0, 0, 0, 1, 0, 1.04849, 0 )
+visible = false
+light_color = Color( 0.843137, 1, 0.811765, 1 )
+omni_range = 3.09859
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.28338, 0 )
+visible = false
+process_material = SubResource( 6 )
+draw_pass_1 = SubResource( 8 )
+
+[node name="BlueFire" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.901107, 0 )

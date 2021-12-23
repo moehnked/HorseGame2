@@ -1,0 +1,93 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1639706276.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "character-1639706276.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "When yall use that there CHARM spell..."
+		},
+		{
+			"character": "character-1639706276.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Yall be speakins to the mood of the horse."
+		},
+		{
+			"character": "character-1639706276.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Horses have about 6 moods."
+		},
+		{
+			"character": "character-1639706276.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "No sense in callin em what they are, it only makes sense to a horse."
+		},
+		{
+			"character": "character-1639706276.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "But theres twos what special moods be important tos a horse..."
+		},
+		{
+			"character": "character-1639706276.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Bloodlust, and Greed."
+		},
+		{
+			"character": "character-1639706276.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Horses need to kill. Sooners er laters they'll needs to sate this urge."
+		},
+		{
+			"character": "character-1639706276.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Use the Bloodlust charm to select a target for your horse to attack."
+		},
+		{
+			"character": "character-1639706276.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Seconds-ly, theres Greed..."
+		},
+		{
+			"character": "character-1639693038.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": " Mosts of the of the times horses is justs hungry fer hay."
+		},
+		{
+			"character": "character-1639706276.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "But you can use the Greed charm to gift items to your horse."
+		},
+		{
+			"change_timeline": "timeline-1639709839.json",
+			"event_id": "dialogic_020"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1639708298.json",
+		"name": "02"
+	}
+}

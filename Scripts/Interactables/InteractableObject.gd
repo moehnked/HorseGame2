@@ -20,7 +20,7 @@ signal emit_looking_at(_lookedAtBy)
 
 func _input(ev):
 	if beingLookedAtBy != null and isInteractable:
-		if Input.is_key_pressed(KEY_E) and isHoldToInteract:
+		if (Input.is_key_pressed(KEY_E) or Input.is_action_pressed("engage")) and isHoldToInteract:
 			emit_signal("holding", beingLookedAtBy)
 			beingLookedAtBy.clear()
 			isHolding = true

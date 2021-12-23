@@ -8,6 +8,9 @@
 flags_transparent = true
 params_cull_mode = 2
 albedo_texture = ExtResource( 1 )
+distance_fade_mode = 2
+distance_fade_min_distance = 160.0
+distance_fade_max_distance = 70.0
 
 [node name="MetalCorner" type="MeshInstance"]
 transform = Transform( 0.148797, 0, 0, 0, 0.148797, 0, 0, 0, 0.145588, -2.32518, 2.6207, 3.35872 )

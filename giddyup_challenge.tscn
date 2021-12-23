@@ -42,7 +42,6 @@ margin_bottom = 604.0
 color = Color( 0, 0, 0, 0 )
 
 [node name="Control" type="Control" parent="."]
-visible = false
 margin_left = 472.882
 margin_top = 297.0
 margin_right = 512.882

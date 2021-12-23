@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Sprites/misc/distant_rocks_2.png" type="Texture" id=1]
+
+[sub_resource type="QuadMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+params_cull_mode = 2
+albedo_texture = ExtResource( 1 )
+distance_fade_mode = 2
+distance_fade_min_distance = 160.0
+distance_fade_max_distance = 70.0
+
+[node name="FarAwayRockB" type="MeshInstance"]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )

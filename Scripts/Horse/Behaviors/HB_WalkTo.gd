@@ -30,6 +30,7 @@ func set_animation(animName = "Idle", spd = 1.0):
 	ac.set_playback_speed(spd)
 
 func run(delta):
+	#velocity = actor.apply_gravity(velocity, delta)
 	if target == null:
 		call_callback()
 		return
@@ -40,4 +41,5 @@ func run(delta):
 	if not check_distance(actor, target, 2):
 		print("close enough, callingback ", callback)
 		call_callback()
+	velocity = movement.velocity
 	pass

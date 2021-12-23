@@ -58,7 +58,7 @@
 			"character": "character-1631167928.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "The Ghymkhana International Wilderness Reserve!"
+			"text": "The Ghymkhana International Wilderness Reserve! Also called [tornado radius=2 freq=3][wave amp=1 freq=5] Furlong Park"
 		},
 		{
 			"character": "character-1631167928.json",
@@ -70,7 +70,7 @@
 			"character": "character-1631167928.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "The [color=#2b8f28]Equestrian Ranger's Guild[/color] manages the park's development."
+			"text": "The [color=#2b8f28]Furlong Ranger's Guild[/color] manages the park's development."
 		},
 		{
 			"event_id": "dialogic_013"

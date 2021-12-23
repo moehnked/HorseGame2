@@ -1,12 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/UI/InteractionPrompt.gd" type="Script" id=1]
 [ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Textures/misc/Mask.png" type="Texture" id=3]
 [ext_resource path="res://fonts/Anisa Sans.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Sprites/UI/xbutton.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=2]
@@ -14,6 +17,12 @@ size = 30
 use_filter = true
 extra_spacing_char = 4
 font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
 
 [node name="InteractionPrompt" type="Control"]
 anchor_right = 1.0
@@ -24,12 +33,16 @@ __meta__ = {
 }
 
 [node name="Label2" type="Label" parent="."]
+visible = false
 modulate = Color( 0, 0, 0, 1 )
 margin_left = 395.0
 margin_top = 258.0
 margin_right = 1299.0
 margin_bottom = 297.0
 custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
 text = "Interact (E)"
 align = 1
 autowrap = true
@@ -43,6 +56,9 @@ margin_top = 256.0
 margin_right = 1296.0
 margin_bottom = 295.0
 custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
 text = "Interact (E)"
 align = 1
 autowrap = true
@@ -110,4 +126,27 @@ color = Color( 1, 1, 1, 0.619608 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ButtonHintContainer" type="Node2D" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.752941 )
+position = Vector2( 499, 312.138 )
+
+[node name="ButtonHintKeys" type="Label" parent="ButtonHintContainer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "[E]"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonHintCont" type="Sprite" parent="ButtonHintContainer"]
+position = Vector2( 14.059, 16.2861 )
+scale = Vector2( 0.208437, 0.208437 )
+texture = ExtResource( 5 )
 [connection signal="timeout" from="ContextTimer" to="." method="_on_ContextTimer_timeout"]

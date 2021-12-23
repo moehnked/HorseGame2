@@ -3,7 +3,7 @@ extends RigidBody
 
 
 
-export(Array, Context.Context) var ContextOptions
+export(Array, Context.context) var ContextOptions
 export var icon = "res://icon.png"
 export var itemName = "Item"
 export var pickupSoundPath = "res://Sounds/pop_01.wav"
@@ -14,8 +14,10 @@ const HB = preload("res://Scripts/Horse/Behaviors/HorseBehavior.gd")
 var canBePickedUp = true
 var controller
 
-func add_self_to_inventory(_controller = controller):
+func add_self_to_inventory(_controller = controller, exitTree = false):
 	_controller.add_item(self)
+	if exitTree:
+		get_parent().remove_child(self)
 	pass
 
 func destroy():

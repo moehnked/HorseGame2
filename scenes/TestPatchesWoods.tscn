@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://prefabs/PlayerStuff/NEW_FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/Areas/PatchesWoods.tscn" type="PackedScene" id=2]
@@ -14,7 +14,8 @@
 [ext_resource path="res://Shaders/SkyPresets/fog01.tres" type="Material" id=12]
 [ext_resource path="res://prefabs/Interactables/StarterPack_configA.tscn" type="PackedScene" id=13]
 [ext_resource path="res://prefabs/System/SpecialEventManager.tscn" type="PackedScene" id=14]
-[ext_resource path="res://prefabs/Items/TestItem.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scripts/System/3DViewport.gd" type="Script" id=17]
+[ext_resource path="res://prefabs/Items/Lamp.tscn" type="PackedScene" id=18]
 [ext_resource path="res://prefabs/UI/Misc/DamageablePrompt.tscn" type="PackedScene" id=19]
 [ext_resource path="res://prefabs/System/AudioManager.tscn" type="PackedScene" id=20]
 
@@ -66,10 +67,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ViewportContainer2" type="ViewportContainer" parent="."]
+[node name="ViewportContainer2" type="ViewportContainer" parent="." groups=[
+"3DViewport",
+]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 1
+script = ExtResource( 17 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -90,20 +94,26 @@ shadow_atlas_size = 2
 [node name="InputObserver" parent="ViewportContainer2/Viewport" instance=ExtResource( 7 )]
 
 [node name="NEW_FPSController" parent="ViewportContainer2/Viewport" instance=ExtResource( 1 )]
-transform = Transform( -0.263328, 0, 0.372519, 0, 0.456193, 0, -0.372519, 0, -0.263328, 91.2538, 0, 77.5915 )
+transform = Transform( -0.251611, 0, -0.380531, 0, 0.456193, 0, 0.380531, 0, -0.251611, 112.55, 4, -14.6444 )
 MAX_SPEED = 7
-spellList = [ "Null", "Punch", "Lasso", "Build" ]
+spellList = [ "Null", "Punch", "Lasso", "Build", "RPS" ]
 
 [node name="StarterPack" parent="ViewportContainer2/Viewport" instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 91.3909, 0, 74.7506 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 89.1232, 2.67442, 45.6142 )
 items = {
-Resource( "res://prefabs/Items/Permit.tscn" ): 1,
-Resource( "res://prefabs/Items/Handaxe.tscn" ): 1,
+Resource( "res://prefabs/Items/PerfumeBottle.tscn" ): 1,
+Resource( "res://prefabs/Items/Meat_A.tscn" ): 1,
 Resource( "res://prefabs/Items/LandClaim.tscn" ): 1,
-Resource( "res://prefabs/Items/Mallet.tscn" ): 1
+Resource( "res://prefabs/Items/PropertyApplication.tscn" ): 1,
+Resource( "res://prefabs/Items/Handaxe.tscn" ): 1,
+Resource( "res://prefabs/Items/Permit.tscn" ): 1,
+Resource( "res://prefabs/Items/Rock.tscn" ): 1,
+Resource( "res://prefabs/Items/Mallet.tscn" ): 1,
+Resource( "res://prefabs/Items/Plank.tscn" ): 9,
+Resource( "res://prefabs/Items/Fossil.tscn" ): 1
 }
 
 [node name="PatchesWoods" parent="ViewportContainer2/Viewport" instance=ExtResource( 2 )]
 
-[node name="Item" parent="." instance=ExtResource( 15 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 94.2248, -1.21064, 73.9003 )
+[node name="Lamp" parent="." instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 124, 2, 76 )

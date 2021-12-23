@@ -38,6 +38,7 @@ extents = Vector3( 0.860839, 1.21461, 1.93213 )
 
 [node name="HorseNPC_Generic" type="KinematicBody"]
 script = ExtResource( 3 )
+MAX_SLOPE_ANGLE = 45.0
 talkSounds = [ ExtResource( 19 ), ExtResource( 14 ), ExtResource( 18 ), ExtResource( 20 ) ]
 speakingVolume = -5.0
 
@@ -77,7 +78,6 @@ transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 1
 
 [node name="RelationshipManager" type="Spatial" parent="."]
 script = ExtResource( 10 )
-pep = 5
 
 [node name="Particles" parent="RelationshipManager" instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00350106, 2.97081, -0.879644 )
@@ -107,6 +107,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0261652, 2.5259, 0.609086 )
 saddle = NodePath("../Saddle")
 distThresh = 1.5
 [connection signal="emit_charm_recieved" from="." to="RelationshipManager" method="_on_Horse_emit_charm_recieved"]
+[connection signal="emit_highlight" from="." to="horse_animated" method="highlight"]
 [connection signal="broadcast_self" from="EquipmentManager" to="InteractionController" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="broadcast_self" from="EquipmentManager" to="HoldingPoint" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="area_entered" from="InteractionController" to="InteractionController" method="_on_InteractionController_area_entered"]

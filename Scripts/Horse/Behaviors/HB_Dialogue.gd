@@ -9,14 +9,10 @@ var callbackKargs = {}
 var talkingToController = null
 var velocity:Vector3 = Vector3()
 
-#func create_dialogue(controller):
 func create_dialogue(args):
-	#var o = load("res://prefabs/UI/Dialogue/DialogueScreen.tscn").instance()
 	var o = dialogueScreenRes.instance()
 	add_child(o)
-	#actor.begin_dialogue(controller)
 	talkingToController.begin_dialogue(args.actor)
-	#var dialogueName = actor.get_dialogue_point() if actor.has_method("get_dialogue_point") else "emptyDialogue"
 	o.initialize({'speaker':args.actor, 'text':RSG.generate_sentance(), 'listener':talkingToController.get_parent(), 'relationship':args.relationship})
 
 func exit():
@@ -33,21 +29,20 @@ func initialize(args = {}):
 		callbackKargs = args.kargs
 	if args.talkingToController != null:
 		talkingToController = args.talkingToController
-		create_dialogue(args)
+		#check if relationship and pep are valid for communication
+		var rm = actor.get_relationship_manager()
+		if rm.check_if_conversable(args):
+			create_dialogue(args)
+		else:
+			Global.InteractionPrompt.show_context(actor.get_horse_name() + " doesn't want to talk to you...")
+			Global.AudioManager.play_sound("res://Sounds/horse_noise_05.wav", 0, Utils.get_rng().randf_range(-2,2))
+			actor.call("exit_dialogue")
+		#else return to state and play sound
+		#talkingToController = args.talkingToController
+		#create_dialogue(args)
 		pass
 	pass
 
 func run(delta):
 	actor.rotate_towards_point(talkingToController.get_parent().global_transform.origin, 0.02)
 	pass
-
-
-func _on_Timer_timeout():
-	#determine if wandering or waiting again
-	var i = Global.world.rng.randf()
-	if i > 0.5:
-		#wander
-		stateMachine.set_behavior({"behaviorName":"Wander"})
-		return
-	stateMachine.set_behavior({"behaviorName":"Idle"})
-	pass # Replace with function body.

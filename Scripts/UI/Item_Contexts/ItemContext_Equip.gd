@@ -14,8 +14,8 @@ func initialize(args = {}):
 
 func equip():
 	print("equipping ", item," to ", controller)
-	if controller.get_equipped() != null:
-		controller.unequip()
+#	if controller.get_equipped() != null:
+#		controller.unequip()
 	Global.world.call_deferred("add_child", item)
 	item.interact(controller)
 	var tree = get_tree()
@@ -25,5 +25,11 @@ func equip():
 
 func press_context():
 	if controller.equipped != item:
-		equip()
+		if controller.equipped == null:
+			equip()
+		elif controller.equipped.canUnequip:
+			controller.unequip()
+			equip()
+		else:
+			Global.world.get_tree().call_group("InvScreen", "play_error")
 	pass # Replace with function body.

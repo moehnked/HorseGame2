@@ -71,7 +71,6 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.4415e
 
 [node name="RelationshipManager" type="Spatial" parent="."]
 script = ExtResource( 10 )
-pep = 5
 
 [node name="Particles" parent="RelationshipManager" instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00350106, 2.97081, -0.879644 )
@@ -101,9 +100,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0261652, 2.5259, 0.609086 )
 saddle = NodePath("../Saddle")
 distThresh = 1.5
 [connection signal="emit_charm_recieved" from="." to="RelationshipManager" method="_on_Horse_emit_charm_recieved"]
-[connection signal="emit_highlight" from="." to="horse_animated" method="_on_Horse_emit_highlight"]
-[connection signal="broadcast_self" from="EquipmentManager" to="HoldingPoint" method="_on_EquipmentManager_broadcast_self"]
+[connection signal="emit_highlight" from="." to="horse_animated" method="highlight"]
 [connection signal="broadcast_self" from="EquipmentManager" to="InteractionController" method="_on_EquipmentManager_broadcast_self"]
+[connection signal="broadcast_self" from="EquipmentManager" to="HoldingPoint" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="area_entered" from="InteractionController" to="InteractionController" method="_on_InteractionController_area_entered"]
 [connection signal="body_entered" from="InteractionController" to="InteractionController" method="_on_InteractionController_body_entered"]
 [connection signal="broadcast_self" from="InteractionController" to="EquipmentManager" method="_on_InteractionController_broadcast_self"]

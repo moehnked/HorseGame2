@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scripts/UI/GiftScreen.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/UI/InventoryScreen.png" type="Texture" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://Scripts/Misc/FadeInController.gd" type="Script" id=10]
 [ext_resource path="res://Sprites/UI/HUD_Party_BG_02.png" type="Texture" id=11]
 [ext_resource path="res://Shaders/noise_canvas_shader.tres" type="Material" id=12]
+[ext_resource path="res://Sounds/UI_Open_01.wav" type="AudioStream" id=13]
+[ext_resource path="res://Sounds/UI_Close_01.wav" type="AudioStream" id=14]
 
 [sub_resource type="DynamicFont" id=1]
 outline_size = 1
@@ -31,6 +33,10 @@ anchor_bottom = 1.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
+}
+sfx = {
+"Exit": ExtResource( 14 ),
+"Open": ExtResource( 13 )
 }
 
 [node name="background" type="TextureRect" parent="."]
@@ -138,4 +144,5 @@ margin_bottom = 511.58
 text = "GIVE"
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="button_up" from="ExitButton" to="." method="_on_ExitButton_button_up"]
+[connection signal="emit_pressed" from="Context/GiveButton" to="." method="give"]
 [connection signal="pressed" from="Context/GiveButton" to="." method="_on_GiveButton_pressed"]

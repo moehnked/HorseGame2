@@ -5,6 +5,8 @@ var args = {}
 var callback = {}
 var caller = {}
 var rng = RandomNumberGenerator.new()
+var deltaT = 0.0
+var plantRot = 0.0
 
 var testPointRef = preload("res://prefabs/Misc/TestPoint.tscn")
 
@@ -15,6 +17,14 @@ func _ready():
 	get_tree().call_group("rng_dependant", "initialize")
 	pass # Replace with function body.
 
+func _process(delta):
+	deltaT += delta
+	plantRot = sin(deltaT)
+	pass
+
+func get_wiggle_rot():
+	return plantRot
+
 func add_child( node, legible_unique_name=false):
 	if node.is_in_group("UI_Special"):
 		.add_child(node,legible_unique_name)
@@ -22,6 +32,7 @@ func add_child( node, legible_unique_name=false):
 	else:
 		$ViewportContainer2/Viewport.add_child(node, legible_unique_name)
 		node.owner = $ViewportContainer2/Viewport
+	return node
 
 func add_child_ui(node, legible_unique_name=false):
 	$ViewportContainer/Viewport.add_child(node, legible_unique_name)

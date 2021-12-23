@@ -126,7 +126,6 @@ void light() {
 
 }
 "
-graph_offset = Vector2( 373, 69 )
 flags/depth_test_disable = true
 nodes/fragment/0/position = Vector2( 1160, 100 )
 nodes/fragment/5/node = SubResource( 12 )

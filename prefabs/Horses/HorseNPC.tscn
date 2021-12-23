@@ -35,6 +35,7 @@ extents = Vector3( 0.860839, 1.21461, 1.93213 )
 [node name="Horse NPC" type="KinematicBody"]
 script = ExtResource( 3 )
 acceptedItemsToSell = [ "Meat" ]
+MAX_SLOPE_ANGLE = 45.0
 
 [node name="EquipmentManager" parent="." instance=ExtResource( 15 )]
 
@@ -72,7 +73,6 @@ transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 1
 
 [node name="RelationshipManager" type="Spatial" parent="."]
 script = ExtResource( 10 )
-pep = 5
 
 [node name="Particles" parent="RelationshipManager" instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00350106, 2.97081, -0.879644 )
@@ -102,9 +102,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0261652, 2.5259, 0.609086 )
 saddle = NodePath("../Saddle")
 distThresh = 1.5
 [connection signal="emit_charm_recieved" from="." to="RelationshipManager" method="_on_Horse_emit_charm_recieved"]
-[connection signal="emit_highlight" from="." to="horse_animated" method="_on_Horse_NPC_emit_highlight"]
-[connection signal="broadcast_self" from="EquipmentManager" to="HoldingPoint" method="_on_EquipmentManager_broadcast_self"]
+[connection signal="emit_highlight" from="." to="horse_animated" method="highlight"]
 [connection signal="broadcast_self" from="EquipmentManager" to="InteractionController" method="_on_EquipmentManager_broadcast_self"]
+[connection signal="broadcast_self" from="EquipmentManager" to="HoldingPoint" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="area_entered" from="InteractionController" to="InteractionController" method="_on_InteractionController_area_entered"]
 [connection signal="body_entered" from="InteractionController" to="InteractionController" method="_on_InteractionController_body_entered"]
 [connection signal="broadcast_self" from="InteractionController" to="EquipmentManager" method="_on_InteractionController_broadcast_self"]

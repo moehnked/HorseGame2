@@ -1,2 +1,2 @@
 extends Node
-enum Context{Discard, Equip, Unequip}
+enum context{Discard, Equip, Unequip}

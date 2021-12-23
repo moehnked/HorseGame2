@@ -10,6 +10,7 @@ points = PoolVector3Array( 0.647933, -0.075333, 1.01757, 0.247752, 0.55708, 0.97
 
 [node name="Rock" type="RigidBody"]
 script = ExtResource( 2 )
+ContextOptions = [ 0, 1 ]
 icon = "res://Sprites/Items/Rock.png"
 itemName = "Rock"
 value = 0.0

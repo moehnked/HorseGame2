@@ -3,12 +3,14 @@ extends "res://Scripts/System/broadcast_self.gd"
 var equipmentManager = null
 var interactables = []
 var ignore = []
+var pepTimer = Timer.new()
 
 func _ready():
 	ignore.append(self)
 	ignore.append(get_parent())
 	ignore.append(get_parent().get_node("Interactable"))
 	emit_signal("broadcast_self", self)
+	initialize_timers()
 
 func _process(delta):
 	if interactables.size() > 0:
@@ -20,9 +22,15 @@ func add_to_ignore(other):
 func get_equipment_manager():
 	return equipmentManager
 
+func initialize_timers():
+	pass
+
 func interact_with(other):
 	if get_parent().isInteractingWith:
 		other.interact(self)
+	pass
+
+func pep_tick():
 	pass
 
 func _on_InteractionController_area_entered(area):
