@@ -28,8 +28,9 @@ func initialize(args = {}):
 	print("PB: Normal: initializing")
 	var actor = args.actor
 	var head = actor.get_head()
-	actor.subscribe_to()
-	head.subscribe_to()
+	#actor.subscribe_to()
+	#head.subscribe_to()
+	actor.add_to_group("QueueInputSubscription")
 	actor.canUpdateHands = true
 	actor.canCheckInventory = true
 	actor.canResetCasting = true

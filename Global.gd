@@ -15,3 +15,7 @@ var WorldViewport
 var Generator
 var SkyController
 var RSG = preload("res://Scripts/Statics/RSG.gd")
+
+func method(ref, method, isDeferred = false):
+	if isDeferred:
+		pass

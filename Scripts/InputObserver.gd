@@ -115,6 +115,8 @@ func _physics_process(delta):
 	mouse_horizontal = 0.0
 	mouse_vertical = 0.0
 	
+	get_tree().call_group("QueueInputObserver", "subscribe_to")
+	
 	#print("observers")
 	for o in observers:
 		#print(o, ", - ", o.name)
