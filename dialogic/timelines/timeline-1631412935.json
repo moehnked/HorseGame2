@@ -33,6 +33,30 @@
 			"text": "[tornado radius=2 freq=3][wave amp=1 freq=5]Have fun!"
 		},
 		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "OH!"
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "That's Right..."
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "This is just the demo."
+		},
+		{
+			"character": "character-1631059499.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "If you want to check out the park, you'll need the full version of the game."
+		},
+		{
 			"emit_signal": "",
 			"event_id": "dialogic_040"
 		},

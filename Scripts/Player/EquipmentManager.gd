@@ -70,7 +70,11 @@ func modify_parent_state(toggle):
 		else:
 			p.revoke_casting()
 			p.revoke_cast_menu()
-			p.get_hand().update_hand_sprite(equipped.intendedSprite, false)
+			#p.get_hand().update_hand_sprite(equipped.intendedSprite, false, 1.2)
+			p.get_hand().idle_hand()
+			p.get_hand().set_animation_playback(false, 1.2)
+			p.get_hand().apply_texture(equipped.intendedSprite)
+	print("EQUIP -~~*~ ", p.get_node("Head/Palm").transform.origin)
 
 func parse_input(_input):
 	input = _input
@@ -81,11 +85,16 @@ func parse_input(_input):
 func return_equipped_to_inventory():
 	print("FPS: EQManager: ", equipped.get_name(), " - ", equipped.owner, " - ", equipped.get_parent().name )
 	Utils.reparent(equipped, Global.world)
-	equipped.owner.remove_child(equipped)
+	#equipped.owner.remove_child(equipped)
+	equipped.get_parent().remove_child(equipped)
 	return equipped
 
 func set_equip_point(other):
 	equipPoint = other
+
+func save():
+	var save_dict = inst2dict(self)
+	return save_dict
 
 func subscribe_to():
 	Global.InputObserver.subscribe(self)

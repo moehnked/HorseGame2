@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://Scripts/UI/Inventory/TradingScreen.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/UI/INVScreen_BG.png" type="Texture" id=2]
@@ -15,7 +15,7 @@
 [ext_resource path="res://Sprites/UI/cancel_button2.png" type="Texture" id=13]
 [ext_resource path="res://fonts/OptimusPrinceps.ttf" type="DynamicFontData" id=14]
 [ext_resource path="res://Sprites/misc/Laurels2.png" type="Texture" id=15]
-[ext_resource path="res://Sprites/UI/treat02.png" type="Texture" id=16]
+[ext_resource path="res://prefabs/UI/InventoryScreens/ItemTreatsLabel.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Sprites/UI/treat.png" type="Texture" id=17]
 [ext_resource path="res://Scripts/UI/Inventory/TreatsCount.gd" type="Script" id=18]
 [ext_resource path="res://Themes/new_theme.tres" type="Theme" id=19]
@@ -235,11 +235,6 @@ nodes/fragment/connections = PoolIntArray( 2, 1, 0, 1, 2, 0, 4, 1, 4, 0, 0, 0, 6
 
 [sub_resource type="ShaderMaterial" id=20]
 shader = SubResource( 19 )
-
-[sub_resource type="DynamicFont" id=21]
-size = 101
-extra_spacing_char = 13
-font_data = ExtResource( 14 )
 
 [sub_resource type="Animation" id=22]
 step = 0.03
@@ -584,11 +579,11 @@ texture = ExtResource( 7 )
 
 [node name="Frame" type="Sprite" parent="."]
 position = Vector2( 512, 304 )
-z_index = 1
+z_index = 2
 texture = ExtResource( 6 )
 
 [node name="BG2" type="Sprite" parent="Frame"]
-z_index = -1
+z_index = -2
 texture = ExtResource( 3 )
 
 [node name="BG3" type="Sprite" parent="Frame"]
@@ -679,26 +674,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ItemTreatsLabel" type="Sprite" parent="Frame"]
-visible = false
-position = Vector2( 258.862, 87.9094 )
-scale = Vector2( 0.162919, 0.162919 )
-texture = ExtResource( 16 )
-
-[node name="Label" type="Label" parent="Frame/ItemTreatsLabel"]
-margin_left = 102.0
-margin_top = -60.0
-margin_right = 761.0
-margin_bottom = 49.0
-custom_fonts/font = SubResource( 21 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 6
-custom_constants/shadow_offset_y = 6
-text = "69420"
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="ItemTreatsLabel" parent="Frame" instance=ExtResource( 16 )]
+z_index = -1
 
 [node name="ListItemContainer" type="ScrollContainer" parent="Frame"]
 margin_left = -340.0

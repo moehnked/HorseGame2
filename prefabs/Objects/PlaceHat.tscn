@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Misc/PlaceHat.gd" type="Script" id=1]
+[ext_resource path="res://prefabs/Interactables/UseItemOn.tscn" type="PackedScene" id=3]
+
+[node name="PlaceHat" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="UseItemOn" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0397797, 0.0373311, -0.0188217 )
+desiredItems = {
+Resource( "res://Scripts/Items/Hat.gd" ): 1
+}
+removeItemsOnUse = true
+deleteSelfAfterUse = false
+[connection signal="item_use_complete" from="UseItemOn" to="." method="add_hat"]

@@ -1028,8 +1028,8 @@ func add_choice_button(option: Dictionary):
 
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_VISIBLE:
 		last_mouse_mode = Input.get_mouse_mode()
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) # Make sure the cursor is visible for the options selection
-
+		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) # Make sure the cursor is visible for the options selection
+		Utils.show_mouse(true)
 
 func answer_question(i, event_idx, question_idx):
 	if $TextBubble.is_finished():

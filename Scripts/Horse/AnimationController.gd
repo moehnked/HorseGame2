@@ -1,5 +1,7 @@
 extends Spatial
 
+export(bool) var soundWhileMoving = true
+
 var RPSThrown = 0
 var sfx = [
 	"res://Sounds/gallop1.wav",
@@ -17,13 +19,20 @@ func _process(delta):
 	match $AnimationPlayer2.current_animation:
 		"Trot":
 			print("trot: ", get_frame())
-			if Utils.compare_floats(get_frame(), 0.8, 0.01):
+			if Utils.compare_floats(get_frame(), 0.8, 0.01) and soundWhileMoving:
 				play_sound()
 			pass 
 
+func add_hat(item):
+	get_hat_point().add_child(item)
+	item.global_transform = Transform(get_hat_point().global_transform)
+
 func get_frame():
 	return $AnimationPlayer2.current_animation_position
-	
+
+func get_hat_point():
+	return $RM_White_Horse_Rig/Skeleton/BoneAttachment/HatPoint
+
 func get_model():
 	return $RM_White_Horse_Rig/Skeleton/RM_White_Horse
 

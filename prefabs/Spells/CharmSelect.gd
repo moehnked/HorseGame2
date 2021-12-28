@@ -19,7 +19,7 @@ func initialize(args = {}):
 	args = Utils.check(args, {'source':null, 'palm':null, 'callback':"", 'hand':null, 'charm_origin':null})
 	source = args.source
 	callback = args.callback
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	Utils.show_mouse()
 	subscribe_to()
 	charm_origin = args.charm_origin
 
@@ -33,8 +33,9 @@ func _process(delta):
 	var joypointr = Vector2(Input.get_joy_axis(0, JOY_ANALOG_RX), Input.get_joy_axis(0, JOY_ANALOG_RY))
 	var joypointl = Vector2(Input.get_joy_axis(0, JOY_ANALOG_LX), Input.get_joy_axis(0, JOY_ANALOG_LY))
 	var joypoint = joypointr if joypointr.length() > joypointl.length() else joypointl
-	if joypoint.length() > 0.2:
+	if joypoint.length() > 0.4:
 		$Ring/Pointer.global_position = $Ring.global_position + (joypoint * pointerRadius)
+		pass
 	else:
 		var offset = get_global_mouse_position() - $Ring.global_position
 		var point = offset.normalized() * pointerRadius

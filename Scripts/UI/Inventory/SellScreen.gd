@@ -2,7 +2,7 @@ extends "res://Scripts/UI/Inventory/TradingScreen.gd"
 
 func initialize(args = {}):
 	.initialize(args)
-	$Frame/MainLabel.text += " " + get_customer().get_horse_name()
+	#$Frame/MainLabel.text += " " + get_customer().get_horse_name()
 
 func verify_purchase(i):
 	if get_customer().has_method("get_inventory"):

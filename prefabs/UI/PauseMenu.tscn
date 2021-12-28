@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Sprites/UI/PauseFrame.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/UI/PauseBG.png" type="Texture" id=2]
@@ -11,9 +11,11 @@
 [ext_resource path="res://Scripts/UI/UIListItem.gd" type="Script" id=9]
 [ext_resource path="res://Materials/2DBlurLayer.tres" type="Material" id=10]
 [ext_resource path="res://Sprites/UI/UI_Listitem_clickmask.png" type="BitMap" id=11]
-[ext_resource path="res://Sprites/UI/UI_Display_Data2.png" type="Texture" id=12]
+[ext_resource path="res://prefabs/UI/UiButtonGeneric.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Sprites/UI/UI_Display_Settings2.png" type="Texture" id=13]
 [ext_resource path="res://Sprites/UI/UI_Display_Exit.png" type="Texture" id=14]
+[ext_resource path="res://prefabs/Misc/Events/Delay.tscn" type="PackedScene" id=15]
+[ext_resource path="res://prefabs/Misc/Events/CallMethodOnTarget.tscn" type="PackedScene" id=16]
 
 [sub_resource type="Animation" id=1]
 resource_name = "startup"
@@ -252,37 +254,7 @@ position = Vector2( 0, 224 )
 script = ExtResource( 8 )
 display = NodePath("../Frame/Circle/UIDisplay")
 
-[node name="Data" type="TextureButton" parent="OptionsContainer"]
-margin_left = 24.0
-margin_top = -8.0
-margin_right = 280.0
-margin_bottom = 24.0
-rect_scale = Vector2( 2.24784, 2.24784 )
-focus_next = NodePath("../Settings")
-texture_normal = ExtResource( 5 )
-texture_hover = ExtResource( 6 )
-texture_focused = ExtResource( 6 )
-texture_click_mask = ExtResource( 11 )
-script = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-icon = ExtResource( 12 )
-
-[node name="Label" type="Label" parent="OptionsContainer/Data"]
-margin_left = 21.3538
-margin_top = 3.55898
-margin_right = 140.354
-margin_bottom = 42.559
-rect_scale = Vector2( 0.587031, 0.587031 )
-custom_fonts/font = SubResource( 2 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 2
-custom_constants/shadow_offset_y = 2
-text = "Data"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Data" parent="OptionsContainer" instance=ExtResource( 12 )]
 
 [node name="Settings" type="TextureButton" parent="OptionsContainer"]
 margin_left = 24.0
@@ -348,9 +320,15 @@ text = "Exit Game"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="focus_entered" from="OptionsContainer/Data" to="OptionsContainer/Data" method="gain_focus"]
-[connection signal="mouse_entered" from="OptionsContainer/Data" to="OptionsContainer/Data" method="mouse_enter"]
-[connection signal="mouse_exited" from="OptionsContainer/Data" to="OptionsContainer/Data" method="mouse_exit"]
+
+[node name="Delay" parent="." instance=ExtResource( 15 )]
+timeDelay = 0.1
+targetEvent = NodePath("../CallMethodsOnTarget")
+
+[node name="CallMethodsOnTarget" parent="." instance=ExtResource( 16 )]
+methodName = "save_world"
+target = NodePath("..")
+[connection signal="pressed" from="OptionsContainer/Data" to="." method="enter_data_menu"]
 [connection signal="focus_entered" from="OptionsContainer/Settings" to="OptionsContainer/Settings" method="gain_focus"]
 [connection signal="mouse_entered" from="OptionsContainer/Settings" to="OptionsContainer/Settings" method="mouse_enter"]
 [connection signal="mouse_exited" from="OptionsContainer/Settings" to="OptionsContainer/Settings" method="mouse_exit"]

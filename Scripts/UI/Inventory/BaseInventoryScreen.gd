@@ -18,7 +18,7 @@ func _ready():
 	get_tree().paused = true
 	Global.AudioManager.play_sound(sfx["open"])
 	draw_list_items()
-	Utils.show_mouse()
+	Utils.show_mouse(true)
 	pass # Replace with function body.
 
 func _process(delta):
@@ -48,9 +48,9 @@ func draw_context():
 func draw_list_items():
 	$Frame/ListItemContainer.initialize(initArgs["inv"])
 
-func draw_selected_icon():
+func draw_selected_icon(skipHighlighted = false):
 	#print("drawing_sel_icon")
-	if highlighted != null:
+	if highlighted != null and not skipHighlighted:
 		$Frame/INVDisplay.texture = highlighted.get_icon(true)
 	elif selected != null:
 		$Frame/INVDisplay.texture = selected.get_icon(true)
@@ -88,5 +88,5 @@ func update_selection(i, c):
 	$Frame/ItemTreatsLabel.visible = true
 	$Frame/ItemTreatsLabel/Label.text = String(selected.get_value()) + " (ea.)"
 	$Description.text = i.get_description()
-	draw_selected_icon()
+	draw_selected_icon(true)
 	draw_context()

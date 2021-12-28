@@ -11,7 +11,6 @@ flags_unshaded = true
 params_depth_draw_mode = 3
 params_billboard_mode = 1
 params_billboard_keep_scale = true
-albedo_color = Color( 0.286275, 0.505882, 0.439216, 1 )
 albedo_texture = ExtResource( 2 )
 
 [sub_resource type="SphereShape" id=3]
@@ -29,4 +28,10 @@ material/0 = SubResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 3 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+autostart = true
 [connection signal="emit_water_entered" from="." to="." method="_on_Droplet_emit_water_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

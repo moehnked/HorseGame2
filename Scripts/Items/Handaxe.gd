@@ -55,8 +55,8 @@ func initialize(controller):
 	dir = Vector3()
 	toggle_collisions(false)
 	var h = controller.get_parent().get_hand()
-	h.update_hand_sprite("Holding")
-	h.set_animation_playback(false)
+	h.update_hand_sprite("Holding", false, 1.2)
+	#h.set_animation_playback(false, 1.2)
 
 func parse_input():
 	if input.standard and canSwing and not beingThrown and isEquipped:
@@ -69,7 +69,7 @@ func throw():
 	$ThrowDuration.start()
 	var par = controller.get_parent()
 	var ray = par.get_solid_raycast()
-	par.get_hand().update_hand_sprite("Idle", true)
+	par.get_hand().update_hand_sprite("Idle", true, 1.2)
 	#controller.set_hand_playback(true)
 	canSwing = false
 	beingThrown = true

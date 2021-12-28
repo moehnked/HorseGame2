@@ -17,6 +17,7 @@ export var intendedSprite = "Holding"
 
 signal emit_held()
 signal emit_use()
+signal emit_equipped(item)
 
 func _ready():
 	#Utils.reparent(self, Global.world)
@@ -65,6 +66,7 @@ func equip(_controller):
 		Global.AudioManager.play_sound(equipSoundPath)
 		apply_behavior(get_behavior())
 		update_depth_test(self)
+		emit_signal("emit_equipped", self)
 		return true
 	return false
 

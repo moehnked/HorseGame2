@@ -182,9 +182,11 @@ static func reparent(child: Node, new_parent: Node):
 		old_parent.remove_child(child)
 	new_parent.add_child(child)
 
-static func show_mouse():
+static func show_mouse(custom = false, res = "res://Sprites/misc/publicdomainPack/cursor.png"):
 	#print("Utils: showing mouse")
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if custom:
+		Input.set_custom_mouse_cursor(load(res))
 
 static func uniques(list):
 	var u = []

@@ -52,7 +52,7 @@ var placer_observers = []
 var raycastObservers = []
 
 var lefthandSpell = "Lasso"
-var righthandSpell = "Null"
+var righthandSpell = "Punch"
 
 var buildList = ["Fence"]
 export(Array, String) var spellList = ["Null", "Punch"]
@@ -69,7 +69,6 @@ onready var currentBehavior = get_node("StateContainer/Normal")
 
 func _ready():
 	Global.Player = self
-	#call_deferred("subscribe_to")
 	set_behavior("Normal")
 	scaleMod = scale.x
 	correct_scale()
@@ -433,11 +432,9 @@ func stop_swimming():
 func subscribe_to():
 	Global.InputObserver.subscribe(self)
 	get_head().subscribe_to()
-	#get_interaction_controller().subscribe_to()
 	get_interaction_controller().canInteract = true
 	get_equipment_manager().subscribe_to()
 	set_is_running()
-	#Global.InputObserver.subscribe($InteractionController)
 
 func take_damage(dmg = 1, hitbox = null, source = null):
 	HP -= dmg

@@ -28,3 +28,9 @@ func initialize():
 func _on_Droplet_emit_water_entered(droplet):
 	disable()
 	pass # Replace with function body.
+
+
+func _on_Timer_timeout():
+	print("droplet time up")
+	disable()
+	pass # Replace with function body.

@@ -30,6 +30,8 @@ func initialize(args = {}):
 	if args.talkingToController != null:
 		talkingToController = args.talkingToController
 		#check if relationship and pep are valid for communication
+		if actor.has_method("emit_talked_to_npc"):
+			actor.call("emit_talked_to_npc")
 		var rm = actor.get_relationship_manager()
 		if rm.check_if_conversable(args):
 			create_dialogue(args)

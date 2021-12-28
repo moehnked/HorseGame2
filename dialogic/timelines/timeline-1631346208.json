@@ -15,6 +15,14 @@
 			}
 		},
 		{
+			"definition": "1640253079-323",
+			"event_id": "dialogic_014",
+			"operation": "=",
+			"random_upper_limit": 100,
+			"set_random": false,
+			"set_value": "2"
+		},
+		{
 			"character": "character-1631346096.json",
 			"event_id": "dialogic_001",
 			"portrait": "",

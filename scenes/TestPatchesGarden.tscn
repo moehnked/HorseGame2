@@ -41,6 +41,7 @@ skys = {
 [node name="SpecialEventManager" parent="." instance=ExtResource( 14 )]
 
 [node name="AudioManager" parent="." instance=ExtResource( 20 )]
+sfxVolume = 0.5
 
 [node name="GlobalCorralRegistrar" parent="." instance=ExtResource( 10 )]
 
@@ -83,6 +84,6 @@ audio_listener_enable_3d = true
 [node name="NEW_FPSController" parent="ViewportContainer2/Viewport" instance=ExtResource( 1 )]
 transform = Transform( 0.456193, 0, 0, 0, 0.456193, 0, 0, 0, 0.456193, -15.4195, 9.56531, 0 )
 MAX_SPEED = 7
-spellList = [ "Null", "Punch", "Lasso" ]
+spellList = [ "Null" ]
 
 [node name="PatchesGarden" parent="ViewportContainer2/Viewport" instance=ExtResource( 2 )]

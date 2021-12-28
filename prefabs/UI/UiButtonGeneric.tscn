@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Sprites/UI/UI_Listitem_clickmask.png" type="BitMap" id=1]
+[ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scripts/UI/UIListItem.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/UI/UI_Display_Data2.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/UI/UI_Listitem_Selected.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/UI/UI_Listitem_unselected.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+extra_spacing_char = 2
+font_data = ExtResource( 2 )
+
+[node name="Data" type="TextureButton"]
+margin_left = 24.0
+margin_top = -8.0
+margin_right = 280.0
+margin_bottom = 24.0
+rect_scale = Vector2( 2.24784, 2.24784 )
+focus_next = NodePath("../Settings")
+texture_normal = ExtResource( 6 )
+texture_hover = ExtResource( 5 )
+texture_focused = ExtResource( 5 )
+texture_click_mask = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+icon = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 21.3538
+margin_top = 3.55898
+margin_right = 140.354
+margin_bottom = 42.559
+rect_scale = Vector2( 0.587031, 0.587031 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+text = "Data"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="focus_entered" from="." to="." method="gain_focus"]
+[connection signal="mouse_entered" from="." to="." method="mouse_enter"]
+[connection signal="mouse_exited" from="." to="." method="mouse_exit"]

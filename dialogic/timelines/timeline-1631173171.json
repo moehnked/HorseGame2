@@ -24,6 +24,31 @@
 			"question": "[tornado radius=2 freq=3][wave amp=1 freq=5]... ?"
 		},
 		{
+			"choice": "Chesterfield won't talk to me.",
+			"condition": "==",
+			"definition": "1640253079-323",
+			"event_id": "dialogic_011",
+			"value": "1"
+		},
+		{
+			"character": "character-1631167928.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "He can be a bit of a grouch sometimes."
+		},
+		{
+			"character": "character-1631167928.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "I know that he's friends with Horace, maybe go talk to him."
+		},
+		{
+			"character": "character-1631167928.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "He should be outside somewhere."
+		},
+		{
 			"choice": "Guild?",
 			"condition": "",
 			"definition": "1631173224-136",

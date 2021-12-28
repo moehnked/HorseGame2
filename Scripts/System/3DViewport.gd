@@ -34,7 +34,7 @@ func increment_fade():
 	for p in initArgs.keys():
 		material.set_shader_param(p, lerp(material.get_shader_param(p), initArgs[p],.1))
 
-func set_material(key, fade = true, params = ["u_contrast"], setargs = {"u_contrast": -2.1}):
+func set_material(key, fade = true, params = ["u_contrast"], setargs = {"u_contrast": 2.1}):
 	if postEffects.keys().has(key):
 		material = postEffects[key]
 	else:

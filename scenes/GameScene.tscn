@@ -48,25 +48,11 @@ skys = {
 [node name="SpecialEventManager" parent="." instance=ExtResource( 14 )]
 
 [node name="AudioManager" parent="." instance=ExtResource( 20 )]
+music_enabled = false
 sfxVolume = 0.9
 musicVolume = 0.8
 
 [node name="GlobalCorralRegistrar" parent="." instance=ExtResource( 10 )]
-
-[node name="Debug" type="Control" parent="."]
-margin_right = 1024.0
-margin_bottom = 600.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Debug"]
-visible = false
-margin_left = 16.0
-margin_top = 16.0
-margin_right = 56.0
-margin_bottom = 30.0
-script = ExtResource( 6 )
 
 [node name="ViewportContainer2" type="ViewportContainer" parent="." groups=[
 "3DViewport",
@@ -95,8 +81,26 @@ shadow_atlas_size = 2
 [node name="InputObserver" parent="ViewportContainer2/Viewport" instance=ExtResource( 7 )]
 
 [node name="NEW_FPSController" parent="ViewportContainer2/Viewport" instance=ExtResource( 1 )]
-transform = Transform( 0.00658956, 0, -0.455952, 0, 0.456, 0, 0.455952, 0, 0.00658956, -12.7255, 0, -1.82383 )
+transform = Transform( 0.00658956, 0, -0.455952, 0, 0.456, 0, 0.455952, 0, 0.00658956, -98.2211, -47.2682, -517.426 )
 MAX_SPEED = 7
 
 [node name="Temple" parent="ViewportContainer2/Viewport" instance=ExtResource( 16 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -118.181, 37.782, -239.236 )
+
+[node name="Debug" type="Control" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Debug"]
+margin_left = 45.6649
+margin_top = 7.17602
+margin_right = 85.6649
+margin_bottom = 21.176
+text = "60"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

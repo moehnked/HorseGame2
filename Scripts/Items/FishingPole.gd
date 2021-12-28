@@ -23,7 +23,7 @@ func cast():
 	visible = true
 	isCharging = false
 	var hRef = get_caster().get_hand()
-	hRef.apply_texture(hRef.handMesh,"Fishing")
+	hRef.apply_texture("Fishing")
 	hRef.play_animation("Fishing_Cast")
 	channel = Global.AudioManager.play_sound("res://Sounds/fishingCast.wav")
 	$AnimationPlayer.play("Cast")

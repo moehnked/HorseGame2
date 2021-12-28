@@ -20,6 +20,9 @@ func initialize():
 	$Sprite.visible = true
 	$AnimationPlayer.play("MouseUp")
 
+func flip_d_pad():
+	get_node("Sprite3/d_pad_1/d-pad_3_button").flip_v = !get_node("Sprite3/d_pad_1/d-pad_3_button").flip_v
+
 func parse_input(input):
 	match state:
 		0:
@@ -52,4 +55,6 @@ func _on_HandOptionSelected_trigger(trig):
 	initialize()
 	state = 3
 	$AnimationPlayer.playback_speed = -1
+	get_node("Sprite/d_pad_2/d-pad_3").flip_v = true
+	get_node("Sprite/d_pad_2/Label").visible = false
 	pass # Replace with function body.

@@ -236,7 +236,7 @@ nodes/fragment/connections = PoolIntArray( 2, 1, 0, 1, 2, 0, 4, 1, 4, 0, 0, 0, 6
 [sub_resource type="ShaderMaterial" id=20]
 shader = SubResource( 19 )
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=21]
 step = 0.03
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("BG:modulate:r")
@@ -539,7 +539,7 @@ tracks/29/keys = {
 "times": PoolRealArray( 0, 0.99 )
 }
 
-[sub_resource type="DynamicFont" id=23]
+[sub_resource type="DynamicFont" id=22]
 size = 21
 extra_spacing_char = 2
 font_data = ExtResource( 14 )
@@ -583,7 +583,7 @@ z_index = 2
 texture = ExtResource( 6 )
 
 [node name="BG2" type="Sprite" parent="Frame"]
-z_index = -1
+z_index = -2
 texture = ExtResource( 3 )
 
 [node name="BG3" type="Sprite" parent="Frame"]
@@ -609,7 +609,7 @@ texture = ExtResource( 4 )
 [node name="Circle" type="Sprite" parent="Frame"]
 position = Vector2( 288, -56 )
 scale = Vector2( 0.957857, 0.957857 )
-z_index = 1
+z_index = -1
 texture = ExtResource( 9 )
 
 [node name="INVDisplay" type="Sprite" parent="Frame"]
@@ -675,6 +675,7 @@ __meta__ = {
 }
 
 [node name="ItemTreatsLabel" parent="Frame" instance=ExtResource( 16 )]
+z_index = -1
 
 [node name="ListItemContainer" type="ScrollContainer" parent="Frame"]
 margin_left = -340.0
@@ -709,14 +710,14 @@ text = "GIVE"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "default"
-anims/default = SubResource( 22 )
+anims/default = SubResource( 21 )
 
 [node name="Description" type="Label" parent="."]
 margin_left = 171.0
 margin_top = 448.0
 margin_right = 672.0
 margin_bottom = 592.0
-custom_fonts/font = SubResource( 23 )
+custom_fonts/font = SubResource( 22 )
 autowrap = true
 clip_text = true
 __meta__ = {

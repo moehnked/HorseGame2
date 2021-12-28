@@ -21,10 +21,12 @@ func initialize(args = {}):
 	dialogue.connect("event_start", self, 'make_sound')
 	make_sound("event_start")
 	Global.AudioManager.fade_music(Global.AudioManager.get_current_music_volume() - 10, 0.1)
+	Global.InputObserver.canPause = false
 	pass
 
 func destroy(timeline_name):
 	if canExit:
+		Global.InputObserver.canPause = true
 		Global.InputObserver.input.engage = false
 		speaker.call("exit_dialogue")
 		listener.call("exit_dialogue")

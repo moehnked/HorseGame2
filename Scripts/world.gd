@@ -31,11 +31,12 @@ func add_child( node, legible_unique_name=false):
 		node.owner = self
 	else:
 		$ViewportContainer2/Viewport.add_child(node, legible_unique_name)
-		node.owner = $ViewportContainer2/Viewport
+		node.owner = self
 	return node
 
 func add_child_ui(node, legible_unique_name=false):
 	$ViewportContainer/Viewport.add_child(node, legible_unique_name)
+	node.owner = self
 
 func call_no_args(timer):
 	if callback.keys().has(timer) and caller.keys().has(timer):
@@ -85,6 +86,22 @@ func queue_timer(_caller, time, _callback, args = {}):
 	var t = get_tree().create_timer(time)
 	t.connect("timeout", self, "timer_timeout", [t])
 	set_caller_and_callback(_caller, _callback, t, args)
+
+func save_world():
+	var save_game = File.new()
+	save_game.open("user://savegame.save", File.WRITE)
+	var save_nodes = get_tree().get_nodes_in_group("Persist")
+	for node in save_nodes:
+		# Check the node has a save function.
+		if !node.has_method("save"):
+			print("persistent node '%s' is missing a save() function, skipped" % node.name)
+			continue
+		
+		# Call the node's save function.
+		var node_data = node.call("save")
+		# Store the save dictionary as a new line in the save file.
+		save_game.store_line(to_json(node_data))
+	save_game.close()
 
 func set_caller_and_callback(_caller, _callback, timer, _args ):
 	caller[timer] = _caller

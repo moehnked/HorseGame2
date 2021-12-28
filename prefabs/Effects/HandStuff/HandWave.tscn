@@ -167,6 +167,7 @@ hasSnapped = true
 position = Vector2( 515.279, 302.285 )
 rotation = 0.431231
 scale = Vector2( 0.212307, 0.212307 )
+z_index = 100
 texture = ExtResource( 2 )
 
 [node name="Node2D2" type="Node2D" parent="Hand"]

@@ -51,7 +51,7 @@
 		{
 			"call_node": {
 				"arguments": [
-					"LoadPatchesHand01"
+					"PatchesMoveOn"
 				],
 				"method_name": "trigger_event",
 				"target_node_path": "../.."

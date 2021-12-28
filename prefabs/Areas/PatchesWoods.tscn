@@ -1,4 +1,4 @@
-[gd_scene load_steps=124 format=2]
+[gd_scene load_steps=135 format=2]
 
 [ext_resource path="res://models/Areas/GrassyMound.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Textures/128x128/Grass/Grass 4 - 128x128.png" type="Texture" id=2]
@@ -41,7 +41,7 @@
 [ext_resource path="res://Sounds/SA_03.wav" type="AudioStream" id=39]
 [ext_resource path="res://Sounds/SA_01.wav" type="AudioStream" id=40]
 [ext_resource path="res://Sounds/SA_04.wav" type="AudioStream" id=41]
-[ext_resource path="res://prefabs/Items/Plank.tscn" type="PackedScene" id=42]
+[ext_resource path="res://prefabs/Objects/set_pieces/fencePost.tscn" type="PackedScene" id=42]
 [ext_resource path="res://prefabs/Misc/Rock_01.tscn" type="PackedScene" id=43]
 [ext_resource path="res://Sounds/SYL_02.wav" type="AudioStream" id=44]
 [ext_resource path="res://Sounds/SYL_01.wav" type="AudioStream" id=45]
@@ -100,6 +100,17 @@
 [ext_resource path="res://prefabs/Items/AtlanticHorseMackerel.tscn" type="PackedScene" id=98]
 [ext_resource path="res://prefabs/Objects/ChainLink.tscn" type="PackedScene" id=99]
 [ext_resource path="res://prefabs/Objects/set_pieces/StatueWoman.tscn" type="PackedScene" id=100]
+[ext_resource path="res://prefabs/Misc/Events/UpdateDialogicVariable.tscn" type="PackedScene" id=101]
+[ext_resource path="res://prefabs/Horses/DummyHorse.tscn" type="PackedScene" id=102]
+[ext_resource path="res://prefabs/Objects/PlaceHat.tscn" type="PackedScene" id=103]
+[ext_resource path="res://prefabs/Items/Hat1.tscn" type="PackedScene" id=104]
+[ext_resource path="res://prefabs/Items/Hat2.tscn" type="PackedScene" id=105]
+[ext_resource path="res://prefabs/Items/Hat.tscn" type="PackedScene" id=106]
+[ext_resource path="res://prefabs/Items/Hat3.tscn" type="PackedScene" id=107]
+[ext_resource path="res://prefabs/Items/Hat4.tscn" type="PackedScene" id=108]
+[ext_resource path="res://prefabs/Objects/Candle.tscn" type="PackedScene" id=109]
+[ext_resource path="res://prefabs/Objects/Furniture/Shelf.tscn" type="PackedScene" id=110]
+[ext_resource path="res://prefabs/Misc/Paintings/Painting06.tscn" type="PackedScene" id=111]
 
 [sub_resource type="OpenSimplexNoise" id=1]
 seed = 197
@@ -312,6 +323,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.9136, 0.513596, -5.31354 )
 nextEvent = [ NodePath("../LoadTargetResource") ]
 deleteAfterTrig = true
 
+[node name="Hat" parent="." instance=ExtResource( 105 )]
+transform = Transform( -0.987737, 0, -0.156124, 0, 1, 0, 0.156124, 0, -0.987737, 59.1892, -1.19905, 85.2253 )
+
 [node name="Secretarianne" parent="." instance=ExtResource( 37 )]
 transform = Transform( 0.992486, 0, -0.122354, 0, 1, 0, 0.122354, 0, 0.992486, 84.3287, -2.23623, 109.857 )
 horseName = "Secretarianne"
@@ -358,6 +372,11 @@ talkSounds = [ ExtResource( 54 ), ExtResource( 50 ), ExtResource( 51 ), ExtResou
 questItems = {
 
 }
+
+[node name="UpdateDialogicVariable" parent="Chesterfield" instance=ExtResource( 101 )]
+deleteAfterTrig = true
+varName = "cf_hasMetPlayer"
+value = 1
 
 [node name="EventTriggerOnContact" parent="." instance=ExtResource( 25 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 2.81297, 93.3725, -1.60594, 121.357 )
@@ -472,7 +491,7 @@ minDist = 180
 maxDist = 200
 
 [node name="HorseNPC_Generic" parent="." instance=ExtResource( 66 )]
-transform = Transform( -0.749626, 0, -0.661861, 0, 1, 0, 0.661861, 0, -0.749626, -54.3156, -1.8699, 53.6035 )
+transform = Transform( -0.749626, 0, -0.661861, 0, 1, 0, 0.661861, 0, -0.749626, -55.4169, 6.16171, 53.9603 )
 stats = {
 "chaos": 1,
 "girth": 1,
@@ -481,7 +500,7 @@ stats = {
 "silly": 1,
 "speed": 2
 }
-breed = 0
+breed = 1
 dialoguePoint = 3
 
 [node name="NatureContainer" type="Spatial" parent="."]
@@ -1068,17 +1087,8 @@ transform = Transform( 0.118777, 0, 0.210846, 0, 0.242, 0, -0.210846, 0, 0.11877
 [node name="Tree_A" parent="NatureContainer/Container" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 72.7449, -3.13896, -37.2646 )
 
-[node name="Tree_A2" parent="NatureContainer/Container" instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 51.6499, -3.13896, 28.6791 )
-
-[node name="Tree_A26" parent="NatureContainer/Container" instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34.6499, -3.13896, 28.6791 )
-
 [node name="Tree_A27" parent="NatureContainer/Container" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 68.6986, -1.54193, 22.7821 )
-
-[node name="Tree_A34" parent="NatureContainer/Container" instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 54.0905, -1.88844, 16.7797 )
 
 [node name="Tree_A33" parent="NatureContainer/Container" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 66.2206, -1.14305, 36.9638 )
@@ -1481,7 +1491,7 @@ transform = Transform( 0.441835, 0, 0.897097, 0, 1, 0, -0.897097, 0, 0.441835, -
 transform = Transform( 0.441835, 0, 0.897097, 0, 1, 0, -0.897097, 0, 0.441835, -96.3749, -3.69553, -9.96334 )
 
 [node name="Tree_B60" parent="NatureContainer/Container" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -78.8796, -1.81658, 57.806 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -78.8796, -3.63603, 57.806 )
 
 [node name="Tree_B61" parent="NatureContainer/Container" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -53.4846, -2.40015, 17.4777 )
@@ -1489,11 +1499,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -53.4846, -2.40015, 17.4777 )
 [node name="Tree_B62" parent="NatureContainer/Container" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 56.8121, -1.50291, 35.8211 )
 
-[node name="Tree_B63" parent="NatureContainer/Container" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 47.1689, -2.40015, 21.7486 )
-
 [node name="Tree_B64" parent="NatureContainer/Container" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.7926, -1.86175, 36.6442 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34.9277, -1.86175, 30.2762 )
 
 [node name="Tree_B65" parent="NatureContainer/Container" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.7926, -1.86175, 58.5531 )
@@ -1595,7 +1602,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.1446, 2.96785, 25.3731 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.07268, 1.99966, -33.2715 )
 
 [node name="Tree_B3" parent="NatureContainer/Container2" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -43.4808, 4.07293, -5.83907 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50.381, 4.62921, 18.6216 )
 
 [node name="Tree_B4" parent="NatureContainer/Container2" instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5802, 3.95867, 7.7046 )
@@ -1910,7 +1917,7 @@ transform = Transform( 0.441835, 0, 0.897097, 0, 1, 0, -0.897097, 0, 0.441835, -
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -45.5449, 4.66404, 17.393 )
 
 [node name="Tree_B61" parent="NatureContainer/Container2" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -54.1917, 4.31656, 14.3048 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -60.778, 4.31656, -14.3911 )
 
 [node name="Tree_B62" parent="NatureContainer/Container2" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 56.8121, -2.40015, 33.8257 )
@@ -2356,6 +2363,9 @@ transform = Transform( 4.41386, 0, 0, 0, -3.82925, -2.41259, 0, 2.51469, -1.5188
 [node name="RockA4" parent="SetPieceContainer" instance=ExtResource( 72 )]
 transform = Transform( 4.41386, 0, 0, 0, -7.01764, -3.45817, 0, 0.493841, -4.84458, -96.6167, 2.40783, 51.5523 )
 
+[node name="RockA27" parent="SetPieceContainer" instance=ExtResource( 72 )]
+transform = Transform( -0.65905, -1.23743, 0.69655, 0, 1.92328, 1.84626, 1.33126, -0.612597, 0.344831, -78.2726, -1.54785, 41.2417 )
+
 [node name="Rocks9" parent="SetPieceContainer" instance=ExtResource( 88 )]
 transform = Transform( 0.522889, 0, -1.7788, 0, 1.85406, 0, 1.7788, 0, 0.522889, 25.0099, -3.76387, -67.5713 )
 
@@ -2376,12 +2386,6 @@ transform = Transform( 4.12545, 1.96146, -0.631176, -0.178866, -0.21364, -1.8330
 
 [node name="stonewall" parent="SetPieceContainer" instance=ExtResource( 71 )]
 transform = Transform( 2.11112, 0, 0.281946, 0.014864, 2.12691, -0.111297, -0.281554, 0.112285, 2.10819, -70.6498, -2.27971, 68.647 )
-
-[node name="stonewall2" parent="SetPieceContainer/stonewall" instance=ExtResource( 71 )]
-transform = Transform( 0.994157, -0.00892423, 0.107571, -0.0115155, -0.999658, 0.0234914, 0.107325, -0.0245929, -0.99392, 0.134689, 0.498099, -6.11765 )
-
-[node name="stonewall3" parent="SetPieceContainer/stonewall" instance=ExtResource( 71 )]
-transform = Transform( -0.996644, -0.0336072, -0.074647, -0.0320764, 0.999252, -0.0216132, 0.0753175, -0.0191463, -0.996976, 0.080719, -0.19219, -11.7956 )
 
 [node name="stonewall5" parent="SetPieceContainer/stonewall" instance=ExtResource( 71 )]
 transform = Transform( 0.905842, -0.0173657, -0.423259, 0.0321387, 0.999097, 0.0277904, 0.422394, -0.0387767, 0.905582, 0.808754, -0.328563, -16.3309 )
@@ -2550,8 +2554,8 @@ Resource( "res://prefabs/Interactables/LuckyTreat.tscn" ): 1
 [node name="Crate_A10" parent="SetPieceContainer" instance=ExtResource( 62 )]
 transform = Transform( 0.999619, 0.027606, -0.000293919, -0.0276076, 0.999562, -0.0106422, 0, 0.0106463, 0.999943, 95.471, -120.487, 110.509 )
 objects = {
-ExtResource( 42 ): 4,
-ExtResource( 69 ): 2
+ExtResource( 69 ): 2,
+Resource( "res://prefabs/Items/Plank.tscn" ): 4
 }
 
 [node name="Crate_A11" parent="SetPieceContainer" instance=ExtResource( 62 )]
@@ -2669,8 +2673,37 @@ Resource( "res://prefabs/Interactables/LuckyTreat.tscn" ): 1
 [node name="Lamp" parent="SetPieceContainer" instance=ExtResource( 73 )]
 transform = Transform( 0.0515167, 0, 0.998672, 0, 1, 0, -0.998672, 0, 0.0515167, 102.105, -119.663, 114.977 )
 
+[node name="Usable" parent="SetPieceContainer" instance=ExtResource( 106 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 58.6987, 0, 83.5531 )
+
+[node name="Hat3" parent="SetPieceContainer" instance=ExtResource( 107 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 57.7371, 0, 85.0312 )
+
+[node name="Hat" parent="SetPieceContainer" instance=ExtResource( 104 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 53.7352, 0, 86.4047 )
+
+[node name="DummyHorse" parent="SetPieceContainer" instance=ExtResource( 102 )]
+transform = Transform( 0.11296, 0, -0.993599, 0, 1, 0, 0.993599, 0, 0.11296, 56.3153, -2.31674, 82.9569 )
+stats = {
+"chaos": 0,
+"girth": 0,
+"poise": 0,
+"range": 0,
+"silly": 0,
+"speed": 0
+}
+
+[node name="PlaceHat" parent="SetPieceContainer/DummyHorse" instance=ExtResource( 103 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0115967, 2.89093, -1.00032 )
+
 [node name="RangerStation" parent="SetPieceContainer" instance=ExtResource( 18 )]
 transform = Transform( 0.0515167, 0, 0.998672, 0, 1, 0, -0.998672, 0, 0.0515167, 80.687, -2.182, 103.13 )
+
+[node name="Shelf" parent="SetPieceContainer/RangerStation" instance=ExtResource( 110 )]
+transform = Transform( 0.00869211, 0, -0.331499, 0, 0.5, 0, 0.499552, 0, -0.00869219, -0.849007, -117.762, 15.5 )
+
+[node name="Painting06" parent="SetPieceContainer/RangerStation" instance=ExtResource( 111 )]
+transform = Transform( -1.63913e-07, 0, -1, 0, 1, 0, 1, 0, -1.63913e-07, -2.29524, -117.066, 13.5214 )
 
 [node name="plank" type="MeshInstance" parent="SetPieceContainer"]
 transform = Transform( 5.42507, 0, 0, 0, -6.21745e-07, 6.73686, 0, -14.2239, -2.94478e-07, 78.4461, -3.53331, 146.497 )
@@ -2759,15 +2792,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 55.5372, -2.28619, 90.3494 )
 [node name="Log16" parent="SetPieceContainer" instance=ExtResource( 24 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 56.2446, -1.6393, 90.3494 )
 
-[node name="Log17" parent="SetPieceContainer" instance=ExtResource( 24 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 56.2446, -1.6393, 108.711 )
-
-[node name="Log18" parent="SetPieceContainer" instance=ExtResource( 24 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 58.022, -1.6393, 108.711 )
-
-[node name="Log19" parent="SetPieceContainer" instance=ExtResource( 24 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 59.2653, -1.6393, 108.711 )
-
 [node name="Rock_01" parent="SetPieceContainer" instance=ExtResource( 43 )]
 transform = Transform( -0.0675729, -11.6261, 0, 11.6261, -0.0675729, 0, 0, 0, -11.4864, 3.60005, -9.38833, 98.1172 )
 
@@ -2791,9 +2815,6 @@ transform = Transform( -9.75175, -1.54514, -0.384908, 2.04471, -7.3692, 0.080705
 
 [node name="Rock_08" parent="SetPieceContainer" instance=ExtResource( 43 )]
 transform = Transform( -0.566281, -7.51739, -0.00277135, 10.0071, -0.425672, -0.157696, -0.18826, -0.014647, 6.00541, 118.611, -20.9222, 127.556 )
-
-[node name="Plank" parent="SetPieceContainer" instance=ExtResource( 42 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 79.4389, 0, 105.566 )
 
 [node name="GrassyMound" type="MeshInstance" parent="SetPieceContainer"]
 transform = Transform( 20.8883, 0, 0, 0, 5.92706, 0, 0, 0, 17.6243, -2.42089, -2.94287, -4.63519 )
@@ -2942,6 +2963,9 @@ transform = Transform( -0.683449, 0.0815586, 0.725428, 0.103726, 0.994506, -0.01
 [node name="Gate" parent="SetPieceContainer" instance=ExtResource( 79 )]
 transform = Transform( 0.357488, 0, -0.933918, 0, 1, 0, 0.933918, 0, 0.357488, 61.0606, -2.34569, -38.2004 )
 
+[node name="fencePost2" parent="SetPieceContainer" instance=ExtResource( 42 )]
+transform = Transform( 0.998101, 0.0516183, 0.0170708, -0.061606, 0.836286, 0.27657, 0, -0.241635, 0.960842, -92.4281, -2.85804, 52.4278 )
+
 [node name="RockA9" parent="SetPieceContainer" instance=ExtResource( 72 )]
 transform = Transform( 0.702069, -1.17316, 0.0611576, 2.72134, -0.596781, -0.857525, -0.201803, 0.441486, 1.0807, 143.672, -1.64976, 95.5746 )
 
@@ -2963,8 +2987,32 @@ transform = Transform( 4.2947, 0, 0, 0, 4.2947, 0, 0, 0, 4.2947, 46.4365, -4.604
 [node name="Rocks" parent="SetPieceContainer" instance=ExtResource( 88 )]
 transform = Transform( -0.241505, 0, 2.44026, 0, 2.45218, 0, -2.44026, 0, -0.241505, 129.835, -1.12549, 9.27642 )
 
+[node name="brokenFence13" parent="SetPieceContainer" instance=ExtResource( 75 )]
+transform = Transform( 0.99948, -0.00291891, -0.0320982, 0, 0.995891, -0.0905631, 0.0322306, 0.090516, 0.995373, -75.5926, -2.1536, 42.7102 )
+
+[node name="brokenFence14" parent="SetPieceContainer" instance=ExtResource( 75 )]
+transform = Transform( -0.984942, 0.141192, 0.0997671, 0.150959, 0.983645, 0.0982571, -0.0842622, 0.111838, -0.990148, -75.6587, -2.41069, 47.2863 )
+
+[node name="Fence24" parent="SetPieceContainer" instance=ExtResource( 32 )]
+transform = Transform( 0.962474, -0.0340121, -0.269233, 0, 0.992115, -0.125333, 0.271373, 0.12063, 0.954885, -76.1655, -2.84828, 51.7433 )
+
 [node name="Rocks2" parent="SetPieceContainer" instance=ExtResource( 88 )]
 transform = Transform( -0.1621, -0.330646, -2.42437, -0.0162958, -2.42949, 0.332433, -2.44676, 0.0380864, 0.158403, 135.199, -1.68679, 8.56639 )
+
+[node name="Rocks" parent="SetPieceContainer/Rocks2" instance=ExtResource( 88 )]
+transform = Transform( -0.372506, -0.11677, -0.920654, 0.134843, 0.974714, -0.178185, 0.918181, -0.190519, -0.347342, -15.0289, 12.0903, 84.97 )
+
+[node name="Rocks2" parent="SetPieceContainer/Rocks2" instance=ExtResource( 88 )]
+transform = Transform( -0.88887, -0.0496524, -0.455461, 0.0745259, 0.965201, -0.250665, 0.452058, -0.256753, -0.854238, -13.5203, 12.2594, 86.2796 )
+
+[node name="Rocks3" parent="SetPieceContainer/Rocks2" instance=ExtResource( 88 )]
+transform = Transform( 0.906666, 0.0578045, 0.417871, -0.0565751, 0.998281, -0.0153398, -0.418039, -0.00973314, 0.908377, -12.6565, 12.4927, 88.0265 )
+
+[node name="Rocks4" parent="SetPieceContainer/Rocks2" instance=ExtResource( 88 )]
+transform = Transform( 0.990116, 0.0282017, 0.137389, -0.060789, 0.969074, 0.239168, -0.126394, -0.245157, 0.961209, -12.0673, 12.7334, 89.8149 )
+
+[node name="Rocks5" parent="SetPieceContainer/Rocks2" instance=ExtResource( 88 )]
+transform = Transform( -0.9986, -0.034364, 0.0402183, -0.035519, 0.998966, -0.0283715, -0.0392024, -0.0297601, -0.998787, -11.9316, 13.0103, 91.8451 )
 
 [node name="Rocks15" parent="SetPieceContainer" instance=ExtResource( 88 )]
 transform = Transform( 1.89917, -0.222798, -1.53515, -0.0162958, -2.42949, 0.332433, -1.55115, -0.247262, -1.88307, 132.201, -1.73569, -19.4381 )
@@ -3207,14 +3255,23 @@ transform = Transform( -1.19415e-09, -1, -9.31661e-08, 0.0129269, -2.06835e-08, 
 [node name="beam35" parent="SetPieceContainer" instance=ExtResource( 65 )]
 transform = Transform( -0.424599, -2.98023e-08, 0.00926274, 0.0129269, -2.06835e-08, 1.00854, -7.45058e-09, 1, 9.35979e-08, 121.076, 4.57812, -5.38681 )
 
+[node name="fencePost" parent="SetPieceContainer" instance=ExtResource( 42 )]
+transform = Transform( 0.986291, 0.143895, 0, -0.165013, 0.86007, 0, 0, 0, 1, -70.7949, -2.78119, 61.6284 )
+
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( -0.816601, -6.08415e-07, -0.577202, -0.41741, 0.69068, 0.590533, 0.398662, 0.72316, -0.564011, 75.0654, 0, 75.29 )
 light_color = Color( 1, 0.639216, 0.509804, 1 )
 directional_shadow_normal_bias = 0.0
 directional_shadow_bias_split_scale = 0.0
 
+[node name="Candle" parent="." instance=ExtResource( 109 )]
+transform = Transform( -0.204397, 0, 0.564732, 0, 0.600583, 0, -0.564732, 0, -0.204397, 64.4571, 1.13341, -53.9876 )
+
+[node name="Candle2" parent="." instance=ExtResource( 109 )]
+transform = Transform( -0.204397, 0, 0.564732, 0, 0.600583, 0, -0.564732, 0, -0.204397, 64.4571, 1.39285, -48.2636 )
+
 [node name="Horace" parent="." instance=ExtResource( 37 )]
-transform = Transform( -0.858844, 0, -0.512238, 0, 1, 0, 0.512238, 0, -0.858844, 52.663, -2.75345, -56.4121 )
+transform = Transform( -0.34033, 0, 0.940306, 0, 1, 0, -0.940306, 0, -0.34033, 62.8085, -2.75345, -49.3463 )
 horseName = "Horace"
 pep = 5
 stats = {
@@ -3299,3 +3356,7 @@ speakingVolume = -5.0
 
 [node name="Fishing Pole" parent="." instance=ExtResource( 90 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 116.055, 1.88764, -12.965 )
+
+[node name="Hat4" parent="." instance=ExtResource( 108 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 96.1877, -119.006, 104.113 )
+[connection signal="emit_talked_to" from="Chesterfield" to="Chesterfield/UpdateDialogicVariable" method="trigger"]

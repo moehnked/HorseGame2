@@ -7,7 +7,7 @@ var turn_ammount = 0
 var controller
 
 func parse_input(input):
-	turn_ammount += input.right - input.left
+	turn_ammount += max(input.right - input.left, -input.mouse_horizontal) * 2
 	rotation_degrees.y = lerp(rotation_degrees.y, turn_ammount, 0.1)
 	var x = int(turn_ammount)
 	if  x % 25 == 1 and queueSound:

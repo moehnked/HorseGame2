@@ -1,0 +1,652 @@
+[gd_scene load_steps=75 format=2]
+
+[ext_resource path="res://prefabs/PlayerStuff/EquipmentManager.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/FPSController.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Player/EquipmentManager.gd" type="Script" id=3]
+[ext_resource path="res://Sounds/gurgle1.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/gurgle2.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/gurgle4.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sounds/gurgle3.wav" type="AudioStream" id=7]
+[ext_resource path="res://prefabs/Misc/Events/PlaySound.tscn" type="PackedScene" id=8]
+[ext_resource path="res://prefabs/UI/InventoryScreens/BaseInventoryScreen.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scripts/System/SkyController.gd" type="Script" id=10]
+[ext_resource path="res://Scripts/InputObserver.gd" type="Script" id=11]
+[ext_resource path="res://Scripts/world.gd" type="Script" id=12]
+[ext_resource path="res://Scripts/Misc/Events/Delay.gd" type="Script" id=13]
+[ext_resource path="res://Scripts/Misc/Events/PlaySound.gd" type="Script" id=14]
+[ext_resource path="res://Scripts/Misc/Events/CallMethodOnTarget.gd" type="Script" id=15]
+[ext_resource path="res://Scripts/Misc/Debug.gd" type="Script" id=16]
+[ext_resource path="res://Scripts/UI/PauseMenu.gd" type="Script" id=17]
+[ext_resource path="res://prefabs/Misc/Events/CallMethodOnTarget.tscn" type="PackedScene" id=18]
+[ext_resource path="res://prefabs/Misc/Events/Delay.tscn" type="PackedScene" id=19]
+[ext_resource path="res://prefabs/UI/PauseMenu.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Shaders/SkyPresets/Sky01.tres" type="Material" id=21]
+[ext_resource path="res://Shaders/SkyPresets/space01.tres" type="Material" id=22]
+[ext_resource path="res://Shaders/SkyPresets/dark01.tres" type="Material" id=23]
+[ext_resource path="res://Shaders/SkyPresets/fog01.tres" type="Material" id=24]
+[ext_resource path="res://Scripts/Misc/GlobalCorralRegistrar.gd" type="Script" id=25]
+[ext_resource path="res://Scripts/UI/InteractionPrompt.gd" type="Script" id=26]
+[ext_resource path="res://Scripts/System/3DViewport.gd" type="Script" id=27]
+[ext_resource path="res://Scripts/System/SpecialEventManager.gd" type="Script" id=28]
+[ext_resource path="res://prefabs/Misc/Rock_02.tscn" type="PackedScene" id=29]
+[ext_resource path="res://Music/Illusion_louder.wav" type="AudioStream" id=30]
+[ext_resource path="res://prefabs/Misc/Events/Play3DSound.tscn" type="PackedScene" id=31]
+[ext_resource path="res://prefabs/Misc/Events/Counter.tscn" type="PackedScene" id=32]
+[ext_resource path="res://scenes/Temple.tscn" type="PackedScene" id=33]
+[ext_resource path="res://prefabs/Misc/Events/PlaySong.tscn" type="PackedScene" id=34]
+[ext_resource path="res://prefabs/Misc/Events/LoadTargetResource.tscn" type="PackedScene" id=35]
+[ext_resource path="res://Scripts/Misc/Events/UpdateGlobalLighting.gd" type="Script" id=36]
+[ext_resource path="res://Scripts/Misc/Events/SetAllMaterialsInScene.gd" type="Script" id=37]
+[ext_resource path="res://Scripts/Misc/Events/PlaySong.gd" type="Script" id=38]
+[ext_resource path="res://Scripts/Misc/Events/LoadTargetResource.gd" type="Script" id=39]
+[ext_resource path="res://scenes/Misc/IntroCredits.tscn" type="PackedScene" id=40]
+[ext_resource path="res://prefabs/Misc/Events/UpdateGlobalLighting.tscn" type="PackedScene" id=41]
+[ext_resource path="res://prefabs/Misc/FollowPlayerWithGhostHorseSpawner.tscn" type="PackedScene" id=42]
+[ext_resource path="res://prefabs/Misc/Events/SetAllMaterialsInScene.tscn" type="PackedScene" id=43]
+[ext_resource path="res://prefabs/Misc/Events/Focus.tscn" type="PackedScene" id=44]
+[ext_resource path="res://Scripts/Misc/Events/Focus.gd" type="Script" id=45]
+[ext_resource path="res://Sounds/Ghosts.wav" type="AudioStream" id=46]
+[ext_resource path="res://Textures/objects/relifenormal.png" type="Texture" id=47]
+[ext_resource path="res://Textures/objects/relifetex.jpg" type="Texture" id=48]
+[ext_resource path="res://Textures/objects/relifenormal.jpg" type="Texture" id=49]
+[ext_resource path="res://Scripts/UI/UI_MISC/StatusPrompt.gd" type="Script" id=50]
+[ext_resource path="res://prefabs/Misc/MoveSelfEvent.gd" type="Script" id=51]
+[ext_resource path="res://prefabs/Misc/Events/Rotate.gd" type="Script" id=52]
+[ext_resource path="res://Scripts/Misc/Events/Counter.gd" type="Script" id=53]
+[ext_resource path="res://Scripts/System/AudioManager.gd" type="Script" id=54]
+[ext_resource path="res://Scripts/Misc/Nothing/HorsePillar1.gd" type="Script" id=55]
+[ext_resource path="res://Scripts/Misc/Events/Play3DSound.gd" type="Script" id=56]
+[ext_resource path="res://prefabs/System/AudioManager.tscn" type="PackedScene" id=57]
+[ext_resource path="res://prefabs/InteractionPrompt.tscn" type="PackedScene" id=58]
+[ext_resource path="res://prefabs/PlayerStuff/NEW_FPSController.tscn" type="PackedScene" id=59]
+[ext_resource path="res://prefabs/Effects/BoulderDust.tscn" type="PackedScene" id=60]
+[ext_resource path="res://prefabs/System/SkyControllerPrefab.tscn" type="PackedScene" id=61]
+[ext_resource path="res://prefabs/UI/Misc/DamageablePrompt.tscn" type="PackedScene" id=62]
+[ext_resource path="res://prefabs/System/SpecialEventManager.tscn" type="PackedScene" id=63]
+[ext_resource path="res://prefabs/System/GlobalCorralRegistrar.tscn" type="PackedScene" id=64]
+[ext_resource path="res://prefabs/InputObserver.tscn" type="PackedScene" id=65]
+[ext_resource path="res://prefabs/Areas/PatchesGarden.tscn" type="PackedScene" id=66]
+[ext_resource path="res://Music/finite_attention.wav" type="AudioStream" id=67]
+[ext_resource path="res://Music/cycle_of_the_damned.wav" type="AudioStream" id=68]
+[ext_resource path="res://Music/SoftlyAccumulate.wav" type="AudioStream" id=69]
+[ext_resource path="res://Music/LeisureRunning.wav" type="AudioStream" id=70]
+[ext_resource path="res://Music/trottings_and_canters.wav" type="AudioStream" id=71]
+[ext_resource path="res://Music/Wayside.wav" type="AudioStream" id=72]
+
+[sub_resource type="QuadMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+params_cull_mode = 2
+albedo_texture = ExtResource( 48 )
+roughness_texture = ExtResource( 49 )
+normal_enabled = true
+normal_scale = 16.0
+normal_texture = ExtResource( 47 )
+distance_fade_mode = 2
+distance_fade_min_distance = 160.0
+distance_fade_max_distance = 70.0
+
+[node name="World" type="Spatial"]
+script = ExtResource( 12 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 256.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport2" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 1024, 600 )
+handle_input_locally = false
+hdr = false
+usage = 0
+render_target_update_mode = 3
+shadow_atlas_size = 2
+
+[node name="SkyController" type="Node2D" parent="ViewportContainer/Viewport2" instance=ExtResource( 61 )]
+script = ExtResource( 10 )
+skys = {
+"day": ExtResource( 21 ),
+"fog": ExtResource( 24 ),
+"late": ExtResource( 23 ),
+"night": ExtResource( 22 )
+}
+
+[node name="SpecialEventManager" type="Node" parent="." instance=ExtResource( 63 )]
+script = ExtResource( 28 )
+
+[node name="AudioManager" type="Node" parent="." groups=[
+"HourAlert",
+] instance=ExtResource( 57 )]
+pause_mode = 2
+script = ExtResource( 54 )
+music_enabled = false
+sfxVolume = 0.9
+musicVolume = 0.8
+normal_tracks = [ ExtResource( 68 ), ExtResource( 67 ), ExtResource( 71 ), ExtResource( 70 ), ExtResource( 69 ), ExtResource( 72 ) ]
+
+[node name="GlobalCorralRegistrar" type="Spatial" parent="." instance=ExtResource( 64 )]
+script = ExtResource( 25 )
+
+[node name="Debug" type="Control" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Debug"]
+visible = false
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 56.0
+margin_bottom = 30.0
+text = "60"
+script = ExtResource( 16 )
+
+[node name="ViewportContainer2" type="ViewportContainer" parent="." groups=[
+"3DViewport",
+]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer2"]
+size = Vector2( 1024, 600 )
+transparent_bg = true
+handle_input_locally = false
+hdr = false
+render_target_update_mode = 3
+audio_listener_enable_2d = true
+audio_listener_enable_3d = true
+shadow_atlas_size = 2
+
+[node name="DamageablePrompt" type="Control" parent="ViewportContainer2/Viewport" instance=ExtResource( 62 )]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 50 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InteractionPrompt" type="Control" parent="ViewportContainer2/Viewport" instance=ExtResource( 58 )]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InputObserver" type="Node" parent="ViewportContainer2/Viewport" instance=ExtResource( 65 )]
+script = ExtResource( 11 )
+
+[node name="NEW_FPSController" type="KinematicBody" parent="ViewportContainer2/Viewport" groups=[
+"Liftable",
+"Player",
+] instance=ExtResource( 59 )]
+transform = Transform( -0.400618, 0, 0.217808, 0, 0.456, 0, -0.217808, 0, -0.400618, -72.628, -58.9474, -498.459 )
+collision_layer = 4
+script = ExtResource( 2 )
+inventoryScreenSource = ExtResource( 9 )
+DEACCEL = 6
+MAX_SPEED = 7
+MAX_ACCEL = 2
+MAX_SLOPE_ANGLE = 30
+spellList = [ "Null", "Punch" ]
+
+[node name="Temple" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Temple",
+] instance=ExtResource( 33 )]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -118.181, 37.782, -239.236 )
+
+[node name="EquipmentManager" type="Node" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+inventory = [ Object(RigidBody,"_import_path":NodePath(""),"pause_mode":0,"process_priority":0,"transform":Transform( 0.33762, -0.0546989, 0.939692, 0.159928, 0.987129, 0, -0.927597, 0.150283, 0.342022, -74.0195, -58.1684, -497.316 ),"visible":true,"input_ray_pickable":true,"input_capture_on_drag":false,"collision_layer":1,"collision_mask":1,"mode":0,"mass":1.0,"physics_material_override":null,"gravity_scale":1.0,"custom_integrator":false,"continuous_cd":false,"contacts_reported":0,"contact_monitor":false,"sleeping":false,"can_sleep":true,"axis_lock_linear_x":false,"axis_lock_linear_y":false,"axis_lock_linear_z":false,"axis_lock_angular_x":false,"axis_lock_angular_y":false,"axis_lock_angular_z":false,"linear_velocity":Vector3( 0, -24.9321, 0 ),"linear_damp":-1.0,"angular_velocity":Vector3( 0, 0, 0 ),"angular_damp":-1.0,"script":Resource( "res://Scripts/Items/Hat.gd" ),"ContextOptions":[ 0, 1 ],"icon":"res://Sprites/Items/hats/TheBoogieWara.png","itemName":"The Boogie Wara","pickupSoundPath":"res://Sounds/pop_01.wav","value":50.0,"canBePickedUp":true,"controller":null,"canUnequip":true,"equipState":"Equip","input":Object(Reference,"script":Resource( "res://Scripts/InputMacro.gd" ),"forward":0.0,"backward":0.0,"left":0.0,"right":0.0,"space":false,"engage":false,"standard":false,"special":false,"mouse_up":false,"mouse_down":false,"tab":false,"mouse_horizontal":0.0,"mouse_vertical":0.0,"direction_detected":false,"left_mouse_pressed":false,"right_mouse_pressed":false)
+,"isEquipped":false,"parentedTo":Object(Spatial,"_import_path":NodePath(""),"pause_mode":0,"process_priority":0,"transform":Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 ),"visible":true,"script":null)
+,"canInteractWhileEquipped":false,"equipSoundPath":"res://Sounds/unequip_01.wav","unequipSoundPath":"res://Sounds/equipment_03.wav","intendedSprite":"Holding","lookingAt":null,"valid":false,"canBeUsed":true)
+ ]
+
+[node name="PlaySound" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 8 )]
+script = ExtResource( 14 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+sfx = null
+random_sounds = [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 6 ) ]
+volume = -10.0
+is3D = false
+
+[node name="HorseRockA" type="StaticBody" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 29 )]
+transform = Transform( -3.6273, -6.72846e-07, -1.24996e-07, 0, 0.38361, -2.06495, 1.18192e-06, -2.06495, -0.38361, 259.898, -99.0183, 72.9405 )
+script = ExtResource( 52 )
+__meta__ = {
+"_edit_group_": true
+}
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+weight = 0.01
+threshold = 5.0
+completionEventGroupTarget = "updatecrankcounter"
+targetRotation = Vector3( 79.476, 0, 0 )
+
+[node name="Play3DSound" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 31 )]
+script = ExtResource( 56 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+soundPath = "res://Sounds/rock_01.wav"
+db = 5.0
+size = 20.0
+
+[node name="Focus" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 44 )]
+transform = Transform( 1, 0, 0, -1.13687e-13, 1, 1.49012e-08, -7.10543e-15, -1.49012e-08, 1, 0, 0.286678, -1.54314 )
+script = ExtResource( 45 )
+nextEvent = [ NodePath(".."), NodePath("../Play3DSound") ]
+deleteAfterTrig = false
+triggerOnReady = false
+lockTime = 4.0
+deleteAfterFocus = false
+hardLock = true
+
+[node name="Delay" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 19 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -262.05, 97.2844, -59.1677 )
+visible = false
+script = ExtResource( 13 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+timeDelay = 0.1
+targetEvent = NodePath("../../HorseRockA/Focus")
+
+[node name="CrankCounter" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 32 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 250.418, -92.8327, 17.9019 )
+script = ExtResource( 53 )
+nextEvent = [ NodePath("CenterCrankFocus") ]
+deleteAfterTrig = false
+triggerOnReady = false
+count = 0
+threshold = 2
+testGreaterThan = true
+
+[node name="CenterCrankFocus" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 44 )]
+visible = false
+script = ExtResource( 45 )
+nextEvent = [ NodePath("../../LastWheelContainer") ]
+deleteAfterTrig = false
+triggerOnReady = false
+lockTime = 2.0
+deleteAfterFocus = true
+hardLock = true
+
+[node name="UpdateCrankCounter" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+"updatecrankcounter",
+] instance=ExtResource( 18 )]
+script = ExtResource( 15 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+methodName = "increment"
+target = NodePath("../CrankCounter")
+args = {
+
+}
+
+[node name="HorseRockB" type="StaticBody" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 29 )]
+transform = Transform( -3.6273, -6.72846e-07, -1.24996e-07, 0, 0.38361, -2.06495, 1.18192e-06, -2.06495, -0.38361, 259.898, -99.0183, -38.1102 )
+script = ExtResource( 52 )
+__meta__ = {
+"_edit_group_": true
+}
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+weight = 0.01
+threshold = 5.0
+completionEventGroupTarget = "updatecrankcounter"
+targetRotation = Vector3( 79.476, 0, 0 )
+
+[node name="@Focus@3" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 44 )]
+transform = Transform( 1, 0, 0, -1.13687e-13, 1, 1.49012e-08, -7.10543e-15, -1.49012e-08, 1, 0, 0.308516, -1.66071 )
+script = ExtResource( 45 )
+nextEvent = [ NodePath("../Play3DSound2"), NodePath("..") ]
+deleteAfterTrig = false
+triggerOnReady = false
+lockTime = 4.0
+deleteAfterFocus = false
+hardLock = true
+
+[node name="Play3DSound2" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 31 )]
+transform = Transform( 1, 0, 0, -5.68434e-14, 1, 0, 0, 0, 1, 0, 0, 0 )
+script = ExtResource( 56 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+soundPath = "res://Sounds/rock_01.wav"
+db = 5.0
+size = 20.0
+
+[node name="@Delay@4" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 19 )]
+script = ExtResource( 13 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+timeDelay = 0.1
+targetEvent = NodePath("../../HorseRockB/Focus")
+
+[node name="LoadGarden" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 35 )]
+transform = Transform( -0.997144, 0, -0.0755181, 0, 1, 0, 0.0755181, 0, -0.997144, 433.423, -181.623, 17.4245 )
+script = ExtResource( 39 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+res = ExtResource( 66 )
+deleteSelf = true
+deletedTriggerer = false
+isBackground = false
+
+[node name="HorsePillar1" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 266.726, -79.6635, 18.1634 )
+script = ExtResource( 55 )
+nextEvent = [ NodePath("loadDust") ]
+deleteAfterTrig = false
+triggerOnReady = false
+weight = 0.007
+threshold = 10.0
+completionEventGroupTarget = ""
+targetRotation = Vector3( 0, 180, 0 )
+
+[node name="loadDust" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 35 )]
+transform = Transform( 2.23, 0, 0, 0, 2.23, 0, 0, 0, 2.23, 0.332886, -0.102631, 3.8147e-06 )
+script = ExtResource( 39 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+res = ExtResource( 60 )
+deleteSelf = false
+deletedTriggerer = false
+isBackground = false
+
+[node name="FocusHorse" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 44 )]
+script = ExtResource( 45 )
+nextEvent = [ NodePath("..") ]
+deleteAfterTrig = false
+triggerOnReady = false
+lockTime = 3.0
+deleteAfterFocus = false
+hardLock = true
+
+[node name="HorseWall" type="MeshInstance" parent="ViewportContainer2/Viewport" groups=[
+"HorseRelief",
+"Persistent",
+]]
+transform = Transform( -3.47479e-06, 0, -21.3281, 0, 21.3281, 0, 21.3281, 0, -3.47479e-06, 277.968, -88.0704, 19.2988 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+script = ExtResource( 51 )
+nextEvent = [ NodePath("../Play3DSound"), NodePath("../loadDust2") ]
+deleteAfterTrig = false
+triggerOnReady = false
+offset = Vector3( 0, -60, 0 )
+weight = 0.002
+
+[node name="@Play3DSound@5" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 31 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 264.715, -91.6145, 18.438 )
+script = ExtResource( 56 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+soundPath = "res://Sounds/rock_03.wav"
+db = 10.0
+size = 40.0
+
+[node name="loadDust2" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 35 )]
+transform = Transform( 2.23, 0, 0, 0, 2.23, 0, 0, 0, 2.23, 277.157, -94.9725, 18.1634 )
+script = ExtResource( 39 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+res = ExtResource( 60 )
+deleteSelf = false
+deletedTriggerer = false
+isBackground = false
+
+[node name="LastWheelContainer" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 250.526, -98.371, 17.858 )
+script = ExtResource( 51 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+offset = Vector3( 0, 5, 0 )
+weight = 0.1
+
+[node name="DelayCenter" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 19 )]
+script = ExtResource( 13 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+timeDelay = 0.2
+targetEvent = NodePath("../../../HorsePillar1/FocusHorse")
+
+[node name="LoadTargetResource" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 35 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 268.022, -93.5517, 21.4805 )
+script = ExtResource( 39 )
+nextEvent = [ NodePath("../PlaySound") ]
+deleteAfterTrig = false
+triggerOnReady = false
+res = ExtResource( 42 )
+deleteSelf = true
+deletedTriggerer = false
+isBackground = false
+
+[node name="@PlaySound@6" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 8 )]
+script = ExtResource( 14 )
+nextEvent = [  ]
+deleteAfterTrig = true
+triggerOnReady = false
+sfx = ExtResource( 46 )
+random_sounds = [  ]
+volume = 1.0
+is3D = false
+
+[node name="setLightBlack" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 41 )]
+script = ExtResource( 36 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+color = Color( 0, 0, 0, 1 )
+fogEnabled = true
+rate = 0.01
+
+[node name="setlightWhite" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 41 )]
+script = ExtResource( 36 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+color = Color( 1, 1, 1, 1 )
+fogEnabled = true
+rate = 0.01
+
+[node name="setlightMid" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 41 )]
+script = ExtResource( 36 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+color = Color( 0.592157, 0.541176, 0.34902, 1 )
+fogEnabled = true
+rate = 0.01
+
+[node name="PlaySong" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 34 )]
+script = ExtResource( 38 )
+nextEvent = [ NodePath("../Delay") ]
+deleteAfterTrig = false
+triggerOnReady = false
+song = ExtResource( 30 )
+volume = 1.0
+
+[node name="@Delay@7" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 19 )]
+script = ExtResource( 13 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+timeDelay = 24.0
+targetEvent = NodePath("../LoadTargetResource")
+
+[node name="@LoadTargetResource@8" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 35 )]
+script = ExtResource( 39 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+res = ExtResource( 40 )
+deleteSelf = true
+deletedTriggerer = false
+isBackground = false
+
+[node name="SetAllMaterialsInScene" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 43 )]
+script = ExtResource( 37 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+
+[node name="Delay2" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 19 )]
+script = ExtResource( 13 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+timeDelay = 1.0
+targetEvent = NodePath("../SetAllMaterialsInScene")
+
+[node name="@Delay@9" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 19 )]
+script = ExtResource( 13 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+timeDelay = 0.1
+targetEvent = NodePath("../CallMethodsOnTarget")
+
+[node name="CallMethodsOnTarget" type="Spatial" parent="ViewportContainer2/Viewport" groups=[
+"Persistent",
+] instance=ExtResource( 18 )]
+script = ExtResource( 15 )
+nextEvent = [  ]
+deleteAfterTrig = false
+triggerOnReady = false
+methodName = "save_world"
+target = NodePath("..")
+args = {
+
+}
+
+[node name="PauseMenu" type="Control" parent="." groups=[
+"UI_Special",
+] instance=ExtResource( 20 )]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="broadcast_self" from="ViewportContainer2/Viewport/EquipmentManager" to="ViewportContainer2/Viewport/NEW_FPSController/InteractionManager" method="_on_EquipmentManager_broadcast_self"]
+[connection signal="broadcast_self" from="ViewportContainer2/Viewport/EquipmentManager" to="ViewportContainer2/Viewport/NEW_FPSController/Head/Palm" method="_on_EquipmentManager_broadcast_self"]
+[connection signal="emit_equipped" from="ViewportContainer2/Viewport/EquipmentManager" to="ViewportContainer2/Viewport/NEW_FPSController/InteractionManager" method="_on_EquipmentManager_emit_equipped"]
+[connection signal="emit_unequip" from="ViewportContainer2/Viewport/EquipmentManager" to="ViewportContainer2/Viewport/NEW_FPSController/InteractionManager" method="_on_EquipmentManager_emit_unequip"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/PlaySound" to="ViewportContainer2/Viewport/PlaySound" method="_on_PlaySound_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/Play3DSound" to="ViewportContainer2/Viewport/Play3DSound" method="_on_Play3DSound_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/Focus" to="ViewportContainer2/Viewport/Focus" method="_on_Focus_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/Delay" to="ViewportContainer2/Viewport/Delay" method="_on_Delay_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/CenterCrankFocus" to="ViewportContainer2/Viewport/CenterCrankFocus" method="_on_Focus_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/UpdateCrankCounter" to="ViewportContainer2/Viewport/UpdateCrankCounter" method="_on_CallMethodsOnTarget_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/@Focus@3" to="ViewportContainer2/Viewport/@Focus@3" method="_on_Focus_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/Play3DSound2" to="ViewportContainer2/Viewport/Play3DSound2" method="_on_Play3DSound_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/@Delay@4" to="ViewportContainer2/Viewport/@Delay@4" method="_on_Delay_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/LoadGarden" to="ViewportContainer2/Viewport/LoadGarden" method="_on_LoadTargetResource_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/HorsePillar1" to="ViewportContainer2/Viewport/HorsePillar1" method="_on_HorsePillar1_emit_event_triggered"]
+[connection signal="rotation_complete" from="ViewportContainer2/Viewport/HorsePillar1" to="ViewportContainer2/Viewport/HorsePillar1" method="_on_HorsePillar1_rotation_complete"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/loadDust" to="ViewportContainer2/Viewport/loadDust" method="_on_LoadTargetResource_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/FocusHorse" to="ViewportContainer2/Viewport/FocusHorse" method="_on_Focus_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/@Play3DSound@5" to="ViewportContainer2/Viewport/@Play3DSound@5" method="_on_Play3DSound_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/loadDust2" to="ViewportContainer2/Viewport/loadDust2" method="_on_LoadTargetResource_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/DelayCenter" to="ViewportContainer2/Viewport/DelayCenter" method="_on_Delay_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/LoadTargetResource" to="ViewportContainer2/Viewport/LoadTargetResource" method="_on_LoadTargetResource_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/@PlaySound@6" to="ViewportContainer2/Viewport/@PlaySound@6" method="_on_PlaySound_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/setLightBlack" to="ViewportContainer2/Viewport/setLightBlack" method="_on_UpdateGlobalLighting_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/setlightWhite" to="ViewportContainer2/Viewport/setlightWhite" method="_on_UpdateGlobalLighting_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/setlightMid" to="ViewportContainer2/Viewport/setlightMid" method="_on_UpdateGlobalLighting_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/PlaySong" to="ViewportContainer2/Viewport/PlaySong" method="_on_PlaySong_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/@Delay@7" to="ViewportContainer2/Viewport/@Delay@7" method="_on_Delay_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/@LoadTargetResource@8" to="ViewportContainer2/Viewport/@LoadTargetResource@8" method="_on_LoadTargetResource_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/SetAllMaterialsInScene" to="ViewportContainer2/Viewport/SetAllMaterialsInScene" method="_on_SetAllMaterialsInScene_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/Delay2" to="ViewportContainer2/Viewport/Delay2" method="_on_Delay_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/@Delay@9" to="ViewportContainer2/Viewport/@Delay@9" method="_on_Delay_emit_event_triggered"]
+[connection signal="emit_event_triggered" from="ViewportContainer2/Viewport/CallMethodsOnTarget" to="ViewportContainer2/Viewport/CallMethodsOnTarget" method="_on_CallMethodsOnTarget_emit_event_triggered"]

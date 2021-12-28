@@ -2,23 +2,27 @@ extends TextureButton
 
 signal emit_focus_entered(n)
 
+export(bool) var isAdjusting = true
+
 export(Texture) var icon
 
 var nextPos = Vector2()
 
 func _ready():
-	nextPos = rect_rotation
+	if isAdjusting:
+		nextPos = rect_rotation
 	connect("pressed", self, "selection_sound")
 
 func _process(delta):
-	rect_position = rect_position.linear_interpolate(nextPos, 0.1)
+	if isAdjusting:
+		rect_position = rect_position.linear_interpolate(nextPos, 0.1)
 
 func gain_focus():
 	emit_signal("emit_focus_entered", self)
 	#Global.AudioManager.play_sound("res://Sounds/UI_Select_A.wav",1)
 
 func mouse_enter():
-	gain_focus()
+	grab_focus()
 	
 func mouse_exit():
 	release_focus()

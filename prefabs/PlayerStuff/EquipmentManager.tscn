@@ -2,5 +2,7 @@
 
 [ext_resource path="res://Scripts/Player/EquipmentManager.gd" type="Script" id=1]
 
-[node name="EquipmentManager" type="Node"]
+[node name="EquipmentManager" type="Node" groups=[
+"Persist",
+]]
 script = ExtResource( 1 )

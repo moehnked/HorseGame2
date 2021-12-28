@@ -2,14 +2,14 @@
 
 [ext_resource path="res://Shaders/water_3d.shader" type="Shader" id=1]
 
-[sub_resource type="OpenSimplexNoise" id=7]
+[sub_resource type="OpenSimplexNoise" id=1]
 seed = 197
 period = 93.6
 lacunarity = 0.75
 
-[sub_resource type="NoiseTexture" id=8]
+[sub_resource type="NoiseTexture" id=2]
 seamless = true
-noise = SubResource( 7 )
+noise = SubResource( 1 )
 
 [sub_resource type="OpenSimplexNoise" id=3]
 seed = 197
@@ -45,4 +45,4 @@ shader_param/depth_distance = 1.0
 shader_param/movement_direction = Vector2( 1, 0 )
 shader_param/refraction_noise = SubResource( 6 )
 shader_param/foam_noise = SubResource( 4 )
-shader_param/displacement_noise = SubResource( 8 )
+shader_param/displacement_noise = SubResource( 2 )

@@ -7,8 +7,13 @@ export(Array, Resource) var talkSounds
 export(float, -20,5) var speakingVolume = 0.0
 export(Dictionary) var questItems = {}
 
+signal emit_talked_to(horse)
+
 func append_quest_item(itemName, quant):
 	questItems[itemName] = quant
+
+func emit_talked_to_npc():
+	emit_signal("emit_talked_to", self)
 
 func get_icon():
 	return icon

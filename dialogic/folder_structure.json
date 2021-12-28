@@ -34,14 +34,15 @@
 				"Chesterfield": {
 					"files": [
 						"1631346488-973",
-						"1631346508-921"
+						"1631346508-921",
+						"1640253079-323"
 					],
 					"folders": {
 
 					},
 					"metadata": {
 						"color": null,
-						"folded": true
+						"folded": false
 					}
 				},
 				"Patches": {
@@ -55,7 +56,7 @@
 					},
 					"metadata": {
 						"color": null,
-						"folded": true
+						"folded": false
 					}
 				},
 				"Secretarianne": {
@@ -100,7 +101,7 @@
 			},
 			"metadata": {
 				"color": null,
-				"folded": true
+				"folded": false
 			}
 		},
 		"Themes": {
@@ -225,7 +226,7 @@
 					},
 					"metadata": {
 						"color": null,
-						"folded": true
+						"folded": false
 					}
 				},
 				"Seamus": {

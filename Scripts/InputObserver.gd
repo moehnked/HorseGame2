@@ -1,7 +1,7 @@
 extends Node
 
 #onready var inputMacro = preload("res://Scripts/InputMacro.gd")
-
+var canPause = true
 var observers = []
 var wheel_up = true
 var wheel_down = false
@@ -15,9 +15,24 @@ var pauseRef = preload("res://prefabs/UI/PauseMenu.tscn")
 
 var input = InputMacro.new()
 
+var isJoypadMode = false
+
 func _ready():
 	Global.InputObserver = self
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func check_input_source(event):
+	if(event is InputEventKey):
+		isJoypadMode = false
+	elif(event is InputEventJoypadButton):
+		isJoypadMode = true
+	elif(event is InputEventJoypadMotion):
+		isJoypadMode = true
+
+	if event is InputEventMouseMotion:
+		isJoypadMode = false
+	if event is InputEventMouseButton:
+		isJoypadMode = false
 
 func clear():
 	input = InputMacro.new()
@@ -31,6 +46,7 @@ func unsubscribe(observer):
 	observers.erase(observer)
 
 func _input(event):
+	check_input_source(event)
 	if event is InputEventMouseMotion:
 		mouse_horizontal = deg2rad(-event.relative.x * mouse_sensitivity)
 		mouse_vertical = deg2rad(-event.relative.y * mouse_sensitivity)
@@ -51,7 +67,7 @@ func _physics_process(delta):
 		input.mouse_down = true
 	mouse_prev = mouse
 	
-	if Input.is_action_just_released("Start"):
+	if Input.is_action_just_released("Start") and canPause:
 		Global.world.instantiate(pauseRef.instance())
 	
 	if Input.is_action_just_pressed("jump"):

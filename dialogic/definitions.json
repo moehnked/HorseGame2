@@ -40,12 +40,6 @@
 			"value": "0"
 		},
 		{
-			"id": "1631346488-973",
-			"name": "cf_item_permit",
-			"type": 0,
-			"value": "0"
-		},
-		{
 			"id": "1631412613-353",
 			"name": "pa_read_A",
 			"type": 0,
@@ -86,6 +80,18 @@
 			"name": "randomText",
 			"type": 0,
 			"value": ""
+		},
+		{
+			"id": "1631346488-973",
+			"name": "cf_item_permit",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1640253079-323",
+			"name": "cf_hasMetPlayer",
+			"type": 0,
+			"value": "0"
 		}
 	]
 }
