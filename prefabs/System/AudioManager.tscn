@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Scripts/System/AudioManager.gd" type="Script" id=1]
 [ext_resource path="res://Music/finite_attention.wav" type="AudioStream" id=2]
@@ -7,29 +7,86 @@
 [ext_resource path="res://Music/trottings_and_canters.wav" type="AudioStream" id=5]
 [ext_resource path="res://Music/SoftlyAccumulate.wav" type="AudioStream" id=6]
 [ext_resource path="res://Music/Wayside.wav" type="AudioStream" id=7]
+[ext_resource path="res://Scripts/System/FootstepManager.gd" type="Script" id=8]
+[ext_resource path="res://Sounds/footsteps/ground0.wav" type="AudioStream" id=9]
+[ext_resource path="res://Sounds/footsteps/grass1.wav" type="AudioStream" id=10]
+[ext_resource path="res://Sounds/footsteps/ground2.wav" type="AudioStream" id=11]
+[ext_resource path="res://Sounds/footsteps/grass0.wav" type="AudioStream" id=12]
+[ext_resource path="res://Sounds/footsteps/ground3.wav" type="AudioStream" id=13]
+[ext_resource path="res://Sounds/footsteps/ground1.wav" type="AudioStream" id=14]
+[ext_resource path="res://Sounds/footsteps/jingle0.wav" type="AudioStream" id=15]
+[ext_resource path="res://Sounds/footsteps/tile0.wav" type="AudioStream" id=16]
+[ext_resource path="res://Sounds/footsteps/jingle3.wav" type="AudioStream" id=17]
+[ext_resource path="res://Sounds/footsteps/tile1.wav" type="AudioStream" id=18]
+[ext_resource path="res://Sounds/footsteps/tile2.wav" type="AudioStream" id=19]
+[ext_resource path="res://Sounds/footsteps/grass3.wav" type="AudioStream" id=20]
+[ext_resource path="res://Sounds/footsteps/tile3.wav" type="AudioStream" id=21]
+[ext_resource path="res://Sounds/footsteps/grass2.wav" type="AudioStream" id=22]
+[ext_resource path="res://Sounds/footsteps/jingle1.wav" type="AudioStream" id=23]
+[ext_resource path="res://Sounds/footsteps/wood1.wav" type="AudioStream" id=24]
+[ext_resource path="res://Sounds/footsteps/wood3.wav" type="AudioStream" id=25]
+[ext_resource path="res://Sounds/footsteps/wood0.wav" type="AudioStream" id=26]
+[ext_resource path="res://Sounds/footsteps/wood2.wav" type="AudioStream" id=27]
+[ext_resource path="res://Music/a_cowpokes_divine_saunter.wav" type="AudioStream" id=28]
+[ext_resource path="res://Music/Ambiance/birds.wav" type="AudioStream" id=29]
+[ext_resource path="res://Music/Ambiance/frogs.wav" type="AudioStream" id=30]
+[ext_resource path="res://Music/Ambiance/trees and wind.wav" type="AudioStream" id=31]
+[ext_resource path="res://Music/Ambiance/windy_beach.wav" type="AudioStream" id=32]
+[ext_resource path="res://Sounds/footsteps/carpet1.wav" type="AudioStream" id=33]
+[ext_resource path="res://Sounds/footsteps/carpet3.wav" type="AudioStream" id=34]
+[ext_resource path="res://Sounds/footsteps/carpet2.wav" type="AudioStream" id=35]
+[ext_resource path="res://Sounds/footsteps/carpet5.wav" type="AudioStream" id=36]
+[ext_resource path="res://Sounds/footsteps/carpet4.wav" type="AudioStream" id=37]
 
 [node name="AudioManager" type="Node" groups=[
 "HourAlert",
 ]]
 pause_mode = 2
 script = ExtResource( 1 )
-normal_tracks = [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 7 ) ]
+normal_tracks = [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 28 ) ]
+ambiant_tracks = [ ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ) ]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = "Sounds"
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+bus = "Sounds"
 
 [node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
+bus = "Sounds"
 
 [node name="AudioStreamPlayer4" type="AudioStreamPlayer" parent="."]
+bus = "Sounds"
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 unit_size = 3.0
+bus = "Sounds"
 
 [node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="."]
 unit_size = 3.0
+bus = "Sounds"
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 volume_db = 2.0
+bus = "Music"
 
 [node name="AmbiancePlayer" type="AudioStreamPlayer" parent="."]
+bus = "Ambiance"
+
+[node name="FootstepManager" type="Node" parent="."]
+script = ExtResource( 8 )
+grassSFX = [ ExtResource( 12 ), ExtResource( 10 ), ExtResource( 22 ), ExtResource( 20 ) ]
+dirtSFX = [ ExtResource( 9 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 13 ) ]
+jingleSFX = [ ExtResource( 15 ), ExtResource( 23 ), ExtResource( 17 ), null ]
+tileSFX = [ ExtResource( 16 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 21 ) ]
+woodSFX = [ ExtResource( 26 ), ExtResource( 24 ), ExtResource( 27 ), ExtResource( 25 ) ]
+carpetSFX = [ ExtResource( 33 ), ExtResource( 35 ), ExtResource( 34 ), ExtResource( 37 ), ExtResource( 36 ) ]
+
+[node name="step" type="AudioStreamPlayer" parent="FootstepManager"]
+volume_db = -9.0
+bus = "Sounds"
+
+[node name="jingle" type="AudioStreamPlayer" parent="FootstepManager"]
+volume_db = -10.0
+bus = "Sounds"
+[connection signal="finished" from="MusicPlayer" to="." method="song_end"]

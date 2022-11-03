@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://Scripts/FPSController.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/Hand_Idle.png" type="Texture" id=2]
@@ -17,7 +17,7 @@
 [ext_resource path="res://prefabs/Letters/H.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Scripts/Misc/fpsCameraMask.gd" type="Script" id=16]
 [ext_resource path="res://models/clothing/boot.obj" type="ArrayMesh" id=17]
-[ext_resource path="res://Materials/boot_01.tres" type="Material" id=18]
+[ext_resource path="res://Shaders/GOODOutlineShaderMaterial.tres" type="Material" id=18]
 [ext_resource path="res://Scripts/Behavior/PlayerStates/PlayerState_Giddyup.gd" type="Script" id=19]
 [ext_resource path="res://Scripts/Behavior/PlayerStates/PlayerState_Pilot.gd" type="Script" id=20]
 [ext_resource path="res://Scripts/Behavior/PlayerStates/PlayerState_Menu.gd" type="Script" id=21]
@@ -25,7 +25,7 @@
 [ext_resource path="res://prefabs/PlayerStuff/RayCast_telegraph.gd" type="Script" id=23]
 [ext_resource path="res://prefabs/PlayerStuff/InteractionManager.tscn" type="PackedScene" id=24]
 [ext_resource path="res://Scripts/Player/Palm_telegrapher.gd" type="Script" id=25]
-[ext_resource path="res://prefabs/UI/InventoryScreens/BaseInventoryScreen.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Sounds/grunt_01.wav" type="AudioStream" id=26]
 [ext_resource path="res://prefabs/Effects/WaterSheet.tscn" type="PackedScene" id=27]
 [ext_resource path="res://prefabs/System/LocationManager.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Sprites/Player/Hand_Build.png" type="Texture" id=29]
@@ -41,6 +41,15 @@
 [ext_resource path="res://Sounds/gurgle4.wav" type="AudioStream" id=39]
 [ext_resource path="res://Sprites/Player/Hand_Fishing.png" type="Texture" id=40]
 [ext_resource path="res://Sprites/Player/Hand_Charge.png" type="Texture" id=41]
+[ext_resource path="res://Sounds/grunt_02.wav" type="AudioStream" id=42]
+[ext_resource path="res://Sounds/grunt_03.wav" type="AudioStream" id=43]
+[ext_resource path="res://Sounds/grunt_04.wav" type="AudioStream" id=44]
+[ext_resource path="res://Sounds/grunt_05.wav" type="AudioStream" id=45]
+[ext_resource path="res://Sprites/Player/Hand_Command.png" type="Texture" id=46]
+[ext_resource path="res://Sprites/Player/Hand_Command_3.png" type="Texture" id=47]
+[ext_resource path="res://Sprites/Player/Hand_Command_2.png" type="Texture" id=48]
+[ext_resource path="res://Textures/misc/cable.jpg" type="Texture" id=49]
+[ext_resource path="res://prefabs/Interactables/Damageable.tscn" type="PackedScene" id=50]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 3.0
@@ -51,18 +60,261 @@ top_radius = 1.5
 [sub_resource type="SpatialMaterial" id=3]
 albedo_texture = ExtResource( 3 )
 
-[sub_resource type="QuadMesh" id=4]
+[sub_resource type="Animation" id=4]
+resource_name = "Walking"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BootContainer/Boot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.501542, -1.06916, -0.0309043 ), Vector3( -0.501542, -1.06916, -1.0309 ), Vector3( -0.501542, -1.06916, -0.0309043 ), Vector3( -0.501542, -1.06916, 1.9691 ), Vector3( -0.501542, -1.06916, -0.0309043 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BootContainer/Boot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 90, 0 ), Vector3( 2.16286e-06, 90, 30 ), Vector3( 0, 90, 0 ), Vector3( -4.03594e-06, 90, -60 ), Vector3( 0, 90, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BootContainer/Boot2:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.501542, -1.06916, -0.0309043 ), Vector3( 0.501542, -1.06916, 1.9691 ), Vector3( 0.501542, -1.06916, -0.0309043 ), Vector3( 0.501542, -1.06916, -1.0309 ), Vector3( 0.501542, -1.06916, -0.0309043 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BootContainer/Boot2:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 90, 0 ), Vector3( -4.03594e-06, 90, -60 ), Vector3( 0, 90, 0 ), Vector3( 2.16286e-06, 90, 30 ), Vector3( 0, 90, 0 ) ]
+}
 
 [sub_resource type="SpatialMaterial" id=5]
+next_pass = ExtResource( 18 )
+albedo_color = Color( 0.505882, 0.290196, 0.0117647, 1 )
+albedo_texture = ExtResource( 49 )
+uv1_scale = Vector3( 0.3, 0.3, 0.3 )
+uv1_triplanar = true
+
+[sub_resource type="QuadMesh" id=6]
+
+[sub_resource type="SpatialMaterial" id=7]
 flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 1, 1, 1, 0 )
 
-[sub_resource type="BoxShape" id=6]
+[sub_resource type="BoxShape" id=8]
 extents = Vector3( 0.729209, 0.291349, 0.145031 )
 
-[sub_resource type="Animation" id=7]
-resource_name = "Fishing"
+[sub_resource type="Animation" id=9]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Node2D/Sleeve/Arm:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 46 ), ExtResource( 46 ) ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Node2D/Sleeve/Arm:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( -30.9199, -0.25, 0, 0.25, 0, -32.4367, -0.25, 0, 0.25, 0, -27.6329, -0.25, 0, 0.25, 0, -30.9199, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 0.7, 1 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Node2D/Sleeve/Arm:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( -53.211, -0.25, 0, 0.25, 0, -51.3516, -0.25, 0, 0.25, 0, -52.2293, -0.25, 0, 0.25, 0, -53.211, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 0.7, 1 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Node2D/Sleeve/Arm:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("Node2D/Sleeve/Arm:scale:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("Node2D/Sleeve/Arm:scale:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("Node2D/Sleeve:position:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray( 1030.02, -0.25, 0, 0.25, 0, 1030.02, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("Node2D/Sleeve:position:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray( 729.658, -0.25, 0, 0.25, 0, 729.658, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/8/type = "bezier"
+tracks/8/path = NodePath("Node2D/Sleeve:rotation_degrees")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, -1.76131, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+
+[sub_resource type="Animation" id=10]
+step = 0.033
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Node2D/Sleeve:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1030.02, -0.25, 0, 0.25, 0, 1030.02, -0.25, 0, 0.25, 0, 1005.99, -0.25, 0, 0.25, 0, 1010, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.231, 0.264, 0.957 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Node2D/Sleeve:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 729.658, -0.25, 0, 0.25, 0, 729.658, -0.25, 0, 0.25, 0, 941.897, -0.25, 0, 0.25, 0, 705.631, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.231, 0.264, 0.957 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Node2D/Sleeve:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 21.6959, -0.25, 0, 0.25, 0, 29.7714, -0.25, 0, 0.25, 0, 9.89889, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.231, 0.264, 0.462, 0.957 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Node2D/Sleeve/Arm:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.264, 0.528, 0.594 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 46 ), ExtResource( 48 ), ExtResource( 47 ), ExtResource( 47 ), ExtResource( 46 ) ]
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("Node2D/Sleeve/Arm:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( -30.9199, -0.25, 0, 0.25, 0, -30.9199, -0.25, 0, 0.25, 0, -73.1528, -0.25, 0, 0.25, 0, -57.5291, -0.25, 0, 0.25, 0, -29.1871, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.231, 0.264, 0.561, 0.594 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("Node2D/Sleeve/Arm:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( -53.211, -0.25, 0, 0.25, 0, -53.211, -0.25, 0, 0.25, 0, -123.279, -0.25, 0, 0.25, 0, -101.088, -0.25, 0, 0.25, 0, -58.0836, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.231, 0.264, 0.561, 0.594 )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("Node2D/Sleeve/Arm:rotation_degrees")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, -23.688, -0.25, 0, 0.25, 0, -23.688, -0.25, 0, 0.25, 0, -23.688, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.231, 0.264, 0.561, 0.594 )
+}
+tracks/7/type = "method"
+tracks/7/path = NodePath(".")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.957 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "on_animation_finished"
+} ]
+}
+
+[sub_resource type="Animation" id=11]
 length = 3.0
 loop = true
 tracks/0/type = "bezier"
@@ -228,8 +480,7 @@ tracks/15/keys = {
 "times": PoolRealArray( 0, 1.6, 3 )
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "Fishing_Cast"
+[sub_resource type="Animation" id=12]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Node2D/Sleeve/Arm:texture")
 tracks/0/interp = 1
@@ -365,8 +616,7 @@ tracks/12/keys = {
 "times": PoolRealArray( 0, 0.3, 1 )
 }
 
-[sub_resource type="Animation" id=9]
-resource_name = "Fishing_Charge"
+[sub_resource type="Animation" id=13]
 step = 0.05
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("Node2D/Sleeve/Arm:scale:x")
@@ -481,7 +731,7 @@ tracks/10/keys = {
 "times": PoolRealArray( 0, 0.5, 0.75, 0.9, 1 )
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=14]
 length = 2.5
 loop = true
 step = 0.033
@@ -600,7 +850,7 @@ tracks/10/keys = {
 "values": [ Vector2( 1030.02, 729.658 ) ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=15]
 length = 0.5
 step = 0.023
 tracks/0/type = "value"
@@ -668,7 +918,7 @@ tracks/5/keys = {
 "values": [ Vector2( 1014.91, 727.77 ), Vector2( 1004.13, 729.928 ), Vector2( 1002.78, 737.197 ), Vector2( 981.205, 727.131 ), Vector2( 1006.02, 737.203 ), Vector2( 986.599, 733.434 ) ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=16]
 step = 0.033
 tracks/0/type = "value"
 tracks/0/path = NodePath("Node2D/Sleeve/Arm:texture")
@@ -795,7 +1045,7 @@ tracks/11/keys = {
 "times": PoolRealArray( 0, 0.165, 0.99 )
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=17]
 length = 2.0
 step = 0.03
 tracks/0/type = "method"
@@ -948,22 +1198,22 @@ tracks/12/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[sub_resource type="SpatialMaterial" id=14]
+[sub_resource type="SpatialMaterial" id=18]
 flags_unshaded = true
 albedo_color = Color( 0.890196, 0.815686, 0.780392, 1 )
 
-[sub_resource type="SphereMesh" id=15]
-material = SubResource( 14 )
+[sub_resource type="SphereMesh" id=19]
+material = SubResource( 18 )
 
-[sub_resource type="SpatialMaterial" id=16]
+[sub_resource type="SpatialMaterial" id=20]
 flags_unshaded = true
 params_cull_mode = 1
 params_grow = true
 params_grow_amount = 0.02
 albedo_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="ShaderMaterial" id=17]
-next_pass = SubResource( 16 )
+[sub_resource type="ShaderMaterial" id=21]
+next_pass = SubResource( 20 )
 shader = ExtResource( 11 )
 shader_param/use_shade = true
 shader_param/use_specular = false
@@ -985,20 +1235,21 @@ shader_param/rim_spread = 0.5
 shader_param/shadow_threshold = 0.7
 shader_param/shadow_softness = 0.1
 
-[sub_resource type="QuadMesh" id=18]
+[sub_resource type="QuadMesh" id=22]
 
-[sub_resource type="SpatialMaterial" id=19]
+[sub_resource type="SpatialMaterial" id=23]
 albedo_color = Color( 1, 0, 0, 1 )
 
 [node name="NEW_FPSController" type="KinematicBody" groups=[
 "Liftable",
+"Persist",
 "Player",
 ]]
 collision_layer = 4
 script = ExtResource( 1 )
-inventoryScreenSource = ExtResource( 26 )
-MAX_SPEED = 37
+MAX_SPEED = 7
 MAX_SLOPE_ANGLE = 30
+treats = 100.0
 
 [node name="InteractionManager" parent="." instance=ExtResource( 24 )]
 
@@ -1014,15 +1265,23 @@ layers = 1024
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
 
-[node name="Boot" type="MeshInstance" parent="."]
-transform = Transform( -2.97882e-08, 0, 0.681474, 0, 0.536862, 0, -0.372296, 0, -1.62736e-08, -0.540579, -1.33682, -0.0674669 )
-mesh = ExtResource( 17 )
-material/0 = ExtResource( 18 )
+[node name="Boots" type="AnimationPlayer" parent="."]
+autoplay = "Walking"
+playback_speed = 2.0
+anims/Walking = SubResource( 4 )
 
-[node name="Boot2" type="MeshInstance" parent="."]
-transform = Transform( -2.97882e-08, 0, 0.681474, 0, 0.536862, 0, -0.372296, 0, -1.62736e-08, 0.519646, -1.33682, -0.0674669 )
+[node name="BootContainer" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.967166, 0.254146, 0, -0.254146, 0.967166, 0, -0.210973, 0.200031 )
+
+[node name="Boot" type="MeshInstance" parent="BootContainer"]
+transform = Transform( -2.18557e-08, 0, 0.681, 0, 0.537, 0, -0.5, 0, -2.97675e-08, -0.501542, -1.06916, -0.0309043 )
 mesh = ExtResource( 17 )
-material/0 = ExtResource( 18 )
+material/0 = SubResource( 5 )
+
+[node name="Boot2" type="MeshInstance" parent="BootContainer"]
+transform = Transform( -2.18557e-08, 0, 0.681, 0, 0.537, 0, -0.5, 0, -2.97675e-08, 0.501542, -1.06916, -0.0309043 )
+mesh = ExtResource( 17 )
+material/0 = SubResource( 5 )
 
 [node name="GroundCheck" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.55, 0 )
@@ -1038,15 +1297,21 @@ cull_mask = 1047551
 far = 250.0
 script = ExtResource( 14 )
 
+[node name="RayCast_Command" type="RayCast" parent="Head/Camera"]
+cast_to = Vector3( 0, 0, -60 )
+collide_with_areas = true
+collide_with_bodies = false
+
 [node name="RayCast_Solids" type="RayCast" parent="Head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0973678 )
 enabled = true
 cast_to = Vector3( 0, 0, -12 )
+script = ExtResource( 23 )
 
 [node name="RayCast_Areas" type="RayCast" parent="Head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0973678 )
 enabled = true
-cast_to = Vector3( 0, 0, -7 )
+cast_to = Vector3( 0, 0, -3.5 )
 collide_with_areas = true
 collide_with_bodies = false
 script = ExtResource( 23 )
@@ -1064,8 +1329,8 @@ script = ExtResource( 16 )
 
 [node name="Mask" type="MeshInstance" parent="Head/Camera/Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.238554 )
-mesh = SubResource( 4 )
-material/0 = SubResource( 5 )
+mesh = SubResource( 6 )
+material/0 = SubResource( 7 )
 
 [node name="WaterSheet" parent="Head/Camera/Area/Mask" instance=ExtResource( 27 )]
 visible = false
@@ -1073,7 +1338,7 @@ z_index = 10
 
 [node name="CollisionShape" type="CollisionShape" parent="Head/Camera/Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.212168, -0.19155 )
-shape = SubResource( 6 )
+shape = SubResource( 8 )
 
 [node name="PlaySound" parent="Head/Camera/Area" instance=ExtResource( 35 )]
 random_sounds = [ ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ) ]
@@ -1084,6 +1349,7 @@ script = ExtResource( 6 )
 handSprites = {
 "Build": ExtResource( 29 ),
 "Charm": ExtResource( 30 ),
+"Command": ExtResource( 46 ),
 "Fishing": ExtResource( 40 ),
 "Fishing_Charge": ExtResource( 41 ),
 "Holding": ExtResource( 31 ),
@@ -1094,13 +1360,15 @@ handSprites = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Hand"]
-anims/Fishing = SubResource( 7 )
-anims/Fishing_Cast = SubResource( 8 )
-anims/Fishing_Charge = SubResource( 9 )
-anims/Idle = SubResource( 10 )
-anims/Lasso = SubResource( 11 )
-anims/Punch = SubResource( 12 )
-anims/RPS_Shoot = SubResource( 13 )
+anims/Command = SubResource( 9 )
+anims/CommandFin = SubResource( 10 )
+anims/Fishing = SubResource( 11 )
+anims/Fishing_Cast = SubResource( 12 )
+anims/Fishing_Charge = SubResource( 13 )
+anims/Idle = SubResource( 14 )
+anims/Lasso = SubResource( 15 )
+anims/Punch = SubResource( 16 )
+anims/RPS_Shoot = SubResource( 17 )
 
 [node name="Node2D" type="Node2D" parent="Head/Hand"]
 
@@ -1114,7 +1382,7 @@ offset = Vector2( -30.3919, -31.7763 )
 [node name="Arm" type="Sprite" parent="Head/Hand/Node2D/Sleeve"]
 position = Vector2( -30.9199, -53.211 )
 z_index = -1
-texture = ExtResource( 2 )
+texture = ExtResource( 46 )
 offset = Vector2( -35.4661, -32.3164 )
 
 [node name="Palm" type="Spatial" parent="Head"]
@@ -1123,16 +1391,16 @@ script = ExtResource( 25 )
 
 [node name="Skull" type="MeshInstance" parent="Head"]
 transform = Transform( 0.409861, 0, 0, 0, 0.409861, 0, 0, 0, 0.409861, 0.0011673, -0.00104415, -2.83759e-05 )
-mesh = SubResource( 15 )
+mesh = SubResource( 19 )
 material/0 = null
 
 [node name="Hat" type="MeshInstance" parent="Head/Skull"]
 transform = Transform( 1.96741, 0, 0, 0, 1.57227, 0, 0, 0, 1.80181, 0, 2.14431, -0.166266 )
 layers = 1024
 mesh = ExtResource( 12 )
-material/0 = SubResource( 17 )
+material/0 = SubResource( 21 )
 script = ExtResource( 13 )
-level = 10
+level = 12
 
 [node name="Special_Cooldown" type="Timer" parent="."]
 wait_time = 0.8
@@ -1158,6 +1426,8 @@ one_shot = true
 one_shot = true
 
 [node name="HUD" parent="." instance=ExtResource( 10 )]
+margin_left = 1.33484
+margin_right = 1.33484
 
 [node name="StateContainer" type="Node" parent="."]
 
@@ -1182,30 +1452,36 @@ script = ExtResource( 22 )
 [node name="MeshInstance2" type="MeshInstance" parent="."]
 transform = Transform( 2.8788, 0, 0, 0, -4.69016e-07, 2.8788, 0, -2.8788, -4.69016e-07, 0, -2.5, 0 )
 visible = false
-mesh = SubResource( 18 )
+mesh = SubResource( 22 )
 material/0 = null
 
 [node name="MeshInstance3" type="MeshInstance" parent="."]
 transform = Transform( 4.12523, 0, 0, 0, -6.72085e-07, 4.12523, 0, -4.12523, -6.72085e-07, 0, -3, 0 )
 visible = false
-mesh = SubResource( 18 )
-material/0 = SubResource( 19 )
+mesh = SubResource( 22 )
+material/0 = SubResource( 23 )
 
 [node name="SlidingTimer" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
 
 [node name="LocationManager" parent="." instance=ExtResource( 28 )]
+
+[node name="GruntSfx" parent="." instance=ExtResource( 35 )]
+random_sounds = [ ExtResource( 26 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ) ]
+
+[node name="Damageable" parent="." instance=ExtResource( 50 )]
+transform = Transform( 1.38691, 0, 0, 0, 3.9608, 0, 0, 0, 1.38691, 0, 1.73506, 0.268318 )
 [connection signal="broadcast_self" from="InteractionManager" to="EquipmentManager" method="_on_InteractionManager_broadcast_self"]
 [connection signal="emit_looking_at" from="InteractionManager" to="EquipmentManager" method="_on_InteractionManager_emit_looking_at"]
 [connection signal="broadcast_self" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="broadcast_self" from="EquipmentManager" to="Head/Palm" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="emit_equipped" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_emit_equipped"]
 [connection signal="emit_unequip" from="EquipmentManager" to="InteractionManager" method="_on_EquipmentManager_emit_unequip"]
+[connection signal="broadcast_self" from="Head/Camera/RayCast_Solids" to="InteractionManager" method="_on_RayCast_Solids_broadcast_self"]
 [connection signal="broadcast_self" from="Head/Camera/RayCast_Areas" to="InteractionManager" method="_on_RayCast_Areas_broadcast_self"]
 [connection signal="area_entered" from="Head/Camera/Area" to="Head/Camera/Area" method="_on_Area_area_entered"]
 [connection signal="area_exited" from="Head/Camera/Area" to="Head/Camera/Area" method="_on_Area_area_exited"]
-[connection signal="broadcast_self" from="Head/Palm" to="EquipmentManager" method="_on_Palm_broadcast_self"]
 [connection signal="timeout" from="Special_Cooldown" to="." method="_on_Special_Cooldown_timeout"]
 [connection signal="timeout" from="ExitHorseTimer" to="." method="_on_ExitHorseTimer_timeout"]
 [connection signal="timeout" from="LassoTimeout" to="." method="_on_LassoTimeout_timeout"]
@@ -1213,3 +1489,4 @@ autostart = true
 [connection signal="timeout" from="RightCooldown" to="." method="_on_RightCooldown_timeout"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_KnockbackTimer_timeout"]
 [connection signal="timeout" from="SlidingTimer" to="StateContainer/Normal" method="_on_SlidingTimer_timeout"]
+[connection signal="damageTaken" from="Damageable" to="." method="take_damage"]

@@ -39,6 +39,8 @@ func check_movement():
 			make_ripple(b)
 
 func get_fishable_item():
+	if fishableItems.size() == 0:
+		return null
 	for x in range(fishableItems.size()):
 		var roll = Utils.get_rng().randf_range(0.0,1.0)
 		if roll <= distribution.interpolate(float(x) / float(fishableItems.size())):

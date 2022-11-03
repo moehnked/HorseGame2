@@ -28,7 +28,9 @@ transform = Transform( 1.84976, 0, 0.0532515, 0, 1.85052, 0, -0.0532515, 0, 1.84
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="StaticBody" type="StaticBody" parent="tavolo1"]
+[node name="StaticBody" type="StaticBody" parent="tavolo1" groups=[
+"Wood",
+]]
 
 [node name="CollisionShape" type="CollisionShape" parent="tavolo1/StaticBody"]
 transform = Transform( 1, 0, 1.86265e-09, 0, 1, 0, -1.86265e-09, 0, 1, 0, 0, 0 )

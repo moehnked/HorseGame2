@@ -24,6 +24,9 @@ func initialize(args = {}):
 	Global.InputObserver.canPause = false
 	pass
 
+func complete_quest(args):
+	Global.QuestJournal.complete_quest(args[0])
+
 func destroy(timeline_name):
 	if canExit:
 		Global.InputObserver.canPause = true
@@ -64,9 +67,9 @@ func set_dialogue_point(args = [-1, 1]):
 	var point = int(args[0])
 	print("Dialogic: updating dialogue for ", speaker.get_horse_name(), " to ", point, " ",typeof(point))
 	if point < 0:
-		var limit = int(args[1])
+		var limit = int(args[args.size() - 1])
 		var rng = Utils.get_rng()
-		point = rng.randi_range(1,limit)
+		point = rng.randi_range(1 if args.size() < 3 else args[1],limit)
 	speaker.set_dialogue_point(point)
 
 func start_sell():
@@ -97,3 +100,5 @@ func trigger_event(eventGroup):
 	Global.world.trigger_event(eventGroup[0], speaker)
 	pass
 
+func update_quest(args):
+	Global.QuestJournal.update_quest(args[0], int(args[1]), args[2])

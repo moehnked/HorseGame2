@@ -24,7 +24,10 @@ outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
 
-[node name="InteractionPrompt" type="Control"]
+[node name="Container" type="Node2D"]
+z_index = 10
+
+[node name="InteractionPrompt" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -32,7 +35,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="."]
+[node name="Label2" type="Label" parent="InteractionPrompt"]
 visible = false
 modulate = Color( 0, 0, 0, 1 )
 margin_left = 395.0
@@ -50,7 +53,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="InteractionPrompt"]
 margin_left = 392.0
 margin_top = 256.0
 margin_right = 1296.0
@@ -66,12 +69,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="Sprite" parent="."]
+[node name="ColorRect" type="Sprite" parent="InteractionPrompt"]
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 512, 536 )
 texture = ExtResource( 3 )
 
-[node name="Context" type="Label" parent="."]
+[node name="Context" type="Label" parent="InteractionPrompt"]
 margin_left = 72.0
 margin_top = 544.0
 margin_right = 224.0
@@ -83,9 +86,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ContextTimer" type="Timer" parent="."]
+[node name="ContextTimer" type="Timer" parent="InteractionPrompt"]
 
-[node name="Crosshair" type="ColorRect" parent="."]
+[node name="Crosshair" type="ColorRect" parent="InteractionPrompt"]
 margin_left = 513.0
 margin_top = 297.0
 margin_right = 515.0
@@ -95,7 +98,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Crosshair2" type="ColorRect" parent="Crosshair"]
+[node name="Crosshair2" type="ColorRect" parent="InteractionPrompt/Crosshair"]
 margin_left = -0.536499
 margin_top = 2.5892
 margin_right = 1.4635
@@ -106,7 +109,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Crosshair4" type="ColorRect" parent="Crosshair"]
+[node name="Crosshair4" type="ColorRect" parent="InteractionPrompt/Crosshair"]
 margin_left = -3.19193
 margin_top = -0.198639
 margin_right = -1.19192
@@ -116,7 +119,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Crosshair3" type="ColorRect" parent="Crosshair"]
+[node name="Crosshair3" type="ColorRect" parent="InteractionPrompt/Crosshair"]
 margin_left = -0.569702
 margin_top = -0.238495
 margin_right = 1.4303
@@ -127,12 +130,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ButtonHintContainer" type="Node2D" parent="."]
+[node name="ButtonHintContainer" type="Node2D" parent="InteractionPrompt"]
 visible = false
 modulate = Color( 1, 1, 1, 0.752941 )
 position = Vector2( 499, 312.138 )
 
-[node name="ButtonHintKeys" type="Label" parent="ButtonHintContainer"]
+[node name="ButtonHintKeys" type="Label" parent="InteractionPrompt/ButtonHintContainer"]
 visible = false
 margin_right = 40.0
 margin_bottom = 29.0
@@ -145,8 +148,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ButtonHintCont" type="Sprite" parent="ButtonHintContainer"]
+[node name="ButtonHintCont" type="Sprite" parent="InteractionPrompt/ButtonHintContainer"]
 position = Vector2( 14.059, 16.2861 )
 scale = Vector2( 0.208437, 0.208437 )
 texture = ExtResource( 5 )
-[connection signal="timeout" from="ContextTimer" to="." method="_on_ContextTimer_timeout"]
+[connection signal="timeout" from="InteractionPrompt/ContextTimer" to="InteractionPrompt" method="_on_ContextTimer_timeout"]

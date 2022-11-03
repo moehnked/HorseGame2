@@ -6,12 +6,15 @@ export(float) var distThresh = 1.0
 enum State {CANLASSO, NOTLASSOABLE, LASSOING, GIDDYUP, PILOT}
 
 signal lassoed(by)
+signal lasso_failed()
 
 var casterRef = null
+var challengeRef = preload("res://giddyup_challenge.tscn")
 var lassoRef = null
+var rot = 0
 var state = State.CANLASSO
 var target = null
-var rot = 0
+var TTL = Timer.new()
 
 
 
@@ -51,9 +54,13 @@ func exit_pilot():
 	casterRef.exit_pilot(false)
 	initialize()
 
-func failed():
+func failed(lassoer = null):
 	print("lassoable: failed")
-	get_parent().call("enter_idle")
+	TTL.stop()
+	TTL.queue_free()
+	TTL = Timer.new()
+	#get_parent().call("enter_idle")
+	emit_signal("lasso_failed")
 	casterRef.exit_pilot()
 	state = State.CANLASSO
 	if lassoRef != null:
@@ -64,7 +71,6 @@ func initialize():
 	state = State.CANLASSO
 	casterRef = null
 	lassoRef = null
-	#target = null
 
 func lasso(other):
 	#check if can be lassod
@@ -73,6 +79,8 @@ func lasso(other):
 		state = State.LASSOING
 		lassoRef = other
 		casterRef = lassoRef.playerRef
+		TTL.connect("timeout", self, "failed")
+		TTL.start(4)
 
 func parse_input(input):
 	if input.tab:
@@ -83,7 +91,7 @@ func start_giddyup(target):
 	#check if hat is high enough level
 	print("lassoable: checking hat level")
 	if check_hat_level(target):
-		var challenge = load("res://giddyup_challenge.tscn").instance()
+		var challenge = challengeRef.instance()
 		print("high enough level to lasso")
 		state = State.GIDDYUP
 		target.enter_giddyup()
@@ -91,6 +99,7 @@ func start_giddyup(target):
 		challenge.initialize({"lassoableRef":self, "callback":"successful_giddyup", "kargs":{"casterRef":casterRef, "target": target}})
 		Global.world.call_deferred("add_child", challenge)
 	else:
+		Global.InteractionPrompt.show_context("Cannot Lasso: Not high enough level")
 		state = State.CANLASSO
 
 func start_pilot():

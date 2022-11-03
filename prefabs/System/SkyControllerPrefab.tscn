@@ -8,7 +8,9 @@
 [ext_resource path="res://Shaders/SkyPresets/fog01.tres" type="Material" id=6]
 [ext_resource path="res://Shaders/SkyPresets/underwater.tres" type="Material" id=7]
 
-[node name="SkyController" type="Node2D"]
+[node name="SkyController" type="Node2D" groups=[
+"HourAlert",
+]]
 script = ExtResource( 1 )
 skys = {
 "day": ExtResource( 3 ),

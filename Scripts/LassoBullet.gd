@@ -61,6 +61,7 @@ func deload():
 	playerRef.conclude_spell("Lasso")
 	queue_free()
 
+
 func _on_milisecondDelay_timeout():
 	print("Lasso: Milisecond")
 	begun = true

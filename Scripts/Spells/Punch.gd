@@ -26,14 +26,14 @@ func _on_TimeToLive_timeout():
 
 
 func _on_Punch_area_entered(area):
-	if(area.has_method("take_damage") && area != playerRef):
+	if(area.has_method("take_damage") && area.owner != playerRef && area != playerRef):
 		print("punch hitbox hit: ", area)
 		area.take_damage(power, playerRef)
 	pass # Replace with function body.
 
 
 func _on_Punch_body_entered(body):
-	if(body.has_method("take_damage") && body != playerRef):
+	if(body.has_method("take_damage") && body.owner != playerRef && body != playerRef):
 		print("punch hitbox hit: ", body)
 		body.take_damage(power, self, playerRef)
 	pass # Replace with function body.

@@ -1,0 +1,64 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Scripts/Effects/HorseDeathSquib.gd" type="Script" id=1]
+[ext_resource path="res://Sounds/boom_01.wav" type="AudioStream" id=2]
+[ext_resource path="res://Sounds/blood_01.wav" type="AudioStream" id=3]
+[ext_resource path="res://Sounds/blood_02.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/blood_03.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/boom_02.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sounds/boom_03.wav" type="AudioStream" id=7]
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+direction = Vector3( 0, 40, 0 )
+spread = 150.0
+flatness = 0.31
+initial_velocity = 6.49
+scale = 25.0
+scale_random = 1.0
+scale_curve = SubResource( 5 )
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_unshaded = true
+albedo_color = Color( 0.54902, 0, 0, 1 )
+
+[sub_resource type="SphereMesh" id=3]
+material = SubResource( 2 )
+radius = 0.01
+height = 0.01
+
+[node name="HorseDeathSquib" type="Spatial"]
+script = ExtResource( 1 )
+sfx_blood = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]
+sfx_boom = [ ExtResource( 2 ), ExtResource( 6 ), ExtResource( 7 ) ]
+
+[node name="Particles" type="Particles" parent="."]
+emitting = false
+amount = 40
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.92
+process_material = SubResource( 1 )
+draw_pass_1 = SubResource( 3 )
+
+[node name="TTL" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="blood" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 3 )
+unit_db = 10.0
+max_distance = 60.0
+bus = "Sounds"
+
+[node name="boom" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 2 )
+unit_db = 8.0
+max_distance = 60.0
+bus = "Sounds"
+[connection signal="timeout" from="TTL" to="." method="_on_TTL_timeout"]

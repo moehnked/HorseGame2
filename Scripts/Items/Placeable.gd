@@ -11,6 +11,7 @@ var placedOBJ = null
 var placedCursor = null
 var raycast
 
+signal emit_placed(by)
 
 func _process(delta):
 	if isEquipped:
@@ -30,6 +31,7 @@ func _process(delta):
 				global_transform.origin = placedCursor.global_transform.origin
 				rotation_degrees = Vector3.ZERO
 				placedCursor.queue_free()
+				emit_signal("emit_placed", self)
 	else:
 		toggle_collisions(true)
 
@@ -50,6 +52,15 @@ func initialize_placer():
 	placedOBJ.set_sleeping(true)
 	placedOBJ.update_mesh()
 	placedCursor = Global.world.instantiate(cursorRef.instance(), raycast.get_collision_point())
+
+
+func interact(_controller, equipit = true):
+	print("Placeable::interact")
+	if _controller.get_parent() == Global.Player:
+		.interact(_controller, equipit)
+	else:
+		pickup(_controller)
+
 
 func update_mesh():
 	for i in get_children():

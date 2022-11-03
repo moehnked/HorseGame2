@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Animations/misc/intro2.webm" type="VideoStream" id=1]
+[ext_resource path="res://Animations/misc/intro_2022.webm" type="VideoStream" id=1]
 [ext_resource path="res://Scripts/Misc/Intro.gd" type="Script" id=2]
 
 [node name="Node2D" type="Node2D"]
@@ -19,6 +19,7 @@ margin_left = 56.0
 margin_right = 956.0
 margin_bottom = 600.0
 stream = ExtResource( 1 )
+volume_db = 10.0
 autoplay = true
 __meta__ = {
 "_edit_use_anchors_": false

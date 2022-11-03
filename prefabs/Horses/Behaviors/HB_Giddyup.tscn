@@ -4,3 +4,4 @@
 
 [node name="HB_Giddyup" type="Node"]
 script = ExtResource( 1 )
+stateName = "Giddyup"

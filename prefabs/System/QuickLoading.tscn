@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://prefabs/Misc/Events/Delay.tscn" type="PackedScene" id=1]
+[ext_resource path="res://prefabs/Misc/Events/CallMethodOnTarget.tscn" type="PackedScene" id=2]
+[ext_resource path="res://fonts/PlayheadFREE.otf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "default"
+length = 1.5
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Label:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.4, 1.4 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Label:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.4, 1.4 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Label:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.4, 1.4 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Label:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.4, 1.4 )
+}
+
+[node name="QuickLoading" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Delay" parent="." instance=ExtResource( 1 )]
+targetEvent = NodePath("../CallMethodsOnTarget")
+timeDelay = 2.0
+
+[node name="Label" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -139.5
+margin_top = -31.0
+margin_right = 139.5
+margin_bottom = 31.0
+rect_scale = Vector2( 0.613586, 0.613586 )
+rect_pivot_offset = Vector2( 135.79, 29.5586 )
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 0.45098 )
+text = "LOADING..."
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CallMethodsOnTarget" parent="." instance=ExtResource( 2 )]
+methodName = "queue_free"
+target = NodePath("..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+anims/default = SubResource( 2 )

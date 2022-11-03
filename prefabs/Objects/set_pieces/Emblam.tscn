@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Sprites/misc/Xenophonsmall.png" type="Texture" id=1]
+
+[sub_resource type="QuadMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+albedo_texture = ExtResource( 1 )
+distance_fade_mode = 2
+distance_fade_min_distance = 160.0
+distance_fade_max_distance = 70.0
+
+[node name="Emblam" type="MeshInstance"]
+transform = Transform( 1.82204, 2.14715e-19, -1.369e-06, -1.52295e-05, -2.68495e-07, 8.56664, 2.4812e-12, -1.64801, -1.39568e-06, -3.20375e-07, 1.97665, -4.76837e-07 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )

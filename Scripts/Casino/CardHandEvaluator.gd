@@ -15,6 +15,7 @@ func _ready():
 	pass
 
 func evaluate_hand(hvs, hss):
+	var evaluated = 0
 	var ar_vals = hvs.duplicate(true)
 	var flush = is_flush(hss)
 	var straight = is_straight(ar_vals)
@@ -25,43 +26,47 @@ func evaluate_hand(hvs, hss):
 	else:
 		#straight flush
 		if flush and straight:
-			return 12
+			evaluated = 12
 		else:
 			#double triple
 			if is_double_pair_count(ar_vals, 3):
-				return 11
+				evaluated = 11
 			else:
 				#four of a kind
 				if pair_count(ar_vals, 4) != -1:
-					return 10
+					evaluated = 10
 				else:
 					#full house
 					if is_full_house(ar_vals):
-						return 9
+						evaluated = 9
 					else:
 						#flush
 						if flush:
-							return 8
+							evaluated = 8
 						#straight
 						elif straight:
-							return 7
+							evaluated = 7
 						else:
 							#Triple Double
 							if is_triple_pair_count(ar_vals, 2):
-								return 6
+								evaluated = 6
+							else:
 							#three of a kind
 								if pair_count(ar_vals, 3) != -1:
-									return 5
+									evaluated = 5
 								else:
 									#two pair
 									if is_two_pair(ar_vals):
-										return 4
+										evaluated = 4
 									else:
 										#pair or high card
-										return 3 if pair_count(ar_vals, 2) != -1 else 2
+										evaluated = 3 if pair_count(ar_vals, 2) != -1 else 2
+	return evaluated
 	
 func evaluate_self():
-	return evaluate_hand(handVals, handSuites)
+	var evaluated = evaluate_hand(handVals, handSuites)
+	print(evaluated)
+	return evaluated
 
 func get_rank_as_string(rank):
 	match rank:

@@ -32,17 +32,17 @@ var startup_phrase = ""
 var state = State.fadein
 var time = 4
 
-var sfx_giddyup = ["res://sounds/giddyup_01.wav","res://sounds/giddyup_02.wav","res://sounds/giddyup_03.wav"]
-var sfx_hurry = "res://sounds/hurry.wav"
+var sfx_fadeout = preload("res://Sounds/slowdown.wav")
+var sfx_hurry = preload("res://Sounds/hurry.wav")
 var sfx_scratchs = [
-	"res://sounds/scratch_00.wav",
-	"res://sounds/scratch_01.wav",
-	"res://sounds/scratch_02.wav",
-	"res://sounds/scratch_03.wav",
-	"res://sounds/scratch_04.wav",
-	"res://sounds/scratch_05.wav",
-	"res://sounds/scratch_06.wav",
-	"res://sounds/scratch_07.wav",
+	preload("res://Sounds/scratch_00.wav"),
+	preload("res://Sounds/scratch_01.wav"),
+	preload("res://Sounds/scratch_02.wav"),
+	preload("res://Sounds/scratch_03.wav"),
+	preload("res://Sounds/scratch_04.wav"),
+	preload("res://Sounds/scratch_05.wav"),
+	preload("res://Sounds/scratch_06.wav"),
+	preload("res://Sounds/scratch_07.wav"),
 ]
 
 func queue_free():
@@ -58,9 +58,10 @@ func _ready():
 	$Control/completed.text = startup_phrase
 	$Control/completed.percent_visible = 0.0
 	completion_interval = 1.0 / startup_phrase.length()
-	Global.AudioManager.play_sound(sfx_giddyup[Global.world.rng.randi_range(0,2)])
+	#Global.AudioManager.play_sound(sfx_giddyup[Global.world.rng.randi_range(0,2)])
+	$giddyupsound.trigger()
 	hurry = Global.AudioManager.play_sound(sfx_hurry)
-	fadeout = Global.AudioManager.play_sound("res://sounds/slowdown.wav")
+	fadeout = Global.AudioManager.play_sound(sfx_fadeout)
 	pass # Replace with function body.
 
 
@@ -111,7 +112,7 @@ func failed():
 	$Control/Clock.queue_free()
 	state = State.fadeout
 	fadeout.stop()
-	Global.AudioManager.play_sound("res://sounds/speedup.wav")
+	Global.AudioManager.play_sound()
 
 func increase_completion():
 	$Control/completed.margin_top += 5
@@ -151,9 +152,10 @@ func success():
 	$Control/Clock.queue_free()
 	state = State.fadeout
 	fadeout.stop()
-	Global.AudioManager.play_sound("res://sounds/speedup.wav")
-	Global.AudioManager.play_sound("res://sounds/speedup.wav")
-	Global.world.instantiate("res://prefabs/Effects/Success.tscn")
+	#Global.AudioManager.play_sound("res://sounds/speedup.wav")
+	$Speedup.trigger()
+	#Global.world.instantiate("res://prefabs/Effects/Success.tscn")
+	$LoadTargetResource.trigger()
 	
 func stopAllTimers():
 	$Tik.stop()

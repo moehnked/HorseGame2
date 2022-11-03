@@ -3,7 +3,7 @@ extends "res://prefabs/Misc/Events/Rotate.gd"
 
 func _on_HorsePillar1_rotation_complete():
 	print(name, " finished roation")
-	Global.world.get_tree().call_group("HorseRelief", "trigger", self)
+	Global.world.get_tree().call_group("HorseWall", "trigger", self)
 	isRotating = false
 	pass # Replace with function body.
 

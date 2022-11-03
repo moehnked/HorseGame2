@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://prefabs/Misc/Events/Rotate.gd" type="Script" id=1]
+
+[node name="RotationContainer" type="Spatial"]
+script = ExtResource( 1 )

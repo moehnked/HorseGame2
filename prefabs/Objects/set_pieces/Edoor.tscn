@@ -1,0 +1,214 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Textures/stainedglass/horse_stainedglass_NM.png" type="Texture" id=1]
+[ext_resource path="res://Sounds/edoor_close.wav" type="AudioStream" id=2]
+[ext_resource path="res://Textures/stainedglass/horse_stainedglass.png" type="Texture" id=3]
+[ext_resource path="res://Sounds/edoor_open.wav" type="AudioStream" id=4]
+[ext_resource path="res://Scripts/Objects/Edoor.gd" type="Script" id=5]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+albedo_color = Color( 1, 1, 1, 0.352941 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.914341, 0.605414, 0.622606 )
+
+[sub_resource type="QuadMesh" id=4]
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+params_cull_mode = 2
+albedo_color = Color( 0.705882, 0.623529, 0.733333, 0.866667 )
+albedo_texture = ExtResource( 3 )
+metallic = 0.59
+metallic_specular = 1.0
+roughness = 0.06
+normal_enabled = true
+normal_scale = 2.76
+normal_texture = ExtResource( 1 )
+
+[sub_resource type="SpatialMaterial" id=6]
+params_cull_mode = 2
+albedo_color = Color( 0.360784, 0.360784, 0.360784, 1 )
+metallic = 0.83
+metallic_specular = 0.74
+roughness = 0.09
+
+[sub_resource type="SpatialMaterial" id=7]
+flags_transparent = true
+params_cull_mode = 2
+albedo_color = Color( 0.705882, 0.623529, 0.733333, 0.866667 )
+albedo_texture = ExtResource( 3 )
+metallic = 0.59
+metallic_specular = 1.0
+roughness = 0.06
+normal_enabled = true
+normal_scale = 2.76
+normal_texture = ExtResource( 1 )
+uv1_scale = Vector3( -1, 1, 1 )
+
+[sub_resource type="Animation" id=8]
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("LeftSide:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 2.64977 ), Vector3( 0, 0, 2.33714 ), Vector3( 0, 0, 0.912046 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LeftSide:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RightSide:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.6, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, -2.62266 ), Vector3( 0, 0, -2.21622 ), Vector3( 0, 0, -0.893 ) ]
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("OpenSfx")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 2 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=9]
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("LeftSide:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0.912046 ), Vector3( 0, 0, 2.33714 ), Vector3( 0, 0, 2.64977 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LeftSide:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RightSide:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1, 1.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, -0.893 ), Vector3( 0, 0, -2.21622 ), Vector3( 0, 0, -2.62266 ) ]
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("OpenSfx")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 4 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[node name="EDoor" type="Area"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource( 5 )
+
+[node name="guide" type="MeshInstance" parent="."]
+transform = Transform( 0.25523, 0, 0, 0, 2.015, 0, 0, 0, 1.821, 0, 0, 0 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1.66352, 0, 0, 0, 2.015, 0, 0, 0, 1.821, 0, 0, 0 )
+shape = SubResource( 3 )
+
+[node name="LeftSide" type="MeshInstance" parent="."]
+transform = Transform( -7.92925e-08, 0, 1, 0, 4.048, 0, -1.814, 0, -4.37114e-08, 0, 0, 0.912046 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
+
+[node name="frame" type="MeshInstance" parent="LeftSide"]
+transform = Transform( 0.0468578, 0, 7.10543e-15, 0, 1, 0, 0, 0, 1, 0.475827, 0, 0.00200004 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 6 )
+
+[node name="frame2" type="MeshInstance" parent="LeftSide"]
+transform = Transform( 0.0468578, 0, 1.77636e-15, 0, 1, 0, 0, 0, 1, 0.476, 0, -0.002 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 6 )
+
+[node name="RightSide" type="MeshInstance" parent="."]
+transform = Transform( -1.36953e-07, 2.67178e-14, 1, 1.58585e-07, 4.048, 0, -1.814, 3.53887e-07, -7.54979e-08, 0, 0, -0.893 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 7 )
+
+[node name="frame" type="MeshInstance" parent="RightSide"]
+transform = Transform( 0.0468578, -1.13687e-13, -1.42109e-14, 0, 0.999999, 3.17637e-22, 1.77636e-15, -6.77626e-21, 1, -0.478478, 3.73859e-08, 0.00199991 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 6 )
+
+[node name="frame2" type="MeshInstance" parent="RightSide"]
+transform = Transform( 0.0468578, -1.13687e-13, -1.42109e-14, 0, 0.999999, 3.17637e-22, 1.77636e-15, -6.77626e-21, 1, -0.478305, 3.73859e-08, -0.00200013 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 6 )
+
+[node name="OpenSfx" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 4 )
+unit_size = 2.0
+max_distance = 75.0
+bus = "Sounds"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 2.0
+anims/Close = SubResource( 8 )
+anims/Open = SubResource( 9 )
+[connection signal="body_entered" from="." to="." method="_on_EDoor_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_EDoor_body_exited"]

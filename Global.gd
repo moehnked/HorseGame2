@@ -1,21 +1,28 @@
 extends Node
 
+var AlertJournalUpdate
 var AudioManager
 var GCR
+var GEIDR
+var Generator
 var GIR
 var InputObserver
 var InteractionPrompt
 var Player
 var PlayerRaycastVert
-var world
+var QuestJournal
 var SEM
 var Sun
 var StatusPrompt
-var WorldViewport
-var Generator
 var SkyController
 var RSG = preload("res://Scripts/Statics/RSG.gd")
+var Weather
+var world
+var WorldViewport
 
 func method(ref, method, isDeferred = false):
-	if isDeferred:
-		pass
+	if self[ref] != null:
+		if isDeferred:
+			self[ref].call_deferred(method)
+		else:
+			self[ref].call(method)

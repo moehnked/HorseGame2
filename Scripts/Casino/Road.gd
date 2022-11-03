@@ -174,7 +174,7 @@ func evaluate_hands():
 	playerRank = handRank
 
 func exchange_burn_for_hand(card):
-	play_sound("res://Sounds/Audio/confirmation_002.ogg", -1)
+	play_sound("res://Sounds/Audio/confirmation_002.ogg", -10)
 	for c in hand:
 		c.isSelectable = false
 	discardSelection.play_animation("default")
@@ -473,7 +473,7 @@ func start_turn():
 	Input.set_custom_mouse_cursor(null)
 
 func turn_one():
-	play_sound("res://Sounds/Audio/confirmation_004.ogg", -10, 1 + (3 - roadRemaining) * 0.1)
+	play_sound("res://Sounds/Audio/confirmation_004.ogg", -18, 1 + (3 - roadRemaining) * 0.1)
 	road[3 - roadRemaining].flip()
 	roadRemaining -= 1
 
@@ -526,7 +526,7 @@ func _on_ButtonRoad_pressed():
 func _on_ButtonRoad_mouse_entered():
 	if roadRemaining > 0:
 		show_pointer(get_node("Container/TheRoad/" + String(7 - roadRemaining)).global_position.x)
-		play_sound("res://Sounds/Audio/maximize_006.ogg")
+		play_sound("res://Sounds/Audio/maximize_006.ogg", -18)
 	pass # Replace with function body.
 
 
@@ -537,7 +537,7 @@ func _on_ButtonRoad_mouse_exited():
 
 func _on_BetButton_pressed():
 	print("Road: BET ", bet)
-	play_sound("res://Sounds/Audio/confirmation_003.ogg")
+	play_sound("res://Sounds/Audio/confirmation_003.ogg", -18)
 	wagerDifference = bet
 	wager += wagerDifference
 	place_bet()
@@ -567,12 +567,12 @@ func _on_Decrease_button_down():
 
 func _on_BurnButton_mouse_entered():
 	show_pointer($Container/Deck.global_position.x)
-	play_sound("res://Sounds/Audio/drop_001.ogg")
+	play_sound("res://Sounds/Audio/drop_001.ogg", -10)
 	pass # Replace with function body.
 
 func _on_BurnButton_pressed():
 	print("Road: Burn one")
-	play_sound("res://Sounds/misc_01.wav", 3.0)
+	play_sound("res://Sounds/misc_01.wav", 0.0)
 	burn.set_deal_to($Container/Discard.global_position, Vector2(0.3,0.3), 360)
 	if discard.size() > 0:
 		burn.z_index = discard.back().z_index + 1
@@ -602,7 +602,7 @@ func _on_DiscardButton_mouse_exited():
 
 func _on_DiscardButton_pressed():
 	print("Road: Player select discard")
-	play_sound("res://Sounds/misc_02.wav", 8)
+	play_sound("res://Sounds/misc_02.wav")
 	discardSelection.set_deal_to($Container/Discard.global_position, Vector2(0.3,0.3), 360)
 	discardSelection.play_animation("default")
 	discardSelection.isSelectable = false
@@ -650,7 +650,7 @@ func _on_SkipButton_button_down():
 
 func _on_CallButton_button_down():
 	print("Road: player CALL! ", wagerDifference)
-	play_sound("res://Sounds/alert_06.wav", 10.0)
+	play_sound("res://Sounds/alert_06.wav")
 	place_bet()
 	wagerDifference = 0
 	#jack_think()

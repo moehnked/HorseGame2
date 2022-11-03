@@ -42,10 +42,49 @@
 			"event_id": "dialogic_042"
 		},
 		{
+			"condition": ">=",
+			"definition": "1631346488-973",
+			"event_id": "dialogic_012",
+			"value": "1"
+		},
+		{
 			"condition": "",
 			"definition": "1631346488-973",
 			"event_id": "dialogic_012",
 			"value": "1"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"_A3",
+					"2",
+					"I showed my building permit to Chesterfield."
+				],
+				"method_name": "update_quest",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"_A3"
+				],
+				"method_name": "complete_quest",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"definition": "1631346488-973",
+			"event_id": "dialogic_014",
+			"operation": "=",
+			"random_upper_limit": 100,
+			"set_random": false,
+			"set_value": "2"
+		},
+		{
+			"event_id": "dialogic_013"
 		},
 		{
 			"call_node": {
@@ -110,6 +149,28 @@
 					"openParkDoor"
 				],
 				"method_name": "trigger_event",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"_A1",
+					"7",
+					"I have given Chesterfield all the paperwork I need! The back door leading out of the ranger station and into the park should be unlocked now!"
+				],
+				"method_name": "update_quest",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"_A1"
+				],
+				"method_name": "complete_quest",
 				"target_node_path": "../.."
 			},
 			"event_id": "dialogic_042"

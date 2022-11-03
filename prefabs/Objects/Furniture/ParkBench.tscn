@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://models/objects/furniture/ParkBench/bench.dae" type="PackedScene" id=1]
+[ext_resource path="res://prefabs/Misc/CollisionWall.tscn" type="PackedScene" id=2]
+
+[node name="ParkBench" type="Spatial"]
+
+[node name="bench" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.668963, 0, 0, 0, 0.668963, 0, 0, 0, 0.668963, -0.112026, -0.204568, -0.00583925 )
+
+[node name="CollisionWall" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.0769577, 0.0727183, 0, -0.00869748, 0.643432, 0, 0, 0, 1.48683, 0.501925, 0.91655, 0.0261623 )
+
+[node name="CollisionWall2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.016134, 0.633322, 0, -0.0757484, 0.134894, 0, 0, 0, 1.48683, -0.081239, 0.400305, 0.0261623 )

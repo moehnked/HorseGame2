@@ -1,0 +1,206 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Scripts/UI/UI_MISC/ReelEmIn.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/UI/UI_MISC/reelemin_mouse_target.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/UI/fish_challenge/minigames/reelemin/reel_handle.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/UI/fish_challenge/minigames/reelemin/reel.png" type="Texture" id=4]
+[ext_resource path="res://Sounds/reel_04.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/reel_02.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sounds/reel_03.wav" type="AudioStream" id=7]
+[ext_resource path="res://Sounds/reel_01.wav" type="AudioStream" id=8]
+[ext_resource path="res://Sounds/reel_05.wav" type="AudioStream" id=9]
+[ext_resource path="res://Sprites/misc/publicdomainPack/fish3.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/UI/fish_challenge/minigames/reelemin/progressbar_rim.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/misc/plate.jpg" type="Texture" id=12]
+
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 1, 0, 0, 1, 0.078125, 1, 0, 1 )
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+
+uniform float Strength : hint_range(0,20) = 5;
+uniform float RandomOffset = 1f;
+
+float random( float seed )
+{
+	return fract( 543.2543 * sin( dot( vec2( seed, seed ), vec2( 3525.46 + RandomOffset, -54.3415 ) ) ) );
+}
+
+void vertex()
+{
+	vec2 VERTEX_OFFSET = VERTEX;
+	VERTEX_OFFSET.x += (
+		random(
+			( trunc( VERTEX_OFFSET.y))
+		+	TIME
+		) - 0.5
+	) * Strength ;
+
+	VERTEX_OFFSET.y += (
+		random(
+			( trunc( VERTEX_OFFSET.x))
+		+	TIME
+		) - 0.5
+	) * Strength;
+	
+	VERTEX = VERTEX_OFFSET;	
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = SubResource( 2 )
+shader_param/Strength = 0.0
+shader_param/RandomOffset = 1.0
+
+[node name="ReelEmIn" type="Control" groups=[
+"UI_Special",
+]]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+sfx = [ ExtResource( 8 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 9 ) ]
+colorProgress = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+pause_mode = 2
+light_mask = 2
+margin_left = 483.0
+margin_top = 12.0
+margin_right = 515.0
+margin_bottom = 310.0
+color = Color( 0.411765, 0.992157, 0.0156863, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progressbar_rim" type="Sprite" parent="."]
+pause_mode = 2
+position = Vector2( 565.23, 203.143 )
+texture = ExtResource( 11 )
+
+[node name="reel" type="Sprite" parent="."]
+pause_mode = 2
+position = Vector2( 500.623, 403.417 )
+scale = Vector2( 0.666784, 0.666784 )
+texture = ExtResource( 4 )
+
+[node name="reel_handle" type="Sprite" parent="reel"]
+position = Vector2( 2.82031, -23.7929 )
+scale = Vector2( 1.3983, 1.3983 )
+texture = ExtResource( 3 )
+offset = Vector2( 8.507, 3.899 )
+
+[node name="fish" type="Sprite" parent="."]
+pause_mode = 2
+material = SubResource( 3 )
+position = Vector2( 502.409, 173.453 )
+rotation = 1.5708
+scale = Vector2( 0.246276, 0.246276 )
+texture = ExtResource( 10 )
+
+[node name="Light2D" type="Light2D" parent="fish"]
+pause_mode = 2
+position = Vector2( -492.687, 18.119 )
+scale = Vector2( 9.87631, 4.42602 )
+texture = ExtResource( 12 )
+color = Color( 1, 1, 1, 0 )
+mode = 3
+range_item_cull_mask = 2
+
+[node name="Timer" type="Timer" parent="."]
+pause_mode = 2
+wait_time = 0.3
+one_shot = true
+
+[node name="Container" type="Control" parent="."]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Container"]
+pause_mode = 2
+modulate = Color( 0, 1, 0.882353, 0 )
+margin_left = 498.707
+margin_top = 309.864
+margin_right = 538.707
+margin_bottom = 349.864
+mouse_filter = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel2" type="Panel" parent="Container"]
+pause_mode = 2
+modulate = Color( 0, 1, 0.882353, 0 )
+margin_left = 539.677
+margin_top = 351.956
+margin_right = 579.677
+margin_bottom = 391.956
+mouse_filter = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel3" type="Panel" parent="Container"]
+pause_mode = 2
+modulate = Color( 0, 1, 0.882353, 0 )
+margin_left = 524.524
+margin_top = 408.641
+margin_right = 564.524
+margin_bottom = 448.641
+mouse_filter = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel4" type="Panel" parent="Container"]
+pause_mode = 2
+modulate = Color( 0, 1, 0.882353, 0 )
+margin_left = 470.084
+margin_top = 423.233
+margin_right = 510.084
+margin_bottom = 463.233
+mouse_filter = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel5" type="Panel" parent="Container"]
+pause_mode = 2
+modulate = Color( 0, 1, 0.882353, 0 )
+margin_left = 426.87
+margin_top = 381.701
+margin_right = 466.87
+margin_bottom = 421.701
+mouse_filter = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel6" type="Panel" parent="Container"]
+pause_mode = 2
+modulate = Color( 0, 1, 0.882353, 0 )
+margin_left = 442.584
+margin_top = 325.578
+margin_right = 482.584
+margin_bottom = 365.578
+mouse_filter = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

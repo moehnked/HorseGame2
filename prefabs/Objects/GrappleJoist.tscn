@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://models/misc/GraplerModel/grapple_joist.dae" type="PackedScene" id=1]
+[ext_resource path="res://prefabs/Horses/Lassoable.tscn" type="PackedScene" id=2]
+
+[node name="GrappleJoist" type="Spatial"]
+
+[node name="grapple_joist" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.671915, 0, 0, 0, 0.671915, 0, 0, 0, 0.671915, 0.0145862, 0.129931, 0.174903 )
+
+[node name="Lassoable" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.671915, 0, 0, 0, 0.671915, 0, 0, 0, 0.671915, 0.0743311, 0.662126, 1.58457 )
+saddle = NodePath(".")
+distThresh = 1.5
+[connection signal="lassoed" from="Lassoable" to="Lassoable" method="failed"]

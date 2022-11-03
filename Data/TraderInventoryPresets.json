@@ -5,6 +5,17 @@
     "Handaxe": 1
   },
   "generic2": {
-    "Lamp": 3
+    "Lamp": 3,
+    "Mallet": 2,
+    "Handaxe": 3
+  },
+  "hats1":{
+    "The Boogie Wara":1,
+  	"The Longest John":1,
+  	"The Sportsnap":1,
+	  "The Calling Stetson":1
+  },
+  "nature":{
+    "Apple Tree Sapling": 10
   }
 }

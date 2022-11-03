@@ -1,0 +1,95 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "What else do you need? I'm very busy."
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "..."
+		},
+		{
+			"choice": "How do I get into the park?",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Just head out the back door there. It should be unlocked now."
+		},
+		{
+			"choice": "What is happening?",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "You just signed up for some property. We give out property to capable..."
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "um.... well..."
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Capable horses mostly but you're not a horse..."
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Anyway, capable individuals."
+		},
+		{
+			"character": "character-1631346096.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "In exchange for ownership they develop the land and help the bureau in their efforts to tame and maintain the wilderness."
+		},
+		{
+			"event_id": "dialogic_013"
+		},
+		{
+			"event_id": "dialogic_022",
+			"transition_duration": 1
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1652307785.json",
+		"name": "03"
+	}
+}

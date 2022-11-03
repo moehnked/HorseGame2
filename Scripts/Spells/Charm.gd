@@ -14,26 +14,8 @@ var palm
 var source
 var spellname = "CHARM"
 
-
 func _ready():
 	print("Charming")
-
-#this is where the charm we selected from the charm selection wheel returns.
-#the selection wheel is cleaned up so we just need to verify the proximity to what the player is lookingat
-#and pass that as a target to the soon to be instantiated charm prefab which will do everything it needs to.
-#func charm(charm):
-#	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-#	print("charming with --- ", charm, " - ", lookingat)
-#	if(lookingat.has_method("recieve_charm")):
-#		if(lookingat.can_be_charmed()):
-#			print("sending charm to target ", lookingat)
-#			lookingat.recieve_charm(charm, source)
-#		else:
-#			print("target state: ",lookingat.get_state(), " - target pep: ", lookingat.pep)
-#			print("i don't think this horse likes me")
-#			Global.InteractionPrompt.show_context("I don't think it wants to talk to me...")
-#			Global.AudioManager.play_sound()
-#	conclude()
 
 func charm(charm):
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

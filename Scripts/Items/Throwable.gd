@@ -7,6 +7,7 @@ func _process(delta):
 	if input.standard and isEquipped:
 		throw()
 		input = InputMacro.new()
+	._process(delta)
 
 func throw():
 	var tmp = unequipSoundPath

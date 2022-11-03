@@ -49,6 +49,18 @@
 			"text": "He should be outside somewhere."
 		},
 		{
+			"call_node": {
+				"arguments": [
+					"_A2",
+					"0",
+					"Secretarianne told me that I can find someone outside named Horace that will teach me how to get horses to talk to me."
+				],
+				"method_name": "update_quest",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
 			"choice": "Guild?",
 			"condition": "",
 			"definition": "1631173224-136",
@@ -139,6 +151,18 @@
 			"text": "I’ll get started on the paperwork."
 		},
 		{
+			"call_node": {
+				"arguments": [
+					"_A3",
+					"0",
+					"Secretarianne said that I need a Building Permit. I need to bring her 30 planks in order for her to sign off on the paperwork."
+				],
+				"method_name": "update_quest",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
 			"definition": "1631173224-136",
 			"event_id": "dialogic_014",
 			"operation": "=",
@@ -184,6 +208,18 @@
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "I can give you your [color=#349beb]Building Permit[/color] now!"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"_A3",
+					"1",
+					"I managed to bring 30 planks to Secretarianne. She has validated my building permit. Once I learn how to build and claim some land, I'll be able to start building my ranch! I should show my permit to Chesterfield so he can let me into the park."
+				],
+				"method_name": "update_quest",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
 		},
 		{
 			"definition": "1631173224-136",
@@ -330,12 +366,42 @@
 			"text": "Take this application to [color=#ffebab]Chesterfield[/color]... He's our resident Land Management Officer."
 		},
 		{
+			"call_node": {
+				"arguments": [
+					"_A4",
+					"5",
+					"After acquiring a mallet, Secretarianne has agreed to recommend me for a property application. I can take the application to Chesterfield to get let into the park!"
+				],
+				"method_name": "update_quest",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"_A4"
+				],
+				"method_name": "complete_quest",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
 			"definition": "1631244986-240",
 			"event_id": "dialogic_014",
 			"operation": "=",
 			"random_upper_limit": 100,
 			"set_random": false,
 			"set_value": "-1"
+		},
+		{
+			"definition": "1631244962-340",
+			"event_id": "dialogic_014",
+			"operation": "=",
+			"random_upper_limit": 100,
+			"set_random": false,
+			"set_value": "2"
 		},
 		{
 			"call_node": {
@@ -382,6 +448,18 @@
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "and you will also need a hammer in case you build something you don’t like."
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"_A4",
+					"0",
+					"I can get a Mallet from someone named Sylvester. He should be somewhere in the Ranger Station."
+				],
+				"method_name": "update_quest",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
 		},
 		{
 			"choice": "Mallet?",

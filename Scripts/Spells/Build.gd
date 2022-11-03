@@ -19,10 +19,10 @@ func _process(delta):
 	var joypointr = Vector2(Input.get_joy_axis(0, JOY_ANALOG_RX), Input.get_joy_axis(0, JOY_ANALOG_RY))
 	var joypointl = Vector2(Input.get_joy_axis(0, JOY_ANALOG_LX), Input.get_joy_axis(0, JOY_ANALOG_LY))
 	var joypoint = joypointr if joypointr.length() > joypointl.length() else joypointl
-	if joypoint.length() > 0.2:
+	if joypoint.length() > 0.4:
 		$Container/Ring/Pointer.global_position = $Container/Ring.global_position + (joypoint * pointerRadius)
 	else:
-		var offset = get_global_mouse_position() - $Container/Ring.global_position
+		var offset = Utils.transform_mouse(get_global_mouse_position()) - $Container/Ring.global_position
 		var point = offset.normalized() * pointerRadius
 		$Container/Ring/Pointer.global_position = $Container/Ring.global_position + point
 	pass
@@ -65,6 +65,7 @@ func initialize(args):
 	hand = args.hand
 	callback = args.callback
 	if not check_permit():
+		Global.InteractionPrompt.show_context("Cannot Build: Missing valid permit...")
 		exit()
 		return
 	Utils.show_mouse()

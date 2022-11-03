@@ -1,0 +1,581 @@
+[gd_scene load_steps=49 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Sprites/misc/clownface.png" type="Texture" id=3]
+[ext_resource path="res://models/objects/furniture/06T/screen_2.png" type="Texture" id=4]
+[ext_resource path="res://models/objects/furniture/06T/screen_frame.png" type="Texture" id=5]
+[ext_resource path="res://models/objects/furniture/06T/sign_sprite.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/UI/fish_challenge/minigames/reelemin/reel_handle.png" type="Texture" id=7]
+[ext_resource path="res://Scripts/UI/UI_MISC/06TSighies_Game.gd" type="Script" id=8]
+[ext_resource path="res://Textures/128x128/Tile/Tile 11 - 128x128.png" type="Texture" id=9]
+[ext_resource path="res://Textures/128x128/Tile/Tile 9 - 128x128.png" type="Texture" id=10]
+[ext_resource path="res://models/objects/furniture/06T/pulltostop.png" type="Texture" id=11]
+[ext_resource path="res://Textures/Arcade Carpet Textures - 1/wackycarpet1.png" type="Texture" id=12]
+[ext_resource path="res://Shaders/noise_canvas_shader.tres" type="Material" id=13]
+[ext_resource path="res://Sprites/UI/ArrowDim.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/UI/ArrowHover.png" type="Texture" id=15]
+[ext_resource path="res://Sprites/UI/Arrow.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/misc/thing.png" type="Texture" id=17]
+[ext_resource path="res://prefabs/UI/Misc/CasinoSpriteRoll.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Music/06T_rolling.wav" type="AudioStream" id=19]
+[ext_resource path="res://Music/06T_stop.wav" type="AudioStream" id=20]
+[ext_resource path="res://Sounds/06T_pullarm.wav" type="AudioStream" id=21]
+[ext_resource path="res://Sounds/miscLaser_04.wav" type="AudioStream" id=22]
+[ext_resource path="res://Sounds/miscLaser_01.wav" type="AudioStream" id=23]
+[ext_resource path="res://Sounds/miscLaser_03.wav" type="AudioStream" id=24]
+[ext_resource path="res://Sounds/miscLaser_02.wav" type="AudioStream" id=25]
+
+[sub_resource type="VisualShaderNodeTextureUniform" id=1]
+uniform_name = "TextureUniform"
+
+[sub_resource type="VisualShaderNodeInput" id=2]
+output_port_for_preview = 0
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeInput" id=3]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=4]
+function = 1
+
+[sub_resource type="VisualShaderNodeVectorOp" id=5]
+output_port_for_preview = 0
+operator = 8
+
+[sub_resource type="VisualShaderNodeVectorOp" id=6]
+output_port_for_preview = 0
+operator = 1
+
+[sub_resource type="VisualShader" id=7]
+code = "shader_type canvas_item;
+uniform sampler2D TextureUniform;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// TextureUniform:2
+	vec3 n_out2p0;
+	float n_out2p1;
+	{
+		vec4 n_tex_read = texture(TextureUniform, UV.xy);
+		n_out2p0 = n_tex_read.rgb;
+		n_out2p1 = n_tex_read.a;
+	}
+
+// Input:3
+	vec3 n_out3p0 = vec3(UV, 0.0);
+
+// Input:5
+	float n_out5p0 = TIME;
+
+// ScalarFunc:6
+	float n_out6p0 = cos(n_out5p0);
+
+// VectorOp:7
+	vec3 n_out7p0 = cross(n_out3p0, vec3(n_out6p0));
+
+// VectorOp:8
+	vec3 n_out8p0 = n_out2p0 - n_out7p0;
+
+// Output:0
+	COLOR.rgb = n_out8p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -482, 355.6 )
+mode = 1
+flags/light_only = false
+nodes/fragment/2/node = SubResource( 1 )
+nodes/fragment/2/position = Vector2( -60, 60 )
+nodes/fragment/3/node = SubResource( 2 )
+nodes/fragment/3/position = Vector2( -60, 300 )
+nodes/fragment/5/node = SubResource( 3 )
+nodes/fragment/5/position = Vector2( -520, 500 )
+nodes/fragment/6/node = SubResource( 4 )
+nodes/fragment/6/position = Vector2( -360, 500 )
+nodes/fragment/7/node = SubResource( 5 )
+nodes/fragment/7/position = Vector2( 80, 400 )
+nodes/fragment/8/node = SubResource( 6 )
+nodes/fragment/8/position = Vector2( 200, 140 )
+nodes/fragment/connections = PoolIntArray( 5, 0, 6, 0, 3, 0, 7, 0, 2, 0, 8, 0, 7, 0, 8, 1, 8, 0, 0, 0, 6, 0, 7, 1 )
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
+shader_param/TextureUniform = ExtResource( 4 )
+
+[sub_resource type="VisualShaderNodeTextureUniform" id=9]
+uniform_name = "TextureUniform"
+
+[sub_resource type="VisualShaderNodeInput" id=10]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeInput" id=11]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeVectorOp" id=12]
+operator = 1
+
+[sub_resource type="VisualShaderNodeVectorCompose" id=13]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=14]
+default_input_values = [ 0, 0.0, 1, 2.0 ]
+operator = 2
+
+[sub_resource type="VisualShader" id=15]
+code = "shader_type canvas_item;
+uniform sampler2D TextureUniform;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Input:4
+	vec3 n_out4p0 = vec3(UV, 0.0);
+
+// Input:3
+	float n_out3p0 = TIME;
+
+// ScalarOp:7
+	float n_in7p1 = 2.00000;
+	float n_out7p0 = n_out3p0 * n_in7p1;
+
+// VectorCompose:6
+	float n_in6p0 = 0.00000;
+	float n_in6p2 = 0.00000;
+	vec3 n_out6p0 = vec3(n_in6p0, n_out7p0, n_in6p2);
+
+// VectorOp:5
+	vec3 n_out5p0 = n_out4p0 - n_out6p0;
+
+// TextureUniform:2
+	vec3 n_out2p0;
+	float n_out2p1;
+	{
+		vec4 n_tex_read = texture(TextureUniform, n_out5p0.xy);
+		n_out2p0 = n_tex_read.rgb;
+		n_out2p1 = n_tex_read.a;
+	}
+
+// Output:0
+	COLOR.rgb = n_out2p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -622, 51 )
+mode = 1
+flags/light_only = false
+nodes/fragment/2/node = SubResource( 9 )
+nodes/fragment/2/position = Vector2( 95, 101 )
+nodes/fragment/3/node = SubResource( 10 )
+nodes/fragment/3/position = Vector2( -540, 280 )
+nodes/fragment/4/node = SubResource( 11 )
+nodes/fragment/4/position = Vector2( -280, 120 )
+nodes/fragment/5/node = SubResource( 12 )
+nodes/fragment/5/position = Vector2( -80, 140 )
+nodes/fragment/6/node = SubResource( 13 )
+nodes/fragment/6/position = Vector2( -260, 260 )
+nodes/fragment/7/node = SubResource( 14 )
+nodes/fragment/7/position = Vector2( -460, 160 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 0, 0, 4, 0, 5, 0, 5, 0, 2, 0, 6, 0, 5, 1, 3, 0, 7, 0, 7, 0, 6, 1 )
+
+[sub_resource type="OpenSimplexNoise" id=16]
+octaves = 2
+period = 6.3
+
+[sub_resource type="NoiseTexture" id=17]
+width = 256
+height = 256
+seamless = true
+noise = SubResource( 16 )
+
+[sub_resource type="ShaderMaterial" id=18]
+shader = SubResource( 15 )
+shader_param/TextureUniform = SubResource( 17 )
+
+[sub_resource type="DynamicFont" id=19]
+size = 72
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=20]
+size = 72
+outline_size = 6
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=21]
+resource_name = "Pull"
+length = 1.5
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("PullStopContainer/reel_handle:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( -63.4687, -0.25, 0, 0.25, 0, -1.9383, -0.25, 0, 0.25, 0, -1.9383, -0.25, 0, 0.25, 0, -63.4687, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 0.6, 1.2 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("PullStopContainer/reel_handle:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 915.859, -0.25, 0, 0.25, 0, 915.859, -0.25, 0, 0.25, 0, 915.859, -0.25, 0, 0.25, 0, 915.859, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 0.6, 1.2 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("PullStopContainer/reel_handle:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 193.673, -0.25, 0, 0.25, 0, 407.859, -0.25, 0, 0.25, 0, 407.859, -0.25, 0, 0.25, 0, 193.673, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 0.6, 1.2 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("container/rollContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "default"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("PullStopContainer/reel_handle:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( -63.4687, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("PullStopContainer/reel_handle:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 915.859, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("PullStopContainer/reel_handle:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 193.673, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("container/rollContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("PullStopContainer:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "startRoll"
+tracks/0/type = "value"
+tracks/0/path = NodePath("container/rollContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="06TSighies_Game" type="Node2D"]
+z_index = 5
+z_as_relative = false
+script = ExtResource( 8 )
+sfx_lasers = [ ExtResource( 23 ), ExtResource( 25 ), ExtResource( 24 ), ExtResource( 22 ) ]
+
+[node name="BG" type="Sprite" parent="."]
+modulate = Color( 0.72549, 0.6, 0.921569, 1 )
+material = ExtResource( 13 )
+position = Vector2( 514.454, 299.413 )
+scale = Vector2( 4.11409, 2.41323 )
+texture = ExtResource( 12 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 512, 72.96 )
+scale = Vector2( 0.471564, 0.471564 )
+texture = ExtResource( 6 )
+
+[node name="container" type="Node2D" parent="."]
+position = Vector2( 512, 300 )
+
+[node name="BG" type="Sprite" parent="container"]
+material = SubResource( 8 )
+scale = Vector2( 5.72454, 7.50593 )
+texture = ExtResource( 4 )
+
+[node name="rollContainer" type="Node2D" parent="container"]
+modulate = Color( 1, 1, 1, 0 )
+light_mask = -2147483647
+
+[node name="rollNoise" type="Sprite" parent="container/rollContainer"]
+material = SubResource( 18 )
+scale = Vector2( 10.576, 5.89323 )
+texture = ExtResource( 1 )
+
+[node name="Frame" type="Sprite" parent="container"]
+scale = Vector2( 2.877, 2.5 )
+texture = ExtResource( 5 )
+
+[node name="BetContainer" type="Sprite" parent="."]
+position = Vector2( 85.3075, 300 )
+scale = Vector2( 0.611015, 0.611015 )
+texture = ExtResource( 3 )
+
+[node name="betAmount" type="Label" parent="BetContainer"]
+margin_left = -77.3361
+margin_top = -12.3943
+margin_right = 79.6639
+margin_bottom = 73.6057
+custom_fonts/font = SubResource( 19 )
+text = "00"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="BetContainer"]
+margin_left = -104.925
+margin_top = -228.303
+margin_right = 115.075
+margin_bottom = -138.303
+rect_clip_content = false
+custom_fonts/normal_font = SubResource( 20 )
+bbcode_enabled = true
+bbcode_text = "[wave][rainbow]WAGER[/rainbow][/wave]"
+text = "WAGER"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PullStopContainer" type="Node2D" parent="."]
+visible = false
+
+[node name="pulltostop" type="Sprite" parent="PullStopContainer"]
+position = Vector2( 917.405, 128.575 )
+scale = Vector2( 1, 0.799999 )
+texture = ExtResource( 11 )
+
+[node name="back" type="Sprite" parent="PullStopContainer"]
+modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+position = Vector2( 915.755, 300 )
+scale = Vector2( 0.21224, 1.93012 )
+texture = ExtResource( 10 )
+
+[node name="back2" type="Sprite" parent="PullStopContainer"]
+position = Vector2( 915.545, 300 )
+scale = Vector2( 0.130122, 1.81844 )
+texture = ExtResource( 9 )
+
+[node name="reel_handle" type="Sprite" parent="PullStopContainer"]
+position = Vector2( 915.859, 193.673 )
+rotation = -1.10774
+scale = Vector2( 0.350194, 0.350194 )
+texture = ExtResource( 7 )
+offset = Vector2( 99.6687, 79.6978 )
+
+[node name="StopButton" type="Button" parent="PullStopContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 895.804
+margin_top = 122.212
+margin_right = 1018.8
+margin_bottom = 228.212
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+anims/Pull = SubResource( 21 )
+anims/default = SubResource( 22 )
+anims/startRoll = SubResource( 23 )
+
+[node name="WaagerButtonContainer" type="Node2D" parent="."]
+
+[node name="increaseWager" type="TextureButton" parent="WaagerButtonContainer"]
+margin_left = 93.4093
+margin_top = 404.086
+margin_right = 133.409
+margin_bottom = 444.086
+rect_scale = Vector2( 1.67446, 1.67446 )
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 14 )
+texture_hover = ExtResource( 15 )
+texture_focused = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="decreaseWager" type="TextureButton" parent="WaagerButtonContainer"]
+margin_left = 79.6948
+margin_top = 454.597
+margin_right = 119.695
+margin_bottom = 494.597
+rect_rotation = 180.0
+rect_scale = Vector2( 1.67446, 1.67446 )
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 14 )
+texture_hover = ExtResource( 15 )
+texture_focused = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ReadyToRoll" type="TextureButton" parent="."]
+visible = false
+margin_left = 357.566
+margin_top = 484.273
+margin_right = 469.566
+margin_bottom = 539.273
+rect_scale = Vector2( 2.87135, 2.11135 )
+texture_normal = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ReadyToRoll"]
+margin_left = 31.9214
+margin_top = 9.55859
+margin_right = 181.921
+margin_bottom = 57.5586
+rect_scale = Vector2( 0.378001, 0.378001 )
+rect_clip_content = false
+mouse_filter = 2
+custom_fonts/normal_font = SubResource( 20 )
+bbcode_enabled = true
+bbcode_text = "[wave][rainbow]ROLL[/rainbow][/wave]"
+text = "ROLL"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResultsContainer" type="Node2D" parent="."]
+
+[node name="Sprite1" parent="ResultsContainer" instance=ExtResource( 18 )]
+visible = false
+position = Vector2( 284.422, 176.756 )
+scale = Vector2( 0.854583, 0.854583 )
+
+[node name="Sprite2" parent="ResultsContainer" instance=ExtResource( 18 )]
+visible = false
+position = Vector2( 508.675, 176.756 )
+scale = Vector2( 0.854583, 0.854583 )
+
+[node name="Sprite3" parent="ResultsContainer" instance=ExtResource( 18 )]
+visible = false
+position = Vector2( 734.263, 176.756 )
+scale = Vector2( 0.854583, 0.854583 )
+
+[node name="Sprite4" parent="ResultsContainer" instance=ExtResource( 18 )]
+visible = false
+position = Vector2( 288.426, 298.227 )
+scale = Vector2( 0.854583, 0.854583 )
+
+[node name="Sprite5" parent="ResultsContainer" instance=ExtResource( 18 )]
+visible = false
+position = Vector2( 512.68, 296.892 )
+scale = Vector2( 0.854583, 0.854583 )
+
+[node name="Sprite6" parent="ResultsContainer" instance=ExtResource( 18 )]
+visible = false
+position = Vector2( 736.933, 296.892 )
+scale = Vector2( 0.854583, 0.854583 )
+
+[node name="Sprite7" parent="ResultsContainer" instance=ExtResource( 18 )]
+visible = false
+position = Vector2( 291.096, 422.367 )
+scale = Vector2( 0.854583, 0.854583 )
+
+[node name="Sprite8" parent="ResultsContainer" instance=ExtResource( 18 )]
+visible = false
+position = Vector2( 515.349, 422.367 )
+scale = Vector2( 0.854583, 0.854583 )
+
+[node name="Sprite9" parent="ResultsContainer" instance=ExtResource( 18 )]
+visible = false
+position = Vector2( 740.937, 421.032 )
+scale = Vector2( 0.854583, 0.854583 )
+
+[node name="SpriteRevealTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="sfx_rolling" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 19 )
+volume_db = -3.0
+bus = "Sounds"
+
+[node name="sfx_stop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 20 )
+bus = "Sounds"
+
+[node name="sfx_pullarm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 21 )
+bus = "Sounds"
+[connection signal="pressed" from="PullStopContainer/StopButton" to="." method="_on_StopButton_pressed"]
+[connection signal="pressed" from="WaagerButtonContainer/increaseWager" to="." method="increase_wager"]
+[connection signal="pressed" from="WaagerButtonContainer/decreaseWager" to="." method="decrease_wager"]
+[connection signal="pressed" from="ReadyToRoll" to="." method="_on_ReadyToRoll_pressed"]
+[connection signal="timeout" from="SpriteRevealTimer" to="." method="_on_SpriteRevealTimer_timeout"]

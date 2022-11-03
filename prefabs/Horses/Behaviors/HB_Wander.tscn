@@ -4,3 +4,4 @@
 
 [node name="HB_Wander" type="Node"]
 script = ExtResource( 1 )
+stateName = "Wander"

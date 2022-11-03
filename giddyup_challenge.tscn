@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scripts/giddyup_challenge.gd" type="Script" id=1]
 [ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=2]
@@ -6,6 +6,13 @@
 [ext_resource path="res://Sprites/clock/clock_1.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/clock/clock_4.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/clock/clock_3.png" type="Texture" id=6]
+[ext_resource path="res://Sounds/giddyup_03.wav" type="AudioStream" id=7]
+[ext_resource path="res://Sounds/giddyup_02.wav" type="AudioStream" id=8]
+[ext_resource path="res://Sounds/giddyup_01.wav" type="AudioStream" id=9]
+[ext_resource path="res://prefabs/Misc/Events/PlaySound.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Sounds/speedup.wav" type="AudioStream" id=11]
+[ext_resource path="res://prefabs/Misc/Events/LoadTargetResource.tscn" type="PackedScene" id=12]
+[ext_resource path="res://prefabs/Effects/Success.tscn" type="PackedScene" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 44
@@ -93,6 +100,17 @@ wait_time = 0.1
 
 [node name="CorrectEffectTimer" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="giddyupsound" parent="." instance=ExtResource( 10 )]
+random_sounds = [ ExtResource( 9 ), ExtResource( 8 ), ExtResource( 7 ) ]
+
+[node name="Speedup" parent="." instance=ExtResource( 10 )]
+sfx = ExtResource( 11 )
+
+[node name="LoadTargetResource" parent="." instance=ExtResource( 12 )]
+deleteSelf = false
+deletedTriggerer = false
+res = ExtResource( 13 )
 [connection signal="timeout" from="Tik" to="." method="_on_Tik_timeout"]
 [connection signal="timeout" from="MistakeEffectTimer" to="." method="_on_MistakeEffectTimer_timeout"]
 [connection signal="timeout" from="CorrectEffectTimer" to="." method="_on_CorrectEffectTimer_timeout"]

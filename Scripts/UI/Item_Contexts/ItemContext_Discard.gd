@@ -29,11 +29,15 @@ func discard():
 				if h.global_transform.origin.distance_to(point) > h.global_transform.origin.distance_to(pointb):
 					point = h.global_transform.origin + Vector3(0,4,0)
 
-		Utils.instance_item(item).global_transform.origin = point
+		var o = Utils.instance_item(item)
+		o.global_transform.origin = point
+		o.set_interactable(true)
 		Utils.remove_item(item , controller.get_inventory())
 		var tree = Global.world.get_tree()
 		tree.call_group("InvScreen", "draw_list_items")
 		tree.call_group("InvScreen", "draw_selected_icon")
+		o.toggle_collisions()
+		o.linear_velocity = Vector3.ZERO
 	else:
 		Global.world.get_tree().call_group("InvScreen", "play_error")
 	pass

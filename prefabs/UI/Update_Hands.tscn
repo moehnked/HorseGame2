@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/UI/Update_Hands.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/UI/QE_Lasso.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Sprites/UI/QE_Charm.png" type="Texture" id=10]
 [ext_resource path="res://Sprites/UI/QE_Guard.png" type="Texture" id=11]
 [ext_resource path="res://Sprites/UI/QE_Null.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/UI/QE_Command.png" type="Texture" id=13]
 
 [node name="Update_Hands" type="Control" groups=[
 "UICustom",
@@ -27,6 +28,7 @@ sfx = [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 4 ) ]
 spellIcons = {
 "Build": ExtResource( 9 ),
 "Charm": ExtResource( 10 ),
+"Command": ExtResource( 13 ),
 "Guard": ExtResource( 11 ),
 "Lasso": ExtResource( 2 ),
 "Null": ExtResource( 12 ),

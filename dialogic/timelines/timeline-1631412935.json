@@ -33,6 +33,12 @@
 			"text": "[tornado radius=2 freq=3][wave amp=1 freq=5]Have fun!"
 		},
 		{
+			"condition": "",
+			"definition": "1641949419-648",
+			"event_id": "dialogic_012",
+			"value": "1"
+		},
+		{
 			"character": "character-1631059499.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
@@ -55,6 +61,9 @@
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "If you want to check out the park, you'll need the full version of the game."
+		},
+		{
+			"event_id": "dialogic_013"
 		},
 		{
 			"emit_signal": "",

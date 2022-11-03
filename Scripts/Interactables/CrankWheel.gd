@@ -7,7 +7,7 @@ var turn_ammount = 0
 var controller
 
 func parse_input(input):
-	turn_ammount += max(input.right - input.left, -input.mouse_horizontal) * 2
+	turn_ammount += max(input.right - input.left, -(input.mouse_horizontal * 2.5)) * 2
 	rotation_degrees.y = lerp(rotation_degrees.y, turn_ammount, 0.1)
 	var x = int(turn_ammount)
 	if  x % 25 == 1 and queueSound:
@@ -18,12 +18,14 @@ func parse_input(input):
 	if turn_ammount >= 90:
 		activate()
 		release()
-		$Interactable.queue_free()
+		#$Interactable.queue_free()
+		$Interactable.set_interactable(false, true)
 
 func release():
 	isTurning = false
 	Global.InputObserver.unsubscribe(self)
 	Global.Player.subscribe_to()
+	$Interactable.set_interactable(true, true, true)
 
 func _on_Interactable_emit_prompt(_prompt):
 	_prompt.prompt = "Turn - Hold:"
@@ -40,8 +42,5 @@ func _on_Interactable_holding(controller):
 
 
 func _on_Interactable_release():
-	print("releasing crankwheel")
-	isTurning = false
-	Global.InputObserver.unsubscribe(self)
-	Global.Player.subscribe_to()
+	release()
 	pass # Replace with function body.

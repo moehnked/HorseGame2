@@ -43,6 +43,18 @@
 			"text": "The last chumpster come through here asking for a hammer turned out to be a disaster!"
 		},
 		{
+			"call_node": {
+				"arguments": [
+					"_A4",
+					"2",
+					"Apparently someone misused their hammer privelages, and now Sylvester seems apprehensive about giving out more mallets. Maybe I can talk him into giving one to me?"
+				],
+				"method_name": "update_quest",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
 			"character": "character-1631337512.json",
 			"event_id": "dialogic_001",
 			"portrait": "",

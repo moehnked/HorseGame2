@@ -11,7 +11,7 @@ points = PoolVector3Array( 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,
 
 [node name="Usable" type="RigidBody"]
 script = ExtResource( 2 )
-ContextOptions = [ 0, 1 ]
+ContextOptions = [ 0, 1, 3 ]
 itemName = "Usable"
 
 [node name="Interactable" parent="." instance=ExtResource( 1 )]

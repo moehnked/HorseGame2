@@ -322,8 +322,8 @@ __meta__ = {
 }
 
 [node name="Delay" parent="." instance=ExtResource( 15 )]
-timeDelay = 0.1
 targetEvent = NodePath("../CallMethodsOnTarget")
+timeDelay = 0.1
 
 [node name="CallMethodsOnTarget" parent="." instance=ExtResource( 16 )]
 methodName = "save_world"

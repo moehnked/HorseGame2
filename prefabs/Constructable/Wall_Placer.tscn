@@ -1,25 +1,27 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Materials/Construction/Interior_Wood01.tres" type="Material" id=1]
 [ext_resource path="res://Materials/Construction/Siding_Brick.tres" type="Material" id=2]
 [ext_resource path="res://Scripts/Placer.gd" type="Script" id=3]
+[ext_resource path="res://prefabs/Constructable/NeoConstructs/Wall_Placer.tscn" type="PackedScene" id=4]
 
-[sub_resource type="CubeMesh" id=2]
+[sub_resource type="CubeMesh" id=1]
 
 [node name="Wall" type="Area"]
 script = ExtResource( 3 )
+resource_ref = ExtResource( 4 )
 
 [node name="Siding" type="MeshInstance" parent="."]
 transform = Transform( 0.400085, 0, 0, 0, 2.4, 0, 0, 0, 0.465696, -0.374085, 2.4, -4.09595 )
-mesh = SubResource( 2 )
+mesh = SubResource( 1 )
 material/0 = ExtResource( 2 )
 
 [node name="Siding2" type="MeshInstance" parent="."]
 transform = Transform( 0.400085, 0, 0, 0, 2.4, 0, 0, 0, 0.465696, -0.374085, 2.4, 4.23686 )
-mesh = SubResource( 2 )
+mesh = SubResource( 1 )
 material/0 = ExtResource( 2 )
 
 [node name="Interior" type="MeshInstance" parent="."]
 transform = Transform( 0.06, 0, 0, 0, 2.4, 0, 0, 0, 4.65696, 0.0529413, 2.4, 0 )
-mesh = SubResource( 2 )
+mesh = SubResource( 1 )
 material/0 = ExtResource( 1 )

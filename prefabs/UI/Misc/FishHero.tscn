@@ -1,0 +1,395 @@
+[gd_scene load_steps=54 format=2]
+
+[ext_resource path="res://Sprites/UI/fish_challenge/minigames/fish_hero/fishHero_BG_2.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/UI/fish_challenge/minigames/fish_hero/fishHero_rim.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/UI/fish_challenge/minigames/fish_hero/fishHero_BG_1.png" type="Texture" id=3]
+[ext_resource path="res://prefabs/UI/Misc/FishHero_ButtonRim.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Sprites/UI/fish_challenge/minigames/fish_hero/fish-o-meter_colors.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/misc/publicdomainPack/cursor.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/UI/fish_challenge/minigames/fish_hero/fish-o-meter_rim.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/UI/CH_Club.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/UI/CH_Heart.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/UI/UI_MISC/fish_hero/coverTrigger.gd" type="Script" id=10]
+[ext_resource path="res://Sprites/UI/CH_Spade.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/UI/CH_Diamond.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/misc/publicdomainPack/fish12.png" type="Texture" id=13]
+[ext_resource path="res://Scripts/UI/UI_MISC/fish_hero/NoteMissed.gd" type="Script" id=14]
+[ext_resource path="res://Scripts/UI/UI_MISC/fish_hero/FishHero.gd" type="Script" id=15]
+[ext_resource path="res://Sounds/reel_04.wav" type="AudioStream" id=16]
+[ext_resource path="res://Sounds/reel_02.wav" type="AudioStream" id=17]
+[ext_resource path="res://Sounds/reel_03.wav" type="AudioStream" id=18]
+[ext_resource path="res://Sounds/reel_05.wav" type="AudioStream" id=19]
+[ext_resource path="res://Sounds/reel_01.wav" type="AudioStream" id=20]
+[ext_resource path="res://Sounds/Audio/error_008.ogg" type="AudioStream" id=21]
+[ext_resource path="res://Sounds/Audio/error_005.ogg" type="AudioStream" id=22]
+[ext_resource path="res://Sounds/Audio/error_004.ogg" type="AudioStream" id=23]
+[ext_resource path="res://Sounds/Audio/error_006.ogg" type="AudioStream" id=24]
+[ext_resource path="res://Sounds/fish_02.wav" type="AudioStream" id=25]
+[ext_resource path="res://Sounds/fish_04.wav" type="AudioStream" id=26]
+[ext_resource path="res://Sounds/fish_03.wav" type="AudioStream" id=27]
+[ext_resource path="res://Sounds/fish_05.wav" type="AudioStream" id=28]
+[ext_resource path="res://Sounds/fish_01.wav" type="AudioStream" id=29]
+[ext_resource path="res://Sounds/splashing_loop.wav" type="AudioStream" id=30]
+[ext_resource path="res://Sounds/wet_06.wav" type="AudioStream" id=31]
+[ext_resource path="res://Sounds/wet_05.wav" type="AudioStream" id=32]
+[ext_resource path="res://Sounds/wet_02.wav" type="AudioStream" id=33]
+[ext_resource path="res://Sounds/wet_01.wav" type="AudioStream" id=34]
+[ext_resource path="res://Sounds/wet_03.wav" type="AudioStream" id=35]
+[ext_resource path="res://Sounds/wet_04.wav" type="AudioStream" id=36]
+[ext_resource path="res://Sprites/UI/fish_challenge/minigames/reelemin/reel.png" type="Texture" id=37]
+[ext_resource path="res://Sprites/UI/fish_challenge/minigames/reelemin/reel_handle.png" type="Texture" id=38]
+[ext_resource path="res://Scripts/UI/UI_MISC/fish_hero/fishCursor.gd" type="Script" id=39]
+[ext_resource path="res://Sprites/misc/publicdomainPack/fish13.png" type="Texture" id=40]
+[ext_resource path="res://Sprites/misc/publicdomainPack/fish8.png" type="Texture" id=41]
+[ext_resource path="res://Sprites/misc/publicdomainPack/fish1.png" type="Texture" id=42]
+[ext_resource path="res://Sprites/misc/publicdomainPack/fish11.png" type="Texture" id=43]
+[ext_resource path="res://Sprites/UI/fish_challenge/fish_challenge_bg.png" type="Texture" id=46]
+[ext_resource path="res://Scripts/Misc/Nothing/ApplySmoothRotation2D.gd" type="Script" id=47]
+[ext_resource path="res://Sprites/UI/fish_challenge/minigames/reelemin/progressbar_rim.png" type="Texture" id=48]
+
+[sub_resource type="Curve" id=1]
+max_value = 0.01
+_data = [ Vector2( 0, 0.000272728 ), 0.0, -0.000893183, 0, 0, Vector2( 1, 0.00190909 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CircleShape2D" id=2]
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 21.6515
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 160.587, 32.8727 )
+
+[sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+
+uniform float Strength : hint_range(0,20) = 5;
+uniform float RandomOffset = 1f;
+
+float random( float seed )
+{
+	return fract( 543.2543 * sin( dot( vec2( seed, seed ), vec2( 3525.46 + RandomOffset, -54.3415 ) ) ) );
+}
+
+void vertex()
+{
+	vec2 VERTEX_OFFSET = VERTEX;
+	VERTEX_OFFSET.x += (
+		random(
+			( trunc( VERTEX_OFFSET.y))
+		+	TIME
+		) - 0.5
+	) * Strength ;
+
+	VERTEX_OFFSET.y += (
+		random(
+			( trunc( VERTEX_OFFSET.x))
+		+	TIME
+		) - 0.5
+	) * Strength;
+	
+	VERTEX = VERTEX_OFFSET;	
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+resource_local_to_scene = true
+shader = SubResource( 5 )
+shader_param/Strength = 0.0
+shader_param/RandomOffset = 1.0
+
+[sub_resource type="Animation" id=7]
+resource_name = "default"
+length = 0.5
+step = 0.03
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 391.141, -0.25, 0, 0.25, 0, 297.193, -0.25, 0, 0.25, 0, 389.951, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.03, 0.39 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, -89.7601, -0.25, 0, 0.25, 0, 0.832696, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.06, 0.45 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:material:shader_param/Strength")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 18.161, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.03, 0.51 )
+}
+
+[node name="FishHero" type="Node2D" groups=[
+"UI_Special",
+]]
+pause_mode = 2
+script = ExtResource( 15 )
+noteSpawns = [ NodePath("TrackSpawns/TrackASpawner"), NodePath("TrackSpawns/TrackBSpawner"), NodePath("TrackSpawns/TrackXSpawner"), NodePath("TrackSpawns/TrackYSpawner") ]
+buttons = [ NodePath("AbuttonRim"), NodePath("BbuttonRim"), NodePath("XbuttonRim"), NodePath("YbuttonRim") ]
+sfxReel = [ ExtResource( 20 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 16 ), ExtResource( 19 ) ]
+sfxMissed = [ ExtResource( 23 ), ExtResource( 22 ), ExtResource( 24 ), ExtResource( 21 ) ]
+sfxFish = [ ExtResource( 29 ), ExtResource( 25 ), ExtResource( 27 ), ExtResource( 26 ), ExtResource( 28 ) ]
+sfxSuccess = [ ExtResource( 34 ), ExtResource( 33 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 32 ), ExtResource( 31 ) ]
+rodTimeScale = SubResource( 1 )
+
+[node name="fishHero_rim" type="Sprite" parent="."]
+pause_mode = 2
+position = Vector2( 512, 284.864 )
+z_index = 2
+texture = ExtResource( 2 )
+
+[node name="fishHero_BG_1" type="Sprite" parent="fishHero_rim"]
+pause_mode = 2
+position = Vector2( 0, -79.6948 )
+z_index = -2
+texture = ExtResource( 3 )
+
+[node name="fishHero_BG_2" type="Sprite" parent="fishHero_rim"]
+pause_mode = 2
+light_mask = 2
+position = Vector2( 0, 186.329 )
+z_index = -2
+texture = ExtResource( 1 )
+
+[node name="Light2D" type="Light2D" parent="fishHero_rim"]
+pause_mode = 2
+position = Vector2( 0, 186.329 )
+scale = Vector2( 0.423792, 0.423792 )
+texture = ExtResource( 46 )
+mode = 3
+range_item_cull_mask = 2
+shadow_color = Color( 0, 0.529412, 1, 0 )
+script = ExtResource( 47 )
+
+[node name="AbuttonRim" parent="." instance=ExtResource( 4 )]
+modulate = Color( 0.101961, 1, 0, 1 )
+
+[node name="BbuttonRim" parent="." instance=ExtResource( 4 )]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 466.203, 392.346 )
+input = "FishHero_B"
+
+[node name="XbuttonRim" parent="." instance=ExtResource( 4 )]
+modulate = Color( 0.054902, 0, 1, 1 )
+position = Vector2( 557.861, 392.346 )
+input = "FishHero_X"
+
+[node name="YbuttonRim" parent="." instance=ExtResource( 4 )]
+modulate = Color( 0.968627, 1, 0, 1 )
+position = Vector2( 646.155, 392.346 )
+input = "FishHero_Y"
+
+[node name="FishOMeterRim" type="Sprite" parent="."]
+pause_mode = 2
+position = Vector2( 169.132, 326.08 )
+z_index = 3
+texture = ExtResource( 7 )
+
+[node name="fish-o-meter_colors" type="Sprite" parent="FishOMeterRim"]
+pause_mode = 2
+z_index = -2
+texture = ExtResource( 5 )
+
+[node name="cover_bad" type="Polygon2D" parent="FishOMeterRim"]
+pause_mode = 2
+z_index = -1
+color = Color( 0.219608, 0.219608, 0.219608, 0.839216 )
+polygon = PoolVector2Array( -5.46097, 33.0228, -47.5533, -21.4166, -68.3188, 3.27756, -72.2475, 38.0739 )
+
+[node name="cover_med" type="Polygon2D" parent="FishOMeterRim"]
+pause_mode = 2
+position = Vector2( 32.5514, 15.1533 )
+rotation = 0.99483
+z_index = -1
+color = Color( 0.219608, 0.219608, 0.219608, 0.792157 )
+polygon = PoolVector2Array( -0.306519, 38.4338, -29.3459, -33.2913, -67.9202, -4.80661, -75.1479, 41.3584 )
+
+[node name="cover_good" type="Polygon2D" parent="FishOMeterRim"]
+pause_mode = 2
+position = Vector2( 32.5514, 15.1533 )
+rotation = 0.99483
+z_index = -1
+color = Color( 0.219608, 0.219608, 0.219608, 0.792157 )
+polygon = PoolVector2Array( -0.306519, 38.4338, 39.9258, -20.4263, 5.16821, -36.9758, -21.888, -34.4708 )
+
+[node name="Fish_O_Meter" type="Node2D" parent="FishOMeterRim"]
+pause_mode = 2
+position = Vector2( 0, 37.6025 )
+
+[node name="cursor" type="Sprite" parent="FishOMeterRim/Fish_O_Meter"]
+pause_mode = 2
+position = Vector2( -0.788055, -0.397217 )
+rotation = 2.1399
+texture = ExtResource( 6 )
+
+[node name="Area2D" type="Area2D" parent="FishOMeterRim/Fish_O_Meter"]
+pause_mode = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FishOMeterRim/Fish_O_Meter/Area2D"]
+pause_mode = 2
+position = Vector2( 44.298, -5.05411 )
+shape = SubResource( 2 )
+
+[node name="coverTrigger" type="Area2D" parent="FishOMeterRim"]
+pause_mode = 2
+position = Vector2( 41.7193, 20.5061 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 10 )
+target = NodePath("../cover_good")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FishOMeterRim/coverTrigger"]
+pause_mode = 2
+shape = SubResource( 3 )
+
+[node name="coverTrigger2" type="Area2D" parent="FishOMeterRim"]
+pause_mode = 2
+position = Vector2( -0.707092, 2.12134 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 10 )
+target = NodePath("../cover_med")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FishOMeterRim/coverTrigger2"]
+shape = SubResource( 3 )
+
+[node name="coverTrigger3" type="Area2D" parent="FishOMeterRim"]
+pause_mode = 2
+position = Vector2( -42.7799, 21.5668 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 10 )
+target = NodePath("../cover_bad")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FishOMeterRim/coverTrigger3"]
+shape = SubResource( 3 )
+
+[node name="TrackSpawns" type="Node2D" parent="."]
+pause_mode = 2
+position = Vector2( 379.161, 32.2789 )
+scale = Vector2( 0.623773, 0.584844 )
+z_index = 3
+
+[node name="TrackASpawner" type="Sprite" parent="TrackSpawns"]
+pause_mode = 2
+texture = ExtResource( 9 )
+
+[node name="TrackBSpawner" type="Sprite" parent="TrackSpawns"]
+pause_mode = 2
+position = Vector2( 143.783, 0 )
+texture = ExtResource( 11 )
+
+[node name="TrackXSpawner" type="Sprite" parent="TrackSpawns"]
+pause_mode = 2
+position = Vector2( 286.294, 0 )
+texture = ExtResource( 12 )
+
+[node name="TrackYSpawner" type="Sprite" parent="TrackSpawns"]
+pause_mode = 2
+position = Vector2( 430.078, 0 )
+texture = ExtResource( 8 )
+
+[node name="NoteMissed" type="Area2D" parent="."]
+pause_mode = 2
+position = Vector2( 512, 471.416 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 14 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NoteMissed"]
+pause_mode = 2
+shape = SubResource( 4 )
+
+[node name="NoteSpawnTimer" type="Timer" parent="."]
+pause_mode = 2
+wait_time = 1.5
+
+[node name="fishCursor" type="Sprite" parent="."]
+pause_mode = 2
+material = SubResource( 6 )
+position = Vector2( 377.947, 391.141 )
+scale = Vector2( 0.3, 0.3 )
+z_index = 3
+texture = ExtResource( 42 )
+script = ExtResource( 39 )
+sprites = [ ExtResource( 13 ), ExtResource( 41 ), ExtResource( 43 ), ExtResource( 40 ), ExtResource( 42 ) ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="fishCursor"]
+pause_mode = 2
+anims/default = SubResource( 7 )
+
+[node name="ReelSounds" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+bus = "Sounds"
+
+[node name="MissedSounds" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+volume_db = -8.0
+bus = "Sounds"
+
+[node name="FishSounds" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+bus = "Sounds"
+
+[node name="loop" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+stream = ExtResource( 30 )
+bus = "Sounds"
+
+[node name="SuccessSounds" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+
+[node name="TimeRemaining" type="ColorRect" parent="."]
+pause_mode = 2
+margin_left = 864.0
+margin_top = 273.0
+margin_right = 887.0
+margin_bottom = 503.0
+rect_rotation = -180.0
+mouse_filter = 2
+color = Color( 0, 1, 0.415686, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progressbar_rim" type="Sprite" parent="."]
+pause_mode = 2
+position = Vector2( 891.446, 159.669 )
+scale = Vector2( 0.601429, 0.601429 )
+texture = ExtResource( 48 )
+
+[node name="reel" type="Sprite" parent="."]
+pause_mode = 2
+position = Vector2( 851.247, 341.827 )
+scale = Vector2( 0.427898, 0.427898 )
+texture = ExtResource( 37 )
+
+[node name="reel_handle" type="Sprite" parent="reel"]
+pause_mode = 2
+position = Vector2( 6.54272, -19.8398 )
+scale = Vector2( 1.81977, 1.81977 )
+texture = ExtResource( 38 )
+offset = Vector2( 8.012, 3.983 )
+[connection signal="area_entered" from="FishOMeterRim/coverTrigger" to="FishOMeterRim/coverTrigger" method="_on_coverTrigger_area_entered"]
+[connection signal="area_exited" from="FishOMeterRim/coverTrigger" to="FishOMeterRim/coverTrigger" method="_on_coverTrigger_area_exited"]
+[connection signal="area_entered" from="FishOMeterRim/coverTrigger2" to="FishOMeterRim/coverTrigger2" method="_on_coverTrigger_area_entered"]
+[connection signal="area_exited" from="FishOMeterRim/coverTrigger2" to="FishOMeterRim/coverTrigger2" method="_on_coverTrigger_area_exited"]
+[connection signal="area_entered" from="FishOMeterRim/coverTrigger3" to="FishOMeterRim/coverTrigger3" method="_on_coverTrigger_area_entered"]
+[connection signal="area_exited" from="FishOMeterRim/coverTrigger3" to="FishOMeterRim/coverTrigger3" method="_on_coverTrigger_area_exited"]
+[connection signal="area_entered" from="NoteMissed" to="NoteMissed" method="_on_NoteMissed_area_entered"]
+[connection signal="missed_note" from="NoteMissed" to="." method="_on_NoteMissed_missed_note"]
+[connection signal="timeout" from="NoteSpawnTimer" to="." method="_on_NoteSpawnTimer_timeout"]

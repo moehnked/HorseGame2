@@ -6,7 +6,9 @@ var selected
 var contextResources = {
 	context.Discard : preload("res://prefabs/UI/ItemContext_Discard.tscn"),
 	context.Equip : preload("res://prefabs/UI/ItemContext_Equip.tscn"),
-	context.Unequip: preload("res://prefabs/UI/ItemContext_Unequip.tscn")
+	context.Unequip: preload("res://prefabs/UI/ItemContext_Unequip.tscn"),
+	context.Use: preload("res://prefabs/UI/ItemContext_Use.tscn"),
+	context.Read: preload("res://prefabs/UI/ItemContext_Read.tscn")
 }
 
 # Called when the node enters the scene tree for the first time.

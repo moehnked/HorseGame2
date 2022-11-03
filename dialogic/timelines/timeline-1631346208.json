@@ -29,6 +29,28 @@
 			"text": "Hey. What’dya need?"
 		},
 		{
+			"call_node": {
+				"arguments": [
+					"_A2",
+					"3",
+					"I have managed to get chesterfield to open up and talk to me! now I just need to bring him a building permit and a property application and he will let me into the park!"
+				],
+				"method_name": "update_quest",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"_A2"
+				],
+				"method_name": "complete_quest",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
 			"character": "",
 			"event_id": "dialogic_010",
 			"options": [

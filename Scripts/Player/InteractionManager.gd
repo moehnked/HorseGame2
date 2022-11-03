@@ -4,9 +4,11 @@ var canInteract = true
 var canReadPrompt:bool = true
 var equipmentManager = null
 var ignore = []
+var insideLookingAt = null
 var interactable = null
 var lookingAt = null
 var raycast:RayCast = RayCast.new()
+var solidRay:RayCast = RayCast.new()
 
 signal broadcast_self(controller)
 signal emit_looking_at(by, at)
@@ -17,12 +19,16 @@ func _ready():
 func _process(delta):
 	lookingAt = raycast.get_collider()
 	if lookingAt != null:
-		if lookingAt.has_method("recieve_looking_at"):
+		if lookingAt.has_method("recieve_looking_at") and not check_solid_block():
+		#if lookingAt.has_method("recieve_looking_at"):
 			lookingAt.recieve_looking_at(self)
 		else:
 			lookingAt = null
 	else:
 		clear()
+	if insideLookingAt != null:
+		lookingAt = insideLookingAt
+		lookingAt.recieve_looking_at(self)
 
 func add_to_ignore(other):
 	ignore.append(other)
@@ -39,8 +45,20 @@ func check_if_ignore(other):
 			return false
 	return true
 
+func check_solid_block():
+	var s = solidRay.get_collider()
+	if s != null:
+		var sdist = solidRay.global_transform.origin.distance_squared_to(solidRay.get_collision_point())
+		var adist = raycast.global_transform.origin.distance_squared_to(raycast.get_collision_point())
+		#print("S: ", sdist, ", A: ", adist)
+		return sdist < adist - 0.1
+	else:
+		return false
+	pass
+
 func clear():
-	Global.InteractionPrompt.clear()
+	#Global.InteractionPrompt.clear()
+	Global.method("InteractionPrompt", "clear")
 
 func disable_interact():
 	canInteract = false
@@ -62,6 +80,12 @@ func get_looking_at():
 
 func get_raycast():
 	return raycast
+
+func set_inside_interactable(s = null):
+	insideLookingAt = s
+	if insideLookingAt != null:
+		lookingAt = insideLookingAt
+		lookingAt.recieve_looking_at(self)
 
 func set_raycast(_raycast):
 	raycast = _raycast
@@ -105,4 +129,9 @@ func _on_EquipmentManager_emit_equipped(equipment):
 
 func _on_EquipmentManager_emit_unequip(equipment):
 	remove_from_ignore(equipment)
+	pass # Replace with function body.
+
+
+func _on_RayCast_Solids_broadcast_self(_raycast):
+	solidRay = _raycast
 	pass # Replace with function body.

@@ -1,7 +1,12 @@
 extends Spatial
 
+export(NodePath) var animationPlayer
+export(NodePath) var hitbox
+export(NodePath) var model
+export(NodePath) var rig
 export(bool) var soundWhileMoving = true
 
+var attackAnimationFinished = true
 var RPSThrown = 0
 var sfx = [
 	"res://Sounds/gallop1.wav",
@@ -16,34 +21,51 @@ func _ready():
 	pass
 
 func _process(delta):
-	match $AnimationPlayer2.current_animation:
+	match get_animation_player().current_animation:
 		"Trot":
-			print("trot: ", get_frame())
-			if Utils.compare_floats(get_frame(), 0.8, 0.01) and soundWhileMoving:
-				play_sound()
+			if soundWhileMoving:
+				if Utils.compare_floats(get_frame(), 0.8, 0.01):
+					play_sound()
 			pass 
 
 func add_hat(item):
 	get_hat_point().add_child(item)
 	item.global_transform = Transform(get_hat_point().global_transform)
 
+func finish_attack_anim():
+	attackAnimationFinished = true
+
+func get_animation_player():
+	return get_node(animationPlayer)
+
 func get_frame():
-	return $AnimationPlayer2.current_animation_position
+	return get_animation_player().current_animation_position
 
 func get_hat_point():
-	return $RM_White_Horse_Rig/Skeleton/BoneAttachment/HatPoint
+	return get_rig().get_node("Skeleton/BoneAttachment/HatPoint")
+
+func get_hitbox():
+	return get_node(hitbox)
 
 func get_model():
-	return $RM_White_Horse_Rig/Skeleton/RM_White_Horse
+	#return $RM_White_Horse_Rig/Skeleton/RM_White_Horse
+	return get_node(model)
+
+func get_rig():
+	return get_node(rig)
+
+func init_hitbox(hbox):
+	hbox.initialize({"actor": get_parent(), "dmg": get_parent().stats["girth"]})
 
 func play_animation(anim):
-	$AnimationPlayer2.play(anim)
+	get_animation_player().play(anim)
+	get_hitbox().set_active(false)
 
 func set_playback_speed(spd = 1.0):
-	$AnimationPlayer2.playback_speed = spd
+	get_animation_player().playback_speed = spd
 
 func highlight(toggle):
-	var outline = $RM_White_Horse_Rig/Skeleton/RM_White_Horse.get_surface_material(0)
+	var outline = get_model().get_surface_material(0)
 	outline.next_pass = load("res://Materials/outline_material_Green.tres") if toggle else load("res://Materials/outline_material.tres")
 
 func set_material(mat):
@@ -59,6 +81,19 @@ func shoot_rps():
 			play_animation("RPS_Fets")
 		2:
 			play_animation("RPS_Hooves")
+
+func play_attack_anim(idx):
+	attackAnimationFinished = false
+	match idx:
+		0:
+			play_animation("Attack")
+		1:
+			play_animation("Attack_0")
+		2:
+			play_animation("Attack_1")
+
+func play_random_attack():
+	play_attack_anim(Utils.get_rng().randi_range(0,2))
 
 func play_sound():
 	if owner.get_state() == "Pilot":

@@ -54,6 +54,42 @@ shader_param/albedo = Color( 0.5, 0.5, 0.5, 1 )
 [sub_resource type="Animation" id=10]
 resource_name = "default"
 length = 10.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Label:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Label2:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 9.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="Animation" id=11]
 loop = true
@@ -156,8 +192,8 @@ volume = 0.0
 
 [node name="Delay" parent="." instance=ExtResource( 4 )]
 triggerOnReady = true
-timeDelay = 1.5
 targetEvent = NodePath("../PlaySong")
+timeDelay = 1.5
 
 [node name="CallMethodsInGroup" parent="." instance=ExtResource( 5 )]
 methodName = "hide_hud"
@@ -186,7 +222,11 @@ material/0 = SubResource( 9 )
 [node name="TransitionSky" parent="." instance=ExtResource( 9 )]
 skyname = "night"
 
-[node name="Control" type="Control" parent="."]
+[node name="Node2D" type="Node2D" parent="."]
+z_index = 200
+z_as_relative = false
+
+[node name="Control" type="Control" parent="Node2D"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -194,9 +234,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Control"]
+[node name="Label" type="Label" parent="Node2D/Control"]
+visible = false
+margin_left = 34.0383
 margin_top = 327.579
-margin_right = 651.0
+margin_right = 685.038
 margin_bottom = 388.579
 rect_scale = Vector2( 0.629795, 0.629795 )
 custom_fonts/font = ExtResource( 10 )
@@ -205,10 +247,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="Control"]
+[node name="Label2" type="Label" parent="Node2D/Control"]
+visible = false
+margin_left = 34.0383
 margin_top = 374.197
-margin_right = 927.0
-margin_bottom = 627.197
+margin_right = 961.038
+margin_bottom = 755.197
 rect_scale = Vector2( 0.440456, 0.440456 )
 custom_fonts/font = ExtResource( 10 )
 text = "If you liked this demo and would
@@ -216,14 +260,13 @@ like to try the full version,
 consider supporting me on
 patreon.
 
-patreon.com/dickbenis"
+www.patreon.com/dmoehnke"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Control"]
 autoplay = "default"
-playback_speed = 0.5
 anims/default = SubResource( 10 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

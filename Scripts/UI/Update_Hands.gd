@@ -121,6 +121,7 @@ func clear_options():
 	if(option_objects.size() != 0):
 		for i in option_objects:
 			i.queue_free()
+			option_objects.erase(i)
 
 func select_left_hand():
 	print("clicked left")

@@ -13,6 +13,7 @@ signal rotation_complete()
 func _ready():
 	print("rotateableevent ready")
 	.connect("emit_event_triggered",self,"start_rotation")
+	._ready()
 
 func _process(delta):
 	if isRotating:
@@ -25,6 +26,14 @@ func _process(delta):
 			if completionEventGroupTarget != "":
 				Global.world.get_tree().call_group(completionEventGroupTarget, "trigger", self)
 			isRotating = false
+
+func set(param, val):
+	match param:
+		"targetRotation":
+			targetRotation = Utils.string2vec(val)
+		_:
+			.set(param,val)
+	pass
 
 func start_rotation(by):
 	print("starting rotation")

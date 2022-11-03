@@ -1,12 +1,10 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/Placer.gd" type="Script" id=1]
 [ext_resource path="res://models/constructable/fence.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://models/constructable/3,0/RopeMat.material" type="Material" id=3]
 [ext_resource path="res://models/constructable/3,0/Fence_Mat01.material" type="Material" id=4]
 [ext_resource path="res://prefabs/Items/Plank.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Materials/construction_valid.tres" type="Material" id=6]
-[ext_resource path="res://Materials/construction_invalid.tres" type="Material" id=7]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cube.003"
@@ -155,8 +153,6 @@ surfaces/0 = {
 [node name="Fence_Placer" type="Area"]
 script = ExtResource( 1 )
 resource_ref = ExtResource( 5 )
-valid = ExtResource( 6 )
-invalid = ExtResource( 7 )
 required_materials = 10
 
 [node name="MeshInstance" type="MeshInstance" parent="."]

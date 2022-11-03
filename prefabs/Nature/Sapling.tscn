@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Nature/Sapling.gd" type="Script" id=1]
+[ext_resource path="res://models/nature/Sapling/sapling.dae" type="PackedScene" id=2]
+
+[node name="Sapling" type="Spatial" groups=[
+"HourAlert",
+"Persist",
+]]
+script = ExtResource( 1 )
+maxHP = 1
+hp = 1
+
+[node name="sapling" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.176057, 0, 0, 0, 0.176057, 0, 0, 0, 0.176057, 0, 0, 0 )

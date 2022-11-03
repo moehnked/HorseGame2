@@ -37,7 +37,7 @@ func _process(delta):
 		$Ring/Pointer.global_position = $Ring.global_position + (joypoint * pointerRadius)
 		pass
 	else:
-		var offset = get_global_mouse_position() - $Ring.global_position
+		var offset = Utils.transform_mouse(get_local_mouse_position()) - $Ring.global_position
 		var point = offset.normalized() * pointerRadius
 		$Ring/Pointer.global_position = $Ring.global_position + point
 	pass

@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Textures/128x128/Wood/Wood 3 - 128x128.png" type="Texture" id=1]
+[ext_resource path="res://prefabs/Objects/set_pieces/Emblam.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Sprites/misc/Xenophonsmall.png" type="Texture" id=3]
+
+[sub_resource type="CylinderMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_texture = ExtResource( 1 )
+distance_fade_mode = 2
+distance_fade_min_distance = 160.0
+distance_fade_max_distance = 70.0
+
+[sub_resource type="QuadMesh" id=3]
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_transparent = true
+albedo_texture = ExtResource( 3 )
+distance_fade_mode = 2
+distance_fade_min_distance = 160.0
+distance_fade_max_distance = 70.0
+
+[node name="EmlamWBorder" type="MeshInstance"]
+transform = Transform( -2.16722e-08, 0.133023, -2.16722e-08, 0, -7.93437e-07, -4.87008, -3.86098, -6.29033e-07, 1.02482e-13, -10.0805, 13.859, -0.161691 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="Emblam" type="MeshInstance" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1.82204, 2.14715e-19, -1.369e-06, -1.52295e-05, -2.68495e-07, 8.56664, 2.4812e-12, -1.64801, -1.39568e-06, -3.20375e-07, 1.97665, -4.76837e-07 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )

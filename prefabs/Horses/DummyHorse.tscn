@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scripts/Horse/DummyHorse.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Horse/StateMachine.gd" type="Script" id=2]
@@ -7,13 +7,17 @@
 [ext_resource path="res://prefabs/Horses/Lassoable.tscn" type="PackedScene" id=5]
 [ext_resource path="res://prefabs/Horses/Behaviors/HB_Giddyup.tscn" type="PackedScene" id=6]
 [ext_resource path="res://prefabs/Horses/Behaviors/HB_Pilot.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scripts/Horse/RelationshipManager.gd" type="Script" id=10]
-[ext_resource path="res://prefabs/Effects/HorseMoodParticles.tscn" type="PackedScene" id=11]
+[ext_resource path="res://prefabs/Misc/Events/PlaySound.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Sounds/destroy_03.wav" type="AudioStream" id=9]
+[ext_resource path="res://prefabs/Horses/RelationshipManager.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/Horse/HorseInteractionController.gd" type="Script" id=12]
 [ext_resource path="res://prefabs/Interactables/InteractableNoPreset.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Sounds/destroy_01.wav" type="AudioStream" id=14]
 [ext_resource path="res://prefabs/PlayerStuff/EquipmentManager.tscn" type="PackedScene" id=15]
 [ext_resource path="res://prefabs/Horses/HoldingPoint.gd" type="Script" id=16]
 [ext_resource path="res://prefabs/Misc/DummyHorseModel.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Sounds/destroy_04.wav" type="AudioStream" id=18]
+[ext_resource path="res://Sounds/destroy_02.wav" type="AudioStream" id=19]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -64,14 +68,6 @@ shape = SubResource( 1 )
 transform = Transform( 0.783684, 0, 0, 0, 0.783684, 0, 0, 0, 0.783684, -5.1835e-09, 2.08251, -1.0895 )
 script = ExtResource( 16 )
 
-[node name="RelationshipManager" type="Spatial" parent="."]
-transform = Transform( 0.783684, 0, 0, 0, 0.783684, 0, 0, 0, 0.783684, -5.1835e-09, 0.0804137, -0.0448999 )
-script = ExtResource( 10 )
-pep = 5
-
-[node name="Particles" parent="RelationshipManager" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00350106, 2.97081, -0.879644 )
-
 [node name="GroundCheck" type="RayCast" parent="."]
 transform = Transform( -0.783684, 0, -6.85119e-08, 0, 0.783684, 0, 6.85119e-08, 0, -0.783684, -5.52797e-08, 0.0442152, -0.0420877 )
 enabled = true
@@ -96,7 +92,7 @@ transform = Transform( 0.783684, 0, 0, 0, 0.783684, 0, 0, 0, 0.783684, -5.1835e-
 shape = SubResource( 3 )
 
 [node name="Damageable" parent="." instance=ExtResource( 3 )]
-health = 1
+transform = Transform( 3.76198, 0, 0, 0, 3.76198, 0, 0, 0, 3.76198, 0, 0, 0 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="Damageable"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.50934, 0.463265 )
@@ -105,8 +101,13 @@ shape = SubResource( 4 )
 [node name="Lassoable" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1.32669, 0, 0, 0, 1.32669, 0, 0, 0, 1.83006, 0, 1.70941, 0.222549 )
 saddle = NodePath("../Saddle")
-distThresh = 2.0
-[connection signal="emit_charm_recieved" from="." to="RelationshipManager" method="_on_Horse_emit_charm_recieved"]
+distThresh = 5.0
+
+[node name="PlaySound" parent="." instance=ExtResource( 8 )]
+random_sounds = [ ExtResource( 14 ), ExtResource( 19 ), ExtResource( 9 ), ExtResource( 18 ) ]
+
+[node name="RelationshipManager" parent="." instance=ExtResource( 10 )]
+[connection signal="emit_charm_recieved" from="." to="RelationshipManager" method="recieve_charm"]
 [connection signal="broadcast_self" from="EquipmentManager" to="InteractionController" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="broadcast_self" from="EquipmentManager" to="HoldingPoint" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="area_entered" from="InteractionController" to="InteractionController" method="_on_InteractionController_area_entered"]
@@ -115,4 +116,5 @@ distThresh = 2.0
 [connection signal="emit_prompt" from="Interactable" to="." method="_on_Interactable_emit_prompt"]
 [connection signal="interaction" from="Interactable" to="." method="_on_Interactable_interaction"]
 [connection signal="destroy" from="Damageable" to="." method="_on_Damageable_destroy"]
+[connection signal="lasso_failed" from="Lassoable" to="." method="enter_idle"]
 [connection signal="lassoed" from="Lassoable" to="." method="_on_Lassoable_lassoed"]

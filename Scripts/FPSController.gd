@@ -2,8 +2,6 @@ extends KinematicBody
 
 onready var head = $Head
 
-export(Resource) var inventoryScreenSource
-
 export var DEACCEL = 6
 export var MAX_SPEED = 40
 export var MAX_ACCEL = 2
@@ -24,7 +22,7 @@ var canCheckInventory = true
 var canJump = true
 var canResetCasting = true
 var canUpdateHands = true
-var chips = 25
+var chips = 50
 var fall = Vector3()
 var flushing = false
 var fullContact = false
@@ -45,35 +43,30 @@ var normalAcceleration = 6
 var saddle
 var scaleMod = 1.0
 var spellqueue = []
-#var state = State.normal
-var treats:float = 200
+var uid = 0
+
 
 var placer_observers = []
 var raycastObservers = []
 
-var lefthandSpell = "Lasso"
-var righthandSpell = "Punch"
+var lefthandSpell = "Null"
+var righthandSpell = "Null"
 
-var buildList = ["Fence"]
-export(Array, String) var spellList = ["Null", "Punch"]
-
-var sfx_grunts = [
-	"res://sounds/grunt_01.wav",
-	"res://sounds/grunt_02.wav",
-	"res://sounds/grunt_03.wav",
-	"res://sounds/grunt_04.wav",
-	"res://sounds/grunt_05.wav",
-]
+var buildList = []
+export(Array, String) var spellList = ["Null"]
+export var treats:float = 20
 
 onready var currentBehavior = get_node("StateContainer/Normal")
 
 func _ready():
 	Global.Player = self
-	set_behavior("Normal")
+	#set_behavior("Normal")
 	scaleMod = scale.x
 	correct_scale()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_interaction_controller().set_raycast(get_raycast())
+	call_deferred("set_behavior", "Normal")
+	set_uid(Global.GEIDR.generate_uid(self))
 	pass # Replace with function body.
 
 func _physics_process(delta):
@@ -97,9 +90,18 @@ func _on_RightCooldown_timeout():
 	print("cast right cooldown complete....")
 	canCastRight = canResetCasting
 
+func add_blueprint(plan):
+	if not buildList.has(plan):
+		buildList.append(plan)
+
+func add_spell(spellname):
+	if not spellList.has(spellname):
+		spellList.append(spellname)
+
 func add_to_party(member):
-	print("===---=== ", $HUD.party.size(), " - ", $Head/Skull/Hat.level)
-	if($HUD.party.size() < $Head/Skull/Hat.level):
+	#print("===---=== ", $HUD.party.size(), " - ", $Head/Skull/Hat.level)
+	#if($HUD.party.size() < $Head/Skull/Hat.level):
+	if $HUD.check_party_size():
 		print("adding ", member.name, " to party")
 		print("adding to party - ", member.name)
 		$HUD.add_party_member(member)
@@ -115,7 +117,8 @@ func aggroable():
 
 func calculate_knockback_vector(hitbox, source):
 	print("type:  --- ",hitbox.get_class())
-	return (hitbox.global_transform.origin - source.global_transform.origin) * 10
+	#return (hitbox.global_transform.origin - source.global_transform.origin) * 10
+	return 10 * Vector3(1,0,1)
 	pass
 
 func can_exit_horse():
@@ -155,15 +158,13 @@ func conclude_spell(spell):
 	spellqueue.remove(0)
 
 func correct_scale():
-	scale = Vector3(scaleMod, scaleMod, scaleMod)
+	#scale = Vector3(scaleMod, scaleMod, scaleMod)
+	scale = Vector3(.456,.456,.456)
+
 
 func disable_collisions():
 	$CollisionShape.disabled = true
 	pass
-
-func toggle_all_collisions(tog = false):
-	$CollisionShape.disabled = tog
-	$GroundCheck.enabled = not tog
 
 func enable_casting():
 	canCastLeft = true
@@ -179,9 +180,18 @@ func enter_dialogue(other):
 
 func enter_inventory():
 	enter_some_menu()
-	var screen = inventoryScreenSource.instance()
+	var screen = load("res://prefabs/UI/InventoryScreens/BaseInventoryScreen.tscn").instance()
 	screen.initialize({'source':self, 'inv':get_inventory(), 'callback':"exit_inventory"})
 	Global.world.call_deferred("add_child", screen)
+	
+func enter_journal():
+	enter_some_menu()
+#	var screen = load("res://prefabs/UI/InventoryScreens/JournalMenu.tscn").instance()
+#	screen.initialize({'source':self, 'inv':get_inventory(), 'callback':"exit_inventory"})
+#	Global.world.call_deferred("add_child", screen)
+#	Utils.show_mouse(true)
+	var screen = Global.world.instantiate(load("res://prefabs/UI/InventoryScreens/JournalMenu.tscn").instance())
+	screen.initialize({'source':self, 'callback':"exit_inventory"})
 
 func enter_some_menu():
 	get_head().stop()
@@ -239,6 +249,9 @@ func flush_spell(spell):
 			raycast_unsubscribe(o)
 	flushing = false
 
+func get_command_raycast():
+	return $Head/Camera/RayCast_Command
+
 func get_camera():
 	return $Head/Camera
 
@@ -246,18 +259,22 @@ func get_equipped():
 	return get_equipment_manager().equipped
 
 func get_equipment_manager():
-	return $EquipmentManager
-	#return get_node("EquipmentManager")
+	#return $EquipmentManager
+	return get_node("EquipmentManager")
 
 func get_ground_check():
 	return $GroundCheck
 
+func get_input():
+	if not input is InputMacro:
+		input = InputMacro.new()
+	return input
+	
+
 func get_interaction_controller():
-	#return $InteractionController
 	return get_node("InteractionManager")
 
 func get_inventory():
-	#return $InteractionController.inventory
 	return get_equipment_manager().get_inventory()
 
 func get_hat():
@@ -268,12 +285,21 @@ func get_hand():
 
 func get_head():
 	return $Head
+#
+#func get_load_priority():
+#	return 2
+
+func get_hud():
+	return $HUD
 
 func get_palm():
 	return $Head/Palm
 
 func get_party(asKeys = true):
-	return $HUD.get_party(asKeys)
+	return $HUD.query_party()
+
+func get_pos():
+	return global_transform.origin
 
 func get_raycast():
 	return $Head/Camera/RayCast_Areas
@@ -290,8 +316,14 @@ func get_state():
 func get_treats():
 	return treats
 
+func get_uid():
+	return uid
+
 func get_x_rotation():
 	return get_head().rotation.x
+
+func get_velocity():
+	return $StateContainer/Normal.velocity
 
 func hide_hud():
 	$HUD.visible = false
@@ -299,16 +331,14 @@ func hide_hud():
 func initializeHUD(letter):
 	$Head/Camera/GuiLoadArea/H.initialize(letter)
 
+func is_collision_enabled():
+	return not $CollisionShape.disabled
+
 func is_player():
 	return true
 
 func is_focused():
 	return get_head().is_focused()
-
-#func lasso(saddle, lasso):
-#	print("player starting lasso yatta")
-#	set_behavior("Lasso", {"lassoSucceeded": lasso.lassoSucceeded})
-#	self.saddle = saddle
 
 func parse_input(_input):
 	input = _input
@@ -329,6 +359,9 @@ func parse_input(_input):
 	elif input.tab:
 		if canCheckInventory:
 			enter_inventory()
+	elif input.journal:
+		if canCheckInventory:
+			enter_journal()
 
 func placer_subscribe(placer):
 	placer_observers.append(placer)
@@ -345,9 +378,7 @@ func queue_spell_clear():
 	flushing = true
 
 func random_grunt():
-	randomize()
-	var grunt = sfx_grunts[randi() % sfx_grunts.size()]
-	play_sound(grunt)
+	$GruntSfx.trigger()
 
 func raycast_subscribe(placer):
 	if(!raycastObservers.has(placer)):
@@ -384,6 +415,10 @@ func revoke_menu_options():
 	canUpdateHands = false
 	canCheckInventory = false
 
+func save():
+	#Utils.save_items_from_list(get_inventory(), get_equipped())
+	return Utils.serialize_node(self)
+
 func set_lasso_limit():
 	$LassoTimeout.start()
 
@@ -399,6 +434,20 @@ func set_knockback_timer(time):
 
 func set_treats(val):
 	treats = val
+
+func set_velocity(vel):
+	$StateContainer/Normal.velocity = vel
+
+func set_uid(_uid):
+	uid = _uid
+
+func set(param, val):
+	match param:
+		"uid":
+			set_uid(int(val))
+			Global.GEIDR.register(self)
+		_:
+			.set(param, val)
 
 func show_hud():
 	$HUD.visible = true
@@ -435,6 +484,7 @@ func subscribe_to():
 	get_interaction_controller().canInteract = true
 	get_equipment_manager().subscribe_to()
 	set_is_running()
+	remove_from_group("QueueInputSubscription")
 
 func take_damage(dmg = 1, hitbox = null, source = null):
 	HP -= dmg
@@ -446,6 +496,10 @@ func take_damage(dmg = 1, hitbox = null, source = null):
 		set_behavior("Knockback", {"actor":self, "vector": calculate_knockback_vector(hitbox, source), "dmg": dmg})
 		#enter_knockback(, dmg)
 		pass
+
+func toggle_all_collisions(tog = false):
+	$CollisionShape.disabled = tog
+	$GroundCheck.enabled = not tog
 
 func unsubscribe_to():
 	print("Player unsubscribing")

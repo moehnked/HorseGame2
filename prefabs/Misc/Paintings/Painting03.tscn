@@ -47,7 +47,7 @@ title = "Untitled Eagle"
 date = "Dec 14, 2019"
 
 [node name="Interactable" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.355265, 0, 0, 0.34358 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.355265, 0, 0, 0.572968 )
 
 [node name="painting_frame" type="MeshInstance" parent="."]
 transform = Transform( 0.425259, 0, 0, 0, 0.425259, 0, 0, 0, 0.425259, 0, 0, 0 )

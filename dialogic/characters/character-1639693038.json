@@ -8,8 +8,8 @@
 	"name": "Generic",
 	"nickname": "",
 	"nickname_bool": false,
-	"offset_x": 0,
-	"offset_y": 0,
+	"offset_x": 20,
+	"offset_y": -70,
 	"portraits": [
 		{
 			"name": "Default",

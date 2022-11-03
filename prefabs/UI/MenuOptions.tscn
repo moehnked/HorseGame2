@@ -1,0 +1,174 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://fonts/diag_01.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scripts/UI/MainMenuOptions.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/misc/publicdomainPack/drawing_horse.png" type="Texture" id=3]
+[ext_resource path="res://Sounds/UI_Select_B.wav" type="AudioStream" id=4]
+[ext_resource path="res://prefabs/Misc/Events/PlaySound.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Sounds/vibes/03_c.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sprites/UI/mainmenu/bg.png" type="Texture" id=7]
+[ext_resource path="res://Sounds/vibes/02.wav" type="AudioStream" id=8]
+[ext_resource path="res://Sounds/Audio/error_001.ogg" type="AudioStream" id=9]
+[ext_resource path="res://Sounds/Audio/error_002.ogg" type="AudioStream" id=10]
+[ext_resource path="res://Sounds/Audio/error_003.ogg" type="AudioStream" id=11]
+[ext_resource path="res://Sounds/Audio/error_004.ogg" type="AudioStream" id=12]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float vignette_intensity = 0.4;
+uniform float vignette_opacity : hint_range(0.0, 1.0) = 0.5;
+uniform vec4 vignette_rgb : hint_color = vec4(0.0, 0.0, 0.0, 1.0);
+
+float vignette(vec2 uv){
+	uv *= 1.0 - uv.xy;
+	float vignette = uv.x * uv.y * 15.0;
+	return pow(vignette, vignette_intensity * vignette_opacity);
+}
+
+void fragment(){
+	vec4 color = texture(SCREEN_TEXTURE, SCREEN_UV);
+	vec4 text = texture(TEXTURE, UV);
+	
+	text.rgba *= (vignette_rgb.rgba);
+	text.rgba *= (1.0 - vignette(UV));
+	
+	COLOR = vec4((text.rgb)*color.rgb,text.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/vignette_intensity = 0.0
+shader_param/vignette_opacity = 1.0
+shader_param/vignette_rgb = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "default"
+length = 3.0
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Vignette:material:shader_param/vignette_intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 50, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.8 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 2.9 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "fade_ended"
+} ]
+}
+
+[node name="MenuOptions" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -54.0
+margin_top = -49.0
+margin_right = 54.0
+margin_bottom = 49.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewGame" type="Label" parent="VBoxContainer"]
+margin_right = 108.0
+margin_bottom = 30.0
+focus_next = NodePath("../Load")
+focus_mode = 2
+mouse_filter = 0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+text = "New Game"
+align = 1
+
+[node name="Load" type="Label" parent="VBoxContainer"]
+margin_top = 50.0
+margin_right = 108.0
+margin_bottom = 80.0
+focus_next = NodePath("../Quit")
+focus_previous = NodePath("../NewGame")
+focus_mode = 2
+mouse_filter = 0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+text = "Load"
+align = 1
+
+[node name="Quit" type="Label" parent="VBoxContainer"]
+margin_top = 100.0
+margin_right = 108.0
+margin_bottom = 130.0
+focus_previous = NodePath("../Load")
+focus_mode = 2
+mouse_filter = 0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+text = "Quit"
+align = 1
+
+[node name="HorseSelector" type="Sprite" parent="."]
+position = Vector2( 408, 264 )
+scale = Vector2( 0.216001, 0.216001 )
+texture = ExtResource( 3 )
+offset = Vector2( 0, 80 )
+
+[node name="Select" parent="." instance=ExtResource( 5 )]
+sfx = ExtResource( 4 )
+
+[node name="newGameSound" parent="." instance=ExtResource( 5 )]
+sfx = ExtResource( 6 )
+
+[node name="loadGameSound" parent="." instance=ExtResource( 5 )]
+sfx = ExtResource( 8 )
+
+[node name="Vignette" type="Sprite" parent="."]
+material = SubResource( 2 )
+position = Vector2( 512, 300 )
+z_index = 200
+texture = ExtResource( 7 )
+
+[node name="Fadeout" type="AnimationPlayer" parent="."]
+playback_speed = 0.5
+anims/default = SubResource( 3 )
+
+[node name="error" parent="." instance=ExtResource( 5 )]
+random_sounds = [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ]
+volume = -3.0
+[connection signal="focus_entered" from="VBoxContainer/NewGame" to="." method="update_focus"]
+[connection signal="mouse_entered" from="VBoxContainer/NewGame" to="VBoxContainer/NewGame" method="grab_focus"]
+[connection signal="focus_entered" from="VBoxContainer/Load" to="." method="update_focus"]
+[connection signal="mouse_entered" from="VBoxContainer/Load" to="VBoxContainer/Load" method="grab_focus"]
+[connection signal="focus_entered" from="VBoxContainer/Quit" to="." method="update_focus"]
+[connection signal="gui_input" from="VBoxContainer/Quit" to="." method="_on_Quit_gui_input"]
+[connection signal="mouse_entered" from="VBoxContainer/Quit" to="VBoxContainer/Quit" method="grab_focus"]

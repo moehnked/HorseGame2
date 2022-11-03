@@ -4,12 +4,6 @@
 	],
 	"variables": [
 		{
-			"id": "1631316431-366",
-			"name": "sa_item_planks",
-			"type": 0,
-			"value": "0"
-		},
-		{
 			"id": "1631244986-240",
 			"name": "sa_z",
 			"type": 0,
@@ -64,8 +58,14 @@
 			"value": "0"
 		},
 		{
-			"id": "1630746130-507",
-			"name": "test",
+			"id": "1631423910-906",
+			"name": "randomText",
+			"type": 0,
+			"value": ""
+		},
+		{
+			"id": "1640253079-323",
+			"name": "cf_hasMetPlayer",
 			"type": 0,
 			"value": "0"
 		},
@@ -73,13 +73,43 @@
 			"id": "1631338754-780",
 			"name": "sy_x",
 			"type": 0,
-			"value": "1"
+			"value": "0"
 		},
 		{
-			"id": "1631423910-906",
-			"name": "randomText",
+			"id": "1630746130-507",
+			"name": "test",
 			"type": 0,
-			"value": ""
+			"value": "0"
+		},
+		{
+			"id": "1643668666-648",
+			"name": "_Test",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1644039088-787",
+			"name": "_A3",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1643603214-784",
+			"name": "_A1",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1644037892-648",
+			"name": "_A2",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1644039107-366",
+			"name": "_A4",
+			"type": 0,
+			"value": "0"
 		},
 		{
 			"id": "1631346488-973",
@@ -88,8 +118,32 @@
 			"value": "0"
 		},
 		{
-			"id": "1640253079-323",
-			"name": "cf_hasMetPlayer",
+			"id": "1641949419-648",
+			"name": "isDemo",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1665912294-674",
+			"name": "purchasedChipsSuccess",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1631316431-366",
+			"name": "sa_item_planks",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1651466077-648",
+			"name": "genericCanTrade",
+			"type": 0,
+			"value": "0"
+		},
+		{
+			"id": "1666857507-855",
+			"name": "bolo_has_cryptic",
 			"type": 0,
 			"value": "0"
 		}

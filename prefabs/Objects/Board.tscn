@@ -20,7 +20,9 @@ extents = Vector3( 0.512484, 0.491537, 0.0123935 )
 mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
 
-[node name="StaticBody" type="StaticBody" parent="."]
+[node name="StaticBody" type="StaticBody" parent="." groups=[
+"Wood",
+]]
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1, 4.65661e-10, -2.4098e-08, -9.31323e-10, 1, -7.45058e-08, -1.97906e-08, 2.98023e-08, 1, -0.00034523, 0.00052619, -0.00214291 )

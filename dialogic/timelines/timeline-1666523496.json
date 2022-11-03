@@ -1,0 +1,93 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "It kinda sucks how like, more and more no one can afford anything..."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Like, those that are lucky enough to have resources and opportunity and wealth just buy everything up."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Its a race to purchase all of the last avaliable property and soon there wont be anything left to buy."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Like, from then on out there will be a permenant class divide..."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "the owner class, who have all the property and wealth and businesses..."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "and then the rest of us, who weren't lucky enough to make it over the line"
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Ya know? Like, thats the end phase of capitalism."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "If you couldn't afford to purchase your slot before times up, you'll be stuck forever in the renters class."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "There just simply won't be anything you can afford, or anything for sale."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "And the owners just get to make all the rules, cutting costs, increasing their profits..."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "until things get so shitty no one can take it anymore..."
+		},
+		{
+			"change_timeline": "timeline-1666521945.json",
+			"event_id": "dialogic_020"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1666523496.json",
+		"name": "03"
+	}
+}

@@ -34,7 +34,22 @@ custom_fonts/font = SubResource( 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 3
 custom_constants/shadow_offset_y = 3
-text = "ItemName"
+text = "itemName"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CountLabel" type="Label" parent="."]
+margin_left = 309.328
+margin_top = 13.0
+margin_right = 564.328
+margin_bottom = 72.0
+rect_scale = Vector2( 0.40029, 0.40029 )
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "x1000"
 __meta__ = {
 "_edit_use_anchors_": false
 }

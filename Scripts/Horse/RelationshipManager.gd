@@ -17,34 +17,27 @@ var personality
 var relationships = {}
 
 func _ready():
-	add_to_group("rng_dependant")
+	if Global.world == null:
+		add_to_group("rng_dependant")
+	else:
+		initialize()
 	add_to_group("HourAlert")
 
 func calculate_charm_effect(charm, charmer):
 	print(name, " RECIEVED CHARM ", charm)
-	if(relationships.has(charmer)):
-		relationships[charmer] += mood[charm]
+	if(relationships.has(charmer.get_uid())):
+		relationships[charmer.get_uid()] += mood[charm]
 	else:
-		relationships[charmer] = mood[charm]
+		relationships[charmer.get_uid()] = mood[charm]
 	
 	if(mood[charm] > 0):
 		get_parent().set_pep(get_parent().get_pep() + 1)
 	elif(mood[charm] < 0):
 		get_parent().set_pep(get_parent().get_pep() - 1)
 	
-	print(name, "'s Relationship with ", charmer.name, " increased by ", mood[charm], " to ", relationships[charmer])
+	print(name, "'s Relationship with ", charmer.name, " increased by ", mood[charm], " to ", relationships[charmer.get_uid()])
 	print("Pep: ", get_parent().get_pep())
-	match(mood[charm]):
-		2:
-			$Particles.loved()
-		1:
-			$Particles.liked()
-		0:
-			pass
-		-1:
-			$Particles.disliked()
-		-2:
-			$Particles.hated()
+	emit_particles(mood[charm])
 	if(check_relationships(charmer) < -4):
 		#we have made an enemy
 		pass
@@ -78,10 +71,26 @@ func check_if_conversable(args):
 		return false
 
 func check_relationships(person):
-	if relationships.has(person):
-		return relationships[person]
+	if relationships.has(person.get_uid()):
+		return relationships[person.get_uid()]
 	else:
 		return 0
+
+func emit_particles(val):
+	match(val):
+		2:
+			$Particles.loved()
+		1:
+			$Particles.liked()
+		0:
+			pass
+		-1:
+			$Particles.disliked()
+		-2:
+			$Particles.hated()
+
+func get_charmer_ref(id):
+	return Global.GEIDR.get_entity(id)
 
 func hour_alert():
 	get_parent().set_pep(max(get_parent().get_pep() - 1, -10))
@@ -126,6 +135,13 @@ func parse_charm(charm, charmer, spell):
 			screen.initialize({"vendor":charmer, "customer":owner, "inv":charmer.get_inventory(), 'source':charmer, 'callback':'exit_some_menu', 'displayName':owner.get_horse_name()})
 			Global.world.add_child(screen)
 			return m
+		HorseMoods.bloodlust:
+			#check if trainer
+			#check if bloodlust mood is at minimum
+			#enter frenzy
+				#frenzy attacks horse within range with lowest relationship
+				#sates bloodlust for a time
+			return m
 		_:
 			m = calculate_charm_effect(charm, charmer)
 	return m
@@ -152,13 +168,37 @@ func roll_moods(weights):
 		i += 1
 	return i
 
+func save():
+#	var rels = {}
+#	for i in relationships.keys():
+#		rels[i.get_path()] = relationships[i]
+	return Utils.serialize_node(self)
+
+func set(param, val):
+	match param:
+		"mood":
+			for i in val.keys():
+				mood[int(i)] = int(val[i])
+		"relationships":
+			for i in val.keys():
+				relationships[int(i)] = int(val[i])
+		_:
+			.set(param,val)
+
 func set_moods(mb, i, v):
 	mood[mb[i]] = v
 	personality.remove(i)
 	mb.remove(i)
 
+func update_relationship(other, val):
+	if relationships.keys().has(other):
+		relationships[other] += val
+	else:
+		relationships[other] = val
 
-
-func _on_Horse_emit_charm_recieved(charm, charmer, spell):
-	recieve_charm(charm, charmer, spell)
+func _on_delayFindRelationshipsTimer_timeout():
+	for i in relationships.keys():
+		if i is String:
+			relationships[get_node(i)] = relationships[i]
+			relationships.erase(i)
 	pass # Replace with function body.

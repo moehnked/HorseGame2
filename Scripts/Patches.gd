@@ -1,17 +1,20 @@
 extends Spatial
 
 export(int) var dialoguePoint = 1
+#export(Resource) dsRef
 export(bool) var removeGroupOnReady = false
 export(float, -50.0, 20.0) var speakingVolume = 1.0
 export(Array, AudioStream) var sfx = []
 
-var dsRef = preload("res://prefabs/UI/Dialogue/Dialogic_NPC_DialogueScreen.tscn")
+#var dsRef = preload("res://prefabs/UI/Dialogue/Dialogic_NPC_DialogueScreen.tscn")
+
 var headPointOrigin = Vector3()
 var isLookingAtPlayer = false
+var lookDistance = 2.0
 
 
 func _ready():
-	headPointOrigin = $Patches2/Armature/Skeleton/HeadPoint.global_transform.origin
+	headPointOrigin = $Patches2/Armature/Skeleton/HeadPoint.transform.origin
 	$Patches2/Armature/Skeleton/SkeletonIK.start()
 	if removeGroupOnReady:
 		remove_from_group("Patches")
@@ -27,8 +30,10 @@ func _process(delta):
 			nt_q.set_axis_angle(Vector3.UP, deg2rad(rotAngle))
 			nt.basis = Basis(nt_q)
 			global_transform = global_transform.interpolate_with(nt, 0.02)
-		if global_transform.origin.distance_to(Global.Player.global_transform.origin) > 1.5:
+		if global_transform.origin.distance_to(Global.Player.global_transform.origin) > (lookDistance):
 			point_head(delta)
+#		else:
+#			point_head(delta, $HeadPointOrigin.global_transform.origin)
 
 
 func exit_dialogue():
@@ -50,17 +55,33 @@ func increment_timeline():
 	dialoguePoint += 1
 	pass
 
-func point_head(delta):
-	$Patches2/Armature/Skeleton/HeadPoint.global_transform = $Patches2/Armature/Skeleton/HeadPoint.global_transform.looking_at(Global.Player.get_head().global_transform.origin, Vector3.DOWN)
-	$Patches2/Armature/Skeleton/HeadPoint.rotation_degrees.x += 50
-	var newPoint = headPointOrigin + $Patches2/Armature/Skeleton/HeadPoint.global_transform.origin.direction_to(Global.Player.get_head().global_transform.origin).normalized() * 2
-	$Patches2/Armature/Skeleton/HeadPoint.global_transform.origin = $Patches2/Armature/Skeleton/HeadPoint.global_transform.origin.linear_interpolate(newPoint, delta)
+func point_head(delta, targetPoint = Global.Player.get_head().global_transform.origin + Vector3(0,2,0)):
+	var hp = $Patches2/Armature/Skeleton/HeadPoint
+	var GT = hp.global_transform
+	var looking = GT.looking_at(targetPoint, Vector3.DOWN)
+	var newpoint = $HeadPointStart.global_transform.origin + ($HeadPointStart.global_transform.origin.direction_to(targetPoint) * (min(lookDistance, $HeadPointStart.global_transform.origin.distance_to(targetPoint))))
+	GT = GT.interpolate_with(looking, 0.01)
+	hp.global_transform = GT
+	hp.global_transform.origin = hp.global_transform.origin.linear_interpolate(newpoint, 0.01)
+	
+	
+	#print("head ", $Patches2/Armature/Skeleton/HeadPoint.global_transform.origin)
+	#$Patches2/Armature/Skeleton/HeadPoint.global_transform = $Patches2/Armature/Skeleton/HeadPoint.global_transform.looking_at(targetPoint, Vector3.DOWN)
+	#$Patches2/Armature/Skeleton/HeadPoint.rotation_degrees.x += 50
+	#var newPoint = headPointOrigin + $Patches2/Armature/Skeleton/HeadPoint.global_transform.origin.direction_to(targetPoint).normalized() * 2
+	#var newPoint = $HeadPointOrigin.global_transform.origin + $Patches2/Armature/Skeleton/HeadPoint.global_transform.origin.direction_to(targetPoint).normalized() * 2
+	#$Patches2/Armature/Skeleton/HeadPoint.global_transform.origin = $Patches2/Armature/Skeleton/HeadPoint.global_transform.origin.linear_interpolate(newPoint, delta)
+	pass
 
 func ready_dialogue(controller):
-	var ds = dsRef.instance()
+	#var ds = dsRef.instance()
+	var ds = load("res://prefabs/UI/Dialogue/Dialogic_NPC_DialogueScreen.tscn").instance()
 	Global.world.add_child(ds)
 	ds.initialize({'speaker':self, 'listener':controller.get_parent(), 'text':["hellow", "world"], "timelineName":get_dialogue_point()})
 	controller.begin_dialogue(self)
+
+func save():
+	return Utils.serialize_node(self)
 
 func set_can_interact(val = true):
 	$Interactable.set_interactable(val)

@@ -3,10 +3,12 @@ extends StaticBody
 export(String)var message = ""
 export(String)var context = ""
 export(String) var groupname = ""
+export(bool) var showButtonPrompt = true
 signal sign_read(controller)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Interactable.showButtonPrompt = showButtonPrompt
 	pass # Replace with function body.
 
 

@@ -16,7 +16,7 @@ func initialize(args = {}):
 	var head = actor.get_head()
 	head.unsubscribe_to()
 	knockbackDirection = args.vector
-	actor.set_knockback_timer(0.2 * args.dmg)
+	actor.set_knockback_timer(args.dmg * 5)
 	
 
 func apply_gravity(actor, delta):

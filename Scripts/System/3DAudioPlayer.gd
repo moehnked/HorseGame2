@@ -17,6 +17,7 @@ var maxSqr
 var minSqr
 var curDBLevel = -100
 var proximity = 0
+var volBuffer = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,7 +28,7 @@ func _ready():
 	$AudioStreamPlayer.autoplay = autoplay
 	$AudioStreamPlayer.stream_paused = streamPaused
 	minSqr = pow(minDist, 2)
-	maxSqr = pow(maxDist, 2)
+	maxSqr = pow(maxDist, 2) - minSqr
 	pass # Replace with function body.
 
 
@@ -35,12 +36,20 @@ func _ready():
 func _process(delta):
 	if isWithinMaxDistance:
 		playerDist = global_transform.origin.distance_squared_to(Global.Player.global_transform.origin)
-		proximity = 1.0 - (minSqr / playerDist)
-		curDBLevel = volumeDB - (100 * clamp(proximity,0.0,1.0))
+		proximity = clamp(clamp(playerDist - minSqr, 0, maxSqr) / maxSqr, 0.0 ,1.0)
+		proximity = 1.0 - proximity
+		curDBLevel = -80 + ((80 + volumeDB) * proximity)
 		#print("3dAduio: ", proximity, "% , ", curDBLevel)
 		$AudioStreamPlayer.volume_db = lerp($AudioStreamPlayer.volume_db, curDBLevel, 0.1)
 		#if playerDist < maxSqr:
 	pass
+
+func mute():
+	volBuffer = volumeDB
+	volumeDB = -80
+
+func unmute():
+	volumeDB = volBuffer
 
 
 func _on_Area_body_entered(body):
@@ -52,7 +61,7 @@ func _on_Area_body_entered(body):
 
 
 func _on_Area_body_exited(body):
-	if body == Global.Player:
+	if body == Global.Player and Global.Player.is_collision_enabled():
 		isWithinMaxDistance = false
 		if $AudioStreamPlayer.playing:
 			$AudioStreamPlayer.stop()

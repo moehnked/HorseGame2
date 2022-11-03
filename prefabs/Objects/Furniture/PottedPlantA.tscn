@@ -24,12 +24,14 @@ material/0 = SubResource( 2 )
 [node name="Plant3" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1.25389, 0.595814, -3.93147e-08, 0, -2.56133e-07, -0.636732, -0.466768, 1.97128, -1.30075e-07, -0.182838, 1.01837, -0.712265 )
 xo = 6
+isWiggleEnabled = false
 
 [node name="Plant4" parent="." instance=ExtResource( 3 )]
 transform = Transform( 3.49811, 0, -7.38964e-13, 0, 3.49811, 0, 1.7053e-13, 0, 3.49811, 0, 1.28141, -0.0116882 )
 xo = 2
 yo = 3
 isBillboard = 2
+isWiggleEnabled = false
 
 [node name="StaticBody" type="StaticBody" parent="."]
 

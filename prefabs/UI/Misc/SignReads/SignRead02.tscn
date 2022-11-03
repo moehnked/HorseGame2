@@ -26,6 +26,7 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
+light_mask = 2
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -61,10 +62,12 @@ __meta__ = {
 
 [node name="ButtonHintContainer" type="Node2D" parent="."]
 modulate = Color( 1, 1, 1, 0.752941 )
+light_mask = 2
 position = Vector2( 550.12, 494.057 )
 script = ExtResource( 2 )
 
 [node name="ButtonHintKeys" type="Label" parent="ButtonHintContainer"]
+light_mask = 2
 margin_left = -10.8995
 margin_right = 40.1005
 margin_bottom = 29.0
@@ -78,6 +81,7 @@ __meta__ = {
 }
 
 [node name="ButtonHintCont" type="Sprite" parent="ButtonHintContainer"]
+light_mask = 2
 position = Vector2( 14.059, 16.2861 )
 scale = Vector2( 0.208437, 0.208437 )
 texture = ExtResource( 3 )

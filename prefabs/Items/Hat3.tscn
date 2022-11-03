@@ -173,6 +173,7 @@ next_pass = SubResource( 4 )
 shader = SubResource( 18 )
 
 [node name="Hat3" type="RigidBody"]
+can_sleep = false
 script = ExtResource( 2 )
 ContextOptions = [ 0, 1 ]
 icon = "res://Sprites/Items/hats/TheSportsnap.png"

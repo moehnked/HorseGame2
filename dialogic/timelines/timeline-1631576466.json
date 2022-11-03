@@ -21,6 +21,23 @@
 			"event_id": "dialogic_020"
 		},
 		{
+			"choice": "TRADE",
+			"condition": "",
+			"definition": "1651466077-648",
+			"event_id": "dialogic_011",
+			"value": "1"
+		},
+		{
+			"call_node": {
+				"arguments": [
+
+				],
+				"method_name": "start_trade",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
 			"event_id": "dialogic_013"
 		}
 	],

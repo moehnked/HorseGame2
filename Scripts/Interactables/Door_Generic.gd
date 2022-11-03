@@ -4,6 +4,7 @@ extends Spatial
 var isOpen = false
 var canOpen = true
 
+signal door_state_changed(door)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,6 +30,7 @@ func toggle_open():
 	$DoorOpenMesh.visible = !$DoorOpenMesh.visible
 	$StaticBody/CollisionShape.disabled =!$DoorClosedMesh.visible
 	isOpen = !isOpen
+	emit_signal("door_state_changed", self)
 
 
 func _on_Interactable_interaction(controller):

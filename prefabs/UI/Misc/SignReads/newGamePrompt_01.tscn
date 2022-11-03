@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://fonts/zrnic rg_0.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=1]
+size = 37
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_char = 4
+font_data = ExtResource( 1 )
+
+[node name="Control" type="Control"]
+light_mask = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+light_mask = 2
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -61.8412
+margin_top = -168.78
+margin_right = 60.1588
+margin_bottom = -124.78
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "Warning:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="."]
+light_mask = 2
+margin_left = 137.942
+margin_top = 488.137
+margin_right = 1206.94
+margin_bottom = 626.137
+rect_scale = Vector2( 0.699963, 0.699963 )
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "This is a demo for a game which is in early access. There may
+be several bugs. Horse Game 2 is still in development."
+__meta__ = {
+"_edit_use_anchors_": false
+}

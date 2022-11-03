@@ -628,6 +628,7 @@ custom_fonts/font = SubResource( 10 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 3
 custom_constants/shadow_offset_y = 2
+text = "abcdefghijklmno...      X5"
 __meta__ = {
 "_edit_use_anchors_": false
 }

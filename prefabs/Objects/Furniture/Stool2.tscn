@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://prefabs/Misc/CollisionWall.tscn" type="PackedScene" id=1]
+[ext_resource path="res://models/objects/furniture/stool_2/stool_2.dae" type="PackedScene" id=2]
+
+[node name="Stool" type="Spatial"]
+
+[node name="stool_2" parent="." instance=ExtResource( 2 )]
+
+[node name="CollisionWall" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1.276, 0, 0, 0, 1, 0, 0, 0 )

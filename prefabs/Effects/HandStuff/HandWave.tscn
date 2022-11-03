@@ -164,11 +164,11 @@ __meta__ = {
 hasSnapped = true
 
 [node name="Hand" type="Sprite" parent="."]
-position = Vector2( 515.279, 302.285 )
-rotation = 0.431231
-scale = Vector2( 0.212307, 0.212307 )
+position = Vector2( 1160.16, -8.19584 )
+rotation = 0.134026
+scale = Vector2( 0.0800564, 0.0800564 )
 z_index = 100
-texture = ExtResource( 2 )
+texture = ExtResource( 4 )
 
 [node name="Node2D2" type="Node2D" parent="Hand"]
 visible = false
@@ -194,7 +194,7 @@ opacityMod = 0.1
 position = Vector2( 38.9541, -87.376 )
 scale = Vector2( 11.7792, 11.7792 )
 stream = ExtResource( 6 )
-volume_db = -29.885
+volume_db = -79.8925
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 "anims/New Anim" = SubResource( 1 )

@@ -1,0 +1,20 @@
+{
+	"color": "#ff7a00ff",
+	"description": "",
+	"display_name": "",
+	"display_name_bool": false,
+	"id": "character-1666851847.json",
+	"mirror_portraits": false,
+	"name": "Bolo",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 20,
+	"offset_y": -70,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://Sprites/NPCs/Bolo.png"
+		}
+	],
+	"scale": 100
+}

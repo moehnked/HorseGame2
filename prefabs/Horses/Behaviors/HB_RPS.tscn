@@ -5,6 +5,7 @@
 
 [node name="HB_RPS" type="Node"]
 script = ExtResource( 1 )
+stateName = "RPS"
 rpsGameRes = ExtResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]

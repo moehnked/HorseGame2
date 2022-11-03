@@ -1,5 +1,6 @@
 extends Control
 var canExit = false
+var emptySprite = preload("res://Sprites/misc/empty_small.png")
 var initArgs = {}
 var selected = null
 var highlighted = null
@@ -30,7 +31,7 @@ func _process(delta):
 func clear_context():
 	$Description.text = ""
 	$ContextOptionsContainer.clear_context()
-	$Frame/INVDisplay.texture = Texture.new()
+	$Frame/INVDisplay.texture = emptySprite
 	$Frame/SelectionLabel.text = ""
 	$Frame/ItemTreatsLabel.visible = false
 	highlighted = null
@@ -55,13 +56,16 @@ func draw_selected_icon(skipHighlighted = false):
 	elif selected != null:
 		$Frame/INVDisplay.texture = selected.get_icon(true)
 	else:
-		$Frame/INVDisplay.texture = Texture.new()
+		$Frame/INVDisplay.texture = emptySprite
 
 func focus_debug(cont):
 	print("focus changed: ", cont, ", ", (cont.name if cont != null else ""))
 
 func get_inventory():
 	return initArgs["inv"]
+
+func get_item_value():
+	return selected.get_value()
 
 func get_source():
 	return initArgs['source']
@@ -73,8 +77,16 @@ func initialize(args = {}):
 	print("INV: INitializing")
 	initArgs = Utils.check(args, initArgs)
 
+func pause():
+	pause_mode = Node.PAUSE_MODE_STOP
+	visible = false
+
 func play_error():
 	Global.AudioManager.play_sound(load("res://Sounds/Audio/error_00" + String(Global.world.rng.randi_range(1, 5)) +".ogg"), -10)
+
+func unpause():
+	pause_mode = Node.PAUSE_MODE_PROCESS
+	visible = true
 
 func update_highlighted(i):
 	#print(i.get_name()," highlighted")
@@ -84,9 +96,13 @@ func update_highlighted(i):
 func update_selection(i, c):
 	#print("selected: ", i.get_name())
 	selected = i
-	$Frame/SelectionLabel.text = i.get_name() + ("         x" + String(c) if c > 1 else "")
+	print(i.get_controller())
+	var iname = i.get_name()
+	if iname.length() > 15:
+		iname = iname.left(15) + "..."
+	$Frame/SelectionLabel.text = iname + ("         x" + String(c) if c > 1 else "")
 	$Frame/ItemTreatsLabel.visible = true
-	$Frame/ItemTreatsLabel/Label.text = String(selected.get_value()) + " (ea.)"
+	$Frame/ItemTreatsLabel/Label.text = String(get_item_value()) + " (ea.)"
 	$Description.text = i.get_description()
 	draw_selected_icon(true)
 	draw_context()

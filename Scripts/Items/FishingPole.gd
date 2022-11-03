@@ -38,6 +38,12 @@ func get_caster():
 func retrieve_bobble():
 	get_caster().subscribe_to()
 	
+func set(param, val):
+	match param:
+		"bobble":
+			bobble = null
+		_:
+			.set(param, val)
 
 func start_charge():
 	needsReset = true

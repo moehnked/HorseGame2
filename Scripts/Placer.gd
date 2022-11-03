@@ -22,7 +22,7 @@ func check_can_build():
 	if Global.Player.hasBuildingRights:
 		return true
 	else:
-		Global.InteractionPrompt.show_context("Cannot Build: You do not have Building Rights...")
+		return false
 
 func check_materials():
 	var inv = Global.Player.get_inventory()
@@ -31,7 +31,6 @@ func check_materials():
 	if count >= required_materials:
 		return true
 	else:
-		Global.InteractionPrompt.show_context("Cannot Build: Insufficient Materials")
 		return false
 
 func consume_materials():
@@ -115,7 +114,10 @@ func spawn_prefab():
 		p.global_transform = global_transform
 		Global.world.call_deferred("add_child", p)
 		consume_materials()
-		#else:
+	elif not check_can_build():
+		Global.InteractionPrompt.show_context("Cannot Build: You do not have Building Rights...")
+	elif not check_materials():
+		Global.InteractionPrompt.show_context("Cannot Build: Insufficient Materials")	#else:
 			#print("PLACER: insufficient mats")
 	terminate()
 

@@ -13,7 +13,7 @@ export(bool) var isChosenOne = false
 
 
 func _ready():
-	$MeshInstance.set_surface_material(0, $MeshInstance.get_surface_material(0).duplicate(7))
+	#$MeshInstance.set_surface_material(0, $MeshInstance.get_surface_material(0).duplicate(7))
 	$MeshInstance.get_surface_material(0).uv1_offset.x = 0.125 * xo
 	$MeshInstance.get_surface_material(0).uv1_offset.y = 0.125 * yo
 	$MeshInstance.get_surface_material(0).params_billboard_mode = isBillboard
@@ -28,12 +28,14 @@ func _process(delta):
 		$MeshInstance.get_surface_material(0).uv1_offset.y = 0.125 * yo
 		$MeshInstance.get_surface_material(0).params_billboard_mode = isBillboard
 		pass
-	elif isWiggleEnabled:
+	pass
+
+func wiggle(rot):
+	if isWiggleEnabled:
 		#startingZ += wiggledir * delta
 		#rotation_degrees.x = sin(startingZ) * 10
 		#rotation_degrees.z = rotation_degrees.x
-		startingZ = Global.world.get_wiggle_rot() * wiggledir
+		#startingZ = Global.world.get_wiggle_rot() * wiggledir
+		startingZ = rot * wiggledir
 		rotation_degrees.x += startingZ
 		rotation_degrees.z += startingZ
-	
-	pass

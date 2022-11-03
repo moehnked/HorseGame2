@@ -5,6 +5,8 @@ var rod
 var hooked = null
 var waterRef
 
+var fishingChallenge = preload("res://prefabs/UI/Misc/FishingChallenge.tscn")
+
 signal emit_water_entered()
 
 func _process(delta):
@@ -37,6 +39,11 @@ func queue_free():
 	rod.canCast = true
 	.queue_free()
 
+func start_fishing_challenge():
+	var s = Global.world.instantiate(fishingChallenge)
+	s.initialize({"fishRef": hooked, "poleRef": rod})
+	pass
+
 func start_reel():
 	isReeling = true
 	Utils.freeze_rigidbody(self, false)
@@ -46,5 +53,10 @@ func start_reel():
 func _on_Timer_timeout():
 	start_reel()
 	hooked = waterRef.get_fishable_item()
-	hooked = Global.world.instantiate(hooked, global_transform.origin)
+	if hooked != null:
+		#check if hooked is a fish
+		#if so pause the game and await the signal from the fishing challenge
+		hooked = Global.world.instantiate(hooked, global_transform.origin)
+		if hooked.is_in_group("Fish"):
+			start_fishing_challenge()
 	pass # Replace with function body.

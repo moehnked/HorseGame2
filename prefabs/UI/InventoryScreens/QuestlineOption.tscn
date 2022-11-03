@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Sprites/UI/sideTassle_normal.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/UI/sideTassle_Hover.png" type="Texture" id=2]
+[ext_resource path="res://fonts/QuestlogTitle.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Scripts/UI/Inventory/QuestlineOption.gd" type="Script" id=4]
+[ext_resource path="res://Sprites/UI/InventoryListItem.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/UI/sideTassle_clickmask.png" type="BitMap" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "show"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("container:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+
+[node name="QuestlineOption" type="TextureButton"]
+margin_right = 256.0
+margin_bottom = 256.0
+rect_scale = Vector2( 0.416283, 0.416283 )
+texture_normal = ExtResource( 1 )
+texture_hover = ExtResource( 2 )
+texture_focused = ExtResource( 2 )
+texture_click_mask = ExtResource( 6 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="container" type="Node2D" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 115.306, -57.653 )
+scale = Vector2( 1.33441, 1.33441 )
+
+[node name="Sprite" type="Sprite" parent="container"]
+position = Vector2( -461.225, 134.524 )
+scale = Vector2( 1.50047, 2.6353 )
+texture = ExtResource( 5 )
+
+[node name="Label" type="Label" parent="container"]
+margin_left = -864.796
+margin_top = 96.0885
+margin_right = -672.796
+margin_bottom = 175.088
+rect_scale = Vector2( 2.17121, 2.17121 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Hello World
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 3.0
+anims/show = SubResource( 1 )
+[connection signal="mouse_entered" from="." to="." method="_on_QuestlineOption_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_QuestlineOption_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_QuestlineOption_pressed"]

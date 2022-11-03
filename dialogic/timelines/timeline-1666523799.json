@@ -1,0 +1,111 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "I think I'm not the only uncertain one."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "People know their jobs are bullshit, and almost no one is being compensated enough to keep up with the cost of living."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Like the water is rising, and everyone can kind of feel this encroaching poverty."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "But no one can do anything, but we have a little bit of time left and maybe a little bit of disposable money"
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Like, not enough to set your life up well or acquire property or get yourself into stability..."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "but enough to like, go to resturaunts once and a while..."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "or like go to a park or a casino..."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "and thats all we can do."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Is indulge in these distractions while we wait for our lives to end..."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "but not in like a nihilistic \"eeeuuughhh we're all gonna die one day man whats the point,\" no..."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "thats not what i mean."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "I mean like until the cost of living is so high that 20, 30, 45, 70% of people are below the poverty line."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "like when shit hits the fan, ya know?"
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Like the residule safety net, from when opportunity was distributed in a bigone economy, finally dissolves."
+		},
+		{
+			"change_timeline": "timeline-1666521945.json",
+			"event_id": "dialogic_020"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1666523799.json",
+		"name": "05"
+	}
+}

@@ -1,6 +1,6 @@
 extends Node
 
-export var description = ""
+export(String, MULTILINE) var description = ""
 
 func get_description():
 	return description

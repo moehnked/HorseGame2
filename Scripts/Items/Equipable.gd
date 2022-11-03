@@ -6,7 +6,7 @@ extends "res://Scripts/Items/Item.gd"
 var canUnequip = true
 var equipState:String = "Equip"
 var input = InputMacro.new()
-var isEquipped:bool = false
+export(bool) var isEquipped:bool = false
 var parentedTo:Spatial = Spatial.new()
 #var hasReparented
 
@@ -19,26 +19,26 @@ signal emit_held()
 signal emit_use()
 signal emit_equipped(item)
 
-func _ready():
-	#Utils.reparent(self, Global.world)
-	pass
-
 func _process(delta):
-	if isEquipped:
+	if isEquipped and get_controller() != null:
 		set_interactable(false, true)
 		#print("equiped")
 		update_position_to_parent()
-		if controller.get_parent().has_method("get_x_rotation"):
+		if get_controller().get_parent().has_method("get_x_rotation"):
 			update_rotation_to_parent()
 		if input.left_mouse_pressed or input.left_mouse_pressed:
 			emit_signal("emit_held")
 		if input.standard or input.special:
 			emit_signal("emit_use")
 		pass
+	elif not isEquipped:
+		can_sleep = false
+		sleeping = false
+		toggle_collisions(true)
 
 func apply_behavior(HB):
 	if HB != null:
-		var p = controller.get_parent()
+		var p = get_controller().get_parent()
 		if p != null:
 			print("p is ", p.name)
 			#if p is horseRef:
@@ -55,7 +55,7 @@ func equip(_controller):
 	controller = _controller
 	if _controller.has_method("get_equipment_manager"):
 		controller = _controller.get_equipment_manager()
-	if controller.equip(self):
+	if get_controller().equip(self):
 		print("successfully equipped")
 		set_sleeping(false)
 		Utils.reparent(self, Global.world)
@@ -70,10 +70,17 @@ func equip(_controller):
 		return true
 	return false
 
-func interact(_controller):
+func get_equip_point():
+	controller = get_controller()
+	return controller.get_equip_point() if controller != null else Spatial.new()
+
+func interact(_controller, equipit = true):
 	print("equipable::interact")
-	if not equip(_controller):
-		pickup(controller)
+	if equipit:
+		if not equip(_controller):
+			pickup(controller)
+	else:
+		pickup(_controller)
 
 func parse_equip(args = {}):
 	args = Utils.check(args, {"input":InputMacro.new()})
@@ -81,6 +88,18 @@ func parse_equip(args = {}):
 
 func recieve_looking_at(by, obj):
 	pass
+
+func set(param, val):
+	match param:
+		"isEquipped":
+			if val:
+				get_controller().equipped = self
+				get_controller().unequip()
+			isEquipped = false
+		"input":
+			input = InputMacro.new()
+		_:
+			.set(param, val)
 
 func set_context(_equipState):
 	#var i = ContextOptions.find(_equipState)
@@ -93,11 +112,6 @@ func set_point(object, _controller):
 	controller = _controller
 	parentedTo = object
 
-func toggle_collisions(enabl = true):
-	for i in get_children():
-		if i is CollisionShape:
-			i.disabled = not enabl
-	
 
 func unequip(args = {}):
 	if canUnequip:
@@ -105,7 +119,7 @@ func unequip(args = {}):
 		set_context(Context.context.Equip)
 		isEquipped = false
 		parentedTo = Spatial.new()
-		controller = null
+		#controller = null
 		toggle_collisions(true)
 		Global.AudioManager.play_sound(unequipSoundPath)
 		$Interactable.set_interactable(true)
@@ -132,10 +146,10 @@ func update_depth_test(node, val = true):
 			update_depth_test(n, val)
 
 func update_position_to_parent():
-	global_transform.origin = parentedTo.global_transform.origin
+	global_transform.origin = get_equip_point().global_transform.origin
 
 func update_rotation_to_parent():
-	rotation.z = -controller.get_parent().get_x_rotation()
-	rotation.y = controller.get_parent().rotation.y
-	rotation.x = controller.get_parent().get_head().rotation.z
+	rotation.z = -get_controller().get_parent().get_x_rotation()
+	rotation.y = get_controller().get_parent().rotation.y
+	rotation.x = get_controller().get_parent().get_head().rotation.z
 	rotation.y += deg2rad(-80)

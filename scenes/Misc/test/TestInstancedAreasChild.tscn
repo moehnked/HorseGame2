@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/Misc/test/TestInstancedAreas.tscn" type="PackedScene" id=1]
+
+[node name="TestInstancedAreasChild" type="Node2D"]
+
+[node name="TestInstancedAreas" parent="." instance=ExtResource( 1 )]

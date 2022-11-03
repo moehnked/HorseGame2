@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode unshaded, depth_draw_alpha_prepass;
+render_mode unshaded, depth_draw_alpha_prepass, cull_disabled;
 
 uniform vec4 deep_color : hint_color;
 uniform vec4 shallow_color : hint_color = vec4(1);

@@ -6,8 +6,12 @@ var direction:Vector3 = Vector3()
 var gravity = -20
 var hAcceleration = 6
 var has_contact:bool = false
+var has_jumped:bool = false
+var has_landed:bool = false
 var input
 var isSliding = false
+var lastSteppedOn = "Dirt"
+var lastStepScale = 12
 var movement:Vector3 = Vector3()
 var velocity:Vector3 = Vector3()
 var snapVector = Vector3(0,0,0)
@@ -43,10 +47,31 @@ func initialize(args = {}):
 		actor.enable_casting()
 
 func apply_rotation(actor):
-	rotAmount = lerp(rotAmount, actor.input.mouse_horizontal, 0.1)
+	rotAmount = lerp(rotAmount, actor.get_input().mouse_horizontal, 0.1)
 	actor.rotate_y(rotAmount)
 
+func get_ground_type(n):
+	if n.collider.is_in_group("Dirt"):
+		lastStepScale = 8
+		return "Dirt"
+	elif n.collider.is_in_group("Grass"):
+		lastStepScale = 10
+		return "Grass"
+	elif n.collider.is_in_group("Tile"):
+		lastStepScale = 10
+		return "Tile"
+	elif n.collider.is_in_group("Wood"):
+		lastStepScale = 12
+		return "Wood"
+	elif n.collider.is_in_group("Carpet"):
+		lastStepScale = 10
+		return "Carpet"
+	else:
+		return lastSteppedOn
+
 func parse_movement(actor, delta):
+	if not input is InputMacro:
+		input = InputMacro.new()
 	isSliding = false
 	direction = Vector3()
 	var aim = actor.get_camera().global_transform.basis
@@ -66,10 +91,12 @@ func parse_movement(actor, delta):
 	if actor.get_slide_count() >= 1:
 		n = actor.get_slide_collision(0)
 	var floor_angle = 0
-	if n != null and n.collider != null:
+	var hasTouching = (n != null and n.collider != null)
+	if hasTouching:
 		floor_angle = rad2deg(n.normal.angle_to(Vector3.UP))
 		if floor_angle < 75 and n.collider.is_in_group("Stairs"):
 			print("FPS: Normal: walking on stairs")
+			lastSteppedOn = get_ground_type(n)
 			pass
 		elif floor_angle > actor.MAX_SLOPE_ANGLE:
 			#print("xwa")
@@ -79,10 +106,12 @@ func parse_movement(actor, delta):
 				isSliding = true
 		else:
 			#print("xwb")
+			lastSteppedOn = get_ground_type(n)
 			has_contact = true
 			snapVector = -n.normal
 	elif not actor.get_ground_check().is_colliding():
 		has_contact = false
+		has_landed = false
 		velocity.y += gravity * delta
 	elif actor.is_on_floor():
 		#print("xwD")
@@ -92,6 +121,11 @@ func parse_movement(actor, delta):
 		has_contact = true
 		var raynormal = actor.get_ground_check().get_collision_normal()
 		floor_angle = rad2deg(raynormal.angle_to(Vector3.UP))
+	
+	if has_contact and not has_landed and n != null:
+		var gt = get_ground_type(n)
+		Global.AudioManager.play_footstep(gt)
+		has_landed = true
 	
 	var h_velocity = velocity
 	h_velocity.y = 0
@@ -114,7 +148,10 @@ func parse_movement(actor, delta):
 		actor.random_grunt()
 
 	velocity = actor.move_and_slide_with_snap(velocity, snapVector ,Vector3.UP, true, 1, actor.MAX_SLOPE_ANGLE, false)
-
+	if (actor.is_on_floor() or has_contact) and pow(velocity.z,2) > 10 and direction.z != 0:
+		Global.AudioManager.increment_step(lastSteppedOn, lastStepScale)
+		pass
+	actor.get_node("Boots").playback_speed = lerp(actor.get_node("Boots").playback_speed, Vector2(h_velocity.x, h_velocity.z).length() * 0.35, 0.5)
 
 func send_raycast_data(raycastobj, actor):
 	for placer in actor.placer_observers:

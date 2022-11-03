@@ -1,0 +1,66 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Horse/RaycastTests.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Misc/test/testRotateToTarget.tscn" type="PackedScene" id=3]
+
+[node name="EVRC" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.708508, -0.146125 )
+script = ExtResource( 2 )
+
+[node name="RayCast" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.311003, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, -4 )
+
+[node name="RayCast2" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.311003, 0 )
+enabled = true
+cast_to = Vector3( -1, 0, -4 )
+
+[node name="RayCast3" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.311003, 0 )
+enabled = true
+cast_to = Vector3( -2, 0, -4 )
+
+[node name="RayCast4" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.311003, 0 )
+enabled = true
+cast_to = Vector3( -3, 0, -4 )
+
+[node name="RayCast5" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.311003, 0 )
+enabled = true
+cast_to = Vector3( -4, 0, -2 )
+
+[node name="RayCast6" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.311003, 0 )
+enabled = true
+cast_to = Vector3( -4, 0, 0 )
+
+[node name="RayCast7" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.311003, 0 )
+enabled = true
+cast_to = Vector3( 1, 0, -4 )
+
+[node name="RayCast8" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.311003, 0 )
+enabled = true
+cast_to = Vector3( 2, 0, -4 )
+
+[node name="RayCast9" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.311003, 0 )
+enabled = true
+cast_to = Vector3( 3, 0, -4 )
+
+[node name="RayCast10" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.311003, 0 )
+enabled = true
+cast_to = Vector3( 4, 0, -2 )
+
+[node name="RayCast11" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.311003, 0 )
+enabled = true
+cast_to = Vector3( 4, 0, 0 )
+
+[node name="debugEV" parent="." instance=ExtResource( 3 )]
+visible = false

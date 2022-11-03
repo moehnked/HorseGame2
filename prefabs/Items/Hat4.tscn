@@ -35,7 +35,7 @@ distance_fade_max_distance = 70.0
 [sub_resource type="SphereShape" id=3]
 
 [sub_resource type="BoxShape" id=4]
-extents = Vector3( 0.637604, 0.365934, 0.675792 )
+extents = Vector3( 1.51992, 0.493935, 1.28806 )
 
 [sub_resource type="CylinderMesh" id=5]
 top_radius = 1.089
@@ -46,6 +46,7 @@ height = 0.259
 albedo_color = Color( 0, 0, 0, 1 )
 
 [node name="Hat4" type="RigidBody"]
+can_sleep = false
 script = ExtResource( 2 )
 ContextOptions = [ 0, 1 ]
 icon = "res://Sprites/Items/hats/TheCallingStetson.png"
@@ -69,7 +70,7 @@ transform = Transform( 0.359655, 0, 0, 0, 0.359655, 0, 0, 0, 0.359655, 0, 0.3721
 shape = SubResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 0.359655, 0, 0, 0, 0.359655, 0, 0, 0, 0.359655, 0, 0.06696, 0 )
+transform = Transform( 0.359655, 0, 0, 0, 0.359655, 0, 0, 0, 0.359655, 0, 0.159978, 0 )
 shape = SubResource( 4 )
 
 [node name="Description" parent="." instance=ExtResource( 4 )]

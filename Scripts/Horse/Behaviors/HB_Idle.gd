@@ -4,7 +4,6 @@ var velocity:Vector3 = Vector3()
 export(bool) var isStaticIdle = false
 
 func exit():
-	print("exiting horse state idle")
 	$Timer.stop()
 	pass
 
@@ -12,11 +11,13 @@ func initialize(args = {}):
 	args = .initialize(args)
 	var anim = actor.get_animation_controller()
 	if anim != null:
-		anim.set_playback_speed(1.0)
+		anim.set_playback_speed(0.5)
 		anim.play_animation("Idle")
 	if not isStaticIdle:
-		#$Timer.start(Global.world.rng.randi_range(1,5))
+		$Timer.start(Global.world.rng.randi_range(1,10))
 		pass
+	else:
+		$Timer.start()
 	if args.callback != "":
 		if stateMachine.has_method(args.callback):
 			stateMachine.call(args.callback)

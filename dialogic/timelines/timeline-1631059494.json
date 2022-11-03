@@ -21,6 +21,18 @@
 			"text": "[tornado radius=2 freq=3][wave amp=1 freq=5]Oh, how the passing of time is only an illusion."
 		},
 		{
+			"call_node": {
+				"arguments": [
+					"_A1",
+					"0",
+					"I have talked to a bizarre creature named Patches."
+				],
+				"method_name": "update_quest",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
 			"character": "character-1631059499.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
@@ -130,6 +142,18 @@
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "I will teach you the most basic spell: [tornado radius=2 freq=3][wave amp=1 freq=5]Punch!"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"_A1",
+					"1",
+					"Patches has told me I need to learn how to cast spells. I should look for a sign nearby that will teach me the PUNCH spell."
+				],
+				"method_name": "update_quest",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
 		},
 		{
 			"call_node": {

@@ -107,6 +107,9 @@ func _physics_process(delta):
 		input.right = 1.0
 		input.direction_detected = true
 	
+	if Input.is_action_just_released("open_journal"):
+		input.journal = true
+	
 	mouse_vertical += float(int(Input.is_action_pressed("LookUp")) - int(Input.is_action_pressed("LookDown"))) * controller_sensitivity
 	mouse_horizontal += float(int(Input.is_action_pressed("LookLeft")) - int(Input.is_action_pressed("LookRight"))) * controller_sensitivity
 	
@@ -115,7 +118,7 @@ func _physics_process(delta):
 	mouse_horizontal = 0.0
 	mouse_vertical = 0.0
 	
-	get_tree().call_group("QueueInputObserver", "subscribe_to")
+	get_tree().call_group("QueueInputSubscription", "subscribe_to")
 	
 	#print("observers")
 	for o in observers:

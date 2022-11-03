@@ -87,7 +87,6 @@ shadow_atlas_size = 2
 
 [node name="NEW_FPSController" parent="ViewportContainer2/Viewport" instance=ExtResource( 1 )]
 transform = Transform( 0.456193, 0, 0, 0, 0.456193, 0, 0, 0, 0.456193, 0, 0, 0 )
-MAX_SPEED = 7
 MAX_SLOPE_ANGLE = 70
 
 [node name="Backdrop" parent="ViewportContainer2/Viewport" instance=ExtResource( 12 )]

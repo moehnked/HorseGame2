@@ -15,6 +15,18 @@
 			}
 		},
 		{
+			"call_node": {
+				"arguments": [
+					"_A2",
+					"1",
+					"I have met horace. I should talk to him to learn how to make friends with horses so I can get Chesterfield to talk to me."
+				],
+				"method_name": "update_quest",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
 			"character": "character-1639706276.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
@@ -124,6 +136,18 @@
 					"CharmCreation"
 				],
 				"method_name": "trigger_event",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"_A2",
+					"2",
+					"Horace has agreed to teach me the charm spell. I can learn the spell by reading the spell sign he created nearby."
+				],
+				"method_name": "update_quest",
 				"target_node_path": "../.."
 			},
 			"event_id": "dialogic_042"

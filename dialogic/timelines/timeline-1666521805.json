@@ -1,0 +1,43 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Hey."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "I'm Derry. I horse the prize corner."
+		},
+		{
+			"emit_signal": "",
+			"event_id": "dialogic_040"
+		},
+		{
+			"event_id": "dialogic_022",
+			"transition_duration": 1
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1666521805.json",
+		"name": "01"
+	}
+}

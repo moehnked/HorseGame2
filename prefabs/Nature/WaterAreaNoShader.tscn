@@ -32,12 +32,13 @@ material/0 = SubResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+visible = false
 shape = SubResource( 4 )
 
 [node name="Splash" parent="." instance=ExtResource( 2 )]
+is3D = true
 random_sounds = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ]
 volume = 2.0
-is3D = true
 
 [node name="BigSplash" parent="." instance=ExtResource( 7 )]
 

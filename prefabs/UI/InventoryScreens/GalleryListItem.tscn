@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/UI/GalleryListItem.gd" type="Script" id=2]
+
+[node name="GalleryListItem" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 128.0
+margin_bottom = 128.0
+color = Color( 0.298039, 0.290196, 0.298039, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="ColorRect"]
+margin_right = 128.0
+margin_bottom = 128.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect/GridContainer"]
+margin_right = 128.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+stretch_mode = 6
+[connection signal="mouse_entered" from="ColorRect/GridContainer/TextureRect" to="." method="_on_TextureRect_mouse_entered"]
+[connection signal="mouse_exited" from="ColorRect/GridContainer/TextureRect" to="." method="_on_TextureRect_mouse_exited"]

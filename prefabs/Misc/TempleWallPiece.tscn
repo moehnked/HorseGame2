@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Textures/wood/beam.jpg" type="Texture" id=1]
 [ext_resource path="res://Textures/temple/Tileable1.png" type="Texture" id=2]
@@ -27,95 +27,15 @@ distance_fade_max_distance = 70.0
 [sub_resource type="CubeMesh" id=5]
 
 [sub_resource type="SpatialMaterial" id=6]
-flags_transparent = true
-albedo_color = Color( 1, 1, 1, 0.529412 )
 albedo_texture = ExtResource( 2 )
 uv1_scale = Vector3( 0.1, 0.07, 1 )
 distance_fade_mode = 2
 distance_fade_min_distance = 160.0
 distance_fade_max_distance = 70.0
 
-[sub_resource type="Shader" id=7]
-code = "/*
-	大理石シェーダー by あるる（きのもと 結衣）
-	Marble Shader by Yui Kinomoto @arlez80
+[sub_resource type="PlaneMesh" id=7]
 
-	MIT License
-*/
-shader_type spatial;
-// render_mode;
-render_mode depth_draw_alpha_prepass;
-
-uniform vec4 light_color : hint_color = vec4( 0.9529411764705882, 0.95683485641634156, 0.981563153113511153, 1.0 );
-uniform vec4 dark_color : hint_color = vec4( 0.4196078431372549, 0.4196078431372549, 0.4196078431372549, 1.0 );
-
-uniform float front_random_scale = 11.6;
-uniform float back_random_scale = -6.12;
-uniform float front_marble_scale = 15.4;
-uniform float back_marble_scale = 12.1;
-
-vec2 random( vec2 pos )
-{ 
-	return fract(
-		sin(
-			vec2(
-				dot(pos, vec2(12.9898,78.233))
-			,	dot(pos, vec2(-148.998,-65.233))
-			)
-		) * 43758.5453
-	);
-}
-
-float value_noise( vec2 pos )
-{
-	vec2 p = floor( pos );
-	vec2 f = fract( pos );
-
-	float v00 = random( p + vec2( 0.0, 0.0 ) ).x;
-	float v10 = random( p + vec2( 1.0, 0.0 ) ).x;
-	float v01 = random( p + vec2( 0.0, 1.0 ) ).x;
-	float v11 = random( p + vec2( 1.0, 1.0 ) ).x;
-
-	vec2 u = f * f * ( 3.0 - 2.0 * f );
-
-	return mix( mix( v00, v10, u.x ), mix( v01, v11, u.x ), u.y );
-}
-
-float noise_tex( vec2 p )
-{
-	return (
-		value_noise( p * 0.984864 ) * 0.5
-	+	value_noise( p * 2.543 ) * 0.25
-	+	value_noise( p * 9.543543 ) * 0.125
-	+	value_noise( p * 21.65436 ) * 0.0625
-	+	value_noise( p * 42.0 ) * 0.03125
-	+	value_noise( p * 87.135148 ) * 0.015625
-	+	value_noise( p * 340.66534654 ) * 0.0078125
-	);
-}
-
-void fragment( )
-{
-	float a = noise_tex( UV * front_random_scale );
-	float b = noise_tex( UV * back_random_scale );
-
-	ALBEDO = mix( dark_color, light_color, clamp( abs( cos( a * front_marble_scale ) + sin( b * back_marble_scale ) * 0.4 ), 0.0, 1.0 ) ).rgb;
-	METALLIC = 0.35;
-	ROUGHNESS = 0.02;
-}"
-
-[sub_resource type="ShaderMaterial" id=8]
-shader = SubResource( 7 )
-shader_param/light_color = Color( 0.952941, 0.956835, 0.981563, 1 )
-shader_param/dark_color = Color( 0.2, 0.388235, 0.266667, 1 )
-shader_param/front_random_scale = 12.228
-shader_param/back_random_scale = -4.688
-shader_param/front_marble_scale = 3.317
-shader_param/back_marble_scale = 0.575
-
-[sub_resource type="PlaneMesh" id=9]
-
-[sub_resource type="SpatialMaterial" id=10]
+[sub_resource type="SpatialMaterial" id=8]
 params_cull_mode = 2
 albedo_texture = ExtResource( 4 )
 uv1_scale = Vector3( 1, 0.205, 1 )
@@ -124,7 +44,7 @@ distance_fade_mode = 2
 distance_fade_min_distance = 160.0
 distance_fade_max_distance = 70.0
 
-[sub_resource type="BoxShape" id=11]
+[sub_resource type="BoxShape" id=9]
 extents = Vector3( 0.304042, 2.11249, 1.03056 )
 
 [node name="TempleWallPiece" type="StaticBody"]
@@ -144,22 +64,16 @@ transform = Transform( 0.304379, 0, 0, 0, 0.981197, 0, 0, 0, 1.03506, 0, -1.3065
 mesh = SubResource( 5 )
 material/0 = SubResource( 6 )
 
-[node name="marblewall" type="MeshInstance" parent="."]
-transform = Transform( 0.304379, 0, 0, 0, 0.981197, 0, 0, 0, 1.03506, 0, -1.30652, -0.035202 )
-material_override = SubResource( 8 )
-mesh = SubResource( 5 )
-material/0 = null
-
 [node name="MeshInstance4" type="MeshInstance" parent="."]
 transform = Transform( -1.62921e-07, -0.707107, 0.177599, 0, 1.66377, 0.417876, -1.05262, 1.21264e-07, -3.04571e-08, -0.173924, 1.4507, -0.0497187 )
-mesh = SubResource( 9 )
-material/0 = SubResource( 10 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
 
 [node name="MeshInstance5" type="MeshInstance" parent="."]
 transform = Transform( -1.71555e-07, 0.707107, 0.177484, 0, 1.66377, -0.417605, -1.053, -1.15202e-07, -2.89158e-08, 0.174, 1.44978, -0.033 )
-mesh = SubResource( 9 )
-material/0 = SubResource( 10 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.231786, -0.0354462 )
-shape = SubResource( 11 )
+shape = SubResource( 9 )

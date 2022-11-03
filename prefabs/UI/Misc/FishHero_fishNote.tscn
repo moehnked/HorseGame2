@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/UI/UI_MISC/fish_hero/fishNote.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/UI/CH_Heart.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/UI/CH_Spade.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/UI/CH_Diamond.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/UI/CH_Club.png" type="Texture" id=5]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 17.1431
+
+[node name="fishNote" type="Area2D"]
+pause_mode = 2
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 1 )
+sprites = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 4 ) ]
+
+[node name="Sprite" type="Sprite" parent="."]
+pause_mode = 2
+scale = Vector2( 1.13078, 1.06021 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+pause_mode = 2
+scale = Vector2( 1.62664, 1.62664 )
+shape = SubResource( 1 )

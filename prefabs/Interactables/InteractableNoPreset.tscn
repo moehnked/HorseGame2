@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://Scripts/Interactables/InteractableObject.gd" type="Script" id=1]
-[ext_resource path="res://Sounds/equipment_02.wav" type="AudioStream" id=2]
 
-[node name="Interactable" type="Area"]
+[node name="Interactable" type="Area" groups=[
+"Persist",
+]]
 script = ExtResource( 1 )
-interactSound = ExtResource( 2 )
 prompt = "Interact "
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+[connection signal="body_entered" from="." to="." method="on_body_enter"]
+[connection signal="body_exited" from="." to="." method="on_body_exit"]

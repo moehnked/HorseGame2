@@ -1,0 +1,314 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://models/objects/furniture/slotmachine/slots_ui_bar.png" type="Texture" id=1]
+[ext_resource path="res://models/objects/furniture/slotmachine/slots_ui_bg.png" type="Texture" id=2]
+[ext_resource path="res://models/objects/furniture/slotmachine/slot_sprites.png" type="Texture" id=3]
+[ext_resource path="res://Sounds/GUI_Sound_Effects_by_Lokif/misc_menu_2.wav" type="AudioStream" id=4]
+[ext_resource path="res://Scripts/UI/UI_MISC/SlotsGame.gd" type="Script" id=5]
+[ext_resource path="res://fonts/bigt.tres" type="DynamicFont" id=6]
+[ext_resource path="res://fonts/PlayheadFREE.otf" type="DynamicFontData" id=7]
+[ext_resource path="res://Sprites/misc/thing.png" type="Texture" id=8]
+[ext_resource path="res://prefabs/UI/Misc/CasinoSpriteRoll.tscn" type="PackedScene" id=9]
+
+[sub_resource type="CylinderMesh" id=1]
+top_radius = 0.5
+bottom_radius = 0.5
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_texture = ExtResource( 2 )
+uv1_scale = Vector3( 2.5, 1, 1 )
+uv1_offset = Vector3( -0.18, 0, 0 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 1, 2.197, 1 )
+uv1_offset = Vector3( 0, -0.048, 0 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 384, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 512, 0, 128, 128 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=10]
+size = 72
+font_data = ExtResource( 7 )
+
+[sub_resource type="Animation" id=11]
+resource_name = "fadeout"
+length = 1.5
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("ViewportContainer:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("ViewportContainer:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("ViewportContainer:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("ViewportContainer:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 1.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[node name="SlotsGame" type="Spatial"]
+script = ExtResource( 5 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 1024, 600 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Camera" type="Camera" parent="ViewportContainer/Viewport"]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 1.59672, 0, 0 )
+cull_mask = 32
+size = 2.57603
+
+[node name="Slot_BG" type="MeshInstance" parent="ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+layers = 32
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="SlotBar1" type="MeshInstance" parent="ViewportContainer/Viewport"]
+transform = Transform( 1.02155, 0, 0, 0, -1.66432e-07, -1.02155, 0, 0.209197, -3.40825e-08, 0, 0, -0.798105 )
+layers = 32
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )
+
+[node name="SlotBar2" type="MeshInstance" parent="ViewportContainer/Viewport"]
+transform = Transform( 1.02155, 0, 0, 0, -1.66432e-07, -1.02155, 0, 0.209197, -3.40825e-08, 0, 0, 0 )
+layers = 32
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )
+
+[node name="SlotBar3" type="MeshInstance" parent="ViewportContainer/Viewport"]
+transform = Transform( 1.02155, 0, 0, 0, -1.66432e-07, -1.02155, 0, 0.209197, -3.40825e-08, 0, 0, 0.792237 )
+layers = 32
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )
+
+[node name="Sprite1" parent="ViewportContainer" instance=ExtResource( 9 )]
+
+[node name="Sprite2" type="AnimatedSprite" parent="ViewportContainer"]
+position = Vector2( 515.307, 304.901 )
+frames = SubResource( 9 )
+frame = 3
+speed_scale = 2.0
+
+[node name="Sprite3" type="AnimatedSprite" parent="ViewportContainer"]
+position = Vector2( 826.508, 304.901 )
+frames = SubResource( 9 )
+frame = 4
+speed_scale = 2.0
+
+[node name="thing" type="Sprite" parent="ViewportContainer"]
+position = Vector2( 396.744, 55.8077 )
+scale = Vector2( 2.03623, 2.03623 )
+texture = ExtResource( 8 )
+
+[node name="thing2" type="Sprite" parent="ViewportContainer"]
+position = Vector2( 638.029, 55.8077 )
+scale = Vector2( 2.03623, 2.03623 )
+texture = ExtResource( 8 )
+
+[node name="label_container_chips" type="Node2D" parent="ViewportContainer"]
+position = Vector2( 344.768, 2.5227 )
+scale = Vector2( 0.59222, 0.59222 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ViewportContainer/label_container_chips"]
+margin_left = 16.7347
+margin_top = -0.796898
+margin_right = 216.735
+margin_bottom = 74.2031
+rect_scale = Vector2( 0.803507, 0.803507 )
+rect_clip_content = false
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+custom_constants/shadow_as_outline = 14
+bbcode_enabled = true
+bbcode_text = "[wave][rainbow freq=0.2 sat=10 val=20]CHIPS[/rainbow][/wave]"
+text = "CHIPS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label_container_wager" type="Node2D" parent="ViewportContainer"]
+position = Vector2( 581.129, 2.5227 )
+scale = Vector2( 0.59222, 0.59222 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ViewportContainer/label_container_wager"]
+margin_left = 16.7347
+margin_top = -0.796898
+margin_right = 216.735
+margin_bottom = 74.2031
+rect_scale = Vector2( 0.803507, 0.803507 )
+rect_clip_content = false
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+custom_constants/shadow_as_outline = 14
+bbcode_enabled = true
+bbcode_text = "[wave][rainbow freq=0.2 sat=10 val=20]WAGER[/rainbow][/wave]"
+text = "WAGER"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label_container_pull" type="Node2D" parent="ViewportContainer"]
+position = Vector2( 464.991, 507.147 )
+scale = Vector2( 0.59222, 0.59222 )
+
+[node name="pull" type="Sprite" parent="ViewportContainer/label_container_pull"]
+position = Vector2( 65.2763, 19.0166 )
+scale = Vector2( 3.43831, 3.43831 )
+texture = ExtResource( 8 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ViewportContainer/label_container_pull"]
+margin_left = 12.7186
+margin_top = -8.82912
+margin_right = 212.719
+margin_bottom = 66.1709
+rect_scale = Vector2( 0.803507, 0.803507 )
+rect_clip_content = false
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+custom_constants/shadow_as_outline = 14
+bbcode_enabled = true
+bbcode_text = "[wave][rainbow freq=0.2 sat=10 val=20]PULL[/rainbow][/wave]"
+text = "PULL"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="display_container_chips" type="Node2D" parent="ViewportContainer"]
+position = Vector2( 284.454, 38.9857 )
+scale = Vector2( 0.555689, 0.555689 )
+
+[node name="ChipsLabel" type="Label" parent="ViewportContainer/display_container_chips"]
+margin_left = -140.0
+margin_right = 544.0
+margin_bottom = 143.0
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 4
+custom_constants/shadow_offset_y = 4
+text = "0
+"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="display_container_wager" type="Node2D" parent="ViewportContainer"]
+position = Vector2( 563.761, 38.9857 )
+scale = Vector2( 0.555689, 0.555689 )
+
+[node name="WagerLabel" type="Label" parent="ViewportContainer/display_container_wager"]
+margin_left = -93.0
+margin_right = 360.0
+margin_bottom = 143.0
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 4
+custom_constants/shadow_offset_y = 4
+text = "0
+"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -4.0
+bus = "Sounds"
+
+[node name="TTL" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fadeout = SubResource( 11 )
+[connection signal="timeout" from="TTL" to="." method="_on_TTL_timeout"]

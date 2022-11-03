@@ -4,6 +4,8 @@ var RPSSprite = "Rock"
 var rpsGameRef
 export(Dictionary) var handSprites
 
+signal emit_animation_finished()
+
 func apply_texture(tex):
 	$Node2D/Sleeve/Arm.texture = handSprites[tex]
 	pass
@@ -18,6 +20,9 @@ func idle_hand():
 	update_hand_sprite("Idle")
 	reset_palm()
 
+func on_animation_finished():
+	emit_signal("emit_animation_finished")
+
 func parse_rps():
 	match RPSSprite:
 		"Rock":
@@ -27,8 +32,10 @@ func parse_rps():
 		"Scissors":
 			update_sprite("RPS")
 
-func play_animation(anim):
+func play_animation(anim, caller = null):
 	$AnimationPlayer.play(anim)
+	if caller != null:
+		connect("emit_animation_finished", caller, "animation_return")
 
 func reset_palm():
 	get_parent().get_node("Palm").transform.origin = Vector3(0.8, -0.45, -2.247)

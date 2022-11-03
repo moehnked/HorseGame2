@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://prefabs/PlayerStuff/NEW_FPSController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/System/SkyControllerPrefab.tscn" type="PackedScene" id=2]
@@ -9,15 +9,16 @@
 [ext_resource path="res://prefabs/InputObserver.tscn" type="PackedScene" id=7]
 [ext_resource path="res://prefabs/InteractionPrompt.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Shaders/SkyPresets/dark01.tres" type="Material" id=9]
-[ext_resource path="res://prefabs/System/GlobalCorralRegistrar.tscn" type="PackedScene" id=10]
+[ext_resource path="res://prefabs/System/SystemCollection.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/System/3DViewport.gd" type="Script" id=11]
 [ext_resource path="res://prefabs/UI/MapDisplay.tscn" type="PackedScene" id=12]
 [ext_resource path="res://prefabs/Areas/MainWorld.tscn" type="PackedScene" id=13]
-[ext_resource path="res://prefabs/System/SpecialEventManager.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Textures/128x128/mask.jpg" type="Texture" id=14]
 [ext_resource path="res://Shaders/SkyPresets/fog01.tres" type="Material" id=15]
 [ext_resource path="res://Shaders/SkyPresets/underwater.tres" type="Material" id=16]
+[ext_resource path="res://Scripts/System/WeatherController.gd" type="Script" id=17]
+[ext_resource path="res://Shaders/snow_material.tres" type="Material" id=18]
 [ext_resource path="res://prefabs/UI/Misc/DamageablePrompt.tscn" type="PackedScene" id=19]
-[ext_resource path="res://prefabs/System/AudioManager.tscn" type="PackedScene" id=20]
 
 [node name="World" type="Spatial"]
 script = ExtResource( 5 )
@@ -44,12 +45,7 @@ skys = {
 "underwater": ExtResource( 16 )
 }
 
-[node name="SpecialEventManager" parent="." instance=ExtResource( 14 )]
-
-[node name="AudioManager" parent="." instance=ExtResource( 20 )]
-music_enabled = false
-
-[node name="GlobalCorralRegistrar" parent="." instance=ExtResource( 10 )]
+[node name="SystemCollection" parent="." instance=ExtResource( 10 )]
 
 [node name="Debug" type="Control" parent="."]
 margin_right = 1024.0
@@ -93,11 +89,28 @@ shadow_atlas_size = 2
 [node name="InputObserver" parent="ViewportContainer2/Viewport" instance=ExtResource( 7 )]
 
 [node name="NEW_FPSController" parent="ViewportContainer2/Viewport" instance=ExtResource( 1 )]
-transform = Transform( -0.437055, 0, 0.130749, 0, 0.456193, 0, -0.130749, 0, -0.437055, 229.323, 45.2223, -321.822 )
-MAX_SPEED = 27
+transform = Transform( 0.431528, 0, 0.147972, 0, 0.456193, 0, -0.147972, 0, 0.431528, 968.638, 34.9782, 62.9101 )
+MAX_SLOPE_ANGLE = 35
 spellList = [ "Null", "Build" ]
 
 [node name="MainWorld" parent="ViewportContainer2/Viewport" instance=ExtResource( 13 )]
 
 [node name="MapDisplay" parent="ViewportContainer2/Viewport" instance=ExtResource( 12 )]
 visible = false
+
+[node name="WeatherController" type="ViewportContainer" parent="." groups=[
+"Weather",
+]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LightSnow" type="Sprite" parent="WeatherController"]
+modulate = Color( 1, 1, 1, 0 )
+material = ExtResource( 18 )
+position = Vector2( 511.843, 309.799 )
+scale = Vector2( 8.068, 5.19169 )
+texture = ExtResource( 14 )

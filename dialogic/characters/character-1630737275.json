@@ -8,8 +8,8 @@
 	"name": "Seamus",
 	"nickname": "",
 	"nickname_bool": false,
-	"offset_x": 20,
-	"offset_y": -90,
+	"offset_x": 17,
+	"offset_y": -70,
 	"portraits": [
 		{
 			"name": "Default",

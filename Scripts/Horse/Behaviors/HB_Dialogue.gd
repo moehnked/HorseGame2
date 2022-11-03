@@ -35,6 +35,7 @@ func initialize(args = {}):
 		var rm = actor.get_relationship_manager()
 		if rm.check_if_conversable(args):
 			create_dialogue(args)
+			actor.call("disable_interaction")
 		else:
 			Global.InteractionPrompt.show_context(actor.get_horse_name() + " doesn't want to talk to you...")
 			Global.AudioManager.play_sound("res://Sounds/horse_noise_05.wav", 0, Utils.get_rng().randf_range(-2,2))

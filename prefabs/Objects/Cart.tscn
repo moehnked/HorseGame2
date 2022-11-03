@@ -8,10 +8,10 @@
 [ext_resource path="res://prefabs/Misc/MossA.tscn" type="PackedScene" id=6]
 [ext_resource path="res://prefabs/Misc/MossB.tscn" type="PackedScene" id=7]
 [ext_resource path="res://prefabs/Objects/PottedPlant.tscn" type="PackedScene" id=8]
+[ext_resource path="res://models/objects/Bottles/bottle2.dae" type="PackedScene" id=9]
 [ext_resource path="res://prefabs/Misc/MossC.tscn" type="PackedScene" id=10]
 [ext_resource path="res://prefabs/Objects/Lantern.tscn" type="PackedScene" id=11]
 [ext_resource path="res://prefabs/Objects/Bottle.tscn" type="PackedScene" id=12]
-[ext_resource path="res://models/objects/bottle02.obj" type="ArrayMesh" id=13]
 [ext_resource path="res://prefabs/Interactables/CartDoor.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Sprites/misc/Door01.png" type="Texture" id=15]
 [ext_resource path="res://Sprites/misc/Cart_Trim.png" type="Texture" id=16]
@@ -22,15 +22,25 @@
 [sub_resource type="SpatialMaterial" id=1]
 params_cull_mode = 2
 albedo_texture = ExtResource( 2 )
+distance_fade_mode = 2
+distance_fade_min_distance = 160.0
+distance_fade_max_distance = 70.0
 
 [sub_resource type="SpatialMaterial" id=2]
 params_cull_mode = 2
 albedo_texture = ExtResource( 1 )
+distance_fade_mode = 2
+distance_fade_min_distance = 160.0
+distance_fade_max_distance = 70.0
 
 [sub_resource type="SpatialMaterial" id=3]
 flags_transparent = true
 params_cull_mode = 2
+params_depth_draw_mode = 3
 albedo_texture = ExtResource( 3 )
+distance_fade_mode = 2
+distance_fade_min_distance = 160.0
+distance_fade_max_distance = 70.0
 
 [sub_resource type="ConvexPolygonShape" id=4]
 points = PoolVector3Array( 2.01901, -0.827613, 0.977381, 2.01901, -0.827613, 1.05918, 2.01901, -0.418939, 0.977381, 2.01901, -0.418939, 1.05918, 2.34588, -0.827613, 0.813975, 2.3553, -0.395388, 0.7134, 2.42763, -0.827613, 1.05918, 2.42763, -0.418939, 1.05918, 2.49424, -0.815007, 0.819018, 2.50937, -0.582473, 0.73224, 2.50937, -0.500706, 0.89571 )
@@ -414,6 +424,12 @@ shape = SubResource( 60 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 61 )
 
+[node name="Moss9" parent="." instance=ExtResource( 7 )]
+transform = Transform( 5.7753e-08, 0.160302, -4406.85, -1.31725, 9.7048e-08, 0, -5.7753e-08, -0.160302, -4406.84, -1.36427, 0.0148284, 1.48927 )
+
+[node name="Moss10" parent="." instance=ExtResource( 7 )]
+transform = Transform( 5.32105e-08, 0.147694, 4728.12, -1.06602, 7.85387e-08, 0, 6.19634e-08, 0.171989, -4060.23, -1.45693, 0.367748, 1.39995 )
+
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 2.24488, 0, 0, 0, 0.0637776, 0, 0, 0, 0.0577278, 0.694439, 0.755456, 1.41112 )
 mesh = SubResource( 62 )
@@ -427,9 +443,6 @@ transform = Transform( -0.107302, 0, -3.68492, 0, 8.5304, 0, 1.99861, 0, -299.17
 
 [node name="Moss18" parent="MeshInstance" instance=ExtResource( 6 )]
 transform = Transform( -0.00849442, 0, 8.50863, 0, 8.5304, 0, -4.61484, 0, -23.6828, -1.00099, -3.17274, 0.366968 )
-
-[node name="Moss9" parent="MeshInstance/Moss18" instance=ExtResource( 7 )]
-transform = Transform( 0.618199, 0, -158.57, 0, 1.96, 0, -0.0111045, 0, -1.71719, -0.232381, -0.989398, 0.00361524 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="."]
 transform = Transform( -2.24488, 0, -1.88101e-08, 0, 0.0637776, 0, 7.31474e-07, 0, -0.0577278, 0.694439, 0.755456, -1.38052 )
@@ -483,10 +496,8 @@ transform = Transform( -0.00751448, 0.144959, -4.21697e-08, 0, -2.36434e-08, -0.
 [node name="Bottle" parent="." instance=ExtResource( 12 )]
 transform = Transform( 0.140491, 0, 0, 0, 0.140491, 0, 0, 0, 0.140491, 0.916086, -0.304746, 1.16921 )
 
-[node name="bottle02" type="MeshInstance" parent="."]
-transform = Transform( -0.0172883, 0, -0.0613037, 0, 0.0636948, 0, 0.0613037, 0, -0.0172883, 1.12217, -0.372719, 1.23214 )
-mesh = ExtResource( 13 )
-material/0 = null
+[node name="bottle2" parent="." instance=ExtResource( 9 )]
+transform = Transform( -0.000163319, 0, -0.0688038, 0, 0.068804, 0, 0.0688038, 0, -0.000163319, 1.11825, -0.370601, 1.23605 )
 
 [node name="Door_Generic" parent="." instance=ExtResource( 14 )]
 transform = Transform( -8.91234e-08, 0, 0.547035, 0, 0.538215, 0, -0.741979, 0, -1.20884e-07, 2.27716, 0.223644, -0.00922036 )

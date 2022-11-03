@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/System/ColorInterpolator.gd" type="Script" id=1]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.251897, 0.472727 ), 0.0, 0.0, 0, 0, Vector2( 0.496206, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0.255023, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.502318, 0.5 ), 0.0, 0.0, 0, 0, Vector2( 0.749614, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0.49459, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.744977, 0.518182 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[node name="ColorInterpolator" type="Node"]
+script = ExtResource( 1 )
+rCurve = SubResource( 1 )
+gCurve = SubResource( 2 )
+bCurve = SubResource( 3 )

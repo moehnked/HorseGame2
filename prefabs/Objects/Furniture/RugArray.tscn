@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Sprites/Rugs/Rug02.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Rugs/Rug07.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Rugs/Rug01.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/Rugs/Rug03.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/Rugs/Rug04.png" type="Texture" id=5]
@@ -25,6 +26,9 @@ func _process(delta):
 		pos = pos / 2
 		$MeshInstance.get_surface_material(0).albedo_texture = rugs[rugType % rugs.size()]
 		$MeshInstance.get_surface_material(0).albedo_color = Color(1,1,1,1) - Color(pos.x,pos.y,pos.z,0.0)
+		$MeshInstance.get_surface_material(0).distance_fade_mode = 2
+		$MeshInstance.get_surface_material(0).distance_fade_max_distance = 160
+		$MeshInstance.get_surface_material(0).distance_fade_min_distance = 70
 		#$MeshInstance.get_surface_material(0).albedo_color = Color(1,1,1,1)
 	pass # Replace with function body.
 
@@ -39,7 +43,7 @@ albedo_texture = ExtResource( 3 )
 
 [node name="Rug" type="Spatial"]
 script = SubResource( 1 )
-rugs = [ ExtResource( 3 ), ExtResource( 1 ), ExtResource( 4 ), ExtResource( 5 ) ]
+rugs = [ ExtResource( 3 ), ExtResource( 1 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 2 ) ]
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, -2.42771e-15, -1.06119e-22, 0, -4.37114e-08, 1, -2.42771e-15, -1, -4.37114e-08, 0, 0, 0 )

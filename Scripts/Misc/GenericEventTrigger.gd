@@ -14,7 +14,9 @@ func _ready():
 func activate(eo):
 	eo.call("trigger", self)
 	if killOnTrigger:
+		Utils.report_node_deletion(self)
 		queue_free()
+		
 
 func instantiate():
 	var eo = eventObject.instance()

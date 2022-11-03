@@ -2,6 +2,7 @@ extends "res://Scripts/Horse/Behaviors/HorseBehavior.gd"
 
 var callback = "enter_idle"
 var callback_kargs = {}
+var minDist = 2
 var target = null
 var velocity:Vector3 = Vector3()
 
@@ -21,7 +22,9 @@ func initialize(args = {}):
 	target = args.target
 	callback = args.callback
 	callback_kargs = args.kargs
-	set_animation("Walk")
+	minDist = args["minDist"]
+	var isRunning = args["isRunning"]
+	set_animation("Walk" if !isRunning else "Trot")
 	pass
 
 func set_animation(animName = "Idle", spd = 1.0):
@@ -38,7 +41,7 @@ func run(delta):
 	actor.rotate_towards_point(target.global_transform.origin, 0.02)
 	var direction = actor.global_transform.origin.direction_to(target.global_transform.origin)
 	var movement = actor.move_at_speed({"dir":direction, "velocity":velocity, "delta":delta, "speed": speed})
-	if not check_distance(actor, target, 2):
+	if not check_distance(actor, target, minDist):
 		print("close enough, callingback ", callback)
 		call_callback()
 	velocity = movement.velocity

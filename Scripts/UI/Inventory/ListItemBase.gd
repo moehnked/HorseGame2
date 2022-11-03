@@ -22,7 +22,10 @@ func selection_sound():
 	emit_signal("emit_selected", item, count)
 
 func update_text():
-	$Label.text = item.get_name() + ("                 x" + String(count) if count > 1 else "")
+	var item_name = item.get_name()
+	item_name = item_name if item_name.length() < 16 else item_name.left(16) + "..."
+	$Label.text = item_name
+	$CountLabel.text = "x" + String(count) if count > 1 else ""
 
 func _on_ListItem_mouse_entered():
 	if not has_focus():
@@ -31,5 +34,5 @@ func _on_ListItem_mouse_entered():
 
 
 func _on_ListItem_mouse_exited():
-	#Global.world.get_tree().call_group("InvScreen", "draw_selected_icon")
+	Global.world.get_tree().call_group("InvScreen", "draw_selected_icon")
 	pass # Replace with function body.

@@ -4,13 +4,13 @@
 
 [resource]
 shader = ExtResource( 1 )
-shader_param/cloudscale = 0.085
-shader_param/speed = 0.001
-shader_param/clouddark = 0.1
-shader_param/cloudlight = 2.157
-shader_param/cloudcover = 3.041
+shader_param/cloudscale = 0.331
+shader_param/speed = 0.014
+shader_param/clouddark = 0.568
+shader_param/cloudlight = 0.232
+shader_param/cloudcover = 0.85
 shader_param/cloudalpha = 8.0
-shader_param/skytint = 0.887
+shader_param/skytint = 0.754
 shader_param/skycolour1 = Vector3( 0.642, 0.82, 0.898 )
-shader_param/skycolour2 = Vector3( 0.996, 0.946, 0.849 )
+shader_param/skycolour2 = Vector3( 0.883, 0.76, 0.973 )
 shader_param/m = Transform2D( 1.6, -1.2, 1.2, 1.6, 0, 0 )

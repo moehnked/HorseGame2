@@ -1,0 +1,20 @@
+{
+	"color": "#fff9d1a9",
+	"description": "",
+	"display_name": "",
+	"display_name_bool": false,
+	"id": "character-1665909655.json",
+	"mirror_portraits": false,
+	"name": "Blanca",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 17,
+	"offset_y": -90,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://Sprites/NPCs/Blanca.png"
+		}
+	],
+	"scale": 100
+}

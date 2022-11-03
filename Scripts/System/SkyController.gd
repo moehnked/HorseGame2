@@ -19,10 +19,8 @@ func _ready():
 
 func _process(delta):
 	if lightingTransition:
-		#print("Sky Controller: lerping ", envRes.ambient_light_color.gray(), " to ",curColor.gray() )
 		lerp_color()
 		if abs(curColor.gray() - envRes.ambient_light_color.gray()) < 0.02:
-			#print("Sky Controller: finished updating global lighting")
 			lightingTransition = false
 	match state:
 		State.transitioning:
@@ -57,9 +55,23 @@ func get_environment():
 func get_sky():
 	return curSkyName
 
+func hour_alert(hour):
+	print("SkyController: ", hour)
+	match hour:
+		3:
+			set_sky("day")
+			set_global_lighting(Color(1,1,1,1), 0.0005, false)
+		16:
+			set_sky("late")
+			set_global_lighting(Color(0.1,0,0,1), 0.0005, false)
+		20:
+			set_sky("night")
+			set_global_lighting(Color(0,0,0.15,1), 0.0005, false)
+	pass
+
 func set_sky(skyName):
 	var m = skys[skyName]
-	print("Skycontroller: ", m)
+	#print("Skycontroller: ", m)
 	$Sprite2.material = skys[skyName]
 	$Sprite2.visible = true
 	state = State.transitioning
@@ -67,8 +79,10 @@ func set_sky(skyName):
 	pass
 
 func set_global_lighting(color, lerpWeight = 0.01, fogEnabled = true):
-	print("Sky controller: updating lighting")
+	#print("Sky controller: updating lighting")
 	ltr = lerpWeight
+	if color is String:
+		color = Utils.string2color(color)
 	curColor = color
 	lightingTransition = true
 	envRes.fog_enabled = fogEnabled

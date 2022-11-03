@@ -121,9 +121,10 @@ albedo_texture = ExtResource( 8 )
 
 [node name="Patches" type="Spatial" groups=[
 "Patches",
+"Persist",
 ]]
 script = ExtResource( 4 )
-speakingVolume = 0.0
+speakingVolume = 5.0
 sfx = [ ExtResource( 11 ), ExtResource( 9 ), ExtResource( 12 ), ExtResource( 10 ) ]
 
 [node name="Particles" type="Spatial" parent="."]
@@ -266,6 +267,12 @@ transform = Transform( -0.0655112, -0.0435244, -0.0244901, 0.0633929, -0.0457921
 transform = Transform( 0.224112, 0, 0, 0, 0.224112, 0, 0, 0, 0.224112, 0.00661752, 1.32263, 0.701278 )
 mesh = SubResource( 15 )
 material/0 = SubResource( 16 )
+
+[node name="HeadPointStart" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.815562, -0.578669, 0, 0.578669, -0.815562, 0, 2.43268, 0.446919 )
+
+[node name="DefaultLookPoint" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.815562, -0.578669, 0, 0.578669, -0.815562, 0, 2.16726, 1.25514 )
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
 [connection signal="emit_prompt" from="Interactable" to="." method="_on_Interactable_emit_prompt"]
 [connection signal="interaction" from="Interactable" to="." method="_on_Interactable_interaction"]

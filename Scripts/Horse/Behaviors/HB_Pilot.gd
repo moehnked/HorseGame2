@@ -3,6 +3,7 @@ extends "res://Scripts/Horse/Behaviors/HorseBehavior.gd"
 var input:InputMacro = InputMacro.new()
 var velocity:Vector3 = Vector3()
 var wanderToPoint:Vector3 = Vector3()
+var firstFrame = true
 
 func apply_rotation(delta):
 	actor.rotate_y(input.mouse_horizontal)
@@ -13,6 +14,7 @@ func initialize(args = {}):
 	args = .initialize(args)
 	Global.InputObserver.clear()
 	Global.InputObserver.subscribe(self)
+	velocity = Vector3.ZERO
 	pass
 
 func parse_input(_input):
@@ -41,21 +43,30 @@ func parse_movement(actor, delta):
 	return direction
 
 func run(delta):
-	apply_rotation(delta)
-	var direction = parse_movement(actor, delta)
-	update_animation(direction)
-	var movement = actor.move_at_speed({"dir":direction, "velocity":velocity, "delta":delta, "jump":input.space})
-	velocity = movement.velocity
+	if not firstFrame:
+		apply_rotation(delta)
+		var direction = parse_movement(actor, delta)
+		update_animation(direction)
+		var movement = actor.move_at_speed({"dir":direction, "velocity":velocity, "delta":delta, "jump":input.space})
+		velocity = movement.velocity
+	else:
+		var movement = actor.move_at_speed({"dir":Vector3(0,1,0), "velocity":Vector3(0,5,0), "delta":delta, "jump":true})
+		velocity = movement.velocity
+		firstFrame = false
 #	if movement.position.distance_to(wanderToPoint) < 4:
 #		actor.get_state_machine().set_behaivor("Idle")
 	pass
 
 func update_animation(direction):
-	if actor.get_animation_controller() != null:
+	var ac = actor.get_animation_controller() 
+	if ac != null:
 		if direction.z != 0:
-			actor.get_animation_controller().play_animation("Trot")
+			ac.set_playback_speed(0.5)
+			ac.play_animation("Trot")
 		elif direction.x != 0:
-			actor.get_animation_controller().play_animation("Walk")
+			ac.set_playback_speed(0.8)
+			ac.play_animation("Walk")
 		else:
-			actor.get_animation_controller().play_animation("Idle")
+			ac.set_playback_speed(1.0)
+			ac.play_animation("Idle")
 	pass

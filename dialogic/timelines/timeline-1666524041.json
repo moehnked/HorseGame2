@@ -1,0 +1,117 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "i don't know."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "I guess if you have a little bit of money and you're worried about all this stuff,\nits probably not a great move to distract yourself with shallow entertainment?"
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "like maybe you could invest in something? take a gamble, maybe you buy fucking"
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "bitcoin"
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "and it goes to the moon and you're good randomly for no reason."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Like thats what they tell you to do, as like \"the safe move\", save and invest for the future"
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "but like, its just a casino with extra steps."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "except now i feel like no one is getting houses and life stability"
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "like all you can stand to win is your novelty plushie and a carmel apple"
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "like great, thanks. I invested and saved and after 30 years i've made 1% more money and now I can almost afford to fill my gas tank with the difference."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "or maybe you just fucking lose money."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "like I have friends that tell me \"yeah my investments tanked and I lost 15k over the weekend\""
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "and its like, FUCK man."
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "And all I can do is stare back at them with a blank expression and souless eyes cause I'm too exhausted to care about anything"
+		},
+		{
+			"character": "character-1666521820.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "and be like \"damn, thats crazy\""
+		},
+		{
+			"change_timeline": "timeline-1666521945.json",
+			"event_id": "dialogic_020"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1666524041.json",
+		"name": "06"
+	}
+}

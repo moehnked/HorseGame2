@@ -12,6 +12,7 @@ func _ready():
 	if isAdjusting:
 		nextPos = rect_rotation
 	connect("pressed", self, "selection_sound")
+	grab_focus()
 
 func _process(delta):
 	if isAdjusting:

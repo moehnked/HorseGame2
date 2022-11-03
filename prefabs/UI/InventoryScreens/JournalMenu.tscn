@@ -1,0 +1,491 @@
+[gd_scene load_steps=30 format=2]
+
+[ext_resource path="res://Materials/2DBlurLayer.tres" type="Material" id=1]
+[ext_resource path="res://Sprites/UI/Journal_Ornament.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/UI/Journal_BG.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/UI/books/32x32/open_book_04.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/UI/Inventory/JournalMenu.gd" type="Script" id=5]
+[ext_resource path="res://Sprites/UI/books/32x32/book_05.png" type="Texture" id=6]
+[ext_resource path="res://Scripts/UI/Inventory/JournalListItem.gd" type="Script" id=7]
+[ext_resource path="res://Sprites/UI/books/32x32/open_book_01.png" type="Texture" id=8]
+[ext_resource path="res://prefabs/UI/InventoryScreens/Questlog.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Sprites/UI/books/32x32/book_06.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/UI/PauseCircle.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/UI/UI_Ring.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/UI/UI_Bars.png" type="Texture" id=13]
+[ext_resource path="res://prefabs/UI/InventoryScreens/CompletedLog.tscn" type="PackedScene" id=14]
+[ext_resource path="res://prefabs/UI/InventoryScreens/GalleryViewer.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Sprites/UI/books/32x32/book_07.png" type="Texture" id=16]
+[ext_resource path="res://icon.png" type="Texture" id=17]
+
+[sub_resource type="VisualShaderNodeTexture" id=1]
+texture = ExtResource( 3 )
+
+[sub_resource type="VisualShaderNodeInput" id=2]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeVectorOp" id=3]
+
+[sub_resource type="VisualShaderNodeVectorCompose" id=4]
+
+[sub_resource type="VisualShaderNodeInput" id=5]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=6]
+output_port_for_preview = 0
+function = 0
+
+[sub_resource type="VisualShaderNodeScalarOp" id=7]
+default_input_values = [ 0, 0.0, 1, 0.01 ]
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorOp" id=8]
+default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 2, 1.1, 1.5 ) ]
+operator = 2
+
+[sub_resource type="VisualShader" id=9]
+code = "shader_type canvas_item;
+uniform sampler2D tex_frg_2;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Input:3
+	vec3 n_out3p0 = vec3(UV, 0.0);
+
+// Input:6
+	float n_out6p0 = TIME;
+
+// ScalarFunc:7
+	float n_out7p0 = sin(n_out6p0);
+
+// ScalarOp:8
+	float n_in8p1 = 0.01000;
+	float n_out8p0 = n_out7p0 * n_in8p1;
+
+// VectorCompose:5
+	float n_in5p2 = 0.00000;
+	vec3 n_out5p0 = vec3(n_out8p0, n_out8p0, n_in5p2);
+
+// VectorOp:4
+	vec3 n_out4p0 = n_out3p0 + n_out5p0;
+
+// Texture:2
+	vec4 tex_frg_2_read = texture(tex_frg_2, n_out4p0.xy);
+	vec3 n_out2p0 = tex_frg_2_read.rgb;
+	float n_out2p1 = tex_frg_2_read.a;
+
+// VectorOp:9
+	vec3 n_in9p1 = vec3(2.00000, 1.10000, 1.50000);
+	vec3 n_out9p0 = n_out2p0 * n_in9p1;
+
+// Output:0
+	COLOR.rgb = n_out9p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -1103.1, 72.75 )
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2( 520, 140 )
+nodes/fragment/2/node = SubResource( 1 )
+nodes/fragment/2/position = Vector2( 20, 120 )
+nodes/fragment/3/node = SubResource( 2 )
+nodes/fragment/3/position = Vector2( -420, 240 )
+nodes/fragment/4/node = SubResource( 3 )
+nodes/fragment/4/position = Vector2( -220, 220 )
+nodes/fragment/5/node = SubResource( 4 )
+nodes/fragment/5/position = Vector2( -680, 363.75 )
+nodes/fragment/6/node = SubResource( 5 )
+nodes/fragment/6/position = Vector2( -1460, 360 )
+nodes/fragment/7/node = SubResource( 6 )
+nodes/fragment/7/position = Vector2( -1240, 340 )
+nodes/fragment/8/node = SubResource( 7 )
+nodes/fragment/8/position = Vector2( -980, 360 )
+nodes/fragment/9/node = SubResource( 8 )
+nodes/fragment/9/position = Vector2( 300, 160 )
+nodes/fragment/connections = PoolIntArray( 3, 0, 4, 0, 4, 0, 2, 0, 6, 0, 7, 0, 7, 0, 8, 0, 8, 0, 5, 0, 8, 0, 5, 1, 5, 0, 4, 1, 2, 0, 9, 0, 9, 0, 0, 0 )
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 9 )
+
+[sub_resource type="Animation" id=11]
+length = 2.0
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Container/Journal_Ornament:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.6 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Container/Journal_Ornament:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.6 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Container/Journal_Ornament:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.6 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Container/Journal_Ornament:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0.3, 0.9 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("Container/BG:modulate:r")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("Container/BG:modulate:g")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("Container/BG:modulate:b")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("Container/BG:modulate:a")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/8/type = "bezier"
+tracks/8/path = NodePath("Container/Blur:modulate:r")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/9/type = "bezier"
+tracks/9/path = NodePath("Container/Blur:modulate:g")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/10/type = "bezier"
+tracks/10/path = NodePath("Container/Blur:modulate:b")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/11/type = "bezier"
+tracks/11/path = NodePath("Container/Blur:modulate:a")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/12/type = "bezier"
+tracks/12/path = NodePath("JournalContainer:modulate:a")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0.4, 1.7 )
+}
+tracks/13/type = "bezier"
+tracks/13/path = NodePath("Container/Node2D:modulate:r")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.4 )
+}
+tracks/14/type = "bezier"
+tracks/14/path = NodePath("Container/Node2D:modulate:g")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.4 )
+}
+tracks/15/type = "bezier"
+tracks/15/path = NodePath("Container/Node2D:modulate:b")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.4 )
+}
+tracks/16/type = "bezier"
+tracks/16/path = NodePath("Container/Node2D:modulate:a")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.4 )
+}
+
+[sub_resource type="Animation" id=12]
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("JournalMenuContainer:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 600, -0.25, 0, 0.25, 0, 48, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("JournalMenuContainer:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 8, -0.25, 0, 0.25, 0, 8, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "canSelectJournal", true ],
+"method": "set"
+} ]
+}
+
+[node name="JournalMenu" type="Control" groups=[
+"UI_Special",
+]]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Container"]
+margin_right = 1040.0
+margin_bottom = 616.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="Sprite" parent="Container"]
+position = Vector2( 510, 300 )
+texture = ExtResource( 3 )
+
+[node name="BG2" type="Sprite" parent="Container"]
+modulate = Color( 1, 1, 1, 0.180392 )
+material = SubResource( 10 )
+position = Vector2( 510, 300 )
+scale = Vector2( -1.0697, 1.15428 )
+texture = ExtResource( 3 )
+
+[node name="Journal_Ornament" type="Sprite" parent="Container"]
+position = Vector2( 192, 320 )
+rotation = 0.401426
+scale = Vector2( 1.49797, 1.49797 )
+texture = ExtResource( 2 )
+offset = Vector2( 35.66, -0.186 )
+
+[node name="Blur" type="Sprite" parent="Container"]
+material = ExtResource( 1 )
+position = Vector2( 510, 300 )
+texture = ExtResource( 3 )
+
+[node name="Node2D" type="Node2D" parent="Container"]
+position = Vector2( -3, 1 )
+
+[node name="Ring2" type="Sprite" parent="Container/Node2D"]
+position = Vector2( 192, 320 )
+scale = Vector2( 0.432208, 0.432208 )
+texture = ExtResource( 11 )
+
+[node name="Ring" type="Sprite" parent="Container/Node2D"]
+position = Vector2( 192, 320 )
+scale = Vector2( 0.432208, 0.432208 )
+texture = ExtResource( 12 )
+
+[node name="BarFill" type="ColorRect" parent="Container/Node2D"]
+margin_left = 176.0
+margin_top = 402.0
+margin_right = 211.0
+margin_bottom = 706.0
+color = Color( 0.0392157, 0, 0.682353, 0.380392 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bar" type="Sprite" parent="Container/Node2D/BarFill"]
+position = Vector2( 16, 143 )
+scale = Vector2( 0.432208, 0.432208 )
+texture = ExtResource( 13 )
+
+[node name="BarFill2" type="ColorRect" parent="Container/Node2D"]
+margin_left = 208.214
+margin_top = 236.186
+margin_right = 243.214
+margin_bottom = 540.186
+rect_rotation = -180.0
+color = Color( 0.0392157, 0, 0.682353, 0.380392 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bar" type="Sprite" parent="Container/Node2D/BarFill2"]
+position = Vector2( 16, 143 )
+scale = Vector2( 0.432208, 0.432208 )
+texture = ExtResource( 13 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Intro"
+anims/Intro = SubResource( 11 )
+
+[node name="JournalContainer" type="Node2D" parent="."]
+position = Vector2( 144, 275 )
+
+[node name="QuestlogButton" type="TextureButton" parent="JournalContainer"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_scale = Vector2( 2.83621, 2.83621 )
+texture_normal = ExtResource( 6 )
+texture_hover = ExtResource( 4 )
+texture_focused = ExtResource( 8 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+JournalMenuRef = ExtResource( 9 )
+
+[node name="CompletedButton" type="TextureButton" parent="JournalContainer"]
+margin_top = 111.0
+margin_right = 32.0
+margin_bottom = 143.0
+rect_scale = Vector2( 2.83621, 2.83621 )
+texture_normal = ExtResource( 10 )
+texture_hover = ExtResource( 4 )
+texture_focused = ExtResource( 8 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+JournalMenuRef = ExtResource( 14 )
+
+[node name="PaintingsButton" type="TextureButton" parent="JournalContainer"]
+margin_top = 222.377
+margin_right = 32.0
+margin_bottom = 254.377
+rect_scale = Vector2( 2.83621, 2.83621 )
+texture_normal = ExtResource( 16 )
+texture_hover = ExtResource( 4 )
+texture_focused = ExtResource( 8 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+JournalMenuRef = ExtResource( 15 )
+
+[node name="JournalMenuContainer" type="Node2D" parent="."]
+position = Vector2( 429.506, 8 )
+
+[node name="icon" type="Sprite" parent="JournalMenuContainer"]
+visible = false
+position = Vector2( 161.472, 92.4147 )
+texture = ExtResource( 17 )
+
+[node name="ContainerAnimator" type="AnimationPlayer" parent="."]
+anims/default = SubResource( 12 )
+[connection signal="emit_focus" from="JournalContainer/QuestlogButton" to="." method="update_journal_focus"]
+[connection signal="emit_selected" from="JournalContainer/QuestlogButton" to="." method="parse_journal_selection"]
+[connection signal="focus_entered" from="JournalContainer/QuestlogButton" to="JournalContainer/QuestlogButton" method="enter_focus"]
+[connection signal="mouse_entered" from="JournalContainer/QuestlogButton" to="JournalContainer/QuestlogButton" method="mouse_enter"]
+[connection signal="pressed" from="JournalContainer/QuestlogButton" to="JournalContainer/QuestlogButton" method="press"]
+[connection signal="emit_focus" from="JournalContainer/CompletedButton" to="." method="update_journal_focus"]
+[connection signal="emit_selected" from="JournalContainer/CompletedButton" to="." method="parse_journal_selection"]
+[connection signal="focus_entered" from="JournalContainer/CompletedButton" to="JournalContainer/CompletedButton" method="enter_focus"]
+[connection signal="mouse_entered" from="JournalContainer/CompletedButton" to="JournalContainer/CompletedButton" method="mouse_enter"]
+[connection signal="pressed" from="JournalContainer/CompletedButton" to="JournalContainer/CompletedButton" method="press"]
+[connection signal="emit_focus" from="JournalContainer/PaintingsButton" to="." method="update_journal_focus"]
+[connection signal="emit_selected" from="JournalContainer/PaintingsButton" to="." method="parse_journal_selection"]
+[connection signal="focus_entered" from="JournalContainer/PaintingsButton" to="JournalContainer/PaintingsButton" method="enter_focus"]
+[connection signal="mouse_entered" from="JournalContainer/PaintingsButton" to="JournalContainer/PaintingsButton" method="mouse_enter"]
+[connection signal="pressed" from="JournalContainer/PaintingsButton" to="JournalContainer/PaintingsButton" method="press"]

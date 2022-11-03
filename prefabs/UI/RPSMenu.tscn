@@ -52,8 +52,8 @@ random_sounds = [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 8 ), ExtRes
 volume = -2.0
 
 [node name="PlaySound2" parent="." instance=ExtResource( 7 )]
-sfx = ExtResource( 13 )
 random_sounds = [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ]
+sfx = ExtResource( 13 )
 volume = -2.0
 [connection signal="emit_clicked" from="Shoes" to="." method="_on_RPSCard_emit_clicked"]
 [connection signal="emit_clicked" from="Fets" to="." method="_on_RPSCard2_emit_clicked"]

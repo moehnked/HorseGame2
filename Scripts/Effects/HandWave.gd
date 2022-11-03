@@ -12,7 +12,6 @@ func _ready():
 
 func trigger():
 	print("SNAP!")
-	Global.AudioManager.play_sound()
 	$TriggerEventByGroup.trigger(self)
 
 

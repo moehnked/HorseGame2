@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Misc/Events/GetItemEventListener.gd" type="Script" id=1]
+
+[node name="GetItemEventListener" type="Spatial" groups=[
+"GetItemEvent",
+]]
+script = ExtResource( 1 )

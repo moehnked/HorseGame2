@@ -10,11 +10,13 @@ onready var treeSearcher = preload("res://prefabs/Misc/TreeSearch.tscn")
 
 func initialize(args = {}):
 	args = .initialize(args)
+	initialArgs["priorInteractionState"] = actor.isInteractingWith
 	print("initializing woodcut state")
 	if args.keys().has("hasFoundTree"):
 		hasFoundTree = args["hasFoundTree"]
 		print("Has Found Tree!!!!!!!!!!!!!!!!")
 		isSearching = false
+		actor.isInteractingWith = true
 	else:
 		hasStartedCutting = false
 		hasStartedSearch = false
@@ -27,8 +29,9 @@ func cut_tree():
 	for i in get_children():
 		remove_child(i)
 		i.queue_free()
-	targetTree.fell()
-	initialize()
+	if targetTree != null:
+		targetTree.fell()
+		initialize()
 
 func locate_tree(other):
 	print("FOUND TREE ", other.name)
@@ -42,7 +45,13 @@ func run(delta):
 			hasFoundTree = false
 			isSearching = true
 		if isSearching:
-			actor.enter_walk_to({"target": targetTree, "callback":"set_state", "kargs":{"behaviorName":stateName, "hasFoundTree": true}})
+			actor.enter_walk_to({
+				"target": targetTree, 
+				"callback":"set_state",
+				"kargs":{"behaviorName":stateName,
+					"hasFoundTree": true
+					}
+				})
 		pass
 	if hasFoundTree and not hasStartedCutting:
 		start_cutting()
@@ -61,10 +70,15 @@ func start_searching_for_tree():
 	var ts = treeSearcher.instance()	
 	Global.world.call("add_child", ts)
 	ts.global_transform.origin = actor.global_transform.origin
-	ts.initialize({"caller": self})
+	ts.initialize({"caller": self, "ttl":(1 + actor.stats["range"])})
 	hasStartedSearch = true
 	actor.get_animation_controller().play_animation("Idle")
 
+func stop_woodcutting():
+	actor.isInteractingWith = initialArgs["priorInteractionState"]
+	actor.exit_pilot()
+
 func tree_not_found():
 	print("Could not locate tree")
-	actor.enter_idle()
+	stop_woodcutting()
+	#actor.enter_idle()

@@ -4,3 +4,4 @@
 
 [node name="HB_WalkTo" type="Node"]
 script = ExtResource( 1 )
+stateName = "WalkTo"

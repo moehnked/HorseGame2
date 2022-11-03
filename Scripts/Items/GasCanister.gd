@@ -11,6 +11,7 @@ func _ready():
 	$PourGasTick.start()
 
 func _process(delta):
+	$AudioStreamPlayer3D.unit_db = 0 + Utils.vol2db(Global.AudioManager.sfxVolume)
 	if pouringGas and gas > 0:
 		check_raycast()
 		play_sound()
@@ -24,6 +25,7 @@ func _process(delta):
 				$AudioStreamPlayer3D.stream = load(equipSoundPath)
 				raycastPoint = lowestPoint.global_transform.origin
 				play_sound(-8)
+	._process(delta)
 
 func check_tip():
 	var points = [get_y_value_of($Bottom),get_y_value_of($Top),get_y_value_of($Left),get_y_value_of($Right)]
@@ -76,6 +78,13 @@ func pour_gas():
 
 func prompt():
 	return "pick up - " + String(gas) + "%"
+
+func set(param, val):
+	match param:
+		"lowestPoint", "prevLowestPoint":
+			return
+		_:
+			.set(param, val)
 
 func _on_PourGasTick_timeout():
 	if pouringGas and gas > 0:

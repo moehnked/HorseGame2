@@ -14,8 +14,9 @@ func _process(delta):
 
 
 func initialize(args = {}):
-	args = Utils.check(args, {"caller": null})
+	args = Utils.check(args, {"caller": null, "ttl":2})
 	source = args.caller
+	$TimeToLive.start(args["ttl"])
 
 func _on_Area_body_entered(body):
 	var other = null

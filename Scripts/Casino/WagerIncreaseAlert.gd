@@ -9,7 +9,7 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimationPlayer.play("default")
-	Global.AudioManager.play_sound("res://Sounds/Coins.wav")
+	Global.AudioManager.play_sound("res://Sounds/Coins.wav", -10)
 	pass # Replace with function body.
 
 func initialize(text):

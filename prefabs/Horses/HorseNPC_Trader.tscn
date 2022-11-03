@@ -9,8 +9,8 @@
 [ext_resource path="res://prefabs/Horses/Behaviors/HB_Pilot.tscn" type="PackedScene" id=7]
 [ext_resource path="res://prefabs/Horses/Behaviors/HB_Follow.tscn" type="PackedScene" id=8]
 [ext_resource path="res://prefabs/Horses/Behaviors/HB_WalkTo.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scripts/Horse/RelationshipManager.gd" type="Script" id=10]
-[ext_resource path="res://prefabs/Effects/HorseMoodParticles.tscn" type="PackedScene" id=11]
+[ext_resource path="res://prefabs/Horses/RelationshipManager.tscn" type="PackedScene" id=10]
+[ext_resource path="res://prefabs/Interactables/Damageable.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Horse/HorseInteractionController.gd" type="Script" id=12]
 [ext_resource path="res://prefabs/Interactables/InteractableNoPreset.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Sounds/horse_noise_02.wav" type="AudioStream" id=14]
@@ -24,6 +24,7 @@
 [ext_resource path="res://prefabs/Horses/Behaviors/HB_RPS.tscn" type="PackedScene" id=22]
 
 [sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 0.567131, 0.457735 )
 
 [sub_resource type="CapsuleShape" id=2]
 radius = 0.687674
@@ -34,7 +35,7 @@ radius = 0.695545
 height = 1.71457
 
 [sub_resource type="BoxShape" id=4]
-extents = Vector3( 0.860839, 1.21461, 1.93213 )
+extents = Vector3( 0.860839, 1.21461, 2.18913 )
 
 [node name="HorseNPC_Trader" type="KinematicBody"]
 script = ExtResource( 3 )
@@ -67,7 +68,7 @@ dialogueScreenRes = ExtResource( 5 )
 script = ExtResource( 12 )
 
 [node name="CollisionShape" type="CollisionShape" parent="InteractionController"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10664, -1.29656 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65154, -0.767334 )
 shape = SubResource( 1 )
 
 [node name="HoldingPoint" type="Spatial" parent="."]
@@ -76,12 +77,6 @@ script = ExtResource( 16 )
 
 [node name="horse_animated" parent="." instance=ExtResource( 1 )]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 1.23594 )
-
-[node name="RelationshipManager" type="Spatial" parent="."]
-script = ExtResource( 10 )
-
-[node name="Particles" parent="RelationshipManager" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00350106, 2.97081, -0.879644 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( -1, -8.74228e-08, 1.4243e-14, 0, -1.62921e-07, -1, 8.74228e-08, -1, 1.62921e-07, -6.3924e-08, 1.85162, 0.00358844 )
@@ -107,7 +102,12 @@ shape = SubResource( 4 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0261652, 2.5259, 0.609086 )
 saddle = NodePath("../Saddle")
 distThresh = 1.5
-[connection signal="emit_charm_recieved" from="." to="RelationshipManager" method="_on_Horse_emit_charm_recieved"]
+
+[node name="RelationshipManager" parent="." instance=ExtResource( 10 )]
+
+[node name="Damageable" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.989, 0, 1.93, 0.81 )
+[connection signal="emit_charm_recieved" from="." to="RelationshipManager" method="recieve_charm"]
 [connection signal="emit_highlight" from="." to="horse_animated" method="highlight"]
 [connection signal="broadcast_self" from="EquipmentManager" to="InteractionController" method="_on_EquipmentManager_broadcast_self"]
 [connection signal="broadcast_self" from="EquipmentManager" to="HoldingPoint" method="_on_EquipmentManager_broadcast_self"]
@@ -116,4 +116,5 @@ distThresh = 1.5
 [connection signal="broadcast_self" from="InteractionController" to="EquipmentManager" method="_on_InteractionController_broadcast_self"]
 [connection signal="emit_prompt" from="Interactable" to="." method="_on_Interactable_emit_prompt"]
 [connection signal="interaction" from="Interactable" to="." method="_on_Interactable_interaction"]
+[connection signal="lasso_failed" from="Lassoable" to="." method="enter_idle"]
 [connection signal="lassoed" from="Lassoable" to="." method="_on_Lassoable_lassoed"]

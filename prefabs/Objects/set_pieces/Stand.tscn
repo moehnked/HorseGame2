@@ -26,7 +26,7 @@ params_billboard_mode = 2
 params_billboard_keep_scale = true
 albedo_texture = ExtResource( 2 )
 
-[sub_resource type="Shader" id=10]
+[sub_resource type="Shader" id=6]
 code = "// This shader is based on Minionsart's stylized fire
 // https://twitter.com/minionsart/status/1132593681452683264?s=20
 shader_type spatial;
@@ -74,8 +74,8 @@ void fragment() {
 	ALPHA = smoothstep(0.0, edge_softness, alpha);
 }"
 
-[sub_resource type="ShaderMaterial" id=11]
-shader = SubResource( 10 )
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
 shader_param/emission_intensity = 2.0
 shader_param/time_scale = 0.524
 shader_param/texture_scale = Vector2( 1.334, 0.684 )
@@ -83,18 +83,18 @@ shader_param/edge_softness = 0.831
 shader_param/noise_texture = ExtResource( 5 )
 shader_param/texture_mask = ExtResource( 3 )
 
-[sub_resource type="QuadMesh" id=9]
-material = SubResource( 11 )
-
-[sub_resource type="ParticlesMaterial" id=6]
-
-[sub_resource type="SpatialMaterial" id=7]
-flags_unshaded = true
-
 [sub_resource type="QuadMesh" id=8]
 material = SubResource( 7 )
 
-[node name="Spatial" type="Spatial"]
+[sub_resource type="ParticlesMaterial" id=9]
+
+[sub_resource type="SpatialMaterial" id=10]
+flags_unshaded = true
+
+[sub_resource type="QuadMesh" id=11]
+material = SubResource( 10 )
+
+[node name="Stand" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1.55978, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Stand" type="MeshInstance" parent="."]
@@ -130,7 +130,7 @@ material/0 = SubResource( 5 )
 [node name="flame" type="MeshInstance" parent="."]
 transform = Transform( 0.656294, 0, 0, 0, 0.353709, 0, 0, 0, 0.656294, 0, 0.978491, 0 )
 visible = false
-mesh = SubResource( 9 )
+mesh = SubResource( 8 )
 material/0 = null
 
 [node name="OmniLight" type="OmniLight" parent="."]
@@ -142,8 +142,8 @@ omni_range = 3.09859
 [node name="Particles" type="Particles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.28338, 0 )
 visible = false
-process_material = SubResource( 6 )
-draw_pass_1 = SubResource( 8 )
+process_material = SubResource( 9 )
+draw_pass_1 = SubResource( 11 )
 
 [node name="BlueFire" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.901107, 0 )

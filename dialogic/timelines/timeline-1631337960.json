@@ -45,6 +45,18 @@
 			"text": "I’ll pay good treats for any logs you bring me."
 		},
 		{
+			"call_node": {
+				"arguments": [
+					"_A4",
+					"3",
+					"I need a mallet. Sylvester said that he can sell me a mallet if I help him collect logs for the guild. He will buy any logs I sell for treats, which I guess is their currency here. So I need to find logs somehow? There might be some lying around outside, or I could chop down trees if I had an axe."
+				],
+				"method_name": "update_quest",
+				"target_node_path": "../.."
+			},
+			"event_id": "dialogic_042"
+		},
+		{
 			"definition": "1631338754-780",
 			"event_id": "dialogic_014",
 			"operation": "=",

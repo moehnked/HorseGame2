@@ -24,7 +24,7 @@ func initialize():
 
 func play_card_throw_sfx():
 	var a = Global.world.rng.randi_range(3,5)
-	Global.AudioManager.play_sound("res://Sounds/woosh_0" + String(a) + ".wav")
+	Global.AudioManager.play_sound("res://Sounds/woosh_0" + String(a) + ".wav", -12)
 
 func play_sound(sfx, db = 0.0):
 	Global.AudioManager.play_sound(sfx, db)

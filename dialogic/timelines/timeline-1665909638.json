@@ -1,0 +1,33 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1665909655.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "character-1665909655.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Welcome to Sweet Hand Jack's [i]the luckiest[/i] casino!"
+		},
+		{
+			"change_timeline": "timeline-1665909763.json",
+			"event_id": "dialogic_020"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1665909638.json",
+		"name": "01"
+	}
+}

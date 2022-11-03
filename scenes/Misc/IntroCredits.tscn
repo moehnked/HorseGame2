@@ -158,6 +158,8 @@ __meta__ = {
 }
 
 [node name="LeftSide" type="Node2D" parent="."]
+z_index = 100
+z_as_relative = false
 
 [node name="LCategory" type="Label" parent="LeftSide"]
 modulate = Color( 1, 1, 1, 0 )
@@ -195,6 +197,8 @@ __meta__ = {
 }
 
 [node name="RightSide" type="Node2D" parent="."]
+z_index = 100
+z_as_relative = false
 
 [node name="RCategory" type="Label" parent="RightSide"]
 modulate = Color( 1, 1, 1, 0 )
